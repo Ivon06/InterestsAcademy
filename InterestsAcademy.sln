@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterestsAcademy", "InterestsAcademy\InterestsAcademy.csproj", "{B0D95091-08D6-4E17-BB8C-D6502D4D9369}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterestsAcademy", "InterestsAcademy\InterestsAcademy.csproj", "{B0D95091-08D6-4E17-BB8C-D6502D4D9369}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterestsAcademy.Data", "InterestsAcademy.Data\InterestsAcademy.Data.csproj", "{6958A3C0-3E28-423D-96D0-02D29147EA08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterestsAcademy.Data", "InterestsAcademy.Data\InterestsAcademy.Data.csproj", "{6958A3C0-3E28-423D-96D0-02D29147EA08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterestsAcademy.Core", "InterestsAcademy.Core\InterestsAcademy.Core.csproj", "{3985023D-C17B-43BF-9328-F55077A6994D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6958A3C0-3E28-423D-96D0-02D29147EA08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6958A3C0-3E28-423D-96D0-02D29147EA08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6958A3C0-3E28-423D-96D0-02D29147EA08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3985023D-C17B-43BF-9328-F55077A6994D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3985023D-C17B-43BF-9328-F55077A6994D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3985023D-C17B-43BF-9328-F55077A6994D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3985023D-C17B-43BF-9328-F55077A6994D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

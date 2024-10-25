@@ -1,4 +1,5 @@
 using InterestsAcademy.Data;
+using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 	.AddEntityFrameworkStores<InterestsAcademyDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.ConfigureServices();
 
 var app = builder.Build();
 
