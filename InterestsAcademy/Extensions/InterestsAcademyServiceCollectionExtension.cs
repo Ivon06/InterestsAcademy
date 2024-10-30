@@ -1,4 +1,6 @@
-﻿using InterestsAcademy.Data.Repository;
+﻿using InterestsAcademy.Core.Contracts;
+using InterestsAcademy.Core.Services;
+using InterestsAcademy.Data.Repository;
 using InterestsAcademy.Data.Repository.Contracts;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -9,6 +11,7 @@ namespace InterestsAcademy.Extensions
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

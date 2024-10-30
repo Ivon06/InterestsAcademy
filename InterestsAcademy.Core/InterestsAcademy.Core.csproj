@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InterestsAcademy.Common\InterestsAcademy.Common.csproj" />
+    <ProjectReference Include="..\InterestsAcademy.Data\InterestsAcademy.Data.csproj" />
   </ItemGroup>
 
 </Project>

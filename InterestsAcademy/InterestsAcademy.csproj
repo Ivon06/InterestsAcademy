@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InterestsAcademy.Core\InterestsAcademy.Core.csproj" />
     <ProjectReference Include="..\InterestsAcademy.Data\InterestsAcademy.Data.csproj" />
   </ItemGroup>
 
