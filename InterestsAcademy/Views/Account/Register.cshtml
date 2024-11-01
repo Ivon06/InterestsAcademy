@@ -1,5 +1,90 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@using InterestsAcademy.Core.Models.Account
+@model RegisterViewModel;
+
+<div class="container">
+	<div class="screen">
+		<div class="screen__content">
+			<form class="login" method="post" enctype="multipart/form-data">
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input asp-for="Email" type="text" class="login__input" placeholder="Имейл">
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input asp-for="Name" type="text" class="login__input" placeholder="Име">
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input asp-for="UserName" type="text" class="login__input" placeholder="Потребителско име">
+					<span asp-validation-for="UserName" class="text-danger"></span>
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input asp-for="Password" type="password" class="login__input" placeholder="Парола">
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input asp-for="PasswordRepeat" type="password" class="login__input" placeholder="Повтори паролата">
+					<span asp-validation-for="PasswordRepeat" class="text-danger"></span>
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input asp-for="PhoneNumber" class="login__input" placeholder="Телефон">
+					<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+				</div>
+				<div class="login__field">
+					<h6 class="mb-0 me-4">Пол: </h6>
+
+					<div class="form-check form-check-inline mb-0 me-4">
+						<input asp-for="@Model.Gender" value="Мъж" class="form-check-input text-dark" type="radio" name="Gender" id="maleGender" />
+						<label class="form-check-label text-dark" for="maleGender">Мъж</label>
+					</div>
+
+					<div class="form-check form-check-inline mb-0 me-4">
+						<input asp-for="@Model.Gender" value="Жена" class="form-check-input text-dark" type="radio" name="Gender" id="femaleGender" />
+						<label class="form-check-label text-dark" for="femaleGender">Жена</label>
+					</div>
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input asp-for="Address" class="login__input" placeholder="Aдрес">
+					<span asp-validation-for="Address" class="text-danger"></span>
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input asp-for="City" class="login__input" placeholder="Град">
+					<span asp-validation-for="City" class="text-danger"></span>
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input asp-for="Country" class="login__input" placeholder="Държава">
+					<span asp-validation-for="Country" class="text-danger"></span>
+				</div>
+
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+				<input asp-for="ProfilePicture" accept="image/gif, image/jpeg, image/png" id="upload_file">
+				Качи снимка
+				</div>
+
+				<button asp-action="Register" asp-controller="Account" class="button login__submit">
+					<span class="button__text" style="text-align:center;">Регистрация</span>
+					<i class="button__icon fas fa-chevron-right"></i>
+				</button>
+			</form>
+		</div>
+		<div class="screen__background">
+			<span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>
+	</div>
+</div>
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 }

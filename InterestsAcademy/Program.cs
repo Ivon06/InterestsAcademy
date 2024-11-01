@@ -1,3 +1,4 @@
+using CloudinaryDotNet;
 using InterestsAcademy.Data;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Extensions;
@@ -11,6 +12,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<InterestsAcademyDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+ConfigureCloudinaryService(builder.Services, builder.Configuration);
 
 builder.Services.AddDefaultIdentity<User>(options =>
 {
@@ -59,3 +62,19 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+
+
+static void ConfigureCloudinaryService(IServiceCollection services, IConfiguration configuration)
+{
+
+	var cloudName = configuration.GetValue<string>("AccountSettings:CloudName");
+	var apiKey = configuration.GetValue<string>("AccountSettings:ApiKey");
+	var apiSecret = configuration.GetValue<string>("AccountSettings:ApiSecret");
+
+	if (new[] { cloudName, apiKey, apiSecret }.Any(string.IsNullOrWhiteSpace))
+	{
+		throw new ArgumentException("Please specify your Cloudinary account Information");
+	}
+
+	services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
+}

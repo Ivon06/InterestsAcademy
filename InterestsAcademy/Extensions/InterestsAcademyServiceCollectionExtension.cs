@@ -12,6 +12,8 @@ namespace InterestsAcademy.Extensions
         {
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IImageService, ImageService>();
 
             return services;
         }

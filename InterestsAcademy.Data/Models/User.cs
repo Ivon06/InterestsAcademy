@@ -33,7 +33,15 @@ namespace InterestsAcademy.Data.Models
 		[EnumDataType(typeof(GenderEnum))]
 		public string? Gender { get; set; }
 
-		public string? ProfilePictureUrl { get; set; }
+        [MaxLength(AddressMaxLength)]
+        public string Address { get; set; } = null!;
+
+        [MaxLength(CityMaxLength)]
+        public string City { get; set; } = null!;
+
+        [MaxLength(CountryMaxLength)]
+        public string Country { get; set; } = null!;
+        public string? ProfilePictureUrl { get; set; }
 
 	}
 }

@@ -18,6 +18,10 @@ namespace InterestsAcademy.Core.Models.Account
         public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = RequiredErrorMessage)]
+        [StringLength(UserNameMaxLength, MinimumLength = UserNameMinLength, ErrorMessage = InvalidLengthMessage)]
+        public string UserName { get; set; } = null!;
+
+        [Required(ErrorMessage = RequiredErrorMessage)]
         [EmailAddress]
         [StringLength(EmailMaxLength, MinimumLength = EmailMinLength, ErrorMessage = InvalidLengthMessage)]
         public string Email { get; set; } = null!;
