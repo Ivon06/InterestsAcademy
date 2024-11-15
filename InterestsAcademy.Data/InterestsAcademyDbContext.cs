@@ -1,4 +1,5 @@
-﻿using InterestsAcademy.Data.Models;
+﻿using InterestsAcademy.Data.Configurations;
+using InterestsAcademy.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,11 +13,25 @@ namespace InterestsAcademy.Data
 {
 	public class InterestsAcademyDbContext : IdentityDbContext<User>
 	{
-		public InterestsAcademyDbContext(DbContextOptions options) : base(options)
-		{
-		}
+        private bool seedDb;
+        public InterestsAcademyDbContext(DbContextOptions<InterestsAcademyDbContext> options, bool seedDb = true)
+            : base(options)
+        {
 
-		protected InterestsAcademyDbContext()
+            if (this.Database.IsRelational())
+            {
+                this.Database.Migrate();
+            }
+            else
+            {
+                this.Database.EnsureCreated();
+            }
+
+            this.seedDb = seedDb;
+
+        }
+
+        protected InterestsAcademyDbContext()
 		{
 		}
 
@@ -31,8 +46,8 @@ namespace InterestsAcademy.Data
 		public DbSet<SleepingRoom> SleepingRooms { get; set; }
 		public DbSet<Student> Students { get; set; }
 		public DbSet<Teacher> Teachers { get; set; }
-		
-		 
+
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
@@ -80,6 +95,10 @@ namespace InterestsAcademy.Data
 				.HasForeignKey(g => g.GiverId)
 				.OnDelete(DeleteBehavior.NoAction);
 
+			if (seedDb)
+			{
+				builder.ApplyConfiguration(new RoomConfiguration());
+			}
 		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
