@@ -37,5 +37,12 @@ namespace InterestsAcademy.Data.Models
         [Required]
         public Giver Giver { get; set; } = null!;
 
+        [Required]
+        [ForeignKey(nameof(MaterialBaseItem))]
+        public string MaterialItemId { get; set; } = null!;
+
+        [Required]
+        public MaterialBaseItem MaterialBaseItem { get; set; } = null!;
+
 	}
 }

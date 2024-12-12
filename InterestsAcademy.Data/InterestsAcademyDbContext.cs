@@ -38,11 +38,10 @@ namespace InterestsAcademy.Data
 		public DbSet<Activity> Activities { get; set; }
 		public DbSet<ActivityStudent> ActivityStudents { get; set; }
 		public DbSet<Course> Courses { get; set; }
-		public DbSet<CourseGiver> CoursesGivers { get; set; }
 		public DbSet<GivenThing> GivenThings { get; set; }
 		public DbSet<Giver> Givers { get; set; }
 		public DbSet<Room> Rooms { get; set; }
-		public DbSet<RoomGiver> RoomsGivers { get; set; }
+		public DbSet<MaterialBaseItem> MaterialBaseItems { get; set; }
 		public DbSet<SleepingRoom> SleepingRooms { get; set; }
 		public DbSet<Student> Students { get; set; }
 		public DbSet<Teacher> Teachers { get; set; }
@@ -71,31 +70,19 @@ namespace InterestsAcademy.Data
 				.HasForeignKey(a => a.StudentId)
 				.OnDelete(DeleteBehavior.NoAction);
 
-			builder.Entity<Room>()
-				.HasMany(r => r.RoomGivers)
-				.WithOne(r => r.Room)
-				.HasForeignKey(r => r.RoomId)
-				.OnDelete(DeleteBehavior.NoAction);
-
 			builder.Entity<Giver>()
-				.HasMany(g => g.RoomGivers)
+				.HasMany(g => g.GivenThings)
 				.WithOne(g => g.Giver)
 				.HasForeignKey(g => g.GiverId)
 				.OnDelete(DeleteBehavior.NoAction);
 
-			builder.Entity<Course>()
-				.HasMany(r => r.CourseGivers)
-				.WithOne(r => r.Course)
-				.HasForeignKey(r => r.CourseId)
-				.OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<MaterialBaseItem>()
+                .HasMany(g => g.GivenThings)
+                .WithOne(g => g.MaterialBaseItem)
+                .HasForeignKey(g => g.MaterialItemId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-			builder.Entity<Giver>()
-				.HasMany(g => g.CourseGivers)
-				.WithOne(g => g.Giver)
-				.HasForeignKey(g => g.GiverId)
-				.OnDelete(DeleteBehavior.NoAction);
-
-			if (seedDb)
+            if (seedDb)
 			{
 				builder.ApplyConfiguration(new RoomConfiguration());
 			}

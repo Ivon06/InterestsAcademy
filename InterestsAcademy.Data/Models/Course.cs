@@ -28,7 +28,6 @@ namespace InterestsAcademy.Data.Models
         public string TeacherId { get; set; } = null!;
 
         public Teacher Teacher { get; set; } = null!;
-		public ICollection<CourseGiver> CourseGivers { get; set; } = new HashSet<CourseGiver>();
-
+		
 	}
 }

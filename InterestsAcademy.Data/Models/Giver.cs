@@ -26,9 +26,9 @@ namespace InterestsAcademy.Data.Models
 		public User User { get; set; } 
 
 		public ICollection<GivenThing> GivenThings { get; set; } = new HashSet<GivenThing>();
-		public ICollection<RoomGiver> RoomGivers { get; set; } = new HashSet<RoomGiver>();
+		//public ICollection<RoomGiver> RoomGivers { get; set; } = new HashSet<RoomGiver>();
 
-		public ICollection<CourseGiver> CourseGivers { get; set; } = new HashSet<CourseGiver>();
+		//public ICollection<CourseGiver> CourseGivers { get; set; } = new HashSet<CourseGiver>();
 
 	}
 }
