@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\InterestsAcademy.Common\InterestsAcademy.Common.csproj" />
+  </ItemGroup>
+
 </Project>

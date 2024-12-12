@@ -38,25 +38,7 @@ namespace InterestsAcademy.Core.Models.Account
         [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = InvalidLengthMessage)]
         public string PasswordRepeat { get; set; } = null!;
 
-        [Required(ErrorMessage = RequiredErrorMessage)]
-        public string PhoneNumber { get; set; } = null!;
-
-        [Required]
-        public DateTime BirthDate { get; set; }
-
-        public string Gender { get; set; } = null!;
-
-        [Required(ErrorMessage = RequiredErrorMessage)]
-        [StringLength(CountryMaxLength, MinimumLength = CountryMinLength, ErrorMessage = InvalidLengthMessage)]
-        public string Country { get; set; } = null!;
-
-        [Required(ErrorMessage = RequiredErrorMessage)]
-        [StringLength(CityMaxLength, MinimumLength = CityMinLength, ErrorMessage = InvalidLengthMessage)]
-        public string City { get; set; } = null!;
-
-        [Required(ErrorMessage = RequiredErrorMessage)]
-        [StringLength(AddressMaxLength, MinimumLength = AddressMinLength, ErrorMessage = InvalidLengthMessage)]
-        public string Address { get; set; } = null!;
+       
 
         public IFormFile? ProfilePicture { get; set; }
 

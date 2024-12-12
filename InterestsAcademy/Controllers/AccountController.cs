@@ -54,13 +54,7 @@ namespace InterestsAcademy.Controllers
             { 
              Name = model.Name,
              Email = model.Email,
-             PhoneNumber = model.PhoneNumber,
-             BirthDate = model.BirthDate,
              UserName = model.UserName,
-             Gender = model.Gender,
-             Address = model.Address,
-             City = model.City,
-             Country = model.Country,
              RegisteredOn = DateTime.Now
             };
 

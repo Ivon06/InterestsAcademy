@@ -30,39 +30,7 @@
 					<input asp-for="PasswordRepeat" type="password" class="login__input" placeholder="Повтори паролата">
 					<span asp-validation-for="PasswordRepeat" class="text-danger"></span>
 				</div>
-				<div class="login__field">
-					<i class="login__icon fas fa-lock"></i>
-					<input asp-for="PhoneNumber" class="login__input" placeholder="Телефон">
-					<span asp-validation-for="PhoneNumber" class="text-danger"></span>
-				</div>
-				<div class="login__field">
-					<h6 class="mb-0 me-4">Пол: </h6>
-
-					<div class="form-check form-check-inline mb-0 me-4">
-						<input asp-for="@Model.Gender" value="Мъж" class="form-check-input text-dark" type="radio" name="Gender" id="maleGender" />
-						<label class="form-check-label text-dark" for="maleGender">Мъж</label>
-					</div>
-
-					<div class="form-check form-check-inline mb-0 me-4">
-						<input asp-for="@Model.Gender" value="Жена" class="form-check-input text-dark" type="radio" name="Gender" id="femaleGender" />
-						<label class="form-check-label text-dark" for="femaleGender">Жена</label>
-					</div>
-				</div>
-				<div class="login__field">
-					<i class="login__icon fas fa-lock"></i>
-					<input asp-for="Address" class="login__input" placeholder="Aдрес">
-					<span asp-validation-for="Address" class="text-danger"></span>
-				</div>
-				<div class="login__field">
-					<i class="login__icon fas fa-lock"></i>
-					<input asp-for="City" class="login__input" placeholder="Град">
-					<span asp-validation-for="City" class="text-danger"></span>
-				</div>
-				<div class="login__field">
-					<i class="login__icon fas fa-lock"></i>
-					<input asp-for="Country" class="login__input" placeholder="Държава">
-					<span asp-validation-for="Country" class="text-danger"></span>
-				</div>
+				
 
 				<div class="login__field">
 					<i class="login__icon fas fa-lock"></i>

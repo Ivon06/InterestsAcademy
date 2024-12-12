@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InterestsAcademy.Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,7 +24,11 @@ namespace InterestsAcademy.Data.Models
 		public string UserId { get; set; } = null!;
 
 		[Required]
-		public User User { get; set; } 
+		public User User { get; set; }
+
+		[Required]
+        [EnumDataType(typeof(GiverType))]
+        public string GiverType { get; set; }
 
 		public ICollection<GivenThing> GivenThings { get; set; } = new HashSet<GivenThing>();
 		//public ICollection<RoomGiver> RoomGivers { get; set; } = new HashSet<RoomGiver>();
