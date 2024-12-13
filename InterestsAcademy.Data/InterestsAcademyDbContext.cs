@@ -35,6 +35,8 @@ namespace InterestsAcademy.Data
 		{
 		}
 
+		//add trips
+
 		public DbSet<Activity> Activities { get; set; }
 		public DbSet<ActivityStudent> ActivityStudents { get; set; }
 		public DbSet<Course> Courses { get; set; }
@@ -45,6 +47,7 @@ namespace InterestsAcademy.Data
 		public DbSet<SleepingRoom> SleepingRooms { get; set; }
 		public DbSet<Student> Students { get; set; }
 		public DbSet<Teacher> Teachers { get; set; }
+		public DbSet<StudentCourse> StudentsCourses { get;set; }
 
 
 		protected override void OnModelCreating(ModelBuilder builder)
@@ -57,6 +60,9 @@ namespace InterestsAcademy.Data
 
 			builder.Entity<ActivityStudent>()
 				.HasKey(a => new { a.StudentId, a.ActivityId });
+
+			builder.Entity<StudentCourse>()
+				.HasKey(sc => new { sc.StudentId, sc.CourseId });
 
 			builder.Entity<Activity>()
 				.HasMany(a => a.ActivityStudents)
@@ -80,6 +86,18 @@ namespace InterestsAcademy.Data
                 .HasMany(g => g.GivenThings)
                 .WithOne(g => g.MaterialBaseItem)
                 .HasForeignKey(g => g.MaterialItemId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Course>()
+                .HasMany(a => a.StudentCourses)
+                .WithOne(a => a.Course)
+                .HasForeignKey(a => a.CourseId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Student>()
+                .HasMany(a => a.StudentCourses)
+                .WithOne(a => a.Student)
+                .HasForeignKey(a => a.StudentId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             if (seedDb)

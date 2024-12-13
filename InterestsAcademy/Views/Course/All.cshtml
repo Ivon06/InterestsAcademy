@@ -1,0 +1,20 @@
+﻿@using InterestsAcademy.Core.Models.Course
+@model List<CourseCardViewModel>
+
+
+<div class="row" style="margin-left: 20px; margin-bottom: 100px;">
+
+	@foreach (var order in Model)
+	{
+		<div class="col-md-4">
+			<div class="card dish-card">
+				<div class="card-body">
+					@foreach (var shoeCard in Model)
+					{
+						<partial name="_ShoeCardPartial" model="shoeCard" />
+					}
+				</div>
+			</div>
+		</div>
+	}
+</div>

@@ -1,0 +1,62 @@
+﻿
+
+.room-card {
+    display: flex;
+    align-items: center;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    padding: 16px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+    .room-card:hover {
+        transform: scale(1.05);
+    }
+
+.room-icon img {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    margin-right: 16px;
+}
+
+.room-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.room-title {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 8px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.room-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.icon {
+    font-size: 18px;
+    background-color: #333;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+    .icon:hover {
+        background-color: #555;
+    }

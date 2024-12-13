@@ -15,6 +15,7 @@ namespace InterestsAcademy.Data.Models
         public Course()
         {
             Id = Guid.NewGuid().ToString();
+            StudentCourses = new HashSet<StudentCourse>();
         }
 
         [Key]
@@ -35,6 +36,8 @@ namespace InterestsAcademy.Data.Models
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         public DateTime EndDate { get; set; } 
+        
+        public ICollection<StudentCourse> StudentCourses { get; set; }
 		
 	}
 }

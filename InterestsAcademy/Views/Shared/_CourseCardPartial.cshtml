@@ -1,0 +1,16 @@
+﻿@using InterestsAcademy.Core.Models.Course
+@model CourseCardViewModel
+
+<div class="room-card">
+    <div class="room-icon">
+       <img src="https://via.placeholder.com/64" alt="Room Icon">
+    </div>
+    <div class="room-details">
+        <h3 class="room-title">@Model.Name</h3>
+        <div class="room-icons">
+            <span class="icon lock" title="Locked Room">🔒</span>
+            <span class="icon clipboard" title="Assignments">📋</span>
+            <span class="icon edit" title="Edit Room">✏️</span>
+        </div>
+    </div>
+</div>

@@ -31,6 +31,7 @@ namespace InterestsAcademy.Data.Models
 		public SleepingRoom SleepingRoom { get; set; }
 
 		public ICollection<ActivityStudent> ActivitiesStudents { get; set; } = new HashSet<ActivityStudent>();
-		
-	}
+        public ICollection<StudentCourse> StudentCourses { get; set; } = new HashSet<StudentCourse>();
+
+    }
 }
