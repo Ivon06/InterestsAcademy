@@ -13,5 +13,7 @@ namespace InterestsAcademy.Common
         public const string InvalidLengthMessage = "Това поле трябва да бъде между {2} и {1} символа";
 
         public const string DifferentPasswordMessage = "Паролите не съвпадат";
+
+        public const string ErrorMessage = "Грешка.";
     }
 }

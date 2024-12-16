@@ -34,6 +34,9 @@ namespace InterestsAcademy.Controllers
         public async Task<IActionResult> Register()
         {
             RegisterViewModel model = new RegisterViewModel();
+
+            model.Roles = await userService.GetRolesAsync();
+
             return View(model);
         }
 
@@ -62,6 +65,7 @@ namespace InterestsAcademy.Controllers
 
             if(result.Succeeded)
             {
+
                 //ToDo: add role
 
                 await studentService.CreateAsync(user.Id);
@@ -73,8 +77,17 @@ namespace InterestsAcademy.Controllers
 					await userManager.UpdateAsync(user);
 				}
 
-                await signInManager.SignInAsync(user, isPersistent: false);
-				TempData[SuccessMessage] = "Успешна регистрация.";
+                if (await userService.GetRoleNameAsync(model.RoleId) == "Teacher")
+                {
+
+                    TempData[SuccessMessage] = "Изчакай одобрение от администратор.";
+                }
+                else
+                {
+                    
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    TempData[SuccessMessage] = "Успешна регистрация.";
+                }
 
 				return RedirectToAction("Index", "Home");
 			}

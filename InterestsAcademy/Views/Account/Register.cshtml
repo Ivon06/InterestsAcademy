@@ -30,7 +30,20 @@
 					<input asp-for="PasswordRepeat" type="password" class="login__input" placeholder="Повтори паролата">
 					<span asp-validation-for="PasswordRepeat" class="text-danger"></span>
 				</div>
-				
+
+				<div class="mb-3">
+					<div class="dropdown-container">
+						<input type="text" id="dropdown-input" class="dropdown-input" placeholder="Search..." onkeyup="filterDropdown()">
+						<select asp-for="RoleId" id="dropdown-list" class="dropdown-list">
+							@foreach (var a in Model.Roles)
+							{
+								<option value="@a.Id" class="dropdown-item">@a.Name</option>
+							}
+						</select>
+					</div>
+
+
+				</div>
 
 				<div class="login__field">
 					<i class="login__icon fas fa-lock"></i>

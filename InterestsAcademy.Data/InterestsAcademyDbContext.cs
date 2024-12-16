@@ -103,6 +103,7 @@ namespace InterestsAcademy.Data
             if (seedDb)
 			{
 				builder.ApplyConfiguration(new RoomConfiguration());
+				builder.ApplyConfiguration(new RoleConfiguration());
 			}
 		}
 

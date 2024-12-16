@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static InterestsAcademy.Data.Constants.UserConstants;
 using static InterestsAcademy.Common.ErrorMessages;
+using Microsoft.AspNetCore.Identity;
 
 namespace InterestsAcademy.Core.Models.Account
 {
@@ -37,6 +38,10 @@ namespace InterestsAcademy.Core.Models.Account
         [DataType(DataType.Password)]
         [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = InvalidLengthMessage)]
         public string PasswordRepeat { get; set; } = null!;
+
+        public string RoleId { get; set; } = null!;
+
+        public ICollection<IdentityRole> Roles { get; set; } = new HashSet<IdentityRole>();
 
        
 

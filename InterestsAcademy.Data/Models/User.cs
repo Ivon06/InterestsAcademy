@@ -41,7 +41,9 @@ namespace InterestsAcademy.Data.Models
 
         [MaxLength(CountryMaxLength)]
         public string Country { get; set; } = null!;
+        public bool IsApproved { get; set; }
         public string? ProfilePictureUrl { get; set; }
+
 
 	}
 }
