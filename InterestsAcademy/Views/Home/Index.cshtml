@@ -1,8 +1,15 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<link rel="stylesheet" href="~/css/styles2.css" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section id="hero" class="text-white d-flex align-items-end justify-content-start"
+         style="background-image: url('@Url.Content("~/img/openart-5b6bf258-5ef7-4d67-b63e-64276fc4591c.png")');
+                background-size: cover; background-position: center; min-height: 100vh;">
+    <div class="overlay"></div>
+    <div class="container pb-5 ps-5">
+        <h1 class="display-3 fw-bold mb-3">Академия за таланти</h1>
+        <p class="lead mb-4">Развиваме таланти за едно по-добро утре</p>
+        <a asp-controller="Home" asp-action="About" class="btn btn-primary btn-lg">Научете повече</a>
+    </div>
+</section>
