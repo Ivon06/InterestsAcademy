@@ -6,42 +6,34 @@
     <title>@ViewData["Title"] - InterestsAcademy</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles2.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/InterestsAcademy.styles.css" asp-append-version="true" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     @await RenderSectionAsync("Styles", required: false)
-
 </head>
 <body>
-    <header>
-        <partial name="_NotificationPartial" />
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="All">MyCourses</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
+    <!-- Transparent Navbar -->
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top">
+        <div class="container-fluid">
+            <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
+            <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Начална страница</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Проект и концепция</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">За нас</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Дарение</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="All">MyCourses</a></li>
+                </ul>
             </div>
-        </nav>
-    </header>
-    <div class="container">
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid px-0">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

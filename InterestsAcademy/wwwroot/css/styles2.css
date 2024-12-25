@@ -1,0 +1,54 @@
+﻿/* Transparent Navbar */
+.navbar {
+    background: transparent !important; /* Makes the navbar transparent */
+    box-shadow: none; /* Removes any shadow */
+    transition: background 0.3s ease-in-out; /* Smooth background transition */
+    z-index: 10; /* Ensures navbar stays on top */
+}
+
+    .navbar .nav-link,
+    .navbar-brand {
+        color: #fff !important; /* White text for links */
+    }
+
+        .navbar .nav-link:hover {
+            color: #dcdcdc !important; /* Light gray on hover */
+        }
+
+/* Hero Section */
+/* Hero Section */
+#hero {
+    position: relative;
+    margin-top: -56px; /* Offsets the navbar height */
+}
+
+    #hero .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+        z-index: 1;
+    }
+
+    #hero .container {
+        position: relative;
+        z-index: 2;
+        text-align: left; /* Align text to the left */
+        margin-right: 20; 
+    }
+
+#hero {
+    display: flex;
+    align-items: flex-end; /* Align content to the bottom */
+    justify-content: flex-start; /* Align content to the left */
+}
+
+
+/* Logo Style */
+.logo {
+    height: 50px; /* Smaller logo size */
+    width: auto; /* Maintain aspect ratio */
+    margin-right: 10px;
+}
