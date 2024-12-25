@@ -24,12 +24,12 @@ namespace InterestsAcademy.Data.Models
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public DateTime Date { get; set; }
 
-		[Required(ErrorMessage = RequiredErrorMessage)]
-		[ForeignKey(nameof(Room))]
-		public string RoomId { get; set; } = null!;
+		//[Required(ErrorMessage = RequiredErrorMessage)]
+		//[ForeignKey(nameof(Room))]
+		//public string RoomId { get; set; } = null!;
 
-		[Required(ErrorMessage = RequiredErrorMessage)]
-		public Room Room { get; set; } = null!;
+		//[Required(ErrorMessage = RequiredErrorMessage)]
+		//public Room Room { get; set; } = null!;
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public TimeSpan Duration { get; set; }

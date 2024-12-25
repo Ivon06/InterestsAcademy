@@ -14,5 +14,9 @@ namespace InterestsAcademy.Core.Contracts
 
         Task<IEnumerable<CourseCardViewModel>> GetAllStudentCoursesCards(string studentId);
 
+        Task<IEnumerable<CourseCardViewModel>> GetAllTeacherCourses(string teacherId);
+
+        Task AddCourse(CourseQueryModel model);
+
     }
 }

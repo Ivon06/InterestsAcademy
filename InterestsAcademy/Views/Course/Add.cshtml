@@ -1,0 +1,38 @@
+﻿@using InterestsAcademy.Core.Models.Course
+@model CourseQueryModel
+
+
+<div class="container mt-5">
+    <h1 class="text-center">Add New Course</h1>
+    <form asp-action="AddCourse" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="Name" class="form-label">Име</label>
+            <input type="text" id="Name" name="Name" class="form-control" asp-for="@Model.Name"/>
+           
+        </div>
+
+        <div class="mb-3">
+            <label for="Description" class="form-label">Описание</label>
+            <textarea id="Description" name="Description" class="form-control"  asp-for="@Model.Description"></textarea>
+            
+        </div>
+
+        <div class="mb-3">
+            <label for="RoomId" class="form-label">Стая</label>
+            <select id="RoomId"
+                    name="RoomId"
+                    class="form-select"
+                    >
+                <option value="" asp-for="@Model.RoomId" selected disabled asp>Избери стая</option>
+                @foreach (var room in Model.Rooms)
+                {
+                    <option value="@room.Id">@room.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary" asp-action="Add" asp-controller="Course">Добави курс</button>
+        </div>
+    </form>
+</div>

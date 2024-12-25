@@ -9,6 +9,7 @@ using static InterestsAcademy.Data.Constants.UserConstants;
 using System.Reflection;
 using InterestsAcademy.Data.Models.Enums;
 using Microsoft.AspNetCore.Identity;
+using System.Diagnostics.CodeAnalysis;
 
 namespace InterestsAcademy.Data.Models
 {
@@ -17,6 +18,7 @@ namespace InterestsAcademy.Data.Models
         public User()
         {
             Id = Guid.NewGuid().ToString();
+            IsApproved = true;
         }
 
         [Key]
@@ -33,14 +35,17 @@ namespace InterestsAcademy.Data.Models
 		[EnumDataType(typeof(GenderEnum))]
 		public string? Gender { get; set; }
 
+        
         [MaxLength(AddressMaxLength)]
-        public string Address { get; set; } = null!;
+        public string? Address { get; set; } 
 
         [MaxLength(CityMaxLength)]
-        public string City { get; set; } = null!;
+        public string? City { get; set; } 
 
         [MaxLength(CountryMaxLength)]
-        public string Country { get; set; } = null!;
+        public string? Country { get; set; } 
+        public bool IsActive { get; set; }
+
         public bool IsApproved { get; set; }
         public string? ProfilePictureUrl { get; set; }
 

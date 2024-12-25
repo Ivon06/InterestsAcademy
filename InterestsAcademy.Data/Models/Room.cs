@@ -27,6 +27,6 @@ namespace InterestsAcademy.Data.Models
 		[Required]
 		public int Capacity {  get; set; }
 
-		public ICollection<Activity> Activities{ get; set; } = new HashSet<Activity>();
+		public ICollection<Course> Courses{ get; set; } = new HashSet<Course>();
 		}
 }

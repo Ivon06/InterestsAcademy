@@ -20,6 +20,20 @@ namespace InterestsAcademy.Core.Services
             this.repo = repo;
         }
 
+        public async Task AddCourse(CourseQueryModel model)
+        {
+            var course = new Course()
+            {
+                Name = model.Name,
+                Description = model.Description,
+                TeacherId = model.TeacherId,
+                RoomId = model.RoomId,
+            };
+
+            await repo.AddAsync(course);
+            await repo.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<CourseCardViewModel>> GetAllCoursesCards()
         {
             var result = await repo.GetAll<Course>()
@@ -40,6 +54,21 @@ namespace InterestsAcademy.Core.Services
         {
             var result = await repo.GetAll<Course>()
                 
+                 .Select(x => new CourseCardViewModel()
+                 {
+                     Id = x.Id,
+                     Name = x.Name,
+                 }
+                 )
+                 .ToListAsync();
+
+            return result;
+        }
+
+        public async Task<IEnumerable<CourseCardViewModel>> GetAllTeacherCourses(string teacherId)
+        {
+            var result = await repo.GetAll<Course>()
+                .Where(c => c.TeacherId == teacherId)
                  .Select(x => new CourseCardViewModel()
                  {
                      Id = x.Id,

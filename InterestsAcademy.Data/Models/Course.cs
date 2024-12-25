@@ -35,9 +35,19 @@ namespace InterestsAcademy.Data.Models
         public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = RequiredErrorMessage)]
-        public DateTime EndDate { get; set; } 
+        public DateTime EndDate { get; set; }
+
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        public string RoomId { get; set; } = null!;
+
+        public Room Room { get; set; } = null!;
+
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        [MaxLength(CourseDescriptionMaxLength)]
+        public string Description { get; set; } = null!;
         
         public ICollection<StudentCourse> StudentCourses { get; set; }
-		
-	}
+        public ICollection<Activity> Activities { get; set; }
+
+    }
 }

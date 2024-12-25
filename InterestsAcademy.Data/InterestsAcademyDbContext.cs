@@ -100,6 +100,12 @@ namespace InterestsAcademy.Data
                 .HasForeignKey(a => a.StudentId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+			builder.Entity<Course>()
+				.HasOne(c => c.Room)
+				.WithMany(c => c.Courses)
+				.HasForeignKey(c => c.RoomId)
+				.OnDelete(DeleteBehavior.NoAction);
+
             if (seedDb)
 			{
 				builder.ApplyConfiguration(new RoomConfiguration());
