@@ -120,6 +120,10 @@ namespace InterestsAcademy.Data
             {
                 builder.ApplyConfiguration(new RoomConfiguration());
                 builder.ApplyConfiguration(new RoleConfiguration());
+                builder.ApplyConfiguration(new UserConfiguration());
+                builder.ApplyConfiguration(new TeacherConfiguration());
+                builder.ApplyConfiguration(new UserRoleConfiguration());
+                builder.ApplyConfiguration(new StudentConfiguration());
             }
         }
 

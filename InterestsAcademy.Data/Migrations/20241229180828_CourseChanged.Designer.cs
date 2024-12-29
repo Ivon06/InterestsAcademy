@@ -4,6 +4,7 @@ using InterestsAcademy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterestsAcademy.Data.Migrations
 {
     [DbContext(typeof(InterestsAcademyDbContext))]
-    partial class InterestsAcademyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241229180828_CourseChanged")]
+    partial class CourseChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,120 +193,6 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "2bdd1682-b167-4057-ae77-a15ea422ba47",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Мултифункционална зала"
-                        },
-                        new
-                        {
-                            Id = "bd8064ff-4442-42ac-ae3b-8f336af84539",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Музикално студио"
-                        },
-                        new
-                        {
-                            Id = "3e16652d-7f14-42c7-a1fb-b4276c4d3941",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Пространство \"Малки изследователи\""
-                        },
-                        new
-                        {
-                            Id = "c82cecf7-388e-46ba-9d2b-e5f7d9952d93",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Работилница"
-                        },
-                        new
-                        {
-                            Id = "073bc1a0-b492-4db8-92d8-25534c8a52e4",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Физкултурен салон"
-                        },
-                        new
-                        {
-                            Id = "e238df40-ae1c-477f-825a-153c5e633cde",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Конферентна зала"
-                        },
-                        new
-                        {
-                            Id = "dde61614-5122-4e1b-8449-5519df4d123a",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Библиотека"
-                        },
-                        new
-                        {
-                            Id = "f30c2f4e-b166-4152-9c48-32c7eeabfff8",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Физика и астрономия"
-                        },
-                        new
-                        {
-                            Id = "48427f39-6dbb-4d58-9427-85f1e4b0bebe",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Пространство \"Роботика и програмиране\""
-                        },
-                        new
-                        {
-                            Id = "cb10c7ed-4d60-4bcc-bbf4-1b90b63419b4",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Пространство за Археология"
-                        },
-                        new
-                        {
-                            Id = "6022ed45-fda1-4f4c-a3cf-f28c4be38b28",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Лаборатория"
-                        },
-                        new
-                        {
-                            Id = "49a8c556-aaeb-4b80-9090-e3bfcdc23e9a",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Младежки клуб по видеозаснемане"
-                        },
-                        new
-                        {
-                            Id = "21619122-fc7e-41f2-8be9-c9ae0a196c21",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Пространство за спорт на открито"
-                        },
-                        new
-                        {
-                            Id = "ca54fa88-f95d-4f25-903d-c7d2d3e34be5",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Еко стая"
-                        },
-                        new
-                        {
-                            Id = "98a0ff52-fa85-490f-b1fa-b90103a7b886",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Градина за биоземеделие"
-                        },
-                        new
-                        {
-                            Id = "c2d64628-975f-42a7-8a6a-46c1ee00a544",
-                            Capacity = 26,
-                            Floor = 1,
-                            Name = "Дейности извън Академията - ориентиране в планината, конна езда, походи"
-                        });
                 });
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.SleepingRoom", b =>
@@ -346,13 +235,6 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "87b24d15-e0c9-404d-98d3-5dc1237af7e7",
-                            UserId = "080a469a-b5a2-44cc-a660-eea8e6fd05a5"
-                        });
                 });
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.StudentCourse", b =>
@@ -384,13 +266,6 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Teachers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "9d8e089b-441b-4a7a-b98b-bcb4578ce49f",
-                            UserId = "93418f37-da3b-4c78-b0ae-8f0022b09681"
-                        });
                 });
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.User", b =>
@@ -491,89 +366,6 @@ namespace InterestsAcademy.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "080a469a-b5a2-44cc-a660-eea8e6fd05a5",
-                            AccessFailedCount = 0,
-                            Address = "ул. Ал. Стамболийски 30 ет.3 ап.11",
-                            BirthDate = new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified),
-                            City = "Казанлък",
-                            ConcurrencyStamp = "809e4eed-a11d-4b7e-885e-1e220f51cb9e",
-                            Country = "България",
-                            Email = "petarpetrov@abv.bg",
-                            EmailConfirmed = false,
-                            Gender = "Мъж",
-                            IsActive = true,
-                            IsApproved = true,
-                            LockoutEnabled = false,
-                            Name = "Петър Петров",
-                            NormalizedEmail = "PETARPETROV@ABV.BG",
-                            NormalizedUserName = "PETAR",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAePzVoO/18aqh27avg9fbr3Hs7ierEvYUs2gj7rqELkv+hLO34F4C+IdMpQdo4DcA==",
-                            PhoneNumber = "0885763826",
-                            PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg",
-                            RegisteredOn = new DateTime(2024, 12, 29, 18, 34, 41, 85, DateTimeKind.Utc).AddTicks(6577),
-                            SecurityStamp = "ae466ddd-5f9a-45d9-93b7-688d44c8634f",
-                            TwoFactorEnabled = false,
-                            UserName = "petar"
-                        },
-                        new
-                        {
-                            Id = "93418f37-da3b-4c78-b0ae-8f0022b09681",
-                            AccessFailedCount = 0,
-                            Address = "ул.Възраждане 6 ет.2 ап.8",
-                            BirthDate = new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
-                            City = "Казанлък",
-                            ConcurrencyStamp = "de41d9d9-4a7f-4f5b-aebf-4a235526f6ae",
-                            Country = "България",
-                            Email = "georgidimitrov@abv.bg",
-                            EmailConfirmed = false,
-                            Gender = "Мъж",
-                            IsActive = true,
-                            IsApproved = true,
-                            LockoutEnabled = false,
-                            Name = "Георги Димитров",
-                            NormalizedEmail = "GEORGIDIMITROV@ABV.BG",
-                            NormalizedUserName = "GEORGI",
-                            PasswordHash = "AQAAAAIAAYagAAAAEODrv5FQIRhkzu/UyfsM7u4ekTWAGmSoKj3WDmGHDm/9KLCbl8PVnVFnU/VwvR0LjQ==",
-                            PhoneNumber = "0885789826",
-                            PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg",
-                            RegisteredOn = new DateTime(2024, 12, 29, 18, 34, 41, 235, DateTimeKind.Utc).AddTicks(6817),
-                            SecurityStamp = "7a4b375f-3af1-44f3-93d0-000eedb0ca2f",
-                            TwoFactorEnabled = false,
-                            UserName = "georgi"
-                        },
-                        new
-                        {
-                            Id = "20dcf707-dfd9-4aae-b8c3-f3b9844e09d8",
-                            AccessFailedCount = 0,
-                            Address = "ул. Незабравка 3",
-                            BirthDate = new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified),
-                            City = "Енина",
-                            ConcurrencyStamp = "cbc0b86e-9cae-4475-b312-a2f96ae7f534",
-                            Country = "България",
-                            Email = "admin@abv.bg",
-                            EmailConfirmed = false,
-                            Gender = "Мъж",
-                            IsActive = true,
-                            IsApproved = true,
-                            LockoutEnabled = false,
-                            Name = "Admin",
-                            NormalizedEmail = "ADMIN@ABV.BG",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM/cwOkKfHnIOItfFuSpO0QR5rldljiXXwg9ecZvw8xdGl3FCqqcZKvU4fP8P6EEZA==",
-                            PhoneNumber = "0889864842",
-                            PhoneNumberConfirmed = false,
-                            ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg",
-                            RegisteredOn = new DateTime(2024, 12, 29, 18, 34, 41, 386, DateTimeKind.Utc).AddTicks(3429),
-                            SecurityStamp = "f5adf9d3-3950-4aa7-8742-3706655a53ae",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -601,32 +393,6 @@ namespace InterestsAcademy.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "78374b9b-5158-4aff-8626-d088a02d79e1",
-                            Name = "Teacher",
-                            NormalizedName = "TEACHER"
-                        },
-                        new
-                        {
-                            Id = "835c8458-e8b7-493f-9c13-67bfcd7316a3",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "8duisjak-e8o7-8uu5-9c13-543e65731jh3",
-                            Name = "Student",
-                            NormalizedName = "STUDENT"
-                        },
-                        new
-                        {
-                            Id = "78wijd768-7255-4iwf-9o23-6786yet54wa3",
-                            Name = "Giver",
-                            NormalizedName = "GIVER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -716,23 +482,6 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "93418f37-da3b-4c78-b0ae-8f0022b09681",
-                            RoleId = "78374b9b-5158-4aff-8626-d088a02d79e1"
-                        },
-                        new
-                        {
-                            UserId = "20dcf707-dfd9-4aae-b8c3-f3b9844e09d8",
-                            RoleId = "835c8458-e8b7-493f-9c13-67bfcd7316a3"
-                        },
-                        new
-                        {
-                            UserId = "080a469a-b5a2-44cc-a660-eea8e6fd05a5",
-                            RoleId = "8duisjak-e8o7-8uu5-9c13-543e65731jh3"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

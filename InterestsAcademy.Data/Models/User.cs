@@ -17,8 +17,9 @@ namespace InterestsAcademy.Data.Models
 	{
         public User()
         {
-           // Id = Guid.NewGuid().ToString();
+            //Id = Guid.NewGuid().ToString();
             IsApproved = true;
+            IsActive = true;
         }
 
   //      [Key]
