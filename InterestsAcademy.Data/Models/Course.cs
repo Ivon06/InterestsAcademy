@@ -23,7 +23,7 @@ namespace InterestsAcademy.Data.Models
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         [MaxLength(CourseNameMaxLength)]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         [ForeignKey(nameof(Teacher))]
@@ -31,16 +31,16 @@ namespace InterestsAcademy.Data.Models
 
         public Teacher Teacher { get; set; } = null!;
 
-        [Required(ErrorMessage = RequiredErrorMessage)]
+       // [Required(ErrorMessage = RequiredErrorMessage)]
         public DateTime StartDate { get; set; }
 
-        [Required(ErrorMessage = RequiredErrorMessage)]
+       // [Required(ErrorMessage = RequiredErrorMessage)]
         public DateTime EndDate { get; set; }
 
-        [Required(ErrorMessage = RequiredErrorMessage)]
-        public string RoomId { get; set; } = null!;
+        //[Required(ErrorMessage = RequiredErrorMessage)]
+        public string RoomId { get; set; } 
 
-        public Room Room { get; set; } = null!;
+        public Room Room { get; set; } 
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         [MaxLength(CourseDescriptionMaxLength)]

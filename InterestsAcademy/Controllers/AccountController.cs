@@ -52,14 +52,21 @@ namespace InterestsAcademy.Controllers
                 ModelState.AddModelError(nameof(model.Email), "Този имейл вече е регистриран");
             }
 
+            if(model.Role == null)
+            {
+                ModelState.AddModelError(nameof(model.Role), "Трябва да изберете като какъв се регистрирате.");
+
+            }
+
             if (!ModelState.IsValid)
             {
+                model.Roles = await userService.GetRolesAsync();
                 return View(model);
             }
 
             User user;
 
-            if (await userService.GetRoleNameAsync(model.RoleId) == "Teacher")
+            if ( model.Role == "Teacher")
             {
                 user = new User()
                 {
@@ -88,8 +95,6 @@ namespace InterestsAcademy.Controllers
             if (result.Succeeded)
             {
 
-               
-
                 if (model.ProfilePicture != null)
                 {
 
@@ -97,7 +102,7 @@ namespace InterestsAcademy.Controllers
                     await userManager.UpdateAsync(user);
                 }
 
-                if (await userService.GetRoleNameAsync(model.RoleId) == "Teacher")
+                if (model.Role == "Teacher")
                 {
                     await userManager.AddToRoleAsync(user, "Teacher");
                     await teacherService.CreateAsync(user.Id);
@@ -110,16 +115,19 @@ namespace InterestsAcademy.Controllers
 
                     await userManager.AddToRoleAsync(user, "Student");
 
-                    await studentService.CreateAsync(user.Id);
+                   // await studentService.CreateAsync(user.Id);
 
                     await signInManager.SignInAsync(user, isPersistent: false);
 
                     TempData[SuccessMessage] = "Успешна регистрация.";
+
+                    return RedirectToAction("All", "Course");
                 }
 
                 return RedirectToAction("Index", "Home");
             }
 
+            model.Roles = await userService.GetRolesAsync();
             return View(model);
         }
 
@@ -148,7 +156,7 @@ namespace InterestsAcademy.Controllers
                 if (result.Succeeded)
                 {
                     TempData[SuccessMessage] = "Успешно влизане";
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("All", "Course");
 
                 }
             }

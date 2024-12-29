@@ -70,12 +70,14 @@ namespace InterestsAcademy.Controllers
 
             }
 
+            model.TeacherId = teacherId;
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            model.TeacherId = teacherId;
+            
 
             await courseService.AddCourse(model);
 

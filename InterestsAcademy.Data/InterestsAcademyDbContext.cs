@@ -6,13 +6,14 @@ using System;
 using System.Collections.Generic;
 
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InterestsAcademy.Data
 {
-	public class InterestsAcademyDbContext : IdentityDbContext<User>
-	{
+    public class InterestsAcademyDbContext : IdentityDbContext<User>
+    {
         private bool seedDb;
         public InterestsAcademyDbContext(DbContextOptions<InterestsAcademyDbContext> options, bool seedDb = true)
             : base(options)
@@ -32,55 +33,64 @@ namespace InterestsAcademy.Data
         }
 
         protected InterestsAcademyDbContext()
-		{
-		}
+        {
+        }
 
-		//add trips
+        //add trips
 
-		public DbSet<Activity> Activities { get; set; }
-		public DbSet<ActivityStudent> ActivityStudents { get; set; }
-		public DbSet<Course> Courses { get; set; }
-		public DbSet<GivenThing> GivenThings { get; set; }
-		public DbSet<Giver> Givers { get; set; }
-		public DbSet<Room> Rooms { get; set; }
-		public DbSet<MaterialBaseItem> MaterialBaseItems { get; set; }
-		public DbSet<SleepingRoom> SleepingRooms { get; set; }
-		public DbSet<Student> Students { get; set; }
-		public DbSet<Teacher> Teachers { get; set; }
-		public DbSet<StudentCourse> StudentsCourses { get;set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityStudent> ActivityStudents { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<GivenThing> GivenThings { get; set; }
+        public DbSet<Giver> Givers { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<MaterialBaseItem> MaterialBaseItems { get; set; }
+        public DbSet<SleepingRoom> SleepingRooms { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<StudentCourse> StudentsCourses { get; set; }
 
 
-		protected override void OnModelCreating(ModelBuilder builder)
-		{
-			base.OnModelCreating(builder);
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
 
-			builder.Entity<User>()
-			   .Property(u => u.BirthDate)
-			   .HasColumnType("DATE");
+            builder.Entity<User>()
+               .Property(u => u.BirthDate)
+               .HasColumnType("DATE");
 
-			builder.Entity<ActivityStudent>()
-				.HasKey(a => new { a.StudentId, a.ActivityId });
+            builder.Entity<ActivityStudent>()
+                .HasKey(a => new { a.StudentId, a.ActivityId });
 
-			builder.Entity<StudentCourse>()
-				.HasKey(sc => new { sc.StudentId, sc.CourseId });
+            builder.Entity<StudentCourse>()
+                .HasKey(sc => new { sc.StudentId, sc.CourseId });
 
-			builder.Entity<Activity>()
-				.HasMany(a => a.ActivityStudents)
-				.WithOne(a => a.Activity)
-				.HasForeignKey(a => a.ActivityId)
-				.OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Course>()
+    .Property(t => t.RoomId)
+    .HasColumnName("RoomId");
 
-			builder.Entity<Student>()
-				.HasMany(a => a.ActivitiesStudents)
-				.WithOne(a => a.Student)
-				.HasForeignKey(a => a.StudentId)
-				.OnDelete(DeleteBehavior.NoAction);
 
-			builder.Entity<Giver>()
-				.HasMany(g => g.GivenThings)
-				.WithOne(g => g.Giver)
-				.HasForeignKey(g => g.GiverId)
-				.OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Course>()
+    .Property(t => t.Description)
+    .HasColumnName("Description");
+
+            builder.Entity<Activity>()
+                .HasMany(a => a.ActivityStudents)
+                .WithOne(a => a.Activity)
+                .HasForeignKey(a => a.ActivityId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Student>()
+                .HasMany(a => a.ActivitiesStudents)
+                .WithOne(a => a.Student)
+                .HasForeignKey(a => a.StudentId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Giver>()
+                .HasMany(g => g.GivenThings)
+                .WithOne(g => g.Giver)
+                .HasForeignKey(g => g.GiverId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<MaterialBaseItem>()
                 .HasMany(g => g.GivenThings)
@@ -100,23 +110,23 @@ namespace InterestsAcademy.Data
                 .HasForeignKey(a => a.StudentId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-			builder.Entity<Course>()
-				.HasOne(c => c.Room)
-				.WithMany(c => c.Courses)
-				.HasForeignKey(c => c.RoomId)
-				.OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Course>()
+                .HasOne(c => c.Room)
+                .WithMany(c => c.Courses)
+                .HasForeignKey(c => c.RoomId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             if (seedDb)
-			{
-				builder.ApplyConfiguration(new RoomConfiguration());
-				builder.ApplyConfiguration(new RoleConfiguration());
-			}
-		}
+            {
+                builder.ApplyConfiguration(new RoomConfiguration());
+                builder.ApplyConfiguration(new RoleConfiguration());
+            }
+        }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			base.OnConfiguring(optionsBuilder);
-		}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
 
-	}
+    }
 }

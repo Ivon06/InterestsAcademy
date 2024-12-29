@@ -24,9 +24,8 @@ namespace InterestsAcademy.Core.Models.Course
         [StringLength(CourseDescriptionMaxLength, MinimumLength = CourseDescriptionMinLength, ErrorMessage = InvalidLengthMessage)]
         public string Description { get; set; } = null!;
 
-        [Required(ErrorMessage = RequiredErrorMessage)]
-        public string TeacherId { get;set; } = null!;
-
+       // [Required(ErrorMessage = RequiredErrorMessage)]
+        public string? TeacherId { get;set; } 
         [Required(ErrorMessage = RequiredErrorMessage)]
         public string RoomId { get; set; } = null!;
 

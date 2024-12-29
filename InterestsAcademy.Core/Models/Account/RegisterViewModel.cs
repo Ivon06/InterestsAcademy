@@ -39,7 +39,7 @@ namespace InterestsAcademy.Core.Models.Account
         [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = InvalidLengthMessage)]
         public string PasswordRepeat { get; set; } = null!;
 
-        public string RoleId { get; set; } = null!;
+        public string Role { get; set; } = null!;
 
         public ICollection<IdentityRole> Roles { get; set; } = new HashSet<IdentityRole>();
 

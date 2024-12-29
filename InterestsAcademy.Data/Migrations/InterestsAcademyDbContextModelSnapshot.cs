@@ -67,7 +67,8 @@ namespace InterestsAcademy.Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("Description");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -79,7 +80,8 @@ namespace InterestsAcademy.Data.Migrations
 
                     b.Property<string>("RoomId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("RoomId");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -192,112 +194,112 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3e7ccb16-fa6f-4dca-bfd9-63103c9dc3ec",
+                            Id = "4934c67b-108e-494a-b095-4a2983681a9e",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Мултифункционална зала"
                         },
                         new
                         {
-                            Id = "691095f3-5f56-4dec-8f75-fbe7b9ab7cae",
+                            Id = "2b739957-8d9e-4319-a43a-bb8c30d8d09d",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Музикално студио"
                         },
                         new
                         {
-                            Id = "f726fc7c-afc6-4476-9605-f0526ecb2878",
+                            Id = "27241b7a-9110-40fd-9e37-d6e176b16e00",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство \"Малки изследователи\""
                         },
                         new
                         {
-                            Id = "9b9a788c-2312-4247-b20c-99e20131eb06",
+                            Id = "6a373037-d2f5-451e-ab01-041dcc2a4ffb",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Работилница"
                         },
                         new
                         {
-                            Id = "9904d6f8-afea-449e-be7f-4713b00b04bb",
+                            Id = "e5804f48-5471-4d29-893b-367a99ff0042",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Физкултурен салон"
                         },
                         new
                         {
-                            Id = "0f482e43-9502-4121-929e-283cb181cd73",
+                            Id = "5fe1dc94-4043-4ed0-a774-0c9ea6d45a67",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Конферентна зала"
                         },
                         new
                         {
-                            Id = "3b6590eb-eafb-4f60-86ff-18105c033744",
+                            Id = "592eb7ac-1ee3-4557-a91b-898b9d28662d",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Библиотека"
                         },
                         new
                         {
-                            Id = "b2020d8c-0f68-46ef-9626-b5f272666ceb",
+                            Id = "487f1e23-ebf4-4e35-8091-e8adfcece0c7",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Физика и астрономия"
                         },
                         new
                         {
-                            Id = "a26478d7-6d75-463d-a69c-88220540fab6",
+                            Id = "7ec13306-e45e-486a-b997-2cbb1d5713aa",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство \"Роботика и програмиране\""
                         },
                         new
                         {
-                            Id = "3f193828-eabc-4c3b-8263-6f88790d9a2f",
+                            Id = "a5f535c9-51ca-4393-b1f0-1cad4d2945da",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство за Археология"
                         },
                         new
                         {
-                            Id = "73072807-6997-460f-85b2-b646293e2f1e",
+                            Id = "9a9267aa-834c-446f-a52e-681b5b49d106",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Лаборатория"
                         },
                         new
                         {
-                            Id = "39642982-b7ab-4fbf-8f63-953c5929f8fe",
+                            Id = "d2aab234-dcd6-4fd0-b197-f0a9efae11a3",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Младежки клуб по видеозаснемане"
                         },
                         new
                         {
-                            Id = "13b3f872-9c6a-43e7-9674-b959d32758b3",
+                            Id = "1e848d10-6435-41bc-a5b6-dee9a24e379e",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство за спорт на открито"
                         },
                         new
                         {
-                            Id = "5495e880-8d38-4868-8028-82f298527c56",
+                            Id = "123dce05-3b28-4c49-b83c-c43b99255e1a",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Еко стая"
                         },
                         new
                         {
-                            Id = "a19c66a3-6d91-4f88-ad73-ae7414bfb1b9",
+                            Id = "8b12c53b-adcd-43db-a42d-8c4cb44478db",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Градина за биоземеделие"
                         },
                         new
                         {
-                            Id = "78def21f-75da-47a4-a5f2-d1f2b8a3e9c0",
+                            Id = "6deee4c4-995b-46f3-96ec-c50cd370b645",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Дейности извън Академията - ориентиране в планината, конна езда, походи"

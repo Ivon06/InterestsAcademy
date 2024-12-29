@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterestsAcademy.Data.Migrations
 {
     [DbContext(typeof(InterestsAcademyDbContext))]
-    [Migration("20241213082223_dbChangedAgain")]
-    partial class dbChangedAgain
+    [Migration("20241228235150_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,15 +40,9 @@ namespace InterestsAcademy.Data.Migrations
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
 
-                    b.Property<string>("RoomId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
-
-                    b.HasIndex("RoomId");
 
                     b.ToTable("Activities");
                 });
@@ -73,6 +67,12 @@ namespace InterestsAcademy.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("Description");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -80,6 +80,11 @@ namespace InterestsAcademy.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("RoomId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("RoomId");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -89,6 +94,8 @@ namespace InterestsAcademy.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
 
                     b.HasIndex("TeacherId");
 
@@ -190,112 +197,112 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f664e6dc-755c-4e8f-96ea-52e39ec30fda",
+                            Id = "4934c67b-108e-494a-b095-4a2983681a9e",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Мултифункционална зала"
                         },
                         new
                         {
-                            Id = "8ab7c5c6-31dc-4d87-8098-83975c2ca9fc",
+                            Id = "2b739957-8d9e-4319-a43a-bb8c30d8d09d",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Музикално студио"
                         },
                         new
                         {
-                            Id = "f5c9a7bb-ff50-43e6-aeee-6a6ac3a11539",
+                            Id = "27241b7a-9110-40fd-9e37-d6e176b16e00",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство \"Малки изследователи\""
                         },
                         new
                         {
-                            Id = "dcd08d40-2246-4592-9372-9e8bae4ab6d4",
+                            Id = "6a373037-d2f5-451e-ab01-041dcc2a4ffb",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Работилница"
                         },
                         new
                         {
-                            Id = "7c767f33-34b2-47a8-9355-8e1d625f0600",
+                            Id = "e5804f48-5471-4d29-893b-367a99ff0042",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Физкултурен салон"
                         },
                         new
                         {
-                            Id = "c34a92a8-6fcd-4517-91c3-f83a58582b23",
+                            Id = "5fe1dc94-4043-4ed0-a774-0c9ea6d45a67",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Конферентна зала"
                         },
                         new
                         {
-                            Id = "1f8b7b9a-87e2-4b28-be18-b16e9acb71b4",
+                            Id = "592eb7ac-1ee3-4557-a91b-898b9d28662d",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Библиотека"
                         },
                         new
                         {
-                            Id = "751b65c7-8d08-4345-8531-3a3bc53454ab",
+                            Id = "487f1e23-ebf4-4e35-8091-e8adfcece0c7",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Физика и астрономия"
                         },
                         new
                         {
-                            Id = "d8080d86-dfd3-4c5a-8aee-d6a8f458b6d6",
+                            Id = "7ec13306-e45e-486a-b997-2cbb1d5713aa",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство \"Роботика и програмиране\""
                         },
                         new
                         {
-                            Id = "a65a665c-3171-4b5a-b2c3-0f5277070e61",
+                            Id = "a5f535c9-51ca-4393-b1f0-1cad4d2945da",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство за Археология"
                         },
                         new
                         {
-                            Id = "38ada414-d686-4142-91c7-fe74e4387205",
+                            Id = "9a9267aa-834c-446f-a52e-681b5b49d106",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Лаборатория"
                         },
                         new
                         {
-                            Id = "da02dbe9-7e41-4dcd-a50f-fadf30aa7663",
+                            Id = "d2aab234-dcd6-4fd0-b197-f0a9efae11a3",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Младежки клуб по видеозаснемане"
                         },
                         new
                         {
-                            Id = "ed709880-9b57-46b4-b59c-173f0082cde1",
+                            Id = "1e848d10-6435-41bc-a5b6-dee9a24e379e",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство за спорт на открито"
                         },
                         new
                         {
-                            Id = "9a9dc7f1-0d5c-47d0-8912-1509073fd7c6",
+                            Id = "123dce05-3b28-4c49-b83c-c43b99255e1a",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Еко стая"
                         },
                         new
                         {
-                            Id = "6a6e4f94-f478-4010-81e8-bfde17164472",
+                            Id = "8b12c53b-adcd-43db-a42d-8c4cb44478db",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Градина за биоземеделие"
                         },
                         new
                         {
-                            Id = "f9b74efb-a9d1-47b4-86b5-2597cd01ed4e",
+                            Id = "6deee4c4-995b-46f3-96ec-c50cd370b645",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Дейности извън Академията - ориентиране в планината, конна езда, походи"
@@ -384,7 +391,6 @@ namespace InterestsAcademy.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -392,7 +398,6 @@ namespace InterestsAcademy.Data.Migrations
                         .HasColumnType("DATE");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
 
@@ -401,7 +406,6 @@ namespace InterestsAcademy.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasMaxLength(56)
                         .HasColumnType("nvarchar(56)");
 
@@ -414,6 +418,12 @@ namespace InterestsAcademy.Data.Migrations
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -497,6 +507,32 @@ namespace InterestsAcademy.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "78374b9b-5158-4aff-8626-d088a02d79e1",
+                            Name = "Teacher",
+                            NormalizedName = "TEACHER"
+                        },
+                        new
+                        {
+                            Id = "835c8458-e8b7-493f-9c13-67bfcd7316a3",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "8duisjak-e8o7-8uu5-9c13-543e65731jh3",
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        },
+                        new
+                        {
+                            Id = "78wijd768-7255-4iwf-9o23-6786yet54wa3",
+                            Name = "Giver",
+                            NormalizedName = "GIVER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -612,20 +648,12 @@ namespace InterestsAcademy.Data.Migrations
             modelBuilder.Entity("InterestsAcademy.Data.Models.Activity", b =>
                 {
                     b.HasOne("InterestsAcademy.Data.Models.Course", "Course")
-                        .WithMany()
+                        .WithMany("Activities")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("InterestsAcademy.Data.Models.Room", "Room")
-                        .WithMany("Activities")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Course");
-
-                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.ActivityStudent", b =>
@@ -649,11 +677,19 @@ namespace InterestsAcademy.Data.Migrations
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.Course", b =>
                 {
+                    b.HasOne("InterestsAcademy.Data.Models.Room", "Room")
+                        .WithMany("Courses")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("InterestsAcademy.Data.Models.Teacher", "Teacher")
                         .WithMany("Courses")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Room");
 
                     b.Navigation("Teacher");
                 });
@@ -793,6 +829,8 @@ namespace InterestsAcademy.Data.Migrations
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.Course", b =>
                 {
+                    b.Navigation("Activities");
+
                     b.Navigation("StudentCourses");
                 });
 
@@ -808,7 +846,7 @@ namespace InterestsAcademy.Data.Migrations
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.Room", b =>
                 {
-                    b.Navigation("Activities");
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.SleepingRoom", b =>

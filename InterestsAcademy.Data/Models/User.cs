@@ -17,12 +17,12 @@ namespace InterestsAcademy.Data.Models
 	{
         public User()
         {
-            Id = Guid.NewGuid().ToString();
+           // Id = Guid.NewGuid().ToString();
             IsApproved = true;
         }
 
-        [Key]
-		public string Id { get; set; } = null!;
+  //      [Key]
+		//public string Id { get; set; } = null!;
 
 		[Required]
 		[MaxLength(UserNameMaxLength)]
