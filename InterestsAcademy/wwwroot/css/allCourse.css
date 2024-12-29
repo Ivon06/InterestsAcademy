@@ -6,7 +6,7 @@
     background-color: #1f1f1f;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    width: 300px;
+    /*width: 300px;*/
     padding: 16px;
     transition: transform 0.3s ease;
     cursor: pointer;
@@ -60,3 +60,8 @@
     .icon:hover {
         background-color: #555;
     }
+
+
+.card-body {
+    height: 250px;
+}

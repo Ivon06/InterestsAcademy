@@ -17,6 +17,7 @@ namespace InterestsAcademy.Data.Models
             Id = Guid.NewGuid().ToString();
             StudentCourses = new HashSet<StudentCourse>();
             Activities = new HashSet<Activity>();
+            IsApproved = false;
         }
 
         [Key]
@@ -46,6 +47,8 @@ namespace InterestsAcademy.Data.Models
         [Required(ErrorMessage = RequiredErrorMessage)]
         [MaxLength(CourseDescriptionMaxLength)]
         public string Description { get; set; } = null!;
+
+        public bool IsApproved { get; set; }
 
         public ICollection<StudentCourse> StudentCourses { get; set; }
         public ICollection<Activity> Activities { get; set; }
