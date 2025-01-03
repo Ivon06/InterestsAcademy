@@ -40,6 +40,7 @@ namespace InterestsAcademy.Data.Models
         public DateTime EndDate { get; set; }
 
         //[Required(ErrorMessage = RequiredErrorMessage)]
+        [ForeignKey(nameof(Room))]
         public string RoomId { get; set; }
 
         public Room Room { get; set; }
@@ -52,6 +53,8 @@ namespace InterestsAcademy.Data.Models
 
         public ICollection<StudentCourse> StudentCourses { get; set; }
         public ICollection<Activity> Activities { get; set; }
+
+        public ICollection<Request> Requests { get; set; } = new HashSet<Request>();
 
     }
 }

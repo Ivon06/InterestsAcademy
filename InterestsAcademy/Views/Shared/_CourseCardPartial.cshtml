@@ -3,7 +3,7 @@
 
 <div class="room-card">
     <div class="room-icon">
-       <img src="https://via.placeholder.com/64" alt="Room Icon">
+        <img src="https://via.placeholder.com/64" alt="Room Icon">
     </div>
     <div class="room-details">
         <h3 class="room-title">@Model.Name</h3>
@@ -12,6 +12,14 @@
             <span class="icon clipboard" title="Assignments">📋</span>
             <span class="icon edit" title="Edit Room">✏️</span>
         </div>
+        @if (User.IsInRole("Teacher"))
+        {
+            <div>
+                <a class="btn">Заявки</a>
+                <а class="btn">Редактиране</а>
+                <а class="btn">График</а>
+            </div>
+        }
     </div>
 </div>
 

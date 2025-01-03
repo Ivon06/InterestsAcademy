@@ -10,5 +10,6 @@ namespace InterestsAcademy.Core.Contracts
     public interface IStudentService
     {
         Task CreateAsync(string userId);
+        Task<string?> GetStudentId(string userId);
     }
 }

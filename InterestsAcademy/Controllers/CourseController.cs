@@ -24,7 +24,7 @@ namespace InterestsAcademy.Controllers
             return View();
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> MyCourses()
         {
             bool isTeacher = await teacherService.IsTeacherAsync(User.GetId());
             IEnumerable<CourseCardViewModel> model = new List<CourseCardViewModel>();
@@ -85,5 +85,20 @@ namespace InterestsAcademy.Controllers
 
             return RedirectToAction("All");
         }
+
+        public async Task<IActionResult> All()
+        {
+            if(!User.Identity.IsAuthenticated)
+            {
+                TempData[ErrorMessage] = "Трябва да се регистрирате, за да достъпите тази функция.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = await courseService.GetAllCoursesCards();
+
+            return View(model);
+        }
+
+       
     }
 }

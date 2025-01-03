@@ -3,6 +3,7 @@ using InterestsAcademy.Core.Models.Course;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Data.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,7 @@ namespace InterestsAcademy.Core.Services
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Description = x.Description,
                 }
                 )
                 .ToListAsync();
@@ -58,6 +60,7 @@ namespace InterestsAcademy.Core.Services
                  {
                      Id = x.Id,
                      Name = x.Name,
+                     Description = x.Description,
                  }
                  )
                  .ToListAsync();
@@ -73,11 +76,38 @@ namespace InterestsAcademy.Core.Services
                  {
                      Id = x.Id,
                      Name = x.Name,
+                     Description = x.Description,
                  }
                  )
                  .ToListAsync();
 
             return result;
+        }
+
+        public async Task<bool> IsCourseValid(string courseId)
+        {
+            var result = await repo.GetAll<Course>()
+                .AnyAsync(c => c.Id == courseId);
+
+            return result;
+        }
+
+        public async Task<string> GetCourseNameById(string courseId)
+        {
+            var course = await repo.GetByIdAsync<Course>(courseId);
+
+            return course!.Name;
+
+        }
+
+        
+
+        public async Task<string> GetCourseIdByName(string courseName)
+        {
+            var result = await repo.GetAll<Course>()
+                .FirstOrDefaultAsync(c => c.Name == courseName);
+
+            return result.Id;
         }
     }
 }
