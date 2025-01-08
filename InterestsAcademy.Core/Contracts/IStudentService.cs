@@ -13,5 +13,7 @@ namespace InterestsAcademy.Core.Contracts
         Task<string?> GetStudentId(string userId);
         Task<string> GetStudentIdByRequestId(string requestId);
     Task<bool> IsStudentAsync(string userId);
+        Task<bool> IsNameValid(string name);
+        Task<bool> IsEmailValid(string email);
     }
 }

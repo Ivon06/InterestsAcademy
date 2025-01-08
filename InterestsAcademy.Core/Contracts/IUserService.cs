@@ -25,6 +25,8 @@ namespace InterestsAcademy.Core.Contracts
 
         Task<string> GetUserIdByTeacherId(string teacherId);
 
+        Task<User> GetByIdAsync(string id);
+
 
     }
 }

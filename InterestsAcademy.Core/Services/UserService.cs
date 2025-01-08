@@ -83,5 +83,11 @@ namespace InterestsAcademy.Core.Services
             return result.UserId;
 
         }
+
+        public async Task<User> GetByIdAsync(string id)
+        {
+            var result = await repo.GetByIdAsync<User>(id);
+            return result;
+        }
     }
 }

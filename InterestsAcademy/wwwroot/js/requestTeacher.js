@@ -19,7 +19,7 @@ let colors = {
     "Rejected": "danger"
 };
 
-start(); 
+
 
 connection.on("ReceiveRequest", function (studentEmail, studentName, status, requestId, teacherId, courseId) {
     let tr = document.createElement('tr');
@@ -49,55 +49,22 @@ connection.on("ReceiveRequest", function (studentEmail, studentName, status, req
     }
 });
 
-connection.start()
-    .then(() => console.log("SignalR connected."))
-    .catch(err => console.error("SignalR connection failed:", err));
+async function start() {
+    try {
+        await connection.start();
+        console.log("SignalR Connected.");
+    } catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
+
+connection.onclose(async () => {
+    await start();
+});
+
+
+start();
 
 
 
-//"use strict"
-
-//var connection = new signalR.HubConnectionBuilder()
-//    .withUrl("/requestHub")
-//    .build();
-
-
-
-//connection.on("ReceiveRequest", function (studentEmail, studentName, status,  requestId, teacherId, courseId){
-//    let tr = document.createElement('tr');
-//    let colors = {
-//        "Waiting": "warning",
-//        "Accepted": "success",
-//        "Rejected": "danger"
-//    }
-
-//    tr.innerHTML = `<td>photo</td>
-//					<td>${studentName}</td >
-//					<td>${studentEmail}</td>
-//					<td>
-//        <div class="dropdown" id="dropdown-${requestId}">
-//            <a class="badge badge-soft-${colors[status]} p-2 team-status dropdown-toggle" id="status-${requestId}" style="text-decoration: none; font - size: 1rem" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-//                ${statusBg[status]}
-//            </a>
-
-            
-//                <ul class="dropdown-menu">
-//                    <li><a class="dropdown-item"  href="/Request/Accept?requestId=${requestId} >\u041f\u0440\u0438\u0435\u043c\u0438</a></li>
-//                    <li><a class="dropdown-item" onclick="changeStatus('Rejected', ${requestId})">\u041e\u0442\u043a\u0430\u0436\u0438</a></li>
-//                </ul>
-            
-
-
-
-
-//        </div>
-//        </td>`.normalize();
-
-//    let table = document.getElementById('requests');
-//    table.appendChild(tr);
-
-
-
-
-    
-//})

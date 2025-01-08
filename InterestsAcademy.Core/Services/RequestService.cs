@@ -21,6 +21,8 @@ namespace InterestsAcademy.Core.Services
             this.repo = repo;
         }
 
+
+
         public async Task<RequestViewModel> GetRequestByIdAsync(string requestId)
         {
             var request = await repo.GetAll<Request>()
@@ -48,6 +50,29 @@ namespace InterestsAcademy.Core.Services
         {
             var request = await repo.GetAll<Request>()
                 .Where(r => r.CourseId == courseId)
+                .Include(r => r.Course)
+                .Include(r => r.Course.Teacher!)
+                .Include(r => r.Student)
+                .Include(r => r.Student.User)
+                .Select(r => new RequestViewModel()
+                {
+                    Id = r.Id,
+                    CourseId = r.CourseId,
+                    Status = r.Status,
+                    TeacherId = r.Course.TeacherId,
+                    StudentEmail = r.Student.User.Email,
+                    StudentName = r.Student.User.Name
+
+                })
+                .ToListAsync();
+
+            return request!;
+        }
+
+        public async Task<List<RequestViewModel>> GetAllRequestAsync()
+        {
+            var request = await repo.GetAll<Request>()
+                
                 .Include(r => r.Course)
                 .Include(r => r.Course.Teacher!)
                 .Include(r => r.Student)

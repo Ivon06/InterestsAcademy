@@ -15,5 +15,7 @@ namespace InterestsAcademy.Core.Contracts
 
         Task<string> Create(CreateRequestModel model);
         Task<bool> EditStatus(string newStatus, string requestId);
+
+        Task<List<RequestViewModel>> GetAllRequestAsync();
     }
 }

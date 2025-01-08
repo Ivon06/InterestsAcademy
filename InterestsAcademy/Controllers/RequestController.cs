@@ -65,6 +65,21 @@ namespace InterestsAcademy.Controllers
                 TempData[ErrorMessage] = "Този курс не съществува.";
                 return RedirectToAction("All", "Course");
             }
+
+            var isNameValid = await studentService.IsNameValid(studentName);
+            var isEmailValid = await studentService.IsEmailValid(studentEmail);
+
+            var user = await userService.GetByIdAsync(User.GetId());
+
+            
+
+            if (!isNameValid || !isEmailValid || studentEmail != user.Email ||studentName != user.Name)
+            {
+
+                TempData[ErrorMessage] = "Невалидно име или имейл.";
+                return View("Create", courseName);
+            }
+
             
 
             string requestId;
@@ -130,6 +145,32 @@ namespace InterestsAcademy.Controllers
                 return View(model.OrderByDescending(r => r.Status));
             }
             
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AllTest()
+        {
+            bool isTeacher = await teacherService.IsTeacherAsync(User.GetId());
+
+            if (!isTeacher)
+            {
+                TempData[ErrorMessage] = "Трябва да си учител за да имаш достъп";
+                return RedirectToAction("Index", "Home");
+            }
+
+           
+            var model = await requestService.GetAllRequestAsync();
+
+            if (model.Count == 0)
+            {
+                return View(model);
+            }
+            else
+            {
+
+                return View(model.OrderByDescending(r => r.Status));
+            }
+
         }
 
 
