@@ -76,5 +76,12 @@ namespace InterestsAcademy.Core.Services
 
             return isExists;
         }
+
+        public async Task<string> GetUserIdByTeacherId(string teacherId)
+        {
+            var result = await repo.GetByIdAsync<Teacher>(teacherId);
+            return result.UserId;
+
+        }
     }
 }

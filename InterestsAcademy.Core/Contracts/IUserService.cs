@@ -22,6 +22,9 @@ namespace InterestsAcademy.Core.Contracts
         Task ChangeUserIsApprovedAsync(string userId);
 
         Task<bool> IsExistsByIdAsync(string id);
-        
+
+        Task<string> GetUserIdByTeacherId(string teacherId);
+
+
     }
 }

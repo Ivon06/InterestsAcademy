@@ -11,8 +11,9 @@ namespace InterestsAcademy.Core.Contracts
     {
         Task<RequestViewModel> GetRequestByIdAsync( string requestId);
 
-        Task<RequestViewModel> GetAllRequestByCourseIdAsync(string courseId);
+        Task<List<RequestViewModel>> GetAllRequestByCourseIdAsync(string courseId);
 
         Task<string> Create(CreateRequestModel model);
+        Task<bool> EditStatus(string newStatus, string requestId);
     }
 }

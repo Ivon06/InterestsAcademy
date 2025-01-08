@@ -18,6 +18,7 @@ namespace InterestsAcademy.Extensions
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<IRequestService,RequestService>();   
+            services.AddScoped<IProfileService, ProfileService>();
 
             return services;
         }

@@ -28,7 +28,7 @@ namespace InterestsAcademy.Core.Services
                 .Include(r => r.Course)
                 .Include(r => r.Course.Teacher!)
                 .Include(r => r.Student)
-                .Include(r=>r.Student.User)
+                .Include(r => r.Student.User)
                 .Select(r => new RequestViewModel()
                 {
                     Id = requestId,
@@ -41,10 +41,10 @@ namespace InterestsAcademy.Core.Services
                 })
                 .FirstOrDefaultAsync();
 
-            return request!;
+            return request;
         }
 
-        public async Task<RequestViewModel> GetAllRequestByCourseIdAsync(string courseId)
+        public async Task<List<RequestViewModel>> GetAllRequestByCourseIdAsync(string courseId)
         {
             var request = await repo.GetAll<Request>()
                 .Where(r => r.CourseId == courseId)
@@ -62,7 +62,7 @@ namespace InterestsAcademy.Core.Services
                     StudentName = r.Student.User.Name
 
                 })
-                .FirstOrDefaultAsync();
+                .ToListAsync();
 
             return request!;
         }
@@ -81,6 +81,22 @@ namespace InterestsAcademy.Core.Services
             await repo.SaveChangesAsync();
 
             return request.Id;
+        }
+
+        public async Task<bool> EditStatus(string newStatus, string requestId)
+        {
+            var request = await repo.GetByIdAsync<Request>(requestId);
+
+            if (request != null)
+            {
+                request.Status = newStatus;
+                await repo.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+
+
         }
     }
 }

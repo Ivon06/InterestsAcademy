@@ -109,5 +109,27 @@ namespace InterestsAcademy.Core.Services
 
             return result.Id;
         }
+
+        public async Task AddStudentToCourse(string studentId, string courseId)
+        {
+            StudentCourse sc = new StudentCourse()
+            {
+                StudentId = studentId,
+                CourseId = courseId,
+                IsApproved = true
+            };
+
+            await repo.AddAsync(sc);
+            await repo.SaveChangesAsync();
+
+        }
+
+        public async Task<string> GetCourseIdByRequestId(string requestId)
+        {
+            var result = await repo.GetByIdAsync<Request>(requestId);
+
+            return result.CourseId; 
+                
+        }
     }
 }

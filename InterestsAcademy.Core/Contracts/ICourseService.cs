@@ -22,8 +22,10 @@ namespace InterestsAcademy.Core.Contracts
 
         Task<string> GetCourseNameById(string courseId);
 
-        
+        Task AddStudentToCourse(string studentId, string courseId);
 
         Task<string> GetCourseIdByName(string courseName);
+
+        Task<string> GetCourseIdByRequestId(string requestId);
     }
 }

@@ -39,5 +39,20 @@ namespace InterestsAcademy.Core.Services
 
             return student == null ? null : student.Id;
         }
+
+        public async Task<string> GetStudentIdByRequestId(string requestId)
+        {
+            var request = await repo.GetByIdAsync<Request>(requestId);
+
+            return request.StudentId;
+        }
+
+        public async Task<bool> IsStudentAsync(string userId)
+        {
+            var isStudent = await repo.GetAll<Student>()
+                .AnyAsync(s => s.UserId == userId && s.User.IsActive == true);
+
+            return isStudent;
+        }
     }
 }

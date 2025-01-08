@@ -12,12 +12,15 @@
             <span class="icon clipboard" title="Assignments">📋</span>
             <span class="icon edit" title="Edit Room">✏️</span>
         </div>
+        
         @if (User.IsInRole("Teacher"))
         {
             <div>
-                <a class="btn">Заявки</a>
-                <а class="btn">Редактиране</а>
-                <а class="btn">График</а>
+                <a asp-action="All" asp-controller="Request" asp-route-courseId="@Model.Id" class="btn btn-outline-dark">Заявки</a>
+                
+                 <a asp-action="Edit" asp-controller="Course" asp-route-courseId="@Model.Id" class="btn btn-outline-dark">Редактиране</a>
+
+                <a asp-action="All" asp-controller="Activity" asp-route-courseId="@Model.Id" class="btn btn-outline-dark">График</a>
             </div>
         }
     </div>

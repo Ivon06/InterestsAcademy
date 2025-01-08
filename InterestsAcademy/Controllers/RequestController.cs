@@ -14,12 +14,14 @@ namespace InterestsAcademy.Controllers
         private readonly ITeacherService teacherService;
         private readonly IStudentService studentService;
         private readonly IRequestService requestService;
-        public RequestController(ICourseService courseService, ITeacherService teacherService, IRequestService requestService, IStudentService studentService)
+        private readonly IUserService userService;
+        public RequestController(ICourseService courseService, ITeacherService teacherService, IRequestService requestService, IStudentService studentService, IUserService userService)
         {
             this.courseService = courseService;
             this.teacherService = teacherService;
             this.requestService = requestService;
             this.studentService = studentService;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -52,13 +54,19 @@ namespace InterestsAcademy.Controllers
         {
             var teacherId = await teacherService.GetTeacherIdByCourseNameAsync(courseName);
 
-            //bool isTeacher = await teacherService.IsTeacherAsync(teacherId);
+            if (!User.IsInRole("Student"))
+            {
+                TempData[ErrorMessage] = "Трябва да сте ученик, за да се запишете";
+                return RedirectToAction("Index", "Home");
+            }
 
-            //if (!isTeacher)
-            //{
-            //    TempData[ErrorMessage] = "Този курс не съществува.";
-            //    return RedirectToAction("Index", "Home");
-            //}
+            if(teacherId == null)
+            {
+                TempData[ErrorMessage] = "Този курс не съществува.";
+                return RedirectToAction("All", "Course");
+            }
+            
+
             string requestId;
             try
             {
@@ -82,11 +90,90 @@ namespace InterestsAcademy.Controllers
 
             TempData[SuccessMessage] = "Успешно записване за курс. Изчакайте одобрение.";
 
+            var teacherUserId = await userService.GetUserIdByTeacherId(teacherId);
+
             return new JsonResult(new
             {
                 RequestId = requestId,
-                teacherUserId = teacherId
+                teacherUserId = teacherUserId
             });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All(string courseId)
+        {
+            bool isTeacher = await teacherService.IsTeacherAsync(User.GetId());
+
+            if(!isTeacher)
+            {
+                TempData[ErrorMessage] = "Трябва да си учител за да имаш достъп";
+                return RedirectToAction("Index", "Home");
+            }
+
+            bool isCourseValid = await courseService.IsCourseValid(courseId);
+
+            if (!isCourseValid)
+            {
+                TempData[ErrorMessage] = "Този курс не съществува";
+                return RedirectToAction("MyCourses", "Course");
+            }
+
+            var model = await requestService.GetAllRequestByCourseIdAsync(courseId);
+
+            if (model.Count == 0)
+            {
+                return View(model);
+            }
+            else
+            {
+
+                return View(model.OrderByDescending(r => r.Status));
+            }
+            
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditStatus(string requestId, string status)
+        {
+            var request = await requestService.GetRequestByIdAsync(requestId);
+
+            string userId = User.GetId()!;
+
+            bool isTeacher = await teacherService.IsTeacherAsync(userId);
+
+            if(!isTeacher )
+            {
+                TempData[ErrorMessage] = "Трябва да сте учител, за да имате достъп.";
+                return RedirectToAction("MyCourses", "Course");
+            }
+
+            if(request ==  null)
+            {
+                TempData[ErrorMessage] = "Тази заявка не съществува";
+                return RedirectToAction("MyCourses", "Course");
+            }
+
+            if(status == "Accepted")
+            {
+                var teacherId = await teacherService.GetTeacherIdByUserId(userId);
+
+                var studentId = await studentService.GetStudentIdByRequestId(requestId);
+
+                var courseId = await courseService.GetCourseIdByRequestId(requestId);
+
+                await courseService.AddStudentToCourse(studentId, courseId);
+
+                bool resultAccepted = await requestService.EditStatus(status, userId);
+
+                return new JsonResult(new { IsEdited = resultAccepted, CompanyUserId = userId });
+
+            }
+
+            bool resultRejected = await requestService.EditStatus(status, userId);
+
+            return new JsonResult(new { IsEdited = resultRejected, CompanyUserId = userId });
+
         }
 
     }
