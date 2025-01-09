@@ -2,47 +2,55 @@
 @model List<CourseCardViewModel>
 
 
-<div class="row" style="margin-left: 20px; margin-bottom: 100px;">
+<section id="team" class="pb-5">
+	<div class="container">
+		<h5 class="section-title h1">Всички курсове</h5>
+		<div class="row">
 
+			@if (User.IsInRole("Teacher"))
+			{
+				<div class="col-xs-12 col-sm-6 col-md-4" >
+					<div>
+						<div>
+							<div class="frontside">
+								<div class="card">
+									<div class="card-body text-center">
+										<p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
+										<h4 class="card-title"></h4>
+										<p class="card-text"></p>
+										<a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm" style="    margin-top: 3.5em;" asp-action="Add" asp-controller="Course"><i class="fa fa-plus" style="padding:2em;"></i></a>
+									</div>
+								</div>
+							</div>
 
-	@if (User.IsInRole("Teacher"))
-	{
-		<div class="col-md-4">
-			<div class="card ">
-				<div class="card-body">
-
-					<div class="room-card">
-						<a asp-controller="Course" asp-action="Add" class="room-card">
-							<h3 class="room-title">
-								<svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-								</svg>
-							</h3>
-						</a>
+						</div>
 					</div>
-
 				</div>
-			</div>
-		</div>
-	}
+			}
 
 
-	@foreach (var course in Model)
-	{
-		<div class="col-md-4">
-			<div class="card ">
-				<div class="card-body">
+			@foreach (var course in Model)
+			{
+				<div class="col-md-4">
+					
 
-					<partial name="_CourseCardPartial" model="@course" />
+							<partial name="_CourseCardPartial" model="@course" />
 
+						
 				</div>
-			</div>
-		</div>
-	}
+			}
 
-</div>
+		</div>
+	</div>
+</section>
+
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
-	
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+}
+
+@section Scripts {
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 }

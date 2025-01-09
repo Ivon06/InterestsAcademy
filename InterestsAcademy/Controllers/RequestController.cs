@@ -147,32 +147,7 @@ namespace InterestsAcademy.Controllers
             
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AllTest()
-        {
-            bool isTeacher = await teacherService.IsTeacherAsync(User.GetId());
-
-            if (!isTeacher)
-            {
-                TempData[ErrorMessage] = "Трябва да си учител за да имаш достъп";
-                return RedirectToAction("Index", "Home");
-            }
-
-           
-            var model = await requestService.GetAllRequestAsync();
-
-            if (model.Count == 0)
-            {
-                return View(model);
-            }
-            else
-            {
-
-                return View(model.OrderByDescending(r => r.Status));
-            }
-
-        }
-
+       
 
         [HttpPost]
         public async Task<IActionResult> EditStatus(string requestId, string status)

@@ -2,12 +2,20 @@
 @model List<CourseCardViewModel>
 
 
-<div class="row" style="margin-left: 20px; margin-bottom: 100px;">
+<section id="team" class="pb-5">
+	<div class="container">
+		<h5 class="section-title h1">Всички курсове</h5>
+		<div class="row">
+
+			@foreach (var course in Model)
+			{
 
 
-	@foreach (var course in Model)
-	{
-		<div class="col-md-4">
+				<partial name="_CourseCardPartial" model=course />
+
+
+
+				@* <div class="col-md-4">
 			<div class="card ">
 				<div class="card-body">
 					<div class="room-card">
@@ -25,14 +33,21 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	}
+		</div> *@
+			}
 
-</div>
+		</div>
+	</div>
+</section>
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/css/allCourse.css" asp-append-version="true" />
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+}
+
+@section Scripts {
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 }
 
 

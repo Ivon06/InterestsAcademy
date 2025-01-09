@@ -43,6 +43,7 @@ namespace InterestsAcademy.Core.Services
                     Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
+                    TeacherId = x.TeacherId
                 }
                 )
                 .ToListAsync();
@@ -61,6 +62,7 @@ namespace InterestsAcademy.Core.Services
                      Id = x.Id,
                      Name = x.Name,
                      Description = x.Description,
+                     TeacherId = x.TeacherId
                  }
                  )
                  .ToListAsync();
@@ -77,6 +79,7 @@ namespace InterestsAcademy.Core.Services
                      Id = x.Id,
                      Name = x.Name,
                      Description = x.Description,
+                     TeacherId = x.TeacherId
                  }
                  )
                  .ToListAsync();
