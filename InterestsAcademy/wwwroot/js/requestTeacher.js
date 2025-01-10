@@ -67,4 +67,115 @@ connection.onclose(async () => {
 start();
 
 
+let acceptButton = document.getElementById('accept');
+let requestId = document.getElementById('requestId').value;
+let status1 = document.getElementById('requestStatus').value;
+let token = $("input[name='__RequestVerificationToken']").val();
+
+
+acceptButton.addEventListener('click', function () {
+
+
+    $.ajax({
+        method: 'POST',
+        url: "/Request/EditStatus",
+        data: {
+            'requestId': requestId,
+            'status': "Accepted"
+        },
+        headers:
+        {
+            'RequestVerificationToken': token
+        },
+        datatype: 'json',
+        success: async function (data) {
+            if (data.isEdited) {
+                let newStatus = "Accepted";
+                try {
+                    await connection.invoke("ChangeRequestStatus", requestId, newStatus);
+                }
+                catch (err) {
+                    console.error(err)
+                }
+
+
+
+                let url = new URL(window.location);
+
+                window.location = `${url.origin}/Request/All`
+            }
+        },
+        error: function (err) {
+            console.error(err.message);
+        }
+    });
+
+    
+})
+
+async function changeStatus(status, id) {
+    $.ajax({
+        method: 'POST',
+        url: "/Request/EditStatus",
+        data: {
+            'requestId': id,
+            'status': status
+        },
+        headers:
+        {
+            'RequestVerificationToken': token
+        },
+        datatype: 'json',
+        success: async function (data) {
+            if (data.isEdited) {
+                let newStatus = "Rejected";
+                try {
+                    await connection.invoke("ChangeRequestStatus", id, newStatus);
+                }
+                catch (err) {
+                    console.error(err)
+                }
+
+
+
+                let url = new URL(window.location);
+
+                window.location = `${url.origin}/Request/All`
+            }
+        },
+        error: function (err) {
+            console.error(err.message);
+        }
+    });
+
+}
+
+connection.on("ReceiveNewStatus", function (newStatus, id) {
+
+    let statusStyles = {
+        "Waiting": "warning",
+        "Rejected": "danger",
+        "Accepted": "success"
+    };
+
+
+
+    let oldStatus = document.getElementById(`status-${id}`).textContent.trim();
+
+    document.getElementById(`requestId`).textContent = statusBg[newStatus];
+    document.getElementById(`requestId`).classList.remove(`badge-soft-warning`);
+    document.getElementById(`requestId`).classList.add(`badge-soft-${statusStyles[newStatus]}`);
+
+    if (newStatus == "Accepted") {
+        document.getElementById(`btn-documents-${id}`).style.display = 'block';
+        document.getElementById(`btn-class-${id}`).style.display = 'none'
+    }
+    else {
+        document.getElementById(`btn-documents-${id}`).style.display = 'none';
+        document.getElementById(`btn-class-${id}`).style.display = 'block'
+    }
+
+
+})
+
 

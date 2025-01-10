@@ -52,8 +52,10 @@ else
 
 								@if (request.Status != RequestStatusEnum.Accepted.ToString())
 								{
+									<input value="@request.Id" id="requestId" hidden />
+									<input value="@request.Status" id="requestStatus" hidden />
 									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" asp-action="Accept" asp-controller="Request" asp-route-requestId="@request.Id">Приеми</a></li>
+										<li><a class="dropdown-item" id="accept" >Приеми</a></li>
 										<li><a class="dropdown-item" onclick="changeStatus('Rejected', '@request.Id')">Откажи</a></li>
 									</ul>
 								}

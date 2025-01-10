@@ -11,7 +11,7 @@
 					<div class="card-body text-center">
 						<p><img class=" img-fluid" src="~/img/blank-profile-picture.png" alt="card image"></p>
 						<h4 class="card-title">@Model.Name</h4>
-						<p class="card-text">@Model.Description</p>
+						<p class="card-text truncate-multi-line">@Model.Description</p>
 						<!--<a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>-->
 					</div>
 				</div>
@@ -20,7 +20,12 @@
 				<div class="card">
 					<div class="card-body text-center mt-4">
 						<h4 class="card-title">@Model.Name</h4>
-						<p class="card-text">@Model.Description</p>
+						<div class="css-1io73yq eu4oa1w0">
+							<span class="css-18p8mbl e1wnkr790 text-wrap">
+								@Model.Description
+							</span>
+						</div>
+						@* <p class="card-text">@Model.Description</p> *@
 						<ul class="list-inline">
 
 							@if (User.IsInRole("Student"))
@@ -30,13 +35,7 @@
 									<a id="send" asp-action="CreateView" asp-controller="Request" asp-route-courseId="@Model.Id">Запиши се</a>
 								</li>
 							}
-							else if (User.IsInRole("Teacher"))
-							{
-								<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Request" asp-route-courseId="@Model.Id">Заявки</a>
-								<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="Edit" asp-controller="Course" asp-route-courseId="@Model.Id">Редактиране</a>
-								<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-courseId="@Model.Id">График</a>
-
-							}
+							
 
 						</ul>
 					</div>

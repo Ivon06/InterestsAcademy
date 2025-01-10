@@ -177,18 +177,18 @@ namespace InterestsAcademy.Controllers
                 var studentId = await studentService.GetStudentIdByRequestId(requestId);
 
                 var courseId = await courseService.GetCourseIdByRequestId(requestId);
-
+               
                 await courseService.AddStudentToCourse(studentId, courseId);
 
-                bool resultAccepted = await requestService.EditStatus(status, userId);
+                bool resultAccepted = await requestService.EditStatus(status, requestId);
 
-                return new JsonResult(new { IsEdited = resultAccepted, CompanyUserId = userId });
+                return new JsonResult(new { IsEdited = resultAccepted, StudentUserId = userId });
 
             }
 
             bool resultRejected = await requestService.EditStatus(status, userId);
 
-            return new JsonResult(new { IsEdited = resultRejected, CompanyUserId = userId });
+            return new JsonResult(new { IsEdited = resultRejected, StudentUserId = userId });
 
         }
 

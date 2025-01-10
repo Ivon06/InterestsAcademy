@@ -12,12 +12,14 @@ namespace InterestsAcademy.Controllers
         private readonly ICourseService courseService;
         private readonly IRoomService roomService;
         private readonly ITeacherService teacherService;
+        private readonly IStudentService studentService;
 
-        public CourseController(ICourseService courseService, IRoomService roomService, ITeacherService teacherService)
+        public CourseController(ICourseService courseService, IRoomService roomService, ITeacherService teacherService, IStudentService studentService)
         {
             this.courseService = courseService;
             this.roomService = roomService;
             this.teacherService = teacherService;
+            this.studentService = studentService;
         }
         public IActionResult Index()
         {
@@ -26,16 +28,21 @@ namespace InterestsAcademy.Controllers
 
         public async Task<IActionResult> MyCourses()
         {
-            bool isTeacher = await teacherService.IsTeacherAsync(User.GetId());
+            string userId = User.GetId();
+
+            bool isTeacher = await teacherService.IsTeacherAsync(userId);
+            
             IEnumerable<CourseCardViewModel> model = new List<CourseCardViewModel>();
+
+            bool isStudent = await studentService.IsStudentAsync(userId);
             if (isTeacher)
             {
-                string teacherId = await teacherService.GetTeacherIdByUserId(User.GetId());
+                string teacherId = await teacherService.GetTeacherIdByUserId(userId);
                 model = await courseService.GetAllTeacherCourses(teacherId);
             }
-            else/*Add isStudentCheck*/
+            else if(isStudent)
             {
-                model = await courseService.GetAllStudentCoursesCards(User.GetId());
+                model = await courseService.GetAllStudentCoursesCards(userId);
             }
             return View(model);
         }
@@ -61,7 +68,7 @@ namespace InterestsAcademy.Controllers
                 return RedirectToAction("All");
             }
 
-            var teacherId = await teacherService.GetTeacherIdByUserId(User.GetId());
+            var teacherId = await teacherService.GetTeacherIdByUserId(userId);
             var teacherCourses = await courseService.GetAllTeacherCourses(teacherId);
 
             if (teacherCourses.Select(c => c.Name).Contains(model.Name))

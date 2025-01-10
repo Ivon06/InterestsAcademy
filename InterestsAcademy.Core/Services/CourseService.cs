@@ -55,14 +55,17 @@ namespace InterestsAcademy.Core.Services
 
         public async Task<IEnumerable<CourseCardViewModel>> GetAllStudentCoursesCards(string studentId)
         {
-            var result = await repo.GetAll<Course>()
-                
+            var result = await repo.GetAll<StudentCourse>()
+                 .Include(c => c.Student)
+                 .Include(c=>c.Course)
+                 .Include(c => c.Course.Teacher)
+                 .Where(c => c.IsApproved == true &&  c.StudentId == studentId)
                  .Select(x => new CourseCardViewModel()
                  {
-                     Id = x.Id,
-                     Name = x.Name,
-                     Description = x.Description,
-                     TeacherId = x.TeacherId
+                     Id = x.Course.Id,
+                     Name = x.Course.Name,
+                     Description = x.Course.Description,
+                     TeacherId = x.Course.TeacherId
                  }
                  )
                  .ToListAsync();

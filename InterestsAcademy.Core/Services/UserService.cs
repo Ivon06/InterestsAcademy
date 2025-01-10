@@ -84,6 +84,13 @@ namespace InterestsAcademy.Core.Services
 
         }
 
+        public async Task<string> GetUserIdByStudentId(string studentId)
+        {
+            var result = await repo.GetByIdAsync<Student>(studentId);
+            return result.UserId;
+
+        }
+
         public async Task<User> GetByIdAsync(string id)
         {
             var result = await repo.GetByIdAsync<User>(id);
