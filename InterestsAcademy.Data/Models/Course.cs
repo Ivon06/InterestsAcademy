@@ -18,6 +18,7 @@ namespace InterestsAcademy.Data.Models
             StudentCourses = new HashSet<StudentCourse>();
             Activities = new HashSet<Activity>();
             IsApproved = false;
+            IsActive = false;
         }
 
         [Key]
@@ -50,6 +51,8 @@ namespace InterestsAcademy.Data.Models
         public string Description { get; set; } = null!;
 
         public bool IsApproved { get; set; }
+
+        public bool IsActive { get; set; }
 
         public ICollection<StudentCourse> StudentCourses { get; set; }
         public ICollection<Activity> Activities { get; set; }

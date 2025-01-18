@@ -4,7 +4,7 @@
 
 <section id="team" class="pb-5">
 	<div class="container">
-		<h5 class="section-title h1">Всички курсове</h5>
+		<h5 class="section-title h1">Моите курсове</h5>
 		<div class="row">
 
 			@if (User.IsInRole("Teacher"))
@@ -15,10 +15,10 @@
 							<div class="frontside">
 								<div class="card">
 									<div class="card-body text-center">
-										<p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
+										
 										<h4 class="card-title"></h4>
 										<p class="card-text"></p>
-										<a class="btn btn-primary btn-sm" style="    margin-top: 3.5em;" asp-action="Add" asp-controller="Course"><i class="fa fa-plus" style="padding:2em;"></i></a>
+										<a class="btn  btn-sm" style="    margin-top: 3.5em;" asp-action="Add" asp-controller="Course"><i class="fa fa-plus" style="padding:2em;"></i></a>
 									</div>
 								</div>
 							</div>
@@ -63,7 +63,7 @@
 												@if(User.IsInRole("Teacher"))
 												{
 													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Request" asp-route-courseId="@course.Id">Заявки</a>
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="Edit" asp-controller="Course" asp-route-courseId="@course.Id">Редактиране</a>
+													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="Info" asp-controller="Course" asp-route-courseId="@course.Id">Информация</a>
 													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-courseId="@course.Id">График</a>
 
 												}

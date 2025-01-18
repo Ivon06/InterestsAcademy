@@ -27,5 +27,7 @@ namespace InterestsAcademy.Core.Contracts
         Task<string> GetCourseIdByName(string courseName);
 
         Task<string> GetCourseIdByRequestId(string requestId);
+
+        Task<EditCourseViewModel> GetCourseForEdit(string id);
     }
 }

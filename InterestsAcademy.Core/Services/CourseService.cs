@@ -29,6 +29,7 @@ namespace InterestsAcademy.Core.Services
                 Description = model.Description,
                 TeacherId = model.TeacherId,
                 RoomId = model.RoomId,
+                IsApproved = false
             };
 
             await repo.AddAsync(course);
@@ -38,6 +39,7 @@ namespace InterestsAcademy.Core.Services
         public async Task<IEnumerable<CourseCardViewModel>> GetAllCoursesCards()
         {
             var result = await repo.GetAll<Course>()
+                .Where(c => c.IsApproved && c.IsActive)
                 .Select(x => new CourseCardViewModel()
                 {
                     Id = x.Id,
@@ -76,13 +78,14 @@ namespace InterestsAcademy.Core.Services
         public async Task<IEnumerable<CourseCardViewModel>> GetAllTeacherCourses(string teacherId)
         {
             var result = await repo.GetAll<Course>()
-                .Where(c => c.TeacherId == teacherId)
+                .Where(c => c.TeacherId == teacherId )
                  .Select(x => new CourseCardViewModel()
                  {
                      Id = x.Id,
                      Name = x.Name,
                      Description = x.Description,
-                     TeacherId = x.TeacherId
+                     TeacherId = x.TeacherId,
+                     IsApproved = x.IsApproved
                  }
                  )
                  .ToListAsync();
@@ -136,6 +139,23 @@ namespace InterestsAcademy.Core.Services
 
             return result.CourseId; 
                 
+        }
+
+        public async Task<EditCourseViewModel> GetCourseForEdit(string id)
+        {
+            var course = await repo.GetByIdAsync<Course>(id);
+
+            EditCourseViewModel edit = new EditCourseViewModel()
+            {
+                Id = id,
+                Name=course.Name,
+                Description = course.Description,
+                TeacherId = course.TeacherId,
+                RoomId = course.RoomId,
+                
+            };
+
+            return edit;
         }
     }
 }

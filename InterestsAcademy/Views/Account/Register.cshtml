@@ -33,17 +33,18 @@
 
 				<div class="mb-3">
 					<div class="dropdown-container">
-						@* <input type="text" id="dropdown-input" class="dropdown-input" placeholder="Search..." onkeyup="filterDropdown()">
-						 *@<select asp-for="Role" id="dropdown-list" class="dropdown-list">
+						<select asp-for="Role" id="dropdown-list" class="dropdown-list">
 							@foreach (var a in Model.Roles)
 							{
-								<option value="@a.Name" class="dropdown-item">@a.Name</option>
+								<option value="@a" class="dropdown-item">@a</option>
 							}
 						</select>
 					</div>
 
 
 				</div>
+
+				
 
 				<div class="login__field">
 					<i class="login__icon fas fa-lock"></i>

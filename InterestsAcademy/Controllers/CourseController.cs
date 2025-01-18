@@ -31,7 +31,7 @@ namespace InterestsAcademy.Controllers
             string userId = User.GetId();
 
             bool isTeacher = await teacherService.IsTeacherAsync(userId);
-            
+
             IEnumerable<CourseCardViewModel> model = new List<CourseCardViewModel>();
 
             bool isStudent = await studentService.IsStudentAsync(userId);
@@ -40,7 +40,7 @@ namespace InterestsAcademy.Controllers
                 string teacherId = await teacherService.GetTeacherIdByUserId(userId);
                 model = await courseService.GetAllTeacherCourses(teacherId);
             }
-            else if(isStudent)
+            else if (isStudent)
             {
                 model = await courseService.GetAllStudentCoursesCards(userId);
             }
@@ -84,18 +84,18 @@ namespace InterestsAcademy.Controllers
                 return View(model);
             }
 
-            
+
 
             await courseService.AddCourse(model);
 
-            TempData[SuccessMessage] = "Успешно добавен курс";
+            TempData[SuccessMessage] = "Успешно добавен курс. Изчакайте администратора да го одобри.";
 
             return RedirectToAction("All");
         }
 
         public async Task<IActionResult> All()
         {
-            if(!User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
                 TempData[ErrorMessage] = "Трябва да се регистрирате, за да достъпите тази функция.";
                 return RedirectToAction("Index", "Home");
@@ -106,6 +106,20 @@ namespace InterestsAcademy.Controllers
             return View(model);
         }
 
-       
+        public async Task<IActionResult> Info(string id)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string courseId)
+        {
+            var model = await courseService.GetCourseForEdit(courseId);
+
+            model.Rooms = await roomService.GetAllRooms();
+
+            return View(model);
+
+        }
     }
 }
