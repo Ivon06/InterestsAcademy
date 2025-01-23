@@ -49,7 +49,7 @@ namespace InterestsAcademy.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<StudentCourse> StudentsCourses { get; set; }
-
+        public DbSet<Request> Requests { get;set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -116,10 +116,32 @@ namespace InterestsAcademy.Data
                 .HasForeignKey(c => c.RoomId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<Student>()
+                .HasMany(s => s.Requests)
+                .WithOne(r => r.Student)
+                .HasForeignKey(r => r.StudentId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Teacher>()
+               .HasMany(s => s.Requests)
+               .WithOne(r => r.Teacher)
+               .HasForeignKey(r => r.TeacherId)
+               .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Course>()
+               .HasMany(s => s.Requests)
+               .WithOne(r => r.Course)
+               .HasForeignKey(r => r.CourseId)
+               .OnDelete(DeleteBehavior.NoAction);
+
             if (seedDb)
             {
                 builder.ApplyConfiguration(new RoomConfiguration());
                 builder.ApplyConfiguration(new RoleConfiguration());
+                builder.ApplyConfiguration(new UserConfiguration());
+                builder.ApplyConfiguration(new TeacherConfiguration());
+                builder.ApplyConfiguration(new UserRoleConfiguration());
+                builder.ApplyConfiguration(new StudentConfiguration());
             }
         }
 

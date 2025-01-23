@@ -32,6 +32,7 @@ namespace InterestsAcademy.Data.Models
 
 		public ICollection<ActivityStudent> ActivitiesStudents { get; set; } = new HashSet<ActivityStudent>();
         public ICollection<StudentCourse> StudentCourses { get; set; } = new HashSet<StudentCourse>();
+		public ICollection<Request> Requests { get; set; } = new HashSet<Request>();
 
     }
 }

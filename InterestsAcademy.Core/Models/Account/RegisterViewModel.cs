@@ -41,7 +41,7 @@ namespace InterestsAcademy.Core.Models.Account
 
         public string Role { get; set; } = null!;
 
-        public ICollection<IdentityRole> Roles { get; set; } = new HashSet<IdentityRole>();
+        public ICollection<string> Roles { get; set; } = new HashSet<string>();
 
        
 

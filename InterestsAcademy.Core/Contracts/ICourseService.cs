@@ -18,5 +18,16 @@ namespace InterestsAcademy.Core.Contracts
 
         Task AddCourse(CourseQueryModel model);
 
+        Task<bool> IsCourseValid(string courseId);
+
+        Task<string> GetCourseNameById(string courseId);
+
+        Task AddStudentToCourse(string studentId, string courseId);
+
+        Task<string> GetCourseIdByName(string courseName);
+
+        Task<string> GetCourseIdByRequestId(string requestId);
+
+        Task<EditCourseViewModel> GetCourseForEdit(string id);
     }
 }

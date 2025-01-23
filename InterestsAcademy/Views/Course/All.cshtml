@@ -2,38 +2,52 @@
 @model List<CourseCardViewModel>
 
 
-<div class="row" style="margin-left: 20px; margin-bottom: 100px;">
+<section id="team" class="pb-5">
+	<div class="container">
+		<h5 class="section-title h1">Всички курсове</h5>
+		<div class="row">
+
+			@foreach (var course in Model)
+			{
 
 
-	@* 	<div class="room-card"> *@
-	@if (User.IsInRole("Teacher"))
-	{
-		<a asp-controller="Course" asp-action="Add" class="room-card">
-			<h3 class="room-title">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-					<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-				</svg>
-			</h3>
-		</a>
-	}
+				<partial name="_CourseCardPartial" model=course />
 
-	@* </div> *@
 
-	@foreach (var course in Model)
-	{
-		<div class="col-md-4">
-			<div class="card dish-card">
+
+				@* <div class="col-md-4">
+			<div class="card ">
 				<div class="card-body">
-					
-						<partial name="_CourseCardPartial" model="@course" />
-					
+					<div class="room-card">
+						<div class="room-icon">
+							<img src="https://via.placeholder.com/64" alt="Room Icon">
+						</div>
+						<div class="room-details">
+							<h3 class="room-title">@course.Name</h3>
+							<p>@course.Description</p>
+							@if (User.IsInRole("Student"))
+							{
+								<a id="send" asp-action="CreateView" asp-controller="Request" asp-route-courseId="@course.Id" class="btn btn-outline-dark">Запиши се</a>
+							}
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	}
+		</div> *@
+			}
 
-</div>
+		</div>
+	</div>
+</section>
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
 }
+
+@section Scripts {
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+}
+
+

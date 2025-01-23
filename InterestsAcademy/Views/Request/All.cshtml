@@ -1,0 +1,84 @@
+﻿@using InterestsAcademy.Core.Models.Request
+@using InterestsAcademy.Data.Models.Enums
+@model IEnumerable<RequestViewModel>
+
+@{
+	var statusClass = new Dictionary<string, string>()
+	{
+		{"Waiting", "warning"},
+		{"Rejected", "danger"},
+		{"Accepted", "success"}
+	};
+
+	var statusBg = new Dictionary<string, string>()
+	{
+		{"Waiting", "Чакащ"},
+		{"Rejected", "Отказан"},
+		{"Accepted", "Приет"}
+	};
+
+}
+
+<h2>Заявки за курс</h2>
+@if (Model == null)
+{
+	<p>Все още нямате заявки за този курс</p>
+}
+else
+{
+	<div class="table-wrapper">
+		<table class="fl-table">
+			<thead>
+				<tr>
+					<th>Профилна снимка</th>
+					<th>Име</th>
+					<th>Имейл</th>
+					<th>Статус</th>
+
+				</tr>
+			</thead>
+			<tbody id="requests">
+				@foreach (var request in Model)
+				{
+					<tr>
+						<td>photo</td>
+						<td id="student-name">@request.StudentName</td>
+						<td id="student-email">@request.StudentEmail</td>
+						<td>
+							<div class="dropdown" id="dropdown-@request.Id">
+								<a class="badge badge-soft-@statusClass[request.Status] p-2 team-status dropdown-toggle" id="status-@request.Id" style="text-decoration: none; font-size: 1rem" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									@statusBg[request.Status]
+								</a>
+
+								@if (request.Status != RequestStatusEnum.Accepted.ToString())
+								{
+									<input value="@request.Id" id="requestId" hidden />
+									<input value="@request.Status" id="requestStatus" hidden />
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" id="accept" >Приеми</a></li>
+										<li><a class="dropdown-item" onclick="changeStatus('Rejected', '@request.Id')">Откажи</a></li>
+									</ul>
+								}
+
+							</div>
+
+						</td>
+
+
+					</tr>
+				}
+
+			<tbody>
+		</table>
+	</div>
+}
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/allRequests.css" />
+}
+
+@section Scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+	<script src="~/js/requestTeacher.js" asp-append-version="true"></script>
+}

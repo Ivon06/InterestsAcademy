@@ -23,5 +23,7 @@ namespace InterestsAcademy.Data.Models
 
         [Required]
         public Student Student { get; set; } = null!;
+
+        public bool IsApproved { get; set; } = false;
     }
 }

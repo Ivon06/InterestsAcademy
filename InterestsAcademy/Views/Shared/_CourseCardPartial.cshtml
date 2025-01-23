@@ -1,9 +1,54 @@
 ﻿@using InterestsAcademy.Core.Models.Course
+@using InterestsAcademy.Extensions
 @model CourseCardViewModel
 
-<div class="room-card">
+
+<div class="col-xs-12 ">
+	<div class="image-flip">
+		<div class="mainflip flip-0">
+			<div class="frontside">
+				<div class="card">
+					<div class="card-body text-center">
+						<p><img class=" img-fluid" src="~/img/blank-profile-picture.png" alt="card image"></p>
+						<h4 class="card-title">@Model.Name</h4>
+						<p class="card-text truncate-multi-line">@Model.Description</p>
+						<!--<a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>-->
+					</div>
+				</div>
+			</div>
+			<div class="backside">
+				<div class="card">
+					<div class="card-body text-center mt-4">
+						<h4 class="card-title">@Model.Name</h4>
+						<div class="css-1io73yq eu4oa1w0">
+							<span class="css-18p8mbl e1wnkr790 text-wrap">
+								@Model.Description
+							</span>
+						</div>
+						@* <p class="card-text">@Model.Description</p> *@
+						<ul class="list-inline">
+
+							@if (User.IsInRole("Student"))
+							{
+								<li class="list-inline-item">
+									<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-route-userId="@Model.TeacherId" asp-action="MyProfile" asp-controller="Profile">Учител</a>
+									<a id="send" asp-action="CreateView" asp-controller="Request" asp-route-courseId="@Model.Id">Запиши се</a>
+								</li>
+							}
+							
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@* <div class="room-card">
     <div class="room-icon">
-       <img src="https://via.placeholder.com/64" alt="Room Icon">
+        <img src="https://via.placeholder.com/64" alt="Room Icon">
     </div>
     <div class="room-details">
         <h3 class="room-title">@Model.Name</h3>
@@ -12,9 +57,26 @@
             <span class="icon clipboard" title="Assignments">📋</span>
             <span class="icon edit" title="Edit Room">✏️</span>
         </div>
-    </div>
-</div>
 
-@section Styles{
-    <link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
+        @if (User.IsInRole("Teacher"))
+        {
+            <div>
+                <a asp-action="All" asp-controller="Request" asp-route-courseId="@Model.Id" class="btn btn-outline-dark">Заявки</a>
+
+                 <a asp-action="Edit" asp-controller="Course" asp-route-courseId="@Model.Id" class="btn btn-outline-dark">Редактиране</a>
+
+                <a asp-action="All" asp-controller="Activity" asp-route-courseId="@Model.Id" class="btn btn-outline-dark">График</a>
+            </div>
+        }
+    </div>
+</div> *@
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+}
+
+@section Scripts{
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 }

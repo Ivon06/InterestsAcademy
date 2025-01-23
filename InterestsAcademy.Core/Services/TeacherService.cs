@@ -20,6 +20,16 @@ namespace InterestsAcademy.Core.Services
             this.repo = repo;
         }
 
+        public async Task<string?> GetTeacherIdByCourseNameAsync(string courseName)
+        {
+            var result = await repo.GetAll<Course>()
+                .Include(c => c.Teacher)
+                .Where(c => c.Name == courseName)
+                .FirstOrDefaultAsync();
+
+            return result.Teacher.Id;
+        }
+
         public async Task CreateAsync(string userId)
         {
             Teacher teacher = new Teacher()

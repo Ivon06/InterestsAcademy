@@ -39,7 +39,11 @@ namespace InterestsAcademy.Controllers
         {
             RegisterViewModel model = new RegisterViewModel();
 
-            model.Roles = await userService.GetRolesAsync();
+            model.Roles = new List<string>()
+            {
+                "Учител",
+                "Ученик"
+            };
 
             return View(model);
         }
@@ -60,13 +64,17 @@ namespace InterestsAcademy.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.Roles = await userService.GetRolesAsync();
+                model.Roles = new List<string>()
+            {
+                "Учител",
+                "Ученик"
+            };
                 return View(model);
             }
 
             User user;
 
-            if ( model.Role == "Teacher")
+            if ( model.Role == "Учител")
             {
                 user = new User()
                 {
@@ -127,7 +135,7 @@ namespace InterestsAcademy.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            model.Roles = await userService.GetRolesAsync();
+            model.Roles = new List<string>() { "Учител", "Ученик" };
             return View(model);
         }
 
@@ -156,7 +164,7 @@ namespace InterestsAcademy.Controllers
                 if (result.Succeeded)
                 {
                     TempData[SuccessMessage] = "Успешно влизане";
-                    return RedirectToAction("All", "Course");
+                    return RedirectToAction("MyCourses", "Course");
 
                 }
             }
