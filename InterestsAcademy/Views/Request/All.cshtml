@@ -1,6 +1,6 @@
 ﻿@using InterestsAcademy.Core.Models.Request
 @using InterestsAcademy.Data.Models.Enums
-@model IEnumerable<RequestViewModel>
+@model List<RequestViewModel>
 
 @{
 	var statusClass = new Dictionary<string, string>()
@@ -20,12 +20,13 @@
 }
 
 <h2>Заявки за курс</h2>
-@if (Model == null)
+@if (Model.Count == 0)
 {
 	<p>Все още нямате заявки за този курс</p>
 }
 else
 {
+	<input value="@Model[0].CourseId" id="courseId" hidden />
 	<div class="table-wrapper">
 		<table class="fl-table">
 			<thead>
@@ -38,6 +39,7 @@ else
 				</tr>
 			</thead>
 			<tbody id="requests">
+				
 				@foreach (var request in Model)
 				{
 					<tr>
@@ -46,16 +48,20 @@ else
 						<td id="student-email">@request.StudentEmail</td>
 						<td>
 							<div class="dropdown" id="dropdown-@request.Id">
-								<a class="badge badge-soft-@statusClass[request.Status] p-2 team-status dropdown-toggle" id="status-@request.Id" style="text-decoration: none; font-size: 1rem" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<p class="badge badge-soft-@statusClass[request.Status] p-2 team-status dropdown-toggle" id="status-@request.Id" style="text-decoration: none; color:black;font-size: 1rem" href="#" @* role="button" *@ @* data-bs-toggle="dropdown"  *@aria-expanded="false">
 									@statusBg[request.Status]
-								</a>
+								</p>
+								
 
 								@if (request.Status != RequestStatusEnum.Accepted.ToString())
 								{
+									<a class="badge badge-soft-@statusClass[request.Status] p-2 team-status dropdown-toggle" id="status-@request.Id" style="text-decoration: none;color:black; font-size: 1rem" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										@statusBg[request.Status]
+									</a>
 									<input value="@request.Id" id="requestId" hidden />
 									<input value="@request.Status" id="requestStatus" hidden />
 									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" id="accept" >Приеми</a></li>
+										<li><a class="dropdown-item accept-class"  id="accept_@request.Id" >Приеми</a></li>
 										<li><a class="dropdown-item" onclick="changeStatus('Rejected', '@request.Id')">Откажи</a></li>
 									</ul>
 								}

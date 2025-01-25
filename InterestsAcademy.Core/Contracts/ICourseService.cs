@@ -29,5 +29,9 @@ namespace InterestsAcademy.Core.Contracts
         Task<string> GetCourseIdByRequestId(string requestId);
 
         Task<EditCourseViewModel> GetCourseForEdit(string id);
+
+        Task<bool> IsCourseApproved(string courseId);
+
+        Task<bool> ApproveCourse(EditCourseViewModel model);
     }
 }

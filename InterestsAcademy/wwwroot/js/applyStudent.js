@@ -26,7 +26,7 @@ document.getElementById('send').addEventListener('click', function (event) {
 
     let email = String(document.getElementById('email').value);
     let name = String(document.getElementById('name').value);
-    let course = String(document.getElementById('course').value)
+    let course = String(document.getElementById('course').value);
 
     let data = new FormData();
 
@@ -68,18 +68,21 @@ document.getElementById('send').addEventListener('click', function (event) {
 
                     }
                     catch (err) {
-                        console.error(err)
+                        console.error(err);
                     }
 
                     let url = new URL(window.location);
                     let params = url.searchParams;
 
-                    window.location = `${url.origin}/Course/All`
+                    window.location = `${url.origin}/Course/All`;
 
                 }
 
                 console.log('Request added successfully');
+            },
+            error: async function (error) {
+                console.log('err', error);
             }
-        })
+        });
     }
-})
+});

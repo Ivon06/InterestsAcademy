@@ -9,13 +9,53 @@
 
 			@if (User.IsInRole("Teacher"))
 			{
-				<div class="col-xs-12 col-sm-6 col-md-4" >
+
+				<div class="col-md-4">
+
+
+					<div class="col-xs-12 ">
+						<div class="image-flip">
+							<div class="mainflip flip-0">
+								<div class="frontside">
+									<div class="card">
+										<div class="card-body text-center">
+											@* <p><img class=" img-fluid" src="~/img/blank-profile-picture.png" alt="card image"></p> *@
+											<h4 class="card-title">Добави курс</h4>
+											<p class="card-text truncate-multi-line"></p>
+										</div>
+									</div>
+								</div>
+								<div class="backside">
+									<div class="card">
+										<div class="card-body text-center mt-4">
+											<h4 class="card-title">
+												/h4>
+												<div class="css-1io73yq eu4oa1w0">
+													<span class="css-18p8mbl e1wnkr790 text-wrap">
+														<a class="btn  btn-sm" style="    margin-top: 3.5em;" asp-action="Add" asp-controller="Course"><i class="fa fa-plus" style="padding:2em;"></i></a>
+
+													</span>
+												</div>
+												
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+
+@* 
+				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div>
 						<div>
 							<div class="frontside">
 								<div class="card">
 									<div class="card-body text-center">
-										
+
 										<h4 class="card-title"></h4>
 										<p class="card-text"></p>
 										<a class="btn  btn-sm" style="    margin-top: 3.5em;" asp-action="Add" asp-controller="Course"><i class="fa fa-plus" style="padding:2em;"></i></a>
@@ -25,7 +65,7 @@
 
 						</div>
 					</div>
-				</div>
+				</div> *@
 			}
 
 
@@ -59,15 +99,15 @@
 											@* <p class="card-text">@Model.Description</p> *@
 											<ul class="list-inline">
 
-												
-												@if(User.IsInRole("Teacher"))
+
+												@if (User.IsInRole("Teacher"))
 												{
 													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Request" asp-route-courseId="@course.Id">Заявки</a>
 													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="Info" asp-controller="Course" asp-route-courseId="@course.Id">Информация</a>
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-courseId="@course.Id">График</a>
+													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-courseId="@course.Id">Добави час</a>
 
 												}
-												else if(User.IsInRole("Student"))
+												else if (User.IsInRole("Student"))
 												{
 													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-courseId="@course.Id">График</a>
 												}
@@ -80,7 +120,7 @@
 						</div>
 					</div>
 
-						
+
 				</div>
 			}
 

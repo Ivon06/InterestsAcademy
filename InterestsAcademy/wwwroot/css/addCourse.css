@@ -1,0 +1,143 @@
+﻿.form-container, .input-field, .select-field, .checkbox-group {
+    padding: 0;
+    margin: 0;
+    outline: none;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 16px;
+    color: #eee;
+}
+
+.title h1, .title h2 {
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.title h2 {
+    margin: 0 0 0 8px;
+}
+
+/* Main block styling */
+.main-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 25px;
+    margin: 10%;
+    width: 50%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.left-part, .form-container {
+    padding: 25px;
+}
+
+.left-part {
+    text-align: center;
+}
+
+.fa-graduation-cap {
+    font-size: 72px;
+}
+
+.form-container {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* Title styling */
+.title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Input and form field styling */
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-top: 20px;
+}
+
+.input-field, .select-field {
+    padding: 5px;
+    margin-bottom: 30px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #eee;
+    color: #eee;
+}
+
+    .input-field::placeholder {
+        color: #eee;
+    }
+
+    /* Options styling */
+    .select-field option:focus {
+        border: none;
+    }
+
+    .select-field option {
+        background: black;
+        border: none;
+    }
+
+/* Checkbox group styling */
+.checkbox-group input {
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+}
+
+.checkbox-group a {
+    color: #26a9e0;
+}
+
+    .checkbox-group a:hover {
+        color: #85d6de;
+    }
+
+/* Button styling */
+.btn1, .btn-item {
+    padding: 10px 5px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: none;
+    background: #26a9e0;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.btn-item {
+    display: inline-block;
+    margin: 20px 5px 0;
+}
+
+.btn1 {
+    width: 100%;
+}
+
+    .btn1:hover, .btn-item:hover {
+        background: #85d6de;
+    }
+
+/* Responsive styles */
+@media (min-width: 568px) {
+    .html-container, .body-container {
+        height: 100%;
+    }
+
+    .main-block {
+        flex-direction: row;
+        height: calc(100% - 50px);
+    }
+
+    .left-part, .form-container {
+        flex: 1;
+        height: auto;
+    }
+}

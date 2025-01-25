@@ -26,8 +26,14 @@ namespace InterestsAcademy.Core.Models.Course
 
        // [Required(ErrorMessage = RequiredErrorMessage)]
         public string? TeacherId { get;set; } 
+        
+        public string? RoomId { get; set; }
+
+        [Required(ErrorMessage=RequiredErrorMessage)]
+        public string Duration { get;set; } = null!;
+
         [Required(ErrorMessage = RequiredErrorMessage)]
-        public string RoomId { get; set; } = null!;
+        public int StudyHours {  get; set; }
 
         public ICollection<RoomViewModel> Rooms { get; set; } = new List<RoomViewModel>();
 

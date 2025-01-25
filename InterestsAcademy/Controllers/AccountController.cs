@@ -164,7 +164,7 @@ namespace InterestsAcademy.Controllers
                 if (result.Succeeded)
                 {
                     TempData[SuccessMessage] = "Успешно влизане";
-                    return RedirectToAction("MyCourses", "Course");
+                    return RedirectToAction("Index", "Home");
 
                 }
             }

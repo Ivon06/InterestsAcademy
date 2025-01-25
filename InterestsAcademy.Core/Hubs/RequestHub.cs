@@ -36,6 +36,8 @@ namespace InterestsAcademy.Core.Hubs
 
             var studentId = await studentService.GetStudentIdByRequestId(requestId);
 
+            var result = await requestService.EditStatus(newStatus, requestId);
+
             var userId = await userService.GetUserIdByStudentId(studentId);
             await Clients.User(userId).SendAsync("ReceiveNewStatus", newStatus, requestId);
         }

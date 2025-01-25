@@ -35,7 +35,7 @@ namespace InterestsAcademy.Data.Configurations
                 },
                  new IdentityRole()
                 {
-                    Id = "8duisjak-e8o7-8uu5-9c13-543e65731jh3",
+                    Id = "8duisjak-e8o7-8uu5-9c13-543e65731jh3" ,
                     Name = "Student",
                     NormalizedName = "STUDENT"
                 },

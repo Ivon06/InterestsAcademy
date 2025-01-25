@@ -52,7 +52,7 @@ namespace InterestsAcademy.Controllers
         {
             var model = new CourseQueryModel();
 
-            model.Rooms = await roomService.GetAllRooms();
+          //  model.Rooms = await roomService.GetAllRooms();
 
             return View(model);
         }

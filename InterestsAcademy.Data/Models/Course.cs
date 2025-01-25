@@ -42,9 +42,14 @@ namespace InterestsAcademy.Data.Models
 
         //[Required(ErrorMessage = RequiredErrorMessage)]
         [ForeignKey(nameof(Room))]
-        public string RoomId { get; set; }
+        public string? RoomId { get; set; }
 
-        public Room Room { get; set; }
+        public Room? Room { get; set; }
+
+
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        public string Duration { get; set; } = null!;
+
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         [MaxLength(CourseDescriptionMaxLength)]

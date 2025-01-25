@@ -28,12 +28,28 @@ namespace InterestsAcademy.Core.Services
                 Name = model.Name,
                 Description = model.Description,
                 TeacherId = model.TeacherId,
-                RoomId = model.RoomId,
+                Duration = model.Duration,
                 IsApproved = false
             };
 
             await repo.AddAsync(course);
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> ApproveCourse(EditCourseViewModel model)
+        {
+            var course = await repo.GetByIdAsync<Course>(model.Id);
+
+            course.IsApproved = true;
+            course.RoomId = model.RoomId;
+
+            
+            await repo.SaveChangesAsync();
+
+            if (course.IsApproved)
+                return true;
+
+            else return false;
         }
 
         public async Task<IEnumerable<CourseCardViewModel>> GetAllCoursesCards()
@@ -59,9 +75,9 @@ namespace InterestsAcademy.Core.Services
         {
             var result = await repo.GetAll<StudentCourse>()
                  .Include(c => c.Student)
-                 .Include(c=>c.Course)
+                 .Include(c => c.Course)
                  .Include(c => c.Course.Teacher)
-                 .Where(c => c.IsApproved == true &&  c.StudentId == studentId)
+                 .Where(c => c.IsApproved == true && c.StudentId == studentId)
                  .Select(x => new CourseCardViewModel()
                  {
                      Id = x.Course.Id,
@@ -78,7 +94,7 @@ namespace InterestsAcademy.Core.Services
         public async Task<IEnumerable<CourseCardViewModel>> GetAllTeacherCourses(string teacherId)
         {
             var result = await repo.GetAll<Course>()
-                .Where(c => c.TeacherId == teacherId )
+                .Where(c => c.TeacherId == teacherId)
                  .Select(x => new CourseCardViewModel()
                  {
                      Id = x.Id,
@@ -109,7 +125,7 @@ namespace InterestsAcademy.Core.Services
 
         }
 
-        
+
 
         public async Task<string> GetCourseIdByName(string courseName)
         {
@@ -137,25 +153,38 @@ namespace InterestsAcademy.Core.Services
         {
             var result = await repo.GetByIdAsync<Request>(requestId);
 
-            return result.CourseId; 
-                
+            return result.CourseId;
+
         }
 
         public async Task<EditCourseViewModel> GetCourseForEdit(string id)
         {
             var course = await repo.GetByIdAsync<Course>(id);
 
+            var teacher = await repo.GetByIdAsync<Teacher>(course.TeacherId);
+
+            var teacherUser = await repo.GetByIdAsync<User>(teacher.UserId);
+
             EditCourseViewModel edit = new EditCourseViewModel()
             {
                 Id = id,
-                Name=course.Name,
+                Name = course.Name,
                 Description = course.Description,
                 TeacherId = course.TeacherId,
                 RoomId = course.RoomId,
-                
+                Duration = course.Duration,
+                TeacherName = teacherUser.Name
+
             };
 
             return edit;
+        }
+
+        public async Task<bool> IsCourseApproved(string courseId)
+        {
+            var course = await repo.GetByIdAsync<Course>(courseId);
+
+            return course.IsApproved;
         }
     }
 }

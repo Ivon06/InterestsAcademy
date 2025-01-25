@@ -4,6 +4,7 @@ using InterestsAcademy.Core.Models.Request;
 using InterestsAcademy.Data.Models.Enums;
 using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using static InterestsAcademy.Common.Notifications;
 
 namespace InterestsAcademy.Controllers
@@ -73,7 +74,7 @@ namespace InterestsAcademy.Controllers
 
             
 
-            if (!isNameValid || !isEmailValid || studentEmail != user.Email ||studentName != user.Name)
+            if (!isNameValid || !isEmailValid || studentEmail != user.Email ||studentName != user.UserName)
             {
 
                 TempData[ErrorMessage] = "Невалидно име или имейл.";
@@ -110,13 +111,24 @@ namespace InterestsAcademy.Controllers
             return new JsonResult(new
             {
                 RequestId = requestId,
-                teacherUserId = teacherUserId
-            });
+                TeacherUserId = teacherUserId
+            })
+            {
+                StatusCode = (int)HttpStatusCode.OK
+
+            };
         }
 
         [HttpGet]
         public async Task<IActionResult> All(string courseId)
         {
+            bool isCourseApproved = await courseService.IsCourseApproved(courseId);
+            if (!isCourseApproved)
+            {
+                TempData[ErrorMessage] = "Този курс не е одобрен.";
+                return RedirectToAction("MyCourses", "Course");
+            }
+
             bool isTeacher = await teacherService.IsTeacherAsync(User.GetId());
 
             if(!isTeacher)
@@ -142,7 +154,7 @@ namespace InterestsAcademy.Controllers
             else
             {
 
-                return View(model.OrderByDescending(r => r.Status));
+                return View(model.OrderByDescending(r => r.Status).ToList());
             }
             
         }

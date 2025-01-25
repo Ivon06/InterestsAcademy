@@ -31,7 +31,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<InterestsAcademyDbContext>();
-              
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.ConfigureServices();
@@ -80,16 +80,19 @@ app.UseRouting();
 
 app.UseAuthentication();
 
-app.UseAuthorization();
-
 app.MapControllerRoute(
-                   name: "Areas",
+                   name: "areas",
                    pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
                );
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"); app.MapRazorPages();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
+
+app.UseAuthorization();
+
+
 
 app.Run();
 
@@ -97,14 +100,14 @@ app.Run();
 static void ConfigureCloudinaryService(IServiceCollection services, IConfiguration configuration)
 {
 
-	var cloudName = configuration.GetValue<string>("AccountSettings:CloudName");
-	var apiKey = configuration.GetValue<string>("AccountSettings:ApiKey");
-	var apiSecret = configuration.GetValue<string>("AccountSettings:ApiSecret");
+    var cloudName = configuration.GetValue<string>("AccountSettings:CloudName");
+    var apiKey = configuration.GetValue<string>("AccountSettings:ApiKey");
+    var apiSecret = configuration.GetValue<string>("AccountSettings:ApiSecret");
 
-	if (new[] { cloudName, apiKey, apiSecret }.Any(string.IsNullOrWhiteSpace))
-	{
-		throw new ArgumentException("Please specify your Cloudinary account Information");
-	}
+    if (new[] { cloudName, apiKey, apiSecret }.Any(string.IsNullOrWhiteSpace))
+    {
+        throw new ArgumentException("Please specify your Cloudinary account Information");
+    }
 
-	services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
+    services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
 }
