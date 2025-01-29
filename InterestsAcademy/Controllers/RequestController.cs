@@ -145,16 +145,16 @@ namespace InterestsAcademy.Controllers
                 return RedirectToAction("MyCourses", "Course");
             }
 
-            var model = await requestService.GetAllRequestByCourseIdAsync(courseId);
+            var model = await courseService.GetCourseWithAllRequest(courseId);
 
-            if (model.Count == 0)
+            if (model.Requests.Count == 0)
             {
                 return View(model);
             }
             else
             {
-
-                return View(model.OrderByDescending(r => r.Status).ToList());
+                model.Requests = model.Requests.OrderByDescending(r => r.Status).ToList();
+                return View(model);
             }
             
         }

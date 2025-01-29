@@ -8,6 +8,9 @@ namespace InterestsAcademy.Core.Models.Request
 {
     public class RequestViewModel
     {
+       
+
+        
         public string Id { get; set; }
         public string CourseId { get;set; }
         public string TeacherId {  get; set; }

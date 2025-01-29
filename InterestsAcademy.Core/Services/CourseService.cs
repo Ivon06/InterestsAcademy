@@ -1,5 +1,6 @@
 ﻿using InterestsAcademy.Core.Contracts;
 using InterestsAcademy.Core.Models.Course;
+using InterestsAcademy.Core.Models.Request;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Data.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace InterestsAcademy.Core.Services
     public class CourseService : ICourseService
     {
         private readonly IRepository repo;
+        private readonly IRequestService requestService;
 
-        public CourseService(IRepository repo)
+        public CourseService(IRepository repo, IRequestService requestService)
         {
             this.repo = repo;
+            this.requestService = requestService;
         }
 
         public async Task AddCourse(CourseQueryModel model)
@@ -50,6 +53,27 @@ namespace InterestsAcademy.Core.Services
                 return true;
 
             else return false;
+        }
+
+        public async Task<AllRequestViewModel> GetCourseWithAllRequest(string courseId)
+        {
+            var requests = await requestService.GetAllRequestByCourseIdAsync(courseId);
+
+            var course = await repo.GetAll<Course>()
+                .Include(c => c.Teacher.User)
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+                
+
+            var model = new AllRequestViewModel()
+            {
+                CourseName = course.Name,
+                CourseDescription = course.Description,
+                TeacherName = course.Teacher.User.Name,
+                CourseDuration = course.Duration,
+                Requests = requests
+            };
+
+            return model;
         }
 
         public async Task<IEnumerable<CourseCardViewModel>> GetAllCoursesCards()

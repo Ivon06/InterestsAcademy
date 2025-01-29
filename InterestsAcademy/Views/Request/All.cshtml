@@ -1,6 +1,6 @@
 ﻿@using InterestsAcademy.Core.Models.Request
 @using InterestsAcademy.Data.Models.Enums
-@model List<RequestViewModel>
+@model AllRequestViewModel
 
 @{
 	var statusClass = new Dictionary<string, string>()
@@ -19,68 +19,71 @@
 
 }
 
-<h2>Заявки за курс</h2>
-@if (Model.Count == 0)
+@if (Model.Requests.Count == 0)
 {
 	<p>Все още нямате заявки за този курс</p>
 }
 else
 {
-	<input value="@Model[0].CourseId" id="courseId" hidden />
-	<div class="table-wrapper">
-		<table class="fl-table">
-			<thead>
-				<tr>
-					<th>Профилна снимка</th>
-					<th>Име</th>
-					<th>Имейл</th>
-					<th>Статус</th>
+	<div class="container">
 
-				</tr>
-			</thead>
-			<tbody id="requests">
-				
-				@foreach (var request in Model)
-				{
-					<tr>
-						<td>photo</td>
-						<td id="student-name">@request.StudentName</td>
-						<td id="student-email">@request.StudentEmail</td>
-						<td>
-							<div class="dropdown" id="dropdown-@request.Id">
-								<p class="badge badge-soft-@statusClass[request.Status] p-2 team-status dropdown-toggle" id="status-@request.Id" style="text-decoration: none; color:black;font-size: 1rem" href="#" @* role="button" *@ @* data-bs-toggle="dropdown"  *@aria-expanded="false">
-									@statusBg[request.Status]
-								</p>
-								
+		<input value="@Model.Requests[0].CourseId" id="courseId" hidden />
 
-								@if (request.Status != RequestStatusEnum.Accepted.ToString())
-								{
-									<a class="badge badge-soft-@statusClass[request.Status] p-2 team-status dropdown-toggle" id="status-@request.Id" style="text-decoration: none;color:black; font-size: 1rem" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		<!-- Left Section: Course Info -->
+		<div class="course-info">
+			<div class="card">
+				<h2>Информация за курс</h2>
+				<p><strong>Име:</strong> @Model.CourseName</p>
+				<p><strong>Преподавател:</strong> @Model.TeacherName</p>
+				<p><strong>Продължителност:</strong> @Model.CourseDuration</p>
+				<p><strong>Описание:</strong> @Model.CourseDescription</p>
+			</div>
+		</div>
+
+		<div class="student-requests">
+
+			<div class="table-container">
+				<table>
+					<thead>
+						<tr>
+							<th>Име</th>
+							<th>Имейл</th>
+							<th>Статус</th>
+							<th>Действия</th>
+						</tr>
+					</thead>
+					<tbody id="requests">
+						@foreach (var request in Model.Requests)
+						{
+							<tr>
+								<td>@request.StudentName</td>
+								<td>@request.StudentEmail</td>
+								<td>
+									<p class="badge badge-soft-@statusClass[request.Status] p-2 team-status" id="status-@request.Id" style="text-decoration: none; color:black; font-size: 1rem">
 										@statusBg[request.Status]
-									</a>
-									<input value="@request.Id" id="requestId" hidden />
-									<input value="@request.Status" id="requestStatus" hidden />
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item accept-class"  id="accept_@request.Id" >Приеми</a></li>
-										<li><a class="dropdown-item" onclick="changeStatus('Rejected', '@request.Id')">Откажи</a></li>
-									</ul>
-								}
+									</p>
+								</td>
+								<td>
+									@if (request.Status != RequestStatusEnum.Accepted.ToString())
+									{
+										<input value="@request.Id" id="requestId" hidden />
+										<input value="@request.Status" id="requestStatus" hidden />
+										<button class="badge badge-soft-@statusClass[request.Status] p-2 team-status btn-approve accept-class" id="accept_@request.Id">Приеми</button>
+										<button class="badge badge-soft-@statusClass[request.Status] p-2 team-status btn-reject" onclick="changeStatus('Rejected', '@request.Id')">Откажи</button>
+									}
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
 
-							</div>
 
-						</td>
-
-
-					</tr>
-				}
-
-			<tbody>
-		</table>
+			</div>
+		</div>
 	</div>
 }
-
 @section Styles {
-	<link rel="stylesheet" href="~/css/allRequests.css" />
+	<link rel="stylesheet" href="~/css/allRequests.css" asp-append-version="true" />
 }
 
 @section Scripts {

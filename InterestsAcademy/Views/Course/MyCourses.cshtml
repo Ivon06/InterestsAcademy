@@ -36,7 +36,7 @@
 
 													</span>
 												</div>
-												
+
 										</div>
 									</div>
 								</div>
@@ -48,24 +48,6 @@
 				</div>
 
 
-@* 
-				<div class="col-xs-12 col-sm-6 col-md-4">
-					<div>
-						<div>
-							<div class="frontside">
-								<div class="card">
-									<div class="card-body text-center">
-
-										<h4 class="card-title"></h4>
-										<p class="card-text"></p>
-										<a class="btn  btn-sm" style="    margin-top: 3.5em;" asp-action="Add" asp-controller="Course"><i class="fa fa-plus" style="padding:2em;"></i></a>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div> *@
 			}
 
 
@@ -83,7 +65,6 @@
 											<p><img class=" img-fluid" src="~/img/blank-profile-picture.png" alt="card image"></p>
 											<h4 class="card-title">@course.Name</h4>
 											<p class="card-text truncate-multi-line">@course.Description</p>
-											<!--<a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>-->
 										</div>
 									</div>
 								</div>
@@ -96,14 +77,13 @@
 													@course.Description
 												</span>
 											</div>
-											@* <p class="card-text">@Model.Description</p> *@
+
 											<ul class="list-inline">
 
 
 												@if (User.IsInRole("Teacher"))
 												{
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Request" asp-route-courseId="@course.Id">Заявки</a>
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="Info" asp-controller="Course" asp-route-courseId="@course.Id">Информация</a>
+													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Request" asp-route-courseId="@course.Id">Информация</a>
 													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-courseId="@course.Id">Добави час</a>
 
 												}
@@ -131,10 +111,6 @@
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+
 }
 
-@section Scripts {
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-}
