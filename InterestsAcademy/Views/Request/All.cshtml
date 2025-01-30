@@ -69,7 +69,7 @@ else
 										<input value="@request.Id" id="requestId" hidden />
 										<input value="@request.Status" id="requestStatus" hidden />
 										<button class="badge badge-soft-@statusClass[request.Status] p-2 team-status btn-approve accept-class" id="accept_@request.Id">Приеми</button>
-										<button class="badge badge-soft-@statusClass[request.Status] p-2 team-status btn-reject" onclick="changeStatus('Rejected', '@request.Id')">Откажи</button>
+										<button class="badge badge-soft-@statusClass[request.Status] p-2 team-status btn-reject decline-class" id="reject_@request.Id">Откажи</button>
 									}
 								</td>
 							</tr>

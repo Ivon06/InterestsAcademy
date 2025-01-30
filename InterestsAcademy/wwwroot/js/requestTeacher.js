@@ -115,6 +115,46 @@ Array.from(buttons).forEach(b => b.addEventListener('click', function () {
 }));
 
 
+let buttons2 = document.getElementsByClassName('decline-class');
+
+Array.from(buttons2).forEach(b => b.addEventListener('click', function () {
+
+    let requestId = b.id.split('_')[1];
+
+    $.ajax({
+        method: 'POST',
+        url: "/Request/EditStatus",
+        data: {
+            'requestId': requestId,
+            'status': "Rejected"
+        },
+        headers:
+        {
+            'RequestVerificationToken': token
+        },
+        datatype: 'json',
+        success: async function (data) {
+            if (data.isEdited) {
+                let newStatus = "Rejected";
+                try {
+                    await connection.invoke("ChangeRequestStatus", requestId, newStatus);
+                }
+                catch (err) {
+                    console.error(err)
+                }
+
+                let courseId = document.getElementById('courseId').value;
+
+                let url = new URL(window.location);
+
+                window.location = `${url.origin}/Request/All?courseId=${courseId}`
+            }
+        },
+        error: function (err) {
+            console.error(err.message);
+        }
+    });
+}));
 
 
 

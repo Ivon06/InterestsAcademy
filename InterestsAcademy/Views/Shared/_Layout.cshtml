@@ -20,7 +20,7 @@
     <!-- Transparent Navbar -->
     @if (!User.Identity.IsAuthenticated)
     {
-        <nav class="navbar navbar-expand-sm navbar-light ">
+        <nav class="navbar navbar-expand-sm navbar-light navv " style="background-color:black;">
             <partial name="_NotificationPartial" />
             <div class="container-fluid">
                 <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
@@ -45,9 +45,9 @@
             </div>
         </nav>
     }else{
-        <nav class="navbar navbar-expand-sm navbar-light " style="background-color:black">
+        <nav class="navbar navbar-expand-sm navbar-light " style="background-color:black;" >
             <partial name="_NotificationPartial" />
-            <div class="container-fluid" style="background-color:black">
+            <div class="container-fluid" style="background-color:black;">
                 <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
                 <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">

@@ -1,6 +1,11 @@
 ﻿/* Transparent Navbar */
-.navbar {
-    background: transparent !important; /* Makes the navbar transparent */
+nav {
+    background-color: black;
+    padding: 0;
+}
+
+.navv {
+    background: black !important;
     box-shadow: none; /* Removes any shadow */
     transition: background 0.3s ease-in-out; /* Smooth background transition */
     z-index: 10; /* Ensures navbar stays on top */
