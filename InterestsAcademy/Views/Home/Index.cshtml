@@ -1,8 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<link rel="stylesheet" href="~/css/styles2.css" />
-
 <section id="hero" class="text-white d-flex align-items-end justify-content-start"
          style="background-image: url('@Url.Content("~/img/openart-5b6bf258-5ef7-4d67-b63e-64276fc4591c.png")');
                 background-size: cover; background-position: center; min-height: 100vh;">
@@ -69,3 +67,10 @@
         </div>
     </div>
 </section>
+
+
+                @section Styles{
+
+    <link rel="stylesheet" href="~/css/styles2.css" asp-append-version="true"/>
+
+                }

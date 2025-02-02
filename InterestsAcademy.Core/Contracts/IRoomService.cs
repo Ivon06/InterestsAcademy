@@ -10,5 +10,6 @@ namespace InterestsAcademy.Core.Contracts
     public interface IRoomService
     {
         Task<List<RoomViewModel>> GetAllRooms();
+        Task<bool> IsRoomValid(string roomId);
     }
 }

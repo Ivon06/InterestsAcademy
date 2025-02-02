@@ -24,7 +24,7 @@ nav {
 /* Hero Section */
 #hero {
     position: relative;
-    margin-top: -56px; /* Offsets the navbar height */
+/*    margin-top: -56px;*/ /* Offsets the navbar height */
 }
 
     #hero .overlay {
@@ -42,6 +42,10 @@ nav {
         z-index: 2;
         text-align: left; /* Align text to the left */
         margin-right: 20; 
+    }
+
+    .nav-item{
+        font-size:14px;
     }
 
 #hero {

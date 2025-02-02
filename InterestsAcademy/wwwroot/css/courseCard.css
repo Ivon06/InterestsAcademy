@@ -53,6 +53,7 @@
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     overflow: hidden;
+    height:20em;
 }
 
     .card:hover {
@@ -62,6 +63,11 @@
 .card-body {
     padding: 20px;
     text-align: center;
+    
+}
+
+.card-body-back {
+    margin-top: 15%;
 }
 
 /* Card Image */

@@ -19,10 +19,14 @@ namespace InterestsAcademy.Data.Models
 		public string CourseId { get; set; } = null!;
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
+
+		public string Topic { get; set; } = null!;
+
+		[Required(ErrorMessage = RequiredErrorMessage)]
 		public Course Course { get; set; } = null!;
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
-		public DateTime Date { get; set; }
+		public DateTime Start { get; set; }
 
 		//[Required(ErrorMessage = RequiredErrorMessage)]
 		//[ForeignKey(nameof(Room))]
@@ -32,7 +36,7 @@ namespace InterestsAcademy.Data.Models
 		//public Room Room { get; set; } = null!;
 
 		[Required(ErrorMessage = RequiredErrorMessage)]
-		public TimeSpan Duration { get; set; }
+		public DateTime End { get; set; }
 
 		public ICollection<ActivityStudent> ActivityStudents { get; set; } = new HashSet<ActivityStudent>();
 

@@ -1,72 +1,77 @@
 ﻿@using InterestsAcademy.Core.Models.Account
 @model RegisterViewModel;
 
-<div class="container">
-	<div class="screen">
-		<div class="screen__content">
-			<form class="login" method="post" enctype="multipart/form-data">
-				<div class="login__field">
-					<i class="login__icon fas fa-user"></i>
-					<input asp-for="Email" type="text" class="login__input" placeholder="Имейл">
-					<span asp-validation-for="Email" class="text-danger"></span>
-				</div>
-				<div class="login__field">
-					<i class="login__icon fas fa-user"></i>
-					<input asp-for="Name" type="text" class="login__input" placeholder="Име">
-					<span asp-validation-for="Name" class="text-danger"></span>
-				</div>
-				<div class="login__field">
-					<i class="login__icon fas fa-user"></i>
-					<input asp-for="UserName" type="text" class="login__input" placeholder="Потребителско име">
-					<span asp-validation-for="UserName" class="text-danger"></span>
-				</div>
-				<div class="login__field">
-					<i class="login__icon fas fa-lock"></i>
-					<input asp-for="Password" type="password" class="login__input" placeholder="Парола">
-					<span asp-validation-for="Password" class="text-danger"></span>
-				</div>
-				<div class="login__field">
-					<i class="login__icon fas fa-lock"></i>
-					<input asp-for="PasswordRepeat" type="password" class="login__input" placeholder="Повтори паролата">
-					<span asp-validation-for="PasswordRepeat" class="text-danger"></span>
-				</div>
+@{
+	ViewData["Title"] = "Регистрирай";
+}
 
-				<div class="mb-3">
-					<div class="dropdown-container">
-						<select asp-for="Role" id="dropdown-list" class="dropdown-list">
-							@foreach (var a in Model.Roles)
-							{
-								<option value="@a" class="dropdown-item">@a</option>
-							}
-						</select>
-					</div>
+<div class="form-body">
+	<div class="row">
+		<div class="form-holder">
+			<div class="form-content">
+				<div class="form-items">
+					<form class="requires-validation" id="registerForm" method="post" enctype="multipart/form-data">
+						<h2 class="text-center" style="
+                            color: white;">
+							<strong>@ViewData["Title"] се</strong>
+						</h2>
+						<div class="form-group">
+							<input asp-for="Email" class="form-control" placeholder="Имейл">
+							<span asp-validation-for="Email" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<i class="login__icon fas fa-user"></i>
+							<input asp-for="Name" type="text" class="form-control" placeholder="Име">
+							<span asp-validation-for="Name" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<input asp-for="UserName" type="text" class="form-control" placeholder="Потребителско име">
+							<span asp-validation-for="UserName" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<input asp-for="Password" class="form-control" placeholder="Парола">
+							<span asp-validation-for="Password" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<input asp-for="PasswordRepeat" type="password" class="form-control" placeholder="Повтори паролата">
+							<span asp-validation-for="PasswordRepeat" class="text-danger"></span>
+						</div>
+
+						<div class="mb-3">
+							<div class="dropdown-container">
+								<select asp-for="Role" id="dropdown-list" class="dropdown-list">
+									@foreach (var a in Model.Roles)
+									{
+										<option value="@a" class="dropdown-item">@a</option>
+									}
+								</select>
+							</div>
 
 
+						</div>
+
+
+
+						<div class="form-group">
+							<input asp-for="ProfilePicture" accept="image/gif, image/jpeg, image/png" id="upload_file">
+							Качи снимка
+						</div>
+
+						<button asp-action="Register" asp-controller="Account" class="button login__submit">
+							<span class="button__text" style="text-align:center;">Регистрация</span>
+							<i class="button__icon fas fa-chevron-right"></i>
+						</button>
+					</form>
 				</div>
-
-				
-
-				<div class="login__field">
-					<i class="login__icon fas fa-lock"></i>
-				<input asp-for="ProfilePicture" accept="image/gif, image/jpeg, image/png" id="upload_file">
-				Качи снимка
-				</div>
-
-				<button asp-action="Register" asp-controller="Account" class="button login__submit">
-					<span class="button__text" style="text-align:center;">Регистрация</span>
-					<i class="button__icon fas fa-chevron-right"></i>
-				</button>
-			</form>
-		</div>
-		<div class="screen__background">
-			<span class="screen__background__shape screen__background__shape4"></span>
-			<span class="screen__background__shape screen__background__shape3"></span>
-			<span class="screen__background__shape screen__background__shape2"></span>
-			<span class="screen__background__shape screen__background__shape1"></span>
+			</div>
 		</div>
 	</div>
 </div>
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+}
+
+@section Scripts {
+	<partial name="_ValidationScriptPartial" />
 }

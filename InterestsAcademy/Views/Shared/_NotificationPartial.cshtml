@@ -2,20 +2,32 @@
 
 @if (TempData.ContainsKey(ErrorMessage))
 {
-    <script>toastr.error('@TempData[ErrorMessage]');</script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script type="text/javascript">toastr.error('@TempData[ErrorMessage]');</script>
 }
 
 @if (TempData.ContainsKey(WarningMessage))
 {
-    <script>toastr.warning('@TempData[WarningMessage]');</script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script type="text/javascript">toastr.warning('@TempData[WarningMessage]');</script>
 }
 
 @if (TempData.ContainsKey(InformationMessage))
 {
-    <script>toastr.info('@TempData[InformationMessage]');</script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script type="text/javascript">toastr.info('@TempData[InformationMessage]');</script>
 }
 
 @if (TempData.ContainsKey(SuccessMessage))
 {
-    <script>toastr.success('@TempData[SuccessMessage]');</script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script type="text/javascript">toastr.success('@TempData[SuccessMessage]');</script>
 }
