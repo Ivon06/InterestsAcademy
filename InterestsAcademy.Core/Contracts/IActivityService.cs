@@ -18,6 +18,11 @@ namespace InterestsAcademy.Core.Contracts
         Task<List<ActivityViewModel>> GetAllTeacherActivitiesForDayAsync(int days, string teacherId);
         Task<List<ActivityViewModel>> GetAllRoomActivitiesForDayAsync(int days, string roomId);
 
+        Task<bool> IsMeetingExistsAsync(DateTime start, DateTime end, string courseId, string roomId);
+        Task<string> CreateAsync(ActivityQueryModel model);
+
+
+
 
     }
 }

@@ -29,7 +29,7 @@
 									<div class="card">
 										<div class="card-body text-center mt-4">
 											<h4 class="card-title">
-												/h4>
+												</h4>
 												<div class="css-1io73yq eu4oa1w0">
 													<span class="css-18p8mbl e1wnkr790 text-wrap">
 														<a class="btn  btn-sm" style="    margin-top: 3.5em;" asp-action="Add" asp-controller="Course"><i class="fa fa-plus" style="padding:2em;"></i></a>
@@ -56,7 +56,7 @@
 				<div class="col-md-4 " style="height: 20em; margin-top: 1em;">
 
 
-					<div class="col-xs-12 ">
+					<div class="col-xs-12 " style="padding:1em;">
 						<div class="image-flip">
 							<div class="mainflip flip-0">
 								<div class="frontside">
@@ -83,13 +83,15 @@
 
 												@if (User.IsInRole("Teacher"))
 												{
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Request" asp-route-courseId="@course.Id">Информация</a>
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@course.Id" asp-route-isTeacher="@false" asp-route-isCourse="@false">Добави час</a>
+													<a  class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Request" asp-route-courseId="@course.Id">Информация</a>
+													<a  class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@course.RoomId" asp-route-isTeacher="@false" asp-route-isCourse="@false">Добави час</a>
 
 												}
 												else if (User.IsInRole("Student"))
 												{
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId = "@course.Id"  asp-route-isTeacher="@false" asp-route-isCourse="@true">График</a>
+													<li>
+														<a class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@course.Id" asp-route-isTeacher="@false" asp-route-isCourse="@true">График</a>
+													</li>
 												}
 
 											</ul>

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterestsAcademy.Data.Migrations
 {
     [DbContext(typeof(InterestsAcademyDbContext))]
-    [Migration("20250124063531_Initial")]
+    [Migration("20250202215039_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -34,11 +34,15 @@ namespace InterestsAcademy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Topic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -77,9 +81,6 @@ namespace InterestsAcademy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -94,9 +95,6 @@ namespace InterestsAcademy.Data.Migrations
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("RoomId");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("TeacherId")
                         .IsRequired()
@@ -238,112 +236,112 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "16adaa8f-5a29-4585-aecf-2588b43e7409",
+                            Id = "129bb432-fbbb-41eb-812a-5091978f7c7c",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Мултифункционална зала"
                         },
                         new
                         {
-                            Id = "955e715f-6d39-4933-b873-7fb148880ea5",
+                            Id = "c65aaef4-87ce-4e35-a60f-0b5d8f94171f",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Музикално студио"
                         },
                         new
                         {
-                            Id = "ee9a790a-f366-47ca-870e-a1b688bde068",
+                            Id = "cfdf8b3e-f216-4449-80c9-66e149c6c914",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство \"Малки изследователи\""
                         },
                         new
                         {
-                            Id = "475146db-524c-4f99-843a-ca89ac806e25",
+                            Id = "6ec09e3b-ddd4-47ff-a3b6-6ad9278bfdb4",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Работилница"
                         },
                         new
                         {
-                            Id = "46121cab-ee82-410f-a8b6-bddc31bd4337",
+                            Id = "38937a33-bffe-434f-bb3d-6fe6397e4538",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Физкултурен салон"
                         },
                         new
                         {
-                            Id = "b5c85d9f-2b47-4cb7-b6e1-3df1e80ddd94",
+                            Id = "19ee7987-e4ae-4af3-bc50-7fa27adcc4c8",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Конферентна зала"
                         },
                         new
                         {
-                            Id = "a3131d13-bda7-4e04-9376-f1002f671db8",
+                            Id = "09fb0433-8eb8-436a-b9d3-8fb63b03bc9c",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Библиотека"
                         },
                         new
                         {
-                            Id = "1195d330-1959-432d-887f-27b8e92526f3",
+                            Id = "cc9a27d1-e7b6-48c8-9957-33ab64fe8b50",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Физика и астрономия"
                         },
                         new
                         {
-                            Id = "c6f60519-3c0d-488d-a958-a7c11eb85c4f",
+                            Id = "c29aee18-f67c-4058-90dc-c2462832441a",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство \"Роботика и програмиране\""
                         },
                         new
                         {
-                            Id = "dfb61eac-1b43-4697-89e4-f8ffc75b80ac",
+                            Id = "684c0183-d908-4b3e-8cc3-b2909f6ff92f",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство за Археология"
                         },
                         new
                         {
-                            Id = "05d0dcc0-fb13-4ef8-9948-a85cdad30177",
+                            Id = "64ae1f9e-bc59-4356-b74e-887f08425106",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Лаборатория"
                         },
                         new
                         {
-                            Id = "811b5ff8-1c09-41a9-99aa-9ffa5e55b471",
+                            Id = "89dcf285-c8e5-45b3-b5d3-19ad1818134f",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Младежки клуб по видеозаснемане"
                         },
                         new
                         {
-                            Id = "cf38593c-8f51-43a8-95d2-44ea38c5f0a7",
+                            Id = "7e2f2252-bb8b-4716-a702-d891e77a7b4a",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство за спорт на открито"
                         },
                         new
                         {
-                            Id = "268f61c2-4ca0-4008-891e-e5b753cb6824",
+                            Id = "1b39e8a3-f267-4cb3-ba7a-6afc81249714",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Еко стая"
                         },
                         new
                         {
-                            Id = "1e233337-f3bb-4292-820e-bc3ce190f21e",
+                            Id = "1e81f8b2-a46b-498d-ae78-d7ced7775d1e",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Градина за биоземеделие"
                         },
                         new
                         {
-                            Id = "17d1141d-72d8-4688-aa9a-6c6574ebb29b",
+                            Id = "6863ab57-1613-43ab-9770-c301cd77f614",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Дейности извън Академията - ориентиране в планината, конна езда, походи"
@@ -394,7 +392,7 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0b588f00-9c39-4cbd-8f94-fcc5c1bf7a60",
+                            Id = "d9ef00ce-a909-4421-be44-3ef59927e5f6",
                             UserId = "080a469a-b5a2-44cc-a660-eea8e6fd05a5"
                         });
                 });
@@ -435,7 +433,7 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2f7b3ba6-ebad-49e3-86ea-052b132439f5",
+                            Id = "2644afb5-f916-4b3f-b451-9ff86c881de3",
                             UserId = "93418f37-da3b-4c78-b0ae-8f0022b09681"
                         });
                 });
@@ -547,7 +545,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Ал. Стамболийски 30 ет.3 ап.11",
                             BirthDate = new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-                            ConcurrencyStamp = "ea7206e1-eb5e-4cce-ba14-decea6ca04fb",
+                            ConcurrencyStamp = "50de8a96-a60c-4509-a270-e2cd5436bfbc",
                             Country = "България",
                             Email = "petarpetrov@abv.bg",
                             EmailConfirmed = false,
@@ -558,12 +556,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Петър Петров",
                             NormalizedEmail = "PETARPETROV@ABV.BG",
                             NormalizedUserName = "PETAR",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGofDfwzoKcsWrrNWY3U4AmvevH6/fpTG9mQp5aMSef59J8IIMKWTlwzhc/Bipwy7w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGw78/Vg99afYMG7oDS0V8+0nJwVyx0Tb0msqSFlJY6uMDyQTFZs+JOEveENKInIHg==",
                             PhoneNumber = "0885763826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg",
-                            RegisteredOn = new DateTime(2025, 1, 24, 6, 35, 29, 843, DateTimeKind.Utc).AddTicks(6481),
-                            SecurityStamp = "992ff756-b08e-4520-bf5e-a9cc9fa50700",
+                            RegisteredOn = new DateTime(2025, 2, 2, 21, 50, 36, 604, DateTimeKind.Utc).AddTicks(5892),
+                            SecurityStamp = "1cbc7d8c-8423-4c72-884e-599875f64100",
                             TwoFactorEnabled = false,
                             UserName = "petar"
                         },
@@ -574,7 +572,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул.Възраждане 6 ет.2 ап.8",
                             BirthDate = new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-                            ConcurrencyStamp = "c7439f36-ca7b-4ba8-95c6-853890cef0cd",
+                            ConcurrencyStamp = "45dab1dc-eafc-4a0c-b18f-137383119084",
                             Country = "България",
                             Email = "georgidimitrov@abv.bg",
                             EmailConfirmed = false,
@@ -585,12 +583,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Георги Димитров",
                             NormalizedEmail = "GEORGIDIMITROV@ABV.BG",
                             NormalizedUserName = "GEORGI",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBNl2YaNAYaAHQ+ySGebXx8P1EC8dbqCWAAVsuQowro+yLdOCJpIkW0jrBtmYz+5SQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB6oUfG8aZvyknXkc4MZiVqNbGdA0/lzwHYCPELgQOJ7PszhUddEANKgeqWbslhNYw==",
                             PhoneNumber = "0885789826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg",
-                            RegisteredOn = new DateTime(2025, 1, 24, 6, 35, 30, 4, DateTimeKind.Utc).AddTicks(1664),
-                            SecurityStamp = "050c2da9-03cd-4ac6-a6af-dd3e3a611f52",
+                            RegisteredOn = new DateTime(2025, 2, 2, 21, 50, 36, 753, DateTimeKind.Utc).AddTicks(9328),
+                            SecurityStamp = "5ad00d43-f22b-43bf-84d7-46011458ee17",
                             TwoFactorEnabled = false,
                             UserName = "georgi"
                         },
@@ -601,7 +599,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Незабравка 3",
                             BirthDate = new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Енина",
-                            ConcurrencyStamp = "1966f05b-ef7a-40ef-970a-854c2566272b",
+                            ConcurrencyStamp = "bf258671-420e-4ba2-ba44-5d700503f5c8",
                             Country = "България",
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
@@ -612,12 +610,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL422fYHL67qUwwaTfxQ74qzvfMHJizCleYQLk/7KCwTPCzBnlcRA+Ur3NfImU7htw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIxzi8p+8pze8BJG5AixsJb8BFtFIOLFcPoJMDOyncX/C7uA+ku71RJ0IsUUizyyDA==",
                             PhoneNumber = "0889864842",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg",
-                            RegisteredOn = new DateTime(2025, 1, 24, 6, 35, 30, 145, DateTimeKind.Utc).AddTicks(4565),
-                            SecurityStamp = "00db6ffb-607d-45e2-87e2-4af3e78da65f",
+                            RegisteredOn = new DateTime(2025, 2, 2, 21, 50, 36, 886, DateTimeKind.Utc).AddTicks(4172),
+                            SecurityStamp = "269006f4-7919-4624-90d3-8ad05c532689",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

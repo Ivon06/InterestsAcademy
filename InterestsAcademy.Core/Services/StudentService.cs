@@ -73,5 +73,16 @@ namespace InterestsAcademy.Core.Services
 
             return result;
         }
+
+        public async Task<List<string>> GetAllStudentsUsersIdsByCourseId(string courseId)
+        {
+            List<string> ids = await repo.GetAll<StudentCourse>()
+                 .Include(sc => sc.Student)
+                 .Where(sc => sc.CourseId ==  courseId && sc.IsApproved)
+                 .Select(sc => sc.Student.UserId)
+                 .ToListAsync();
+
+            return ids;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿
+﻿/*const { param } = require("jquery");*/
+
 
 var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 var transitionsSupported = ($('.csstransitions').length > 0);
@@ -21,10 +22,16 @@ var connection = new signalR.HubConnectionBuilder()
     .withUrl("/meetingHub")
     .build();
 
+let url2 = new URL(window.location);
+let params2 = url2.searchParams;
+let isTeacher2 = params2.get('isTeacher');
+let isCourse2 = params2.get('isCourse');
 
+if (isTeacher2 == "False" && isCourse2=="False") {
 document.getElementById('addMeeting').addEventListener('click', () => {
     Array.from(document.getElementsByClassName('text-danger')).forEach(e => e.style.display = 'none')
 })
+}
 
 async function start() {
     try {
@@ -52,169 +59,179 @@ function toUnicode(str) {
     return unicodeString;
 }
 
-document.getElementById('check').addEventListener('change', function () {
-    if (this.checked) {
-        document.getElementById('address').style.display = "none";
-        document.getElementById('address').firstElementChild.removeAttribute('required');
-    }
-    else {
-        document.getElementById('address').style.display = "flex";
-        document.getElementById('address').firstElementChild.setAttribute('required', 'required');
-    }
-});
+//document.getElementById('check').addEventListener('change', function () {
+//    if (this.checked) {
+//        document.getElementById('address').style.display = "none";
+//        document.getElementById('address').firstElementChild.removeAttribute('required');
+//    }
+//    else {
+//        document.getElementById('address').style.display = "flex";
+//        document.getElementById('address').firstElementChild.setAttribute('required', 'required');
+//    }
+//});
 
 
-function create(e) {
+if (isTeacher2 == "False" && isCourse2 == "False") {
+    function create(e) {
 
 
-    e.preventDefault();
-    let formData = new FormData(e.target);
-    let { classId, lectorId, title, start, end, address, description, isOnline } = Object.fromEntries(formData);
+        e.preventDefault();
+        let formData = new FormData(e.target);
+        let { courseId, topic, start, end } = Object.fromEntries(formData);
 
-    let dataArr = [];
+        let dataArr = [courseId, topic, start, end];
 
-    if (isOnline == 'on') {
-        dataArr = [classId, lectorId, title, start, end, description]
-    }
-    else {
-        dataArr = [classId, lectorId, title, start, end, address, description]
-    }
-
-
-    let files = document.getElementById('files').files;
-
-    let resultOnline = isOnline == 'on' ? true : false;
-
-    let data = new FormData();
-    data.append('classId', classId);
-    data.append('lectorId', lectorId);
-    data.append('title', title);
-    data.append('start', start);
-    data.append('end', end);
-    data.append('address', address);
-    data.append('isOnline', resultOnline);
-    data.append('description', description);
-
-    for (let i = 0; i < files.length; i++) {
-        data.append('files', files[i]);
-    }
+        //if (isOnline == 'on') {
+        //    dataArr = [classId, lectorId, title, start, end, description]
+        //}
+        //else {
+        //    dataArr = [classId, lectorId, title, start, end, address, description]
+        //}
 
 
-    let validationSpans = document.getElementsByClassName('text-danger');
+        //let files = document.getElementById('files').files;
 
-    dataArr.forEach((element, index) => {
-        if (element == '') {
-            validationSpans[index].style.display = 'block';
-        }
-        else {
-            validationSpans[index].style.display = 'none';
-        }
-    });
+        //let resultOnline = isOnline == 'on' ? true : false;
+
+        let data = new FormData();
+        data.append('courseId', courseId);
+        data.append('topic', topic);
+        data.append('start', start);
+        data.append('end', end);
+
+        //for (let i = 0; i < files.length; i++) {
+        //    data.append('files', files[i]);
+        //}
 
 
-    if (Array.from(validationSpans).some(v => v.style.display == 'block') != true) {
+        let validationSpans = document.getElementsByClassName('text-danger');
 
-        let startDate = new Date(start);
-        let endDate = new Date(end);
+        dataArr.forEach((element, index) => {
+            if (element == '') {
+                validationSpans[index].style.display = 'block';
+            }
+            else {
+                validationSpans[index].style.display = 'none';
+            }
+        });
 
-        let startHour = startDate.getHours();
-        let endHour = endDate.getHours();
 
-        if (startHour < 9 || endHour > 18) {
-            toastr.error('\u0421\u0440\u0435\u0449\u0430\u0442\u0430\u0020\u0442\u0440\u044f\u0431\u0432\u0430\u0020\u0434\u0430\u0020\u0435\u0020\u043c\u0435\u0436\u0434\u0443\u0020\u0039\u003a\u0030\u0030\u0020\u0438\u0020\u0031\u0038\u003a\u0030\u0030\u0020\u0447\u0430\u0441\u0430'.normalize())
-        }
-        else if (startDate < new Date()) {
+        if (Array.from(validationSpans).some(v => v.style.display == 'block') != true) {
 
-            toastr.error('\u041d\u0430\u0447\u0430\u043b\u043e\u0442\u043e\u0020\u043d\u0430\u0020\u0441\u0440\u0435\u0449\u0430\u0442\u0430\u0020\u043d\u0435\u0020\u043c\u043e\u0436\u0435\u0020\u0434\u0430\u0020\u0435\u0020\u043f\u043e\u002d\u0440\u0430\u043d\u043e\u0020\u043e\u0442\u0020\u043c\u043e\u043c\u0435\u043d\u0442\u0430\u0020\u043d\u0430\u0020\u0441\u044a\u0437\u0434\u0430\u0432\u0430\u043d\u0435'.normalize());
+            let startDate = new Date(start);
+            let endDate = new Date(end);
 
-        }
-        else if (endDate < startDate) {
-            toastr.error('\u041a\u0440\u0430\u044f\u0020\u043d\u0430\u0020\u0441\u0440\u0435\u0449\u0430\u0442\u0430\u0020\u043d\u0435\u0020\u043c\u043e\u0436\u0435\u0020\u0434\u0430\u0020\u0435\u0020\u043f\u0440\u0435\u0434\u0438\u0020\u043d\u0435\u0439\u043d\u043e\u0442\u043e\u0020\u043d\u0430\u0447\u0430\u043b\u043e'.normalize());
-        }
-        else if (new Date(end).getHours() - new Date(start).getHours() < 3) {
-            toastr.error('\u041F\u0440\u043E\u0434\u044A\u043B\u0436\u0438\u0442\u0435\u043B\u043D\u043E\u0441\u0442\u0442\u0430 \u043D\u0430 \u0441\u0440\u0435\u0449\u0430\u0442\u0430 \u0442\u0440\u044F\u0431\u0432\u0430 \u0434\u0430 \u0435 \u043F\u043E\u043D\u0435 3 \u0447\u0430\u0441\u0430'.normalize());
-        }
-        else {
+            let startHour = startDate.getHours();
+            let endHour = endDate.getHours();
 
-            let t = $("input[name='__RequestVerificationToken']").val();
+            if (startHour < 9 || endHour > 18) {
+                toastr.error('\u0421\u0440\u0435\u0449\u0430\u0442\u0430\u0020\u0442\u0440\u044f\u0431\u0432\u0430\u0020\u0434\u0430\u0020\u0435\u0020\u043c\u0435\u0436\u0434\u0443\u0020\u0039\u003a\u0030\u0030\u0020\u0438\u0020\u0031\u0038\u003a\u0030\u0030\u0020\u0447\u0430\u0441\u0430'.normalize())
+            }
+            else if (startDate < new Date()) {
 
-            $.ajax({
-                type: "POST",
-                url: `/Meeting/Create`,
-                data: data,
-                processData: false,
-                contentType: false,
-                headers: {
-                    "RequestVerificationToken": t
+                toastr.error('\u041d\u0430\u0447\u0430\u043b\u043e\u0442\u043e\u0020\u043d\u0430\u0020\u0441\u0440\u0435\u0449\u0430\u0442\u0430\u0020\u043d\u0435\u0020\u043c\u043e\u0436\u0435\u0020\u0434\u0430\u0020\u0435\u0020\u043f\u043e\u002d\u0440\u0430\u043d\u043e\u0020\u043e\u0442\u0020\u043c\u043e\u043c\u0435\u043d\u0442\u0430\u0020\u043d\u0430\u0020\u0441\u044a\u0437\u0434\u0430\u0432\u0430\u043d\u0435'.normalize());
 
-                },
-                success: async function (data) {
-                    if (data) {
+            }
+            else if (endDate < startDate) {
+                toastr.error('\u041a\u0440\u0430\u044f\u0020\u043d\u0430\u0020\u0441\u0440\u0435\u0449\u0430\u0442\u0430\u0020\u043d\u0435\u0020\u043c\u043e\u0436\u0435\u0020\u0434\u0430\u0020\u0435\u0020\u043f\u0440\u0435\u0434\u0438\u0020\u043d\u0435\u0439\u043d\u043e\u0442\u043e\u0020\u043d\u0430\u0447\u0430\u043b\u043e'.normalize());
+            }
+            else if (new Date(end).getHours() - new Date(start).getHours() < 3) {
+                toastr.error('\u041F\u0440\u043E\u0434\u044A\u043B\u0436\u0438\u0442\u0435\u043B\u043D\u043E\u0441\u0442\u0442\u0430 \u043D\u0430 \u0441\u0440\u0435\u0449\u0430\u0442\u0430 \u0442\u0440\u044F\u0431\u0432\u0430 \u0434\u0430 \u0435 \u043F\u043E\u043D\u0435 3 \u0447\u0430\u0441\u0430'.normalize());
+            }
+            else {
 
-                        if (data.classIdNull) {
-                            toastr.error('\u041d\u0435\u0020\u043c\u043e\u0436\u0435\u0020\u0434\u0430\u0020\u0434\u043e\u0431\u0430\u0432\u044f\u0442\u0435\u0020\u0441\u0440\u0435\u0449\u0430\u0020\u0431\u0435\u0437\u0020\u043a\u043b\u0430\u0441'.normalize())
-                        }
-                        else if (data.isExists) {
-                            toastr.error('\u0421\u0440\u0435\u0449\u0430\u0020\u043f\u043e\u0020\u0442\u043e\u0432\u0430\u0020\u0432\u0440\u0435\u043c\u0435\u0020\u0432\u0435\u0447\u0435\u0020\u0441\u044a\u0449\u0435\u0441\u0442\u0432\u0443\u0432\u0430'.normalize());
-                        }
-                        else {
-                            try {
-                                await connection.invoke("SendMeeting", data.meetingId, data.receiversIds);
+                let t = $("input[name='__RequestVerificationToken']").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: `/Activity/Create`,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        "RequestVerificationToken": t
+
+                    },
+                    success: async function (data) {
+                        if (data) {
+
+                            if (data.classIdNull) {
+                                toastr.error('\u041d\u0435\u0020\u043c\u043e\u0436\u0435\u0020\u0434\u0430\u0020\u0434\u043e\u0431\u0430\u0432\u044f\u0442\u0435\u0020\u0441\u0440\u0435\u0449\u0430\u0020\u0431\u0435\u0437\u0020\u043a\u043b\u0430\u0441'.normalize())
                             }
-                            catch (err) {
-                                console.error(err);
+                            else if (data.isExists) {
+                                toastr.error('\u0421\u0440\u0435\u0449\u0430\u0020\u043f\u043e\u0020\u0442\u043e\u0432\u0430\u0020\u0432\u0440\u0435\u043c\u0435\u0020\u0432\u0435\u0447\u0435\u0020\u0441\u044a\u0449\u0435\u0441\u0442\u0432\u0443\u0432\u0430'.normalize());
                             }
-                            let url = new URL(window.location);
-                            let params = url.searchParams;
-                            let days = parseInt(params.get('days'))
+                            else {
+                                try {
+                                    await connection.invoke("SendMeeting", data.meetingId, data.receiversIds);
+                                }
+                                catch (err) {
+                                    console.error(err);
+                                }
+                                let url = new URL(window.location);
+                                let params = url.searchParams;
+                                let days = parseInt(params.get('days'));
+                                let isTeacherView = Boolean(params.get('isTeacher'));
+                                let isCourseView = Boolean(params.get('isCourse'));
+                                let groupId = params.get('groupId');
 
-                            if (isNaN(days)) {
-                                days = 0;
+                                if (isNaN(days)) {
+                                    days = 0;
+                                }
+
+                                if (isTeacherView) {
+                                    window.location = `${url.origin}/Meeting/All?days=${days}&&groupId=${groupId}&isTeacher=true&isCourse=false`
+                                } else if (isCourseView) {
+                                    window.location = `${url.origin}/Meeting/All?days=${days}&&groupId=${groupId}&isTeacher=false&isCourse=true`
+
+                                } else {
+                                    window.location = `${url.origin}/Meeting/All?days=${days}&&groupId=${groupId}&isTeacher=false&isCourse=false`
+
+                                }
+
+                                //window.location = `${url.origin}/Meeting/All?days=${days}`
                             }
 
 
-                            window.location = `${url.origin}/Meeting/All?days=${days}`
                         }
 
-
+                        console.log('Request added successfully');
+                    },
+                    error: function (error) {
+                        toastr.error("\u041D\u0435\u043F\u0440\u0430\u0432\u0438\u043B\u0435\u043D \u043A\u0440\u0430\u0435\u043D \u0447\u0430\u0441".normalize());
                     }
-
-                    console.log('Request added successfully');
-                },
-                error: function (error) {
-                    toastr.error("\u041D\u0435\u043F\u0440\u0430\u0432\u0438\u043B\u0435\u043D \u043A\u0440\u0430\u0435\u043D \u0447\u0430\u0441".normalize());
-                }
-            });
+                });
+            }
         }
-    }
 
+    }
 }
 
-connection.on("ReceiveDelete", function (meetingId) {
+//connection.on("ReceiveDelete", function (meetingId) {
 
-    var divMeeting = document.getElementById(`${meetingId}`);
+//    var divMeeting = document.getElementById(`${meetingId}`);
 
-    divMeeting.parentNode.parentNode.removeChild(divMeeting.parentNode);
+//    divMeeting.parentNode.parentNode.removeChild(divMeeting.parentNode);
 
-});
+//});
 
-connection.on("ReceiveEditedMeeting", async function (meetingId, receivers) {
+//connection.on("ReceiveEditedMeeting", async function (meetingId, receivers) {
 
-    var divMeeting = document.getElementById(`${meetingId}`);
+//    var divMeeting = document.getElementById(`${meetingId}`);
 
-    divMeeting.parentNode.parentNode.removeChild(divMeeting.parentNode);
+//    divMeeting.parentNode.parentNode.removeChild(divMeeting.parentNode);
 
 
-    try {
-        await connection.invoke("SendMeeting", meetingId, receivers);
-    }
-    catch (err) {
-        console.error(err);
-    }
-    initEvent(meetingId);
-    placeEvents();
+//    try {
+//        await connection.invoke("SendMeeting", meetingId, receivers);
+//    }
+//    catch (err) {
+//        console.error(err);
+//    }
+//    initEvent(meetingId);
+//    placeEvents();
 
-});
+//});
 
 
 connection.on("ReceiveMeeting", function (meeting, id) {
@@ -257,7 +274,9 @@ connection.on("ReceiveMeeting", function (meeting, id) {
 
 });
 
-document.getElementById('addEvent').addEventListener('submit', create);
+if (isTeacher2 == "False" && isCourse2 == "False") {
+    document.getElementById('addEvent').addEventListener('submit', create);
+}
 
 let animating = false;
 

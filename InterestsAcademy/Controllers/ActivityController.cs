@@ -4,6 +4,7 @@ using InterestsAcademy.Core.Models.Activity;
 using InterestsAcademy.Core.Services;
 using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
 using System.Globalization;
 using static InterestsAcademy.Common.Notifications;
 
@@ -15,13 +16,17 @@ namespace InterestsAcademy.Controllers
         private readonly ICourseService courseService;
         private readonly IRoomService roomService;
         private readonly ITeacherService teacherService;
+        private readonly IUserService userService;
+        private readonly IStudentService studentService;
 
-        public ActivityController(IActivityService activityService, ICourseService courseService, IRoomService roomService, ITeacherService teacherService)
+        public ActivityController(IActivityService activityService, ICourseService courseService, IRoomService roomService, ITeacherService teacherService, IUserService userService, IStudentService studentService)
         {
             this.activityService = activityService;
             this.courseService = courseService;
             this.roomService = roomService;
             this.teacherService = teacherService;
+            this.userService = userService;
+            this.studentService = studentService;
         }
 
         public async Task<IActionResult> All(int days, string groupId, bool isTeacher, bool isCourse)
@@ -43,6 +48,9 @@ namespace InterestsAcademy.Controllers
 
                     if (isValid)
                     {
+                        model.CourseView = true;
+                        model.RoomView = false;
+                        model.TeacherView = false;
                         model.CourseId = groupId;
                         model.DayNow = await activityService.GetAllCourseActivitiesForDayAsync(days, groupId);
                         model.DayTomorrow = await activityService.GetAllCourseActivitiesForDayAsync(days + 1, groupId);
@@ -60,12 +68,14 @@ namespace InterestsAcademy.Controllers
                 }
                 else if (isCourse == false && isTeacher == true)
                 {
-                    bool isValid = await teacherService.IsTeacherAsync(groupId);
+                    bool isValid = await teacherService.IsTeacherIdValidAsync(groupId);
 
                     if (isValid)
                     {
 
-
+                        model.CourseView = false;
+                        model.RoomView = false;
+                        model.TeacherView = true;
 
                         model.TeacherId = groupId;
                         model.DayNow = await activityService.GetAllTeacherActivitiesForDayAsync(days, groupId);
@@ -83,13 +93,20 @@ namespace InterestsAcademy.Controllers
                     }
 
                 }
-                else
+                else if (isCourse == false && isTeacher == false)
                 {
                     bool isValid = await roomService.IsRoomValid(groupId);
 
+
+
                     if (isValid)
                     {
+                        model.CourseView = false;
+                        model.RoomView = true;
+                        model.TeacherView = false;
                         model.RoomId = groupId;
+                        model.AllRoomCourses = await courseService.GetAllCoursesByRoomId(groupId);
+
                         model.DayNow = await activityService.GetAllRoomActivitiesForDayAsync(days, groupId);
                         model.DayTomorrow = await activityService.GetAllRoomActivitiesForDayAsync(days + 1, groupId);
                         model.Day2 = await activityService.GetAllRoomActivitiesForDayAsync(days + 2, groupId);
@@ -114,6 +131,104 @@ namespace InterestsAcademy.Controllers
 
             return View(model);
 
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(string courseId, string topic, DateTime start, DateTime end)
+        {
+            string userId = User.GetId()!;
+
+            bool isTeacher = await teacherService.IsTeacherAsync(userId);
+
+            if (!isTeacher) 
+            {
+                TempData[ErrorMessage] = "Трябва да сте учител, за да добавите събитие към курса.";
+                return RedirectToAction("All", "Meeting");
+            }
+
+            bool isCourseValid = await courseService.IsCourseValid(courseId);
+
+            if (!isCourseValid)
+            {
+                TempData[ErrorMessage] = "Този курс не съществува.";
+                return RedirectToAction("All", "Meeting");
+            }
+
+            string teacherId = await teacherService.GetTeacherIdByUserId(userId);
+
+            bool isCourseOfTeacher = await courseService.IsCourseValidForTeacher(courseId, teacherId);
+
+            if (!isCourseOfTeacher)
+            {
+                TempData[ErrorMessage] = "Тозu курс се води от друг учител.";
+                return RedirectToAction("All", "Meeting");
+            }
+
+            string roomId = await roomService.GetRoomIdByCourseId(courseId);
+
+            bool isExists = await activityService.IsMeetingExistsAsync(start, end, courseId,roomId);
+            if (isExists)
+            {
+                return new JsonResult(new { isExists, ClassIdNull = false });
+            }
+
+            if (courseId == null)
+            {
+                return new JsonResult(new { ClassIdNull = true });
+            }
+
+            try
+            {
+                string? teacherUserId = await userService.GetUserIdByTeacherId(teacherId);
+                //courseid
+                //string? companyId = await companyService.GetCompanyIdAsync(userId);
+
+                //bool isExistsInCompany = await meetingService.IsMeetingExistsInCompanyAsync(start, end, companyId!, classId);
+                //if (isExistsInCompany)
+                //{
+                //    return new JsonResult(new { isExists = true, ClassIdNull = false });
+                //}
+
+
+                List<string> receiversIds = await studentService.GetAllStudentsUsersIdsByCourseId(courseId);
+
+                receiversIds.Add(teacherUserId!);
+
+                List<string> teachersIds = await teacherService.GetAllTeacherUsersIdByRoomId(roomId);
+
+                receiversIds.AddRange(teachersIds);
+
+                ActivityQueryModel model = new ActivityQueryModel()
+                {
+                    Topic = topic,
+                    End = end,
+                    Start = start,
+                    CourseId = courseId,
+                    TeacherId = teacherId
+                };
+
+                if (start >= end)
+                {
+                    TempData[ErrorMessage] = "Неправилна начална дата";
+                    return this.RedirectToAction("All", "Meeting");
+
+                }
+
+                string activityId = await activityService.CreateAsync(model);
+
+                TempData[SuccessMessage] = "Успешно добавена дейност";
+                return new JsonResult(new { MeetingId = activityId, ReceiversIds = receiversIds, isExists = false, ClassIdNull = false });
+
+
+
+            }
+            catch (Exception ex)
+            {
+               TempData[ErrorMessage] = ex.Message;
+                return RedirectToAction("Index", "Home");
+            }
 
 
         }

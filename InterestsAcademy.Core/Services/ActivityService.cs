@@ -5,6 +5,7 @@ using InterestsAcademy.Data.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -159,6 +160,36 @@ namespace InterestsAcademy.Core.Services
             return meeting!;
 
 
+        }
+
+        public async Task<bool> IsMeetingExistsAsync(DateTime start, DateTime end, string courseId, string roomId)
+        {
+            var isExistsForCourse = await repo.GetAll<Activity>()
+                .AnyAsync(m => ((DateTime.Compare(m.Start, start) == 0 || DateTime.Compare(m.End, end) == 0 || (DateTime.Compare(m.Start, start) > 0 && DateTime.Compare(m.Start, end) < 0) || (DateTime.Compare(m.End, start) > 0 && DateTime.Compare(m.End, end) < 0)) && m.CourseId == courseId));
+
+            var isExistForRoom = await repo.GetAll<Activity>()
+                .Include(a =>a.Course)
+                .AnyAsync(m => ((DateTime.Compare(m.Start, start) == 0 || DateTime.Compare(m.End, end) == 0 || (DateTime.Compare(m.Start, start) > 0 && DateTime.Compare(m.Start, end) < 0) || (DateTime.Compare(m.End, start) > 0 && DateTime.Compare(m.End, end) < 0)) && m.Course.RoomId == roomId));
+
+
+            return isExistsForCourse || isExistForRoom;
+        }
+
+        public async Task<string> CreateAsync(ActivityQueryModel model)
+        {
+            var activity = new Activity()
+            {
+                Topic = model.Topic,
+                CourseId = model.CourseId,
+                End = model.End,
+                Start = model.Start,
+                
+            };
+
+            await repo.AddAsync(activity);
+            await repo.SaveChangesAsync();
+
+            return activity.Id;
         }
     }
 }

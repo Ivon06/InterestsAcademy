@@ -42,7 +42,8 @@ namespace InterestsAcademy.Controllers
             }
             else if (isStudent)
             {
-                model = await courseService.GetAllStudentCoursesCards(userId);
+                string studentId = await studentService.GetStudentId(userId);
+                model = await courseService.GetAllStudentCoursesCards(studentId);
             }
             return View(model);
         }

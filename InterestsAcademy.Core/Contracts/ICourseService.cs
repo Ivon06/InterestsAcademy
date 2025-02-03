@@ -36,5 +36,7 @@ namespace InterestsAcademy.Core.Contracts
         Task<bool> IsCourseApproved(string courseId);
 
         Task<bool> ApproveCourse(EditCourseViewModel model);
+        Task<bool> IsCourseValidForTeacher(string courseId, string teacherId);
+        Task<List<CourseCardViewModel>> GetAllCoursesByRoomId(string roomId);
     }
 }

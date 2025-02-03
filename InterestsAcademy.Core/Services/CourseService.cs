@@ -46,7 +46,7 @@ namespace InterestsAcademy.Core.Services
             course.IsApproved = true;
             course.RoomId = model.RoomId;
 
-            
+
             await repo.SaveChangesAsync();
 
             if (course.IsApproved)
@@ -62,7 +62,7 @@ namespace InterestsAcademy.Core.Services
             var course = await repo.GetAll<Course>()
                 .Include(c => c.Teacher.User)
                 .FirstOrDefaultAsync(c => c.Id == courseId);
-                
+
 
             var model = new AllRequestViewModel()
             {
@@ -85,7 +85,8 @@ namespace InterestsAcademy.Core.Services
                     Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
-                    TeacherId = x.TeacherId
+                    TeacherId = x.TeacherId,
+                    RoomId = x.RoomId
                 }
                 )
                 .ToListAsync();
@@ -107,7 +108,8 @@ namespace InterestsAcademy.Core.Services
                      Id = x.Course.Id,
                      Name = x.Course.Name,
                      Description = x.Course.Description,
-                     TeacherId = x.Course.TeacherId
+                     TeacherId = x.Course.TeacherId,
+                     RoomId = x.Course.RoomId
                  }
                  )
                  .ToListAsync();
@@ -125,7 +127,8 @@ namespace InterestsAcademy.Core.Services
                      Name = x.Name,
                      Description = x.Description,
                      TeacherId = x.TeacherId,
-                     IsApproved = x.IsApproved
+                     IsApproved = x.IsApproved,
+                     RoomId = x.RoomId
                  }
                  )
                  .ToListAsync();
@@ -209,6 +212,30 @@ namespace InterestsAcademy.Core.Services
             var course = await repo.GetByIdAsync<Course>(courseId);
 
             return course.IsApproved;
+        }
+
+        public async Task<bool> IsCourseValidForTeacher(string courseId, string teacherId)
+        {
+            var course = await repo.GetByIdAsync<Course>(courseId);
+
+            return course.TeacherId == teacherId;
+        }
+
+        public async Task<List<CourseCardViewModel>> GetAllCoursesByRoomId(string roomId)
+        {
+            var result = await repo.GetAll<Course>()
+                .Where(c => c.RoomId == roomId)
+                .Select(x => new CourseCardViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    TeacherId = x.TeacherId,
+                    RoomId = x.RoomId
+                }
+                )
+                .ToListAsync();
+            return result;
         }
     }
 }

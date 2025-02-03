@@ -13,5 +13,6 @@ namespace InterestsAcademy.Core.Models.Course
         public string Description { get; set; }
         public string TeacherId { get;set; }
         public bool IsApproved { get;set;}
+        public string RoomId { get; set; }  
     }
 }
