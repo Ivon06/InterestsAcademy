@@ -57,6 +57,8 @@ var app = builder.Build();
 
 app.MapHub<RequestHub>("/requestHub");
 
+app.MapHub<ActivityHub>("/activityHub");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

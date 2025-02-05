@@ -12,6 +12,7 @@ namespace InterestsAcademy.Core.Models.Activity
         public string Topic { get; set; } = null!;
         public string CourseId { get; set; } = null!;
         public string Day { get; set; } = null!;
+        public string CourseName { get; set; } = null!;
         public int Date { get;set; }
         public string? StartHour { get; set; }
         public string? EndHour { get; set; }

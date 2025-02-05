@@ -11,7 +11,12 @@ namespace InterestsAcademy.Data.Models
 {
 	public class Activity
 	{
-		[Key]
+
+        public Activity()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+        [Key]
 		public string Id { get; set; }
 
 		[Required(ErrorMessage = RequiredErrorMessage)]

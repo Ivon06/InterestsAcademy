@@ -19,7 +19,7 @@ $(document).ready(function () {
 });
 
 var connection = new signalR.HubConnectionBuilder()
-    .withUrl("/meetingHub")
+    .withUrl("/activityHub")
     .build();
 
 let url2 = new URL(window.location);
@@ -179,13 +179,13 @@ if (isTeacher2 == "False" && isCourse2 == "False") {
                                     days = 0;
                                 }
 
-                                if (isTeacherView) {
-                                    window.location = `${url.origin}/Meeting/All?days=${days}&&groupId=${groupId}&isTeacher=true&isCourse=false`
-                                } else if (isCourseView) {
-                                    window.location = `${url.origin}/Meeting/All?days=${days}&&groupId=${groupId}&isTeacher=false&isCourse=true`
+                                if (isTeacher2=='True') {
+                                    window.location = `${url.origin}/Activity/All?days=${days}&&groupId=${groupId}&isTeacher=true&isCourse=false`
+                                } else if (isCourse2 == 'True') {
+                                    window.location = `${url.origin}/Activity/All?days=${days}&&groupId=${groupId}&isTeacher=false&isCourse=true`
 
                                 } else {
-                                    window.location = `${url.origin}/Meeting/All?days=${days}&&groupId=${groupId}&isTeacher=false&isCourse=false`
+                                    window.location = `${url.origin}/Activity/All?days=${days}&&groupId=${groupId}&isTeacher=false&isCourse=false`
 
                                 }
 
@@ -255,13 +255,13 @@ connection.on("ReceiveMeeting", function (meeting, id) {
     li.classList.add('single-event');
     li.setAttribute('data-start', meeting.startHour);
     li.setAttribute('data-end', meeting.endHour);
-    li.setAttribute('data-content', meeting.title);
+    li.setAttribute('data-content', meeting.topic);
     li.setAttribute('data-event', 'event-1');
     //li.setAttribute('id', id);
 
     li.innerHTML = `<a href="#0" id="${id}">
-                        <em class="event-name mt-2">${meeting.title} </em>
-                        <em class="event-name mt-2" style="font-size: 1rem;">${meeting.companyInterns}</em>
+                        <em class="event-name mt-2">${meeting.topic} </em>
+                        <em class="event-name mt-2" style="font-size: 1rem;">${meeting.courseName}</em>
                     </a>`;
 
 

@@ -47,7 +47,8 @@ namespace InterestsAcademy.Core.Services
                     StartHour = m.Start.ToString("H:mm"),
                     EndHour = m.End.ToString("H:mm"),
                     CourseId = m.CourseId,
-                    RoomId = m.Course.RoomId
+                    RoomId = m.Course.RoomId,
+                    CourseName = m.Course.Name
 
                 })
                 .ToListAsync();
@@ -71,7 +72,7 @@ namespace InterestsAcademy.Core.Services
                 .Include(m => m.Course)
                 .OrderBy(m => m.Start)
                 .Where(m => m.Start.DayOfYear == DateTime.Today.AddDays(days).DayOfYear &&
-                m.Start.Year == DateTime.Today.AddDays(days).Year && m.CourseId == teacherId)
+                m.Start.Year == DateTime.Today.AddDays(days).Year && m.Course.TeacherId == teacherId)
                 .Select(m => new ActivityViewModel()
                 {
                     Id = m.Id,
@@ -81,7 +82,8 @@ namespace InterestsAcademy.Core.Services
                     StartHour = m.Start.ToString("H:mm"),
                     EndHour = m.End.ToString("H:mm"),
                     CourseId = m.CourseId,
-                    RoomId = m.Course.RoomId
+                    RoomId = m.Course.RoomId,
+                    CourseName = m.Course.Name
 
                 })
                 .ToListAsync();
@@ -105,7 +107,7 @@ namespace InterestsAcademy.Core.Services
                 .Include(m => m.Course)
                 .OrderBy(m => m.Start)
                 .Where(m => m.Start.DayOfYear == DateTime.Today.AddDays(days).DayOfYear &&
-                m.Start.Year == DateTime.Today.AddDays(days).Year && m.CourseId == roomId)
+                m.Start.Year == DateTime.Today.AddDays(days).Year && m.Course.RoomId == roomId)
                 .Select(m => new ActivityViewModel()
                 {
                     Id = m.Id,
@@ -115,7 +117,8 @@ namespace InterestsAcademy.Core.Services
                     StartHour = m.Start.ToString("H:mm"),
                     EndHour = m.End.ToString("H:mm"),
                     CourseId = m.CourseId,
-                    RoomId = m.Course.RoomId
+                    RoomId = m.Course.RoomId,
+                    CourseName = m.Course.Name
 
                 })
                 .ToListAsync();
@@ -148,7 +151,8 @@ namespace InterestsAcademy.Core.Services
                     StartHour = m.Start.ToString("H:mm"),
                     EndHour = m.End.ToString("H:mm"),
                     CourseId = m.CourseId,
-                    RoomId = m.Course.RoomId
+                    RoomId = m.Course.RoomId,
+                    CourseName = m.Course.Name
                 })
                 .FirstOrDefaultAsync();
 
