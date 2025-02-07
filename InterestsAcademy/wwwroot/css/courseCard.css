@@ -53,7 +53,7 @@
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     overflow: hidden;
-    height:20em;
+    min-height:20em;
 }
 
     .card:hover {

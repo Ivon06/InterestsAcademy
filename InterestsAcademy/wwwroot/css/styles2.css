@@ -11,6 +11,10 @@ nav {
     z-index: 10; /* Ensures navbar stays on top */
 }
 
+.nav-item {
+    font-size: 16px;
+}
+
     .navbar .nav-link,
     .navbar-brand {
         color: #fff !important; /* White text for links */

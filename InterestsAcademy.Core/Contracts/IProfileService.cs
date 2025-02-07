@@ -10,5 +10,7 @@ namespace InterestsAcademy.Core.Contracts
     public interface IProfileService
     {
         Task<ProfileViewModel> GetUserProfileAsync(string userId);
+        Task<EditProfileViewModel> GetProfileForEditAsync(string userId);
+        Task EditProfileAsync(EditProfileViewModel model);
     }
 }

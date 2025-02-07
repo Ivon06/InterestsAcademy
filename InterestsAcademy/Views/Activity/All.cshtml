@@ -24,34 +24,34 @@
 @if (Model.TeacherView)
 {
 	<div style="margin-top: 20px;position: relative; direction: rtl;">
-		<nav aria-label="Page navigation example">
+		<div aria-label="Page navigation example">
 			<div class="pagination">
 				<p class="page-item1"> <a class="page-link1" asp-action="All" asp-controller="Activity" asp-route-days="@(Model.Days + 7)" asp-route-groupId="@Model.TeacherId" asp-route-isTeacher="@true" asp-route-isCourse="@false"><img src="~/img/right.png" style="height:3em; " /></a></p>
 				<p class="page-item2"><a class="page-link2" asp-action="All" asp-controller="Activity" asp-route-days="@(Model.Days - 7)" asp-route-groupId="@Model.TeacherId" asp-route-isTeacher="@true" asp-route-isCourse="@false"><img src="~/img/left.png" style="height:3em; " /></a></p>
 			</div>
-		</nav>
+		</div>
 	</div>
 }
 else if (Model.RoomView)
 {
 	<div style="margin-top: 20px;position: relative; direction: rtl;">
-		<nav aria-label="Page navigation example">
+		<div aria-label="Page navigation example">
 			<div class="pagination">
 				<p class="page-item1"> <a class="page-link1" asp-action="All" asp-controller="Activity" asp-route-days="@(Model.Days + 7)" asp-route-groupId="@Model.RoomId" asp-route-isTeacher="@Model.TeacherView" asp-route-isCourse="@Model.CourseView"><img src="~/img/right.png" style="height:3em; " /></a></p>
 				<p class="page-item2"><a class="page-link2" asp-action="All" asp-controller="Activity" asp-route-days="@(Model.Days - 7)" asp-route-groupId="@Model.RoomId" asp-route-isTeacher="@Model.TeacherView" asp-route-isCourse="@Model.CourseView"><img src="~/img/left.png" style="height:3em; " /></a></p>
 			</div>
-		</nav>
+		</div>
 	</div>
 }
 else
 {
 	<div style="margin-top: 20px;position: relative; direction: rtl;">
-		<nav aria-label="Page navigation example">
+		<div aria-label="Page navigation example">
 			<div class="pagination">
 				<p class="page-item1"> <a class="page-link1" asp-action="All" asp-controller="Activity" asp-route-days="@(Model.Days + 7)" asp-route-groupId="@Model.CourseId" asp-route-isTeacher="@Model.TeacherView" asp-route-isCourse="@Model.CourseView"><img src="~/img/right.png" style="height:3em; " /></a></p>
 				<p class="page-item2"><a class="page-link2" asp-action="All" asp-controller="Activity" asp-route-days="@(Model.Days - 7)" asp-route-groupId="@Model.CourseId" asp-route-isTeacher="@Model.TeacherView" asp-route-isCourse="@Model.CourseView"><img src="~/img/left.png" style="height:3em; " /></a></p>
 			</div>
-		</nav>
+		</div>
 	</div>
 }
 
@@ -211,11 +211,14 @@ padding-top: 40px;overflow: hidden;margin-top: 3rem;" id="meeting-form">
 @section Scripts {
 	<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="~/js/meetingForm.js" asp-append-version="true"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="~/js/schedule.js" asp-append-version="true"></script>
 	<script src="~/js/meeting.js" asp-append-version="true"></script>
 
+	@if(Model.RoomView)
+	{
+		<script src="~/js/meetingForm.js" asp-append-version="true"></script>
 
+	}
 
 }

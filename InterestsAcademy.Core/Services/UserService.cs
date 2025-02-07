@@ -1,4 +1,5 @@
 ﻿using InterestsAcademy.Core.Contracts;
+using InterestsAcademy.Core.Models.User;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Data.Repository.Contracts;
 using Microsoft.AspNetCore.Identity;
@@ -95,6 +96,27 @@ namespace InterestsAcademy.Core.Services
         {
             var result = await repo.GetByIdAsync<User>(id);
             return result;
+        }
+
+        public async Task<UsersQueryModel> GetAllUsersAsync()
+        {
+            var model = new UsersQueryModel();
+
+            model.Users = await repo.GetAll<User>()
+                .Select(u => new UserViewModel
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Email = u.Email,
+                    RegisteredOn = u.RegisteredOn.ToString(),
+                    ProfilePictureUrl = u.ProfilePictureUrl,
+                    IsApproved = u.IsApproved
+                })
+                .ToListAsync();
+
+            model.UsersCount = model.Users.Count;
+
+            return model;
         }
     }
 }

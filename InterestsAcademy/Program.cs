@@ -4,6 +4,7 @@ using InterestsAcademy.Data;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,14 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.ConfigureServices();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+
+
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("MyPolicy",
@@ -50,6 +59,12 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddResponseCaching();
+
+builder.Services
+                .AddControllersWithViews(options =>
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                });
 
 builder.Services.AddSignalR();
 
@@ -85,17 +100,19 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
-    endpoints.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"); 
 
-});
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapDefaultControllerRoute();
+app.MapRazorPages();
+
 
 app.MapRazorPages();
 

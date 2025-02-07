@@ -1,5 +1,5 @@
-﻿@using InterestsAcademy.Core.Models.Account
-@model RegisterViewModel;
+﻿@using InterestsAcademy.Core.Models.Profile
+@model EditProfileViewModel;
 
 @{
 	ViewData["Title"] = "Регистрирай";
@@ -10,7 +10,7 @@
 		<div class="form-holder">
 			<div class="form-content">
 				<div class="form-items">
-					<form class="requires-validation" id="registerForm" method="post" enctype="multipart/form-data">
+					<form class="requires-validation" id="editProfileForm" method="post" enctype="multipart/form-data">
 						<h2 class="text-center" style="
                             color: white;">
 							<strong>@ViewData["Title"] се</strong>
@@ -28,28 +28,29 @@
 							<input asp-for="UserName" type="text" class="form-control" placeholder="Потребителско име">
 							<span asp-validation-for="UserName" class="text-danger"></span>
 						</div>
+
+
 						<div class="form-group">
-							<input asp-for="Password" class="form-control" placeholder="Парола">
-							<span asp-validation-for="Password" class="text-danger"></span>
+							<input asp-for="PhoneNumber" type="text" class="form-control" placeholder="Телефонен номер">
+							<span asp-validation-for="PhoneNumber" class="text-danger"></span>
 						</div>
+
 						<div class="form-group">
-							<input asp-for="PasswordRepeat" type="password" class="form-control" placeholder="Повтори паролата">
-							<span asp-validation-for="PasswordRepeat" class="text-danger"></span>
+							<input asp-for="Address" type="text" class="form-control" placeholder="Адрес">
+							<span asp-validation-for="Address" class="text-danger"></span>
 						</div>
 
-						<div class="mb-3">
-							<div class="dropdown-container">
-								<select asp-for="Role" id="dropdown-list" class="dropdown-list">
-									@foreach (var a in Model.Roles)
-									{
-										<option value="@a" class="dropdown-item">@a</option>
-									}
-								</select>
-							</div>
 
-
+						<div class="form-group">
+							<input asp-for="City" type="text" class="form-control" placeholder="Град">
+							<span asp-validation-for="City" class="text-danger"></span>
 						</div>
 
+
+						<div class="form-group">
+							<input asp-for="Country" type="text" class="form-control" placeholder="Държава">
+							<span asp-validation-for="Country" class="text-danger"></span>
+						</div>
 
 
 						<div class="form-group">
@@ -57,8 +58,8 @@
 							Качи снимка
 						</div>
 
-						<button asp-action="Register" asp-controller="Account" class="button login__submit">
-							<span class="button__text" style="text-align:center;">Регистрация</span>
+						<button asp-action="Edit" asp-controller="Profile" class="button login__submit">
+							<span class="button__text" style="text-align:center;">Запази промените</span>
 							<i class="button__icon fas fa-chevron-right"></i>
 						</button>
 					</form>
