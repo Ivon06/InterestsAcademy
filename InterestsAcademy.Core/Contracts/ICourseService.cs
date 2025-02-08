@@ -1,4 +1,5 @@
 ﻿using InterestsAcademy.Core.Models.Course;
+using InterestsAcademy.Core.Models.Request;
 using InterestsAcademy.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -29,5 +30,13 @@ namespace InterestsAcademy.Core.Contracts
         Task<string> GetCourseIdByRequestId(string requestId);
 
         Task<EditCourseViewModel> GetCourseForEdit(string id);
+
+        Task<AllRequestViewModel> GetCourseWithAllRequest(string courseId);
+
+        Task<bool> IsCourseApproved(string courseId);
+
+        Task<bool> ApproveCourse(EditCourseViewModel model);
+        Task<bool> IsCourseValidForTeacher(string courseId, string teacherId);
+        Task<List<CourseCardViewModel>> GetAllCoursesByRoomId(string roomId);
     }
 }

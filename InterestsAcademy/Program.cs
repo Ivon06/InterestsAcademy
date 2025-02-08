@@ -4,12 +4,13 @@ using InterestsAcademy.Data;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("InterestsAcademyDbContextConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<InterestsAcademyDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -31,10 +32,18 @@ builder.Services.AddDefaultIdentity<User>(options =>
 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<InterestsAcademyDbContext>();
-              
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.ConfigureServices();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+
+
+});
 
 builder.Services.AddCors(options =>
 {
@@ -51,11 +60,19 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddResponseCaching();
 
+builder.Services
+                .AddControllersWithViews(options =>
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                });
+
 builder.Services.AddSignalR();
 
 var app = builder.Build();
 
 app.MapHub<RequestHub>("/requestHub");
+
+app.MapHub<ActivityHub>("/activityHub");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -80,16 +97,27 @@ app.UseRouting();
 
 app.UseAuthentication();
 
+
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
-                   name: "Areas",
-                   pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
-               );
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"); app.MapRazorPages();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapDefaultControllerRoute();
+app.MapRazorPages();
+
+
+app.MapRazorPages();
+
+
+
 
 app.Run();
 
@@ -97,14 +125,14 @@ app.Run();
 static void ConfigureCloudinaryService(IServiceCollection services, IConfiguration configuration)
 {
 
-	var cloudName = configuration.GetValue<string>("AccountSettings:CloudName");
-	var apiKey = configuration.GetValue<string>("AccountSettings:ApiKey");
-	var apiSecret = configuration.GetValue<string>("AccountSettings:ApiSecret");
+    var cloudName = configuration.GetValue<string>("AccountSettings:CloudName");
+    var apiKey = configuration.GetValue<string>("AccountSettings:ApiKey");
+    var apiSecret = configuration.GetValue<string>("AccountSettings:ApiSecret");
 
-	if (new[] { cloudName, apiKey, apiSecret }.Any(string.IsNullOrWhiteSpace))
-	{
-		throw new ArgumentException("Please specify your Cloudinary account Information");
-	}
+    if (new[] { cloudName, apiKey, apiSecret }.Any(string.IsNullOrWhiteSpace))
+    {
+        throw new ArgumentException("Please specify your Cloudinary account Information");
+    }
 
-	services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
+    services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
 }

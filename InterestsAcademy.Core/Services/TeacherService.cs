@@ -49,12 +49,29 @@ namespace InterestsAcademy.Core.Services
             return result!.Id;
         }
 
+        public async Task<bool> IsTeacherIdValidAsync(string teacherId)
+        {
+            var isTeacher = await repo.GetByIdAsync<Teacher>(teacherId);
+                return  isTeacher == null ? false :true;
+        }
+
         public async Task<bool> IsTeacherAsync(string userId)
         {
             var isTeacher = await repo.GetAll<Teacher>()
                 .AnyAsync(t => t.UserId == userId && t.User.IsActive == true);
 
             return isTeacher;
+        }
+
+        public async Task<List<string>> GetAllTeacherUsersIdByRoomId(string roomId)
+        {
+            var ids = await repo.GetAll<Course>()
+                .Include(c => c.Teacher)
+                .Where(c => c.RoomId == roomId)
+                .Select(c => c.Teacher.UserId)
+                .ToListAsync();
+
+            return ids;
         }
     }
 }

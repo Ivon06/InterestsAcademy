@@ -22,6 +22,7 @@ namespace InterestsAcademy.Data.Configurations
 
             teachers.Add(new Teacher()
             {
+                Id = "2644afb5-f916-4b3f-b451-9ff86c881de3",
                 UserId = "93418f37-da3b-4c78-b0ae-8f0022b09681",
             });
 

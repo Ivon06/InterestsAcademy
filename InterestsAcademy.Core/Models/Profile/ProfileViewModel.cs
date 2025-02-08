@@ -13,6 +13,8 @@ namespace InterestsAcademy.Core.Models.Profile
         public string Name { get; set; } = null!;
 
         public string UserName { get; set; } = null!;
+        
+
         public string? ProfilePictureUrl { get; set; }
 
         public string Email { get; set; } = null!;

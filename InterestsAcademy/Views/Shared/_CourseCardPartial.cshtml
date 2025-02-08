@@ -3,7 +3,7 @@
 @model CourseCardViewModel
 
 
-<div class="col-xs-12 ">
+<div class="col-xs-12 " style="margin-top: 1em;">
 	<div class="image-flip">
 		<div class="mainflip flip-0">
 			<div class="frontside">
@@ -18,7 +18,7 @@
 			</div>
 			<div class="backside">
 				<div class="card">
-					<div class="card-body text-center mt-4">
+					<div class="card-body text-center card-body-back">
 						<h4 class="card-title">@Model.Name</h4>
 						<div class="css-1io73yq eu4oa1w0">
 							<span class="css-18p8mbl e1wnkr790 text-wrap">
@@ -31,7 +31,7 @@
 							@if (User.IsInRole("Student"))
 							{
 								<li class="list-inline-item">
-									<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-route-userId="@Model.TeacherId" asp-action="MyProfile" asp-controller="Profile">Учител</a>
+									<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-route-userId="@Model.TeacherUserId" asp-action="MyProfile" asp-controller="Profile">Учител</a>
 									<a id="send" asp-action="CreateView" asp-controller="Request" asp-route-courseId="@Model.Id">Запиши се</a>
 								</li>
 							}
@@ -46,30 +46,7 @@
 </div>
 
 
-@* <div class="room-card">
-    <div class="room-icon">
-        <img src="https://via.placeholder.com/64" alt="Room Icon">
-    </div>
-    <div class="room-details">
-        <h3 class="room-title">@Model.Name</h3>
-        <div class="room-icons">
-            <span class="icon lock" title="Locked Room">🔒</span>
-            <span class="icon clipboard" title="Assignments">📋</span>
-            <span class="icon edit" title="Edit Room">✏️</span>
-        </div>
 
-        @if (User.IsInRole("Teacher"))
-        {
-            <div>
-                <a asp-action="All" asp-controller="Request" asp-route-courseId="@Model.Id" class="btn btn-outline-dark">Заявки</a>
-
-                 <a asp-action="Edit" asp-controller="Course" asp-route-courseId="@Model.Id" class="btn btn-outline-dark">Редактиране</a>
-
-                <a asp-action="All" asp-controller="Activity" asp-route-courseId="@Model.Id" class="btn btn-outline-dark">График</a>
-            </div>
-        }
-    </div>
-</div> *@
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />

@@ -60,7 +60,7 @@ namespace InterestsAcademy.Core.Services
         {
             var result = await repo.GetAll<Student>()
                 .Include(s => s.User)
-                .AnyAsync(s => s.User.Name == name);
+                .AnyAsync(s => s.User.UserName == name);
 
             return result;
         }
@@ -72,6 +72,17 @@ namespace InterestsAcademy.Core.Services
                .AnyAsync(s => s.User.Email == email);
 
             return result;
+        }
+
+        public async Task<List<string>> GetAllStudentsUsersIdsByCourseId(string courseId)
+        {
+            List<string> ids = await repo.GetAll<StudentCourse>()
+                 .Include(sc => sc.Student)
+                 .Where(sc => sc.CourseId ==  courseId && sc.IsApproved)
+                 .Select(sc => sc.Student.UserId)
+                 .ToListAsync();
+
+            return ids;
         }
     }
 }

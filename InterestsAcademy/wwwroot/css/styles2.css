@@ -1,9 +1,18 @@
 ﻿/* Transparent Navbar */
-.navbar {
-    background: transparent !important; /* Makes the navbar transparent */
+nav {
+    background-color: black;
+    padding: 0;
+}
+
+.navv {
+    background: black !important;
     box-shadow: none; /* Removes any shadow */
     transition: background 0.3s ease-in-out; /* Smooth background transition */
     z-index: 10; /* Ensures navbar stays on top */
+}
+
+.nav-item {
+    font-size: 16px;
 }
 
     .navbar .nav-link,
@@ -19,7 +28,7 @@
 /* Hero Section */
 #hero {
     position: relative;
-    margin-top: -56px; /* Offsets the navbar height */
+/*    margin-top: -56px;*/ /* Offsets the navbar height */
 }
 
     #hero .overlay {
@@ -37,6 +46,10 @@
         z-index: 2;
         text-align: left; /* Align text to the left */
         margin-right: 20; 
+    }
+
+    .nav-item{
+        font-size:14px;
     }
 
 #hero {

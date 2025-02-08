@@ -303,11 +303,11 @@ namespace InterestsAcademy.Data.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     TeacherId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RoomId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoomId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Duration = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: false)
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -331,8 +331,9 @@ namespace InterestsAcademy.Data.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "time", nullable: false)
+                    Topic = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Start = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    End = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -436,9 +437,9 @@ namespace InterestsAcademy.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "BirthDate", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "Gender", "IsActive", "IsApproved", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "RegisteredOn", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "080a469a-b5a2-44cc-a660-eea8e6fd05a5", 0, "ул. Ал. Стамболийски 30 ет.3 ап.11", new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified), "Казанлък", "b74730d4-c379-4980-a99f-138b64a4a3f3", "България", "petarpetrov@abv.bg", false, "Мъж", true, true, false, null, "Петър Петров", "PETARPETROV@ABV.BG", "PETAR", "AQAAAAIAAYagAAAAENsdt+M9AuI0QFTZLn9icJt87dRs/5rI+wrrYBqPHe2XH3T84O9L5ptA1mLw5K5FxA==", "0885763826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg", new DateTime(2025, 1, 3, 20, 11, 45, 300, DateTimeKind.Utc).AddTicks(8313), "ddb95364-64d4-40a4-99a4-ef2157b428ad", false, "petar" },
-                    { "20dcf707-dfd9-4aae-b8c3-f3b9844e09d8", 0, "ул. Незабравка 3", new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified), "Енина", "6d3125e0-0e6f-49d2-9379-d4822ee4e3cb", "България", "admin@abv.bg", false, "Мъж", true, true, false, null, "Admin", "ADMIN@ABV.BG", "ADMIN", "AQAAAAIAAYagAAAAEN5Pqqu5lkbQGLormFPR+ROQCUhRABxZlQYmdkSIOBGiq/uU1o1jWI1Ix3HngybvyQ==", "0889864842", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg", new DateTime(2025, 1, 3, 20, 11, 45, 612, DateTimeKind.Utc).AddTicks(2071), "c0cfd465-de06-4075-ab2f-ea50d71e9ebc", false, "Admin" },
-                    { "93418f37-da3b-4c78-b0ae-8f0022b09681", 0, "ул.Възраждане 6 ет.2 ап.8", new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified), "Казанлък", "65114805-8d04-43bb-888b-738689c4a25a", "България", "georgidimitrov@abv.bg", false, "Мъж", true, true, false, null, "Георги Димитров", "GEORGIDIMITROV@ABV.BG", "GEORGI", "AQAAAAIAAYagAAAAEKoMQLmlQu3aKdYNGw8cSLj2MNElYAyQDlnXY6QhM0CNXe9dDSdzyuCmimTKcbBx8A==", "0885789826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg", new DateTime(2025, 1, 3, 20, 11, 45, 450, DateTimeKind.Utc).AddTicks(5438), "a552d5c9-ccd6-47f6-915b-9ae56a37d363", false, "georgi" }
+                    { "080a469a-b5a2-44cc-a660-eea8e6fd05a5", 0, "ул. Ал. Стамболийски 30 ет.3 ап.11", new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified), "Казанлък", "50de8a96-a60c-4509-a270-e2cd5436bfbc", "България", "petarpetrov@abv.bg", false, "Мъж", true, true, false, null, "Петър Петров", "PETARPETROV@ABV.BG", "PETAR", "AQAAAAIAAYagAAAAEGw78/Vg99afYMG7oDS0V8+0nJwVyx0Tb0msqSFlJY6uMDyQTFZs+JOEveENKInIHg==", "0885763826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg", new DateTime(2025, 2, 2, 21, 50, 36, 604, DateTimeKind.Utc).AddTicks(5892), "1cbc7d8c-8423-4c72-884e-599875f64100", false, "petar" },
+                    { "20dcf707-dfd9-4aae-b8c3-f3b9844e09d8", 0, "ул. Незабравка 3", new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified), "Енина", "bf258671-420e-4ba2-ba44-5d700503f5c8", "България", "admin@abv.bg", false, "Мъж", true, true, false, null, "Admin", "ADMIN@ABV.BG", "ADMIN", "AQAAAAIAAYagAAAAEIxzi8p+8pze8BJG5AixsJb8BFtFIOLFcPoJMDOyncX/C7uA+ku71RJ0IsUUizyyDA==", "0889864842", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg", new DateTime(2025, 2, 2, 21, 50, 36, 886, DateTimeKind.Utc).AddTicks(4172), "269006f4-7919-4624-90d3-8ad05c532689", false, "Admin" },
+                    { "93418f37-da3b-4c78-b0ae-8f0022b09681", 0, "ул.Възраждане 6 ет.2 ап.8", new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified), "Казанлък", "45dab1dc-eafc-4a0c-b18f-137383119084", "България", "georgidimitrov@abv.bg", false, "Мъж", true, true, false, null, "Георги Димитров", "GEORGIDIMITROV@ABV.BG", "GEORGI", "AQAAAAIAAYagAAAAEB6oUfG8aZvyknXkc4MZiVqNbGdA0/lzwHYCPELgQOJ7PszhUddEANKgeqWbslhNYw==", "0885789826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg", new DateTime(2025, 2, 2, 21, 50, 36, 753, DateTimeKind.Utc).AddTicks(9328), "5ad00d43-f22b-43bf-84d7-46011458ee17", false, "georgi" }
                 });
 
             migrationBuilder.InsertData(
@@ -446,22 +447,22 @@ namespace InterestsAcademy.Data.Migrations
                 columns: new[] { "Id", "Capacity", "Floor", "Name" },
                 values: new object[,]
                 {
-                    { "0536e904-8b3b-4cd6-857d-5772574dd662", 26, 1, "Пространство \"Роботика и програмиране\"" },
-                    { "0873964e-5c9d-4562-8f3b-37bff2757983", 26, 1, "Библиотека" },
-                    { "107c998d-3867-4c7c-8ada-5af8f2303070", 26, 1, "Еко стая" },
-                    { "10923716-fb08-422c-9191-02f9eb359e40", 26, 1, "Младежки клуб по видеозаснемане" },
-                    { "1532bb2d-f143-4790-b7aa-a8bb514231d3", 26, 1, "Градина за биоземеделие" },
-                    { "2b02b161-ec2c-4f0e-8a62-21d0fb7ebf83", 26, 1, "Музикално студио" },
-                    { "32c2b204-fe14-4b43-9132-bde27128788c", 26, 1, "Пространство за Археология" },
-                    { "41949c56-21e2-4603-a767-a07161a546b6", 26, 1, "Физкултурен салон" },
-                    { "5269b829-c07b-4592-b5a0-809a5a2cd581", 26, 1, "Пространство \"Малки изследователи\"" },
-                    { "573166cf-2e17-4135-aeae-9519c6607df7", 26, 1, "Пространство за спорт на открито" },
-                    { "7409ab1a-cbcf-4c1e-a2a8-cb5ed9c700df", 26, 1, "Работилница" },
-                    { "7d0b2998-b638-4e2d-9f6c-91ab0c82f5c7", 26, 1, "Конферентна зала" },
-                    { "8bd9b144-a7ca-4ba1-8e0f-1aea190e2ba5", 26, 1, "Мултифункционална зала" },
-                    { "c61e37ef-d1e8-42a8-9792-84fb00e6c12c", 26, 1, "Лаборатория" },
-                    { "d5174b57-ecb8-446a-8561-cc43c2b953b6", 26, 1, "Физика и астрономия" },
-                    { "f53e628f-3466-48a3-ad58-b888c738e12e", 26, 1, "Дейности извън Академията - ориентиране в планината, конна езда, походи" }
+                    { "09fb0433-8eb8-436a-b9d3-8fb63b03bc9c", 26, 1, "Библиотека" },
+                    { "129bb432-fbbb-41eb-812a-5091978f7c7c", 26, 1, "Мултифункционална зала" },
+                    { "19ee7987-e4ae-4af3-bc50-7fa27adcc4c8", 26, 1, "Конферентна зала" },
+                    { "1b39e8a3-f267-4cb3-ba7a-6afc81249714", 26, 1, "Еко стая" },
+                    { "1e81f8b2-a46b-498d-ae78-d7ced7775d1e", 26, 1, "Градина за биоземеделие" },
+                    { "38937a33-bffe-434f-bb3d-6fe6397e4538", 26, 1, "Физкултурен салон" },
+                    { "64ae1f9e-bc59-4356-b74e-887f08425106", 26, 1, "Лаборатория" },
+                    { "684c0183-d908-4b3e-8cc3-b2909f6ff92f", 26, 1, "Пространство за Археология" },
+                    { "6863ab57-1613-43ab-9770-c301cd77f614", 26, 1, "Дейности извън Академията - ориентиране в планината, конна езда, походи" },
+                    { "6ec09e3b-ddd4-47ff-a3b6-6ad9278bfdb4", 26, 1, "Работилница" },
+                    { "7e2f2252-bb8b-4716-a702-d891e77a7b4a", 26, 1, "Пространство за спорт на открито" },
+                    { "89dcf285-c8e5-45b3-b5d3-19ad1818134f", 26, 1, "Младежки клуб по видеозаснемане" },
+                    { "c29aee18-f67c-4058-90dc-c2462832441a", 26, 1, "Пространство \"Роботика и програмиране\"" },
+                    { "c65aaef4-87ce-4e35-a60f-0b5d8f94171f", 26, 1, "Музикално студио" },
+                    { "cc9a27d1-e7b6-48c8-9957-33ab64fe8b50", 26, 1, "Физика и астрономия" },
+                    { "cfdf8b3e-f216-4449-80c9-66e149c6c914", 26, 1, "Пространство \"Малки изследователи\"" }
                 });
 
             migrationBuilder.InsertData(
@@ -477,12 +478,12 @@ namespace InterestsAcademy.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "Id", "SleepingRoomId", "UserId" },
-                values: new object[] { "830dc34a-8450-4914-8981-0798360c5c6b", null, "080a469a-b5a2-44cc-a660-eea8e6fd05a5" });
+                values: new object[] { "d9ef00ce-a909-4421-be44-3ef59927e5f6", null, "080a469a-b5a2-44cc-a660-eea8e6fd05a5" });
 
             migrationBuilder.InsertData(
                 table: "Teachers",
                 columns: new[] { "Id", "UserId" },
-                values: new object[] { "67227ca9-9fa8-4534-99c2-06210742f0ff", "93418f37-da3b-4c78-b0ae-8f0022b09681" });
+                values: new object[] { "2644afb5-f916-4b3f-b451-9ff86c881de3", "93418f37-da3b-4c78-b0ae-8f0022b09681" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activities_CourseId",

@@ -2,7 +2,7 @@
 @model List<CourseCardViewModel>
 
 
-<section id="team" class="pb-5">
+<section id="team" class="pb-5" style="min-height: 44em;">
 	<div class="container">
 		<h5 class="section-title h1">Всички курсове</h5>
 		<div class="row">
@@ -15,25 +15,6 @@
 
 
 
-				@* <div class="col-md-4">
-			<div class="card ">
-				<div class="card-body">
-					<div class="room-card">
-						<div class="room-icon">
-							<img src="https://via.placeholder.com/64" alt="Room Icon">
-						</div>
-						<div class="room-details">
-							<h3 class="room-title">@course.Name</h3>
-							<p>@course.Description</p>
-							@if (User.IsInRole("Student"))
-							{
-								<a id="send" asp-action="CreateView" asp-controller="Request" asp-route-courseId="@course.Id" class="btn btn-outline-dark">Запиши се</a>
-							}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> *@
 			}
 
 		</div>
@@ -42,12 +23,10 @@
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
-}
+	}
 
 @section Scripts {
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
 }
 
 

@@ -1,0 +1,53 @@
+﻿@using InterestsAcademy.Core.Models.Activity
+@model List<ActivityViewModel>
+
+@{
+
+    Dictionary<string, string> hours = new Dictionary<string, string>()
+    {
+        {"09", "9"},
+        {"10", "10"},
+        {"11", "11"},
+        {"12", "12"},
+        {"13", "1"},
+        {"14", "2"},
+        {"15", "3"},
+        {"16", "4"},
+        {"17", "5"},
+        {"18", "6"}
+
+    };
+    var day = Model.FirstOrDefault() != null ? Model.FirstOrDefault()!.Date : DateTime.Now.Day;
+    var dayText = Model.FirstOrDefault() != null ? Model.FirstOrDefault()!.Day : DateTime.Now.DayOfWeek.ToString();
+
+    Dictionary<string, string> days = new Dictionary<string, string>()
+    {
+        {"Mon", "Пон"},
+        {"Tue", "Втор"},
+        {"Wed", "Ср"},
+        {"Thu", "Чет"},
+        {"Fri", "Пет"},
+        {"Sat", "Съб"},
+        {"Sun", "Нед"},
+
+    };
+
+}
+
+<li class="events-group" id="day-@dayText">
+    <div class="top-info"><span class="text-dark" style="font-weight: bold;">@day @days[dayText]</span></div>
+
+    <ul>
+        @foreach (var activity in Model.Where(m => !string.IsNullOrEmpty(m.Topic)))
+        {
+            <li class="single-event" data-start="@activity.StartHour" data-end="@activity.EndHour" data-content="@activity.Topic"
+                data-event="event-1">
+                <a href="#0" id="@activity.Id">
+                    <em class="event-name mt-2">@activity.Topic</em>
+                    <em class="event-name mt-2" style="font-size: 1rem;">@activity.CourseName</em>
+                </a>
+            </li>
+        }
+
+    </ul>
+</li>

@@ -31,11 +31,15 @@ namespace InterestsAcademy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Topic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -70,8 +74,9 @@ namespace InterestsAcademy.Data.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("Description");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -85,12 +90,8 @@ namespace InterestsAcademy.Data.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("RoomId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("RoomId");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("TeacherId")
                         .IsRequired()
@@ -103,6 +104,19 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e6bb13af-fe1e-4276-b301-1bffe7f8c8fc",
+                            Description = "Този курс предоставя задълбочен поглед върху основните принципи на биологията – от клетъчната структура и генетиката до екосистемите и еволюцията. Ще изследваме живите организми, техните процеси и взаимодействия, както и най-новите открития в областта. Подходящ за ученици, студенти и любители на науката, които искат да разберат по-добре света около себе си. ",
+                            Duration = "2 месеца",
+                            IsActive = true,
+                            IsApproved = true,
+                            Name = "Биология",
+                            RoomId = "64ae1f9e-bc59-4356-b74e-887f08425106",
+                            TeacherId = "2644afb5-f916-4b3f-b451-9ff86c881de3"
+                        });
                 });
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.GivenThing", b =>
@@ -232,112 +246,112 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8fd131ed-da38-427f-9e06-a775666e0000",
+                            Id = "129bb432-fbbb-41eb-812a-5091978f7c7c",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Мултифункционална зала"
                         },
                         new
                         {
-                            Id = "b079cae6-1b63-4753-8c53-4acfa9822797",
+                            Id = "c65aaef4-87ce-4e35-a60f-0b5d8f94171f",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Музикално студио"
                         },
                         new
                         {
-                            Id = "a6bd87fc-9459-4a2b-ac15-426069b0c975",
+                            Id = "cfdf8b3e-f216-4449-80c9-66e149c6c914",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство \"Малки изследователи\""
                         },
                         new
                         {
-                            Id = "d46e79e7-3875-4e83-b274-9430002d435a",
+                            Id = "6ec09e3b-ddd4-47ff-a3b6-6ad9278bfdb4",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Работилница"
                         },
                         new
                         {
-                            Id = "b182b4af-47a3-4d82-a917-dfb78d4a04bf",
+                            Id = "38937a33-bffe-434f-bb3d-6fe6397e4538",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Физкултурен салон"
                         },
                         new
                         {
-                            Id = "2904ecee-5398-4049-8118-929a50437514",
+                            Id = "19ee7987-e4ae-4af3-bc50-7fa27adcc4c8",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Конферентна зала"
                         },
                         new
                         {
-                            Id = "93113b4a-8598-4815-b318-e1c5f5e7f077",
+                            Id = "09fb0433-8eb8-436a-b9d3-8fb63b03bc9c",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Библиотека"
                         },
                         new
                         {
-                            Id = "1f4dc64a-8d58-44a6-a1f9-0d8a49413be6",
+                            Id = "cc9a27d1-e7b6-48c8-9957-33ab64fe8b50",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Физика и астрономия"
                         },
                         new
                         {
-                            Id = "cb83907a-893e-49ab-b680-63cca2e408b5",
+                            Id = "c29aee18-f67c-4058-90dc-c2462832441a",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство \"Роботика и програмиране\""
                         },
                         new
                         {
-                            Id = "20b34164-715a-42bd-8963-1f5b786c38d3",
+                            Id = "684c0183-d908-4b3e-8cc3-b2909f6ff92f",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство за Археология"
                         },
                         new
                         {
-                            Id = "8ab44d36-a00e-4e39-ac9e-4d863cd159a7",
+                            Id = "64ae1f9e-bc59-4356-b74e-887f08425106",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Лаборатория"
                         },
                         new
                         {
-                            Id = "1e6cebba-b4e6-48a4-ae32-6336b9bda35e",
+                            Id = "89dcf285-c8e5-45b3-b5d3-19ad1818134f",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Младежки клуб по видеозаснемане"
                         },
                         new
                         {
-                            Id = "01e9c2db-9035-4071-8602-f7b768b5a47d",
+                            Id = "7e2f2252-bb8b-4716-a702-d891e77a7b4a",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Пространство за спорт на открито"
                         },
                         new
                         {
-                            Id = "fea5e2d5-6854-42df-b7e2-e3d9fa34cf56",
+                            Id = "1b39e8a3-f267-4cb3-ba7a-6afc81249714",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Еко стая"
                         },
                         new
                         {
-                            Id = "6e0f6e88-fcc6-4312-b0be-38eb715c9f1f",
+                            Id = "1e81f8b2-a46b-498d-ae78-d7ced7775d1e",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Градина за биоземеделие"
                         },
                         new
                         {
-                            Id = "f87467af-c6e0-4af1-8e05-390f31f4a35d",
+                            Id = "6863ab57-1613-43ab-9770-c301cd77f614",
                             Capacity = 26,
                             Floor = 1,
                             Name = "Дейности извън Академията - ориентиране в планината, конна езда, походи"
@@ -388,7 +402,7 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2436e6ba-7163-4c01-b6d1-c4ead64ec7c0",
+                            Id = "31ef1bef-9221-436a-b9d8-53c2710834da",
                             UserId = "080a469a-b5a2-44cc-a660-eea8e6fd05a5"
                         });
                 });
@@ -429,7 +443,7 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "69d01633-b6d0-410b-b135-3442eef1f8ce",
+                            Id = "2644afb5-f916-4b3f-b451-9ff86c881de3",
                             UserId = "93418f37-da3b-4c78-b0ae-8f0022b09681"
                         });
                 });
@@ -541,7 +555,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Ал. Стамболийски 30 ет.3 ап.11",
                             BirthDate = new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-                            ConcurrencyStamp = "bf5d5bb8-7c8e-415c-9184-d9999e290604",
+                            ConcurrencyStamp = "8587d2e0-8370-4a02-9024-44ecd55e5960",
                             Country = "България",
                             Email = "petarpetrov@abv.bg",
                             EmailConfirmed = false,
@@ -552,12 +566,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Петър Петров",
                             NormalizedEmail = "PETARPETROV@ABV.BG",
                             NormalizedUserName = "PETAR",
-                            PasswordHash = "AQAAAAIAAYagAAAAECCV9gV3HPM6Owc7oOu8ZwGsgpDpWPLcCeq2VCgKeCwLmMkHU4zdVJaSp1hXxj6AxA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO7zeZXu5mg2feXYU7r6b+jdPE0bILTaUeFIkS6SzayEfnScX3j1z1bS2fgGuC6Esg==",
                             PhoneNumber = "0885763826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg",
-                            RegisteredOn = new DateTime(2025, 1, 17, 10, 22, 4, 134, DateTimeKind.Utc).AddTicks(3000),
-                            SecurityStamp = "7784dc11-7f64-40fe-9e0a-2f10be58f188",
+                            RegisteredOn = new DateTime(2025, 2, 2, 21, 54, 26, 578, DateTimeKind.Utc).AddTicks(2402),
+                            SecurityStamp = "320006ff-ea09-4c4e-80d6-b3e25654aebb",
                             TwoFactorEnabled = false,
                             UserName = "petar"
                         },
@@ -568,7 +582,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул.Възраждане 6 ет.2 ап.8",
                             BirthDate = new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-                            ConcurrencyStamp = "efcf8418-afd6-4123-a495-07f72a11d41c",
+                            ConcurrencyStamp = "6b9c49ff-405d-4d65-a38a-53e734640be6",
                             Country = "България",
                             Email = "georgidimitrov@abv.bg",
                             EmailConfirmed = false,
@@ -579,12 +593,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Георги Димитров",
                             NormalizedEmail = "GEORGIDIMITROV@ABV.BG",
                             NormalizedUserName = "GEORGI",
-                            PasswordHash = "AQAAAAIAAYagAAAAECw5rDYPNlwd/ad+nNcHk7Fq6nwWRqzA5DicQmx+bMUaZHgbw5FPB7LEa89pFcGjvQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEjyKCxzQNzSbDgD+BLE/a1jPYXeCFEVsfsmXoquYj+dDLEhma/PYlrlf+0zKrNLjw==",
                             PhoneNumber = "0885789826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg",
-                            RegisteredOn = new DateTime(2025, 1, 17, 10, 22, 4, 203, DateTimeKind.Utc).AddTicks(5621),
-                            SecurityStamp = "c5d58eb0-5578-487e-9caf-59d01dc2cff2",
+                            RegisteredOn = new DateTime(2025, 2, 2, 21, 54, 26, 716, DateTimeKind.Utc).AddTicks(7408),
+                            SecurityStamp = "9fe1719c-61dd-4e97-8077-741c5a62e6ed",
                             TwoFactorEnabled = false,
                             UserName = "georgi"
                         },
@@ -595,7 +609,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Незабравка 3",
                             BirthDate = new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Енина",
-                            ConcurrencyStamp = "459e9bad-3178-4bdf-92ac-d7fb7652498a",
+                            ConcurrencyStamp = "1be6670a-430d-46d1-adea-b38eab197394",
                             Country = "България",
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
@@ -606,12 +620,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF1mSFRIh8/J5ezbEV+KdZGyodaC9xRFHu6xAu6FW3P4DngdhHnl/aY0nrJoSdeKBg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ3dC+RkqaXcM+D9fDiS0frYWMM/rIDB5zmbxlp/O1DAUhsNIF6IxEIVnzMpIyjB/Q==",
                             PhoneNumber = "0889864842",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg",
-                            RegisteredOn = new DateTime(2025, 1, 17, 10, 22, 4, 305, DateTimeKind.Utc).AddTicks(8505),
-                            SecurityStamp = "f8c2ef1f-67b2-4162-bb95-c8f36dfb373a",
+                            RegisteredOn = new DateTime(2025, 2, 2, 21, 54, 26, 848, DateTimeKind.Utc).AddTicks(6031),
+                            SecurityStamp = "4773b814-5fe8-49f4-9222-896372363516",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -832,8 +846,7 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasOne("InterestsAcademy.Data.Models.Room", "Room")
                         .WithMany("Courses")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("InterestsAcademy.Data.Models.Teacher", "Teacher")
                         .WithMany("Courses")

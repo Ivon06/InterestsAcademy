@@ -4,6 +4,7 @@ using InterestsAcademy.Core.Models.Request;
 using InterestsAcademy.Data.Models.Enums;
 using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using static InterestsAcademy.Common.Notifications;
 
 namespace InterestsAcademy.Controllers
@@ -73,7 +74,7 @@ namespace InterestsAcademy.Controllers
 
             
 
-            if (!isNameValid || !isEmailValid || studentEmail != user.Email ||studentName != user.Name)
+            if (!isNameValid || !isEmailValid || studentEmail != user.Email ||studentName != user.UserName)
             {
 
                 TempData[ErrorMessage] = "Невалидно име или имейл.";
@@ -110,13 +111,24 @@ namespace InterestsAcademy.Controllers
             return new JsonResult(new
             {
                 RequestId = requestId,
-                teacherUserId = teacherUserId
-            });
+                TeacherUserId = teacherUserId
+            })
+            {
+                StatusCode = (int)HttpStatusCode.OK
+
+            };
         }
 
         [HttpGet]
         public async Task<IActionResult> All(string courseId)
         {
+            bool isCourseApproved = await courseService.IsCourseApproved(courseId);
+            if (!isCourseApproved)
+            {
+                TempData[ErrorMessage] = "Този курс не е одобрен.";
+                return RedirectToAction("MyCourses", "Course");
+            }
+
             bool isTeacher = await teacherService.IsTeacherAsync(User.GetId());
 
             if(!isTeacher)
@@ -133,16 +145,16 @@ namespace InterestsAcademy.Controllers
                 return RedirectToAction("MyCourses", "Course");
             }
 
-            var model = await requestService.GetAllRequestByCourseIdAsync(courseId);
+            var model = await courseService.GetCourseWithAllRequest(courseId);
 
-            if (model.Count == 0)
+            if (model.Requests.Count == 0)
             {
                 return View(model);
             }
             else
             {
-
-                return View(model.OrderByDescending(r => r.Status));
+                model.Requests = model.Requests.OrderByDescending(r => r.Status).ToList();
+                return View(model);
             }
             
         }

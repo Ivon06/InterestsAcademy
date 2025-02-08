@@ -1,0 +1,78 @@
+﻿@using InterestsAcademy.Core.Models.Profile
+@model EditProfileViewModel;
+
+@{
+	ViewData["Title"] = "Регистрирай";
+}
+
+<div class="form-body">
+	<div class="row">
+		<div class="form-holder">
+			<div class="form-content">
+				<div class="form-items">
+					<form class="requires-validation" id="editProfileForm" method="post" enctype="multipart/form-data">
+						<h2 class="text-center" style="
+                            color: white;">
+							<strong>@ViewData["Title"] се</strong>
+						</h2>
+						<div class="form-group">
+							<input asp-for="Email" class="form-control" placeholder="Имейл">
+							<span asp-validation-for="Email" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<i class="login__icon fas fa-user"></i>
+							<input asp-for="Name" type="text" class="form-control" placeholder="Име">
+							<span asp-validation-for="Name" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<input asp-for="UserName" type="text" class="form-control" placeholder="Потребителско име">
+							<span asp-validation-for="UserName" class="text-danger"></span>
+						</div>
+
+
+						<div class="form-group">
+							<input asp-for="PhoneNumber" type="text" class="form-control" placeholder="Телефонен номер">
+							<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+						</div>
+
+						<div class="form-group">
+							<input asp-for="Address" type="text" class="form-control" placeholder="Адрес">
+							<span asp-validation-for="Address" class="text-danger"></span>
+						</div>
+
+
+						<div class="form-group">
+							<input asp-for="City" type="text" class="form-control" placeholder="Град">
+							<span asp-validation-for="City" class="text-danger"></span>
+						</div>
+
+
+						<div class="form-group">
+							<input asp-for="Country" type="text" class="form-control" placeholder="Държава">
+							<span asp-validation-for="Country" class="text-danger"></span>
+						</div>
+
+
+						<div class="form-group">
+							<input asp-for="ProfilePicture" accept="image/gif, image/jpeg, image/png" id="upload_file">
+							Качи снимка
+						</div>
+
+						<button asp-action="Edit" asp-controller="Profile" class="button login__submit">
+							<span class="button__text" style="text-align:center;">Запази промените</span>
+							<i class="button__icon fas fa-chevron-right"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+}
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

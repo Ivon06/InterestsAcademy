@@ -1,4 +1,5 @@
-﻿using InterestsAcademy.Data.Models;
+﻿using InterestsAcademy.Core.Models.User;
+using InterestsAcademy.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -27,6 +28,8 @@ namespace InterestsAcademy.Core.Contracts
 
         Task<User> GetByIdAsync(string id);
         Task<string> GetUserIdByStudentId(string studentId);
+
+        Task<UsersQueryModel> GetAllUsersAsync();
 
 
     }

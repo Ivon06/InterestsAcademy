@@ -1,103 +1,119 @@
-﻿<!DOCTYPE html>
+﻿@using InterestsAcademy.Core.Contracts
+@using InterestsAcademy.Extensions
+@inject ITeacherService teacherService;
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - InterestsAcademy</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/styles2.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/InterestsAcademy.styles.css" asp-append-version="true" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - InterestsAcademy</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/styles2.css" asp-append-version="true" />
+	@* <link rel="stylesheet" href="~/InterestsAcademy.styles.css" asp-append-version="true" /> *@
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	@* <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> *@
 
-    @await RenderSectionAsync("Styles", required: false)
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	@await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    <!-- Transparent Navbar -->
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <nav class="navbar navbar-expand-sm navbar-light ">
-            <partial name="_NotificationPartial" />
-            <div class="container-fluid">
-                <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
-                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav ">
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Начална страница</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Проект и концепция</a></li>
+	<!-- Transparent Navbar -->
+	@if (!User.Identity.IsAuthenticated)
+	{
+		<nav class="navbar navbar-expand-sm navbar-light navv " style="background-color:black;">
+			<partial name="_NotificationPartial" />
+			<div class="container-fluid">
+				<img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
+				<a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse">
+					<ul class="navbar-nav ">
+						<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Начална страница</a></li>
+						<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Проект и концепция</a></li>
+						<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">За нас</a></li>
+						<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Дарение</a></li>
+						<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
+
+
+					</ul>
+
+
+				</div>
+				<partial name="_LoginPartial" />
+			</div>
+		</nav>
+	}
+	else
+	{
+		<nav class="navbar navbar-expand-sm navbar-light " style="background-color:black;">
+			<partial name="_NotificationPartial" />
+			<div class="container-fluid" style="background-color:black;">
+				<img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
+				<a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" style="background-color:black">
+					<ul class="navbar-nav " style="background-color:black">
+						<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Начална страница</a></li>
+						@* <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Проект и концепция</a></li>
                         <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">За нас</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Дарение</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Дарение</a></li> *@
+						<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
 
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="MyCourses">Моите курсове</a></li>
-                        }
-                    </ul>
+						@if (User.Identity.IsAuthenticated)
+						{
+							<li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="MyCourses">Моите курсове</a></li>
+						}
+						@if (User.IsInRole("Student"))
+						{
+							<li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="All"> Kурсове</a></li>
+						}
+						@if (User.IsInRole("Teacher"))
+						{
+							
+							var teacherId = await teacherService.GetTeacherIdByUserId(User.GetId());
+							
+							<li class="nav-item">
+								<a class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@teacherId" asp-route-isTeacher="@true" asp-route-isCourse="@false">Моят график</a>
+							</li>
+						}
 
-
-                </div>
-                <partial name="_LoginPartial" />
-            </div>
-        </nav>
-    }else{
-        <nav class="navbar navbar-expand-sm navbar-light " style="background-color:black">
-            <partial name="_NotificationPartial" />
-            <div class="container-fluid" style="background-color:black">
-                <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
-                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" style="background-color:black">
-                    <ul class="navbar-nav " style="background-color:black">
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Начална страница</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Проект и концепция</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">За нас</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Дарение</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
-
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="MyCourses">Моите курсове</a></li>
-                        }
-                        @if (User.IsInRole("Student"))
-                        {
-                            <li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="All"> Kурсове</a></li>
-                        }
-
-                    </ul>
+					</ul>
 
 
-                </div>
-                <partial name="_LoginPartial" />
-            </div>
-        </nav>
-    }
-    
+				</div>
+				<partial name="_LoginPartial" />
+			</div>
+		</nav>
+	}
 
-    <!-- Main Content -->
-    
-        <main role="main" class="pb-3" >
-        <div class="container-fluid px-0">
-            @RenderBody()
-        </div>
-        </main>
-    
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - InterestsAcademy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<!-- Main Content -->
+
+	<main role="main" class="pb-3">
+		<div class="container-fluid px-0">
+			@RenderBody()
+		</div>
+	</main>
+
+
+	<footer class=" footer text-muted">
+		<div>
+			&copy; 2024 - InterestsAcademy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

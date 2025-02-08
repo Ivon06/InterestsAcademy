@@ -1,0 +1,52 @@
+﻿@using InterestsAcademy.Core.Models.Course
+@model EditCourseViewModel
+
+
+
+
+<div class="container mt-5">
+    <h1 class="text-center">Приеми курс</h1>
+    <form asp-action="Accept" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="Name" class="form-label">Име</label>
+            <input type="text" id="Name" name="Name" class="form-control" asp-for="@Model.Name" disabled />
+
+        </div>
+
+        <div class="mb-3">
+            <label for="Description" class="form-label">Описание</label>
+            <textarea id="Description" name="Description" class="form-control" asp-for="@Model.Description" disabled></textarea>
+
+        </div>
+
+        <div class="mb-3">
+            <label for="Duration" class="form-label">Продължителност</label>
+            <input type="text" id="Duration" name="Duration" class="form-control" asp-for="@Model.Duration" disabled />
+
+        </div>
+
+        <div class="mb-3">
+            <label for="TeacherName" class="form-label">Учител</label>
+            <input type="text" id="TeacherName" name="TeacherName" class="form-control" asp-for="@Model.TeacherName" disabled />
+
+        </div>
+
+        <div class="mb-3">
+            <label for="RoomId" class="form-label">Стая</label>
+            <select id="RoomId"
+                    name="RoomId"
+                    class="form-select"
+                    >
+                <option value="" asp-for="@Model.RoomId" selected disabled >Избери стая</option>
+                @foreach (var room in Model.Rooms)
+                {
+                    <option value="@room.Id">@room.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary" asp-area="AdminArea" asp-action="Accept" asp-controller="Course">Приеми</button>
+        </div>
+    </form>
+</div>

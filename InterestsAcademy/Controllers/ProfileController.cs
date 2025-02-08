@@ -1,6 +1,9 @@
 ﻿using InterestsAcademy.Common;
 using InterestsAcademy.Core.Contracts;
+using InterestsAcademy.Core.Models.Profile;
 using InterestsAcademy.Core.Services;
+using InterestsAcademy.Data.Models;
+using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using static InterestsAcademy.Common.Notifications;
 
@@ -53,8 +56,46 @@ namespace InterestsAcademy.Controllers
            
 
 
-            TempData[InformationMessage] = "Този потребител не е нито учител нито ученик";
-            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            bool isExists = await userService.IsExistsByIdAsync(id);
+            if (!isExists)
+            {
+                TempData[ErrorMessage] = "Този потребител не съществува";
+                return RedirectToAction("Index", "Home");
+            }
+            if (User.GetId() != id)
+            {
+                TempData[ErrorMessage] = "Не може да редактирате този профил.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = await profileService.GetProfileForEditAsync(id);
+            model.Id = id;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditProfileViewModel model)
+        {
+            bool isExists = await userService.IsExistsByIdAsync(model.Id);
+            if (!isExists)
+            {
+                TempData[ErrorMessage] = "Този потребител не съществува";
+                return RedirectToAction("Index", "Home");
+            }
+            if (!ModelState.IsValid)
+            {
+                TempData[ErrorMessage] = "Неправилни данни";
+                return View(model);
+            }
+
+            await profileService.EditProfileAsync(model);
+
+            return RedirectToAction("MyProfile", "Profile", new { userId = model.Id });
+
         }
         public IActionResult Index()
         {

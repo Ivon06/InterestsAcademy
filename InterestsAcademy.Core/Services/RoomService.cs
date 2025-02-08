@@ -32,5 +32,19 @@ namespace InterestsAcademy.Core.Services
 
             return result;
         }
+
+        public async Task<bool> IsRoomValid(string roomId)
+        {
+            var room = await repo.GetByIdAsync<Room>(roomId);
+
+            return room == null ? false : true;
+        }
+
+        public async Task<string> GetRoomIdByCourseId(string courseId)
+        {
+            var course = await repo.GetByIdAsync<Course>(courseId);
+
+            return course.RoomId;
+        }
     }
 }

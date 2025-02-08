@@ -7,6 +7,22 @@ var connection = new signalR.HubConnectionBuilder()
     .withUrl("/requestHub")
     .build();
 
+async function start() {
+    try {
+        await connection.start();
+        console.log("SignalR Connected.");
+    } catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
+
+connection.onclose(async () => {
+    await start();
+});
+
+start();
+
 let statusBg = {
     "Waiting": "Waiting",
     "Accepted": "Accepted",
@@ -25,21 +41,26 @@ connection.on("ReceiveRequest", function (studentEmail, studentName, status, req
     let tr = document.createElement('tr');
 
     tr.innerHTML = `
-        <td>photo</td>
+        
+
+
         <td>${studentName}</td>
-        <td>${studentEmail}</td>
-        <td>
-            <div class="dropdown" id="dropdown-${requestId}">
-                <a class="badge badge-soft-${colors[status]} p-2 team-status dropdown-toggle" id="status-${requestId}" style="text-decoration: none; font-size: 1rem" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ${statusBg[status]}
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/Request/Accept?requestId=${requestId}">\u041f\u0440\u0438\u0435\u043c\u0438</a></li>
-                    <li><a class="dropdown-item" onclick="changeStatus('Rejected', ${requestId})">\u041e\u0442\u043a\u0430\u0436\u0438</a></li>
-                </ul>
-            </div>
-        </td>
+                                <td>${studentEmail}</td>
+                                <td>
+                                     <p class="badge badge-soft-${colors[status]} p-2 team-status" id="status-${requestId}" style="text-decoration: none; color:black; font-size: 1rem">
+                                        ${statusBg[status]}
+                                    </p>
+                                </td>
+                                <td>
+                                    
+                                        <input value="${requestId}" id="requestId" hidden />
+                                        <input value="${status}" id="requestStatus" hidden />
+                                        <button class="badge badge-soft-${colors[status]} p-2 team-status btn-approve" id="accept_${requestId}" >\u041f\u0440\u0438\u0435\u043c\u0438</button>
+                                        <button class="badge badge-soft-${colors[status]} p-2 team-status btn-reject" onclick="changeStatus('Rejected', '${requestId}')">\u041e\u0442\u043a\u0430\u0436\u0438</button>
+                                    
+                                </td>
     `;
+
 
     let table = document.getElementById('requests');
     if (table) {
@@ -47,34 +68,16 @@ connection.on("ReceiveRequest", function (studentEmail, studentName, status, req
     } else {
         console.error('Table with ID "requests" not found.');
     }
+
+
 });
 
-async function start() {
-    try {
-        await connection.start();
-        console.log("SignalR Connected.");
-    } catch (err) {
-        console.log(err);
-        setTimeout(start, 5000);
-    }
-};
+let buttons = document.getElementsByClassName('accept-class');
+let token = $('input:hidden[name="__RequestVerificationToken"]').val()
 
-connection.onclose(async () => {
-    await start();
-});
+Array.from(buttons).forEach(b => b.addEventListener('click', function () {
 
-
-start();
-
-
-let acceptButton = document.getElementById('accept');
-let requestId = document.getElementById('requestId').value;
-let status1 = document.getElementById('requestStatus').value;
-let token = $("input[name='__RequestVerificationToken']").val();
-
-
-acceptButton.addEventListener('click', function () {
-
+    let requestId = b.id.split('_')[1];
 
     $.ajax({
         method: 'POST',
@@ -98,28 +101,32 @@ acceptButton.addEventListener('click', function () {
                     console.error(err)
                 }
 
-
+                let courseId = document.getElementById('courseId').value;
 
                 let url = new URL(window.location);
 
-                window.location = `${url.origin}/Request/All`
+                window.location = `${url.origin}/Request/All?courseId=${courseId}`
             }
         },
         error: function (err) {
             console.error(err.message);
         }
     });
+}));
 
-    
-})
 
-async function changeStatus(status, id) {
+let buttons2 = document.getElementsByClassName('decline-class');
+
+Array.from(buttons2).forEach(b => b.addEventListener('click', function () {
+
+    let requestId = b.id.split('_')[1];
+
     $.ajax({
         method: 'POST',
         url: "/Request/EditStatus",
         data: {
-            'requestId': id,
-            'status': status
+            'requestId': requestId,
+            'status': "Rejected"
         },
         headers:
         {
@@ -130,52 +137,24 @@ async function changeStatus(status, id) {
             if (data.isEdited) {
                 let newStatus = "Rejected";
                 try {
-                    await connection.invoke("ChangeRequestStatus", id, newStatus);
+                    await connection.invoke("ChangeRequestStatus", requestId, newStatus);
                 }
                 catch (err) {
                     console.error(err)
                 }
 
-
+                let courseId = document.getElementById('courseId').value;
 
                 let url = new URL(window.location);
 
-                window.location = `${url.origin}/Request/All`
+                window.location = `${url.origin}/Request/All?courseId=${courseId}`
             }
         },
         error: function (err) {
             console.error(err.message);
         }
     });
+}));
 
-}
-
-connection.on("ReceiveNewStatus", function (newStatus, id) {
-
-    let statusStyles = {
-        "Waiting": "warning",
-        "Rejected": "danger",
-        "Accepted": "success"
-    };
-
-
-
-    let oldStatus = document.getElementById(`status-${id}`).textContent.trim();
-
-    document.getElementById(`requestId`).textContent = statusBg[newStatus];
-    document.getElementById(`requestId`).classList.remove(`badge-soft-warning`);
-    document.getElementById(`requestId`).classList.add(`badge-soft-${statusStyles[newStatus]}`);
-
-    if (newStatus == "Accepted") {
-        document.getElementById(`btn-documents-${id}`).style.display = 'block';
-        document.getElementById(`btn-class-${id}`).style.display = 'none'
-    }
-    else {
-        document.getElementById(`btn-documents-${id}`).style.display = 'none';
-        document.getElementById(`btn-class-${id}`).style.display = 'block'
-    }
-
-
-})
 
 

@@ -2,36 +2,17 @@
 @model List<CourseCardViewModel>
 
 
-<section id="team" class="pb-5">
+<section id="team" class="pb-5" style="min-height: 44em;">
 	<div class="container">
 		<h5 class="section-title h1">Моите курсове</h5>
 		<div class="row">
 
 			@if (User.IsInRole("Teacher"))
 			{
-				<div class="col-xs-12 col-sm-6 col-md-4" >
-					<div>
-						<div>
-							<div class="frontside">
-								<div class="card">
-									<div class="card-body text-center">
-										
-										<h4 class="card-title"></h4>
-										<p class="card-text"></p>
-										<a class="btn  btn-sm" style="    margin-top: 3.5em;" asp-action="Add" asp-controller="Course"><i class="fa fa-plus" style="padding:2em;"></i></a>
-									</div>
-								</div>
-							</div>
 
-						</div>
-					</div>
-				</div>
-			}
-
-
-			@foreach (var course in Model)
-			{
-				<div class="col-md-4">
+				<div class="col-md-4" style="position: relative;
+    min-height: 20em;
+    margin-top: 2em;">
 
 
 					<div class="col-xs-12 ">
@@ -40,36 +21,79 @@
 								<div class="frontside">
 									<div class="card">
 										<div class="card-body text-center">
-											<p><img class=" img-fluid" src="~/img/blank-profile-picture.png" alt="card image"></p>
-											<h4 class="card-title">@course.Name</h4>
-											<p class="card-text truncate-multi-line">@course.Description</p>
-											<!--<a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>-->
+											@* <p><img class=" img-fluid" src="~/img/blank-profile-picture.png" alt="card image"></p> *@
+											<h4 class="card-title">Добави курс</h4>
+											<p class="card-text truncate-multi-line"></p>
 										</div>
 									</div>
 								</div>
 								<div class="backside">
 									<div class="card">
 										<div class="card-body text-center mt-4">
+											<h4 class="card-title">
+												</h4>
+												<div class="css-1io73yq eu4oa1w0">
+													<span class="css-18p8mbl e1wnkr790 text-wrap">
+														<a class="btn  btn-sm" style="    margin-top: 3.5em;" asp-action="Add" asp-controller="Course"><i class="fa fa-plus" style="padding:2em;"></i></a>
+
+													</span>
+												</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+
+			}
+
+
+			@foreach (var course in Model)
+			{
+				<div class="col-md-4 " style="height: 20em; margin-top: 1em;">
+
+
+					<div class="col-xs-12 " style="padding:1em;">
+						<div class="image-flip">
+							<div class="mainflip flip-0">
+								<div class="frontside">
+									<div class="card">
+										<div class="card-body text-center">
+											<p><img class=" img-fluid" src="~/img/blank-profile-picture.png" alt="card image"></p>
+											<h4 class="card-title">@course.Name</h4>
+											<p class="card-text truncate-multi-line">@course.Description</p>
+										</div>
+									</div>
+								</div>
+								<div class="backside">
+									<div class="card">
+										<div class="card-body text-center card-body-back">
 											<h4 class="card-title">@course.Name</h4>
 											<div class="css-1io73yq eu4oa1w0">
 												<span class="css-18p8mbl e1wnkr790 text-wrap">
 													@course.Description
 												</span>
 											</div>
-											@* <p class="card-text">@Model.Description</p> *@
+
 											<ul class="list-inline">
 
-												
-												@if(User.IsInRole("Teacher"))
+
+												@if (User.IsInRole("Teacher"))
 												{
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Request" asp-route-courseId="@course.Id">Заявки</a>
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="Info" asp-controller="Course" asp-route-courseId="@course.Id">Информация</a>
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-courseId="@course.Id">График</a>
+													<a  class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Request" asp-route-courseId="@course.Id">Информация</a>
+													<a  class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@course.RoomId" asp-route-isTeacher="@false" asp-route-isCourse="@false">Добави час</a>
 
 												}
-												else if(User.IsInRole("Student"))
+												else if (User.IsInRole("Student"))
 												{
-													<a type="button" class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-courseId="@course.Id">График</a>
+													<li>
+														<a class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@course.Id" asp-route-isTeacher="@false" asp-route-isCourse="@true">График</a>
+													</li>
 												}
 
 											</ul>
@@ -80,7 +104,7 @@
 						</div>
 					</div>
 
-						
+
 				</div>
 			}
 
@@ -91,10 +115,6 @@
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+
 }
 
-@section Scripts {
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-}
