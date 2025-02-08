@@ -1,5 +1,6 @@
 ﻿using InterestsAcademy.Data.Configurations;
 using InterestsAcademy.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -143,6 +144,8 @@ namespace InterestsAcademy.Data
                 builder.ApplyConfiguration(new UserRoleConfiguration());
                 builder.ApplyConfiguration(new StudentConfiguration());
             }
+
+            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
