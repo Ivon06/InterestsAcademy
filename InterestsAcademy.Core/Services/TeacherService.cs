@@ -73,5 +73,19 @@ namespace InterestsAcademy.Core.Services
 
             return ids;
         }
+
+        public async Task<bool> ApproveTeacher(string teacherId)
+        {
+            var user = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(t=>t.Id == teacherId);
+
+            user.IsApproved = true;
+
+            await repo.SaveChangesAsync();
+
+            return user.IsApproved;
+
+
+        }
     }
 }

@@ -198,7 +198,7 @@ namespace InterestsAcademy.Controllers
 
             }
 
-            bool resultRejected = await requestService.EditStatus(status, userId);
+            bool resultRejected = await requestService.EditStatus(status, requestId);
 
             return new JsonResult(new { IsEdited = resultRejected, StudentUserId = userId });
 
