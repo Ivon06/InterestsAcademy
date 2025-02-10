@@ -19,30 +19,31 @@
 
 }
 
-@if (Model.Requests.Count == 0)
-{
-	<p>Все още нямате заявки за този курс</p>
-}
-else
-{
-	<div class="container">
 
-		<input value="@Model.Requests[0].CourseId" id="courseId" hidden />
+<div class="container">
 
-		<!-- Left Section: Course Info -->
-		<div class="course-info">
-			<div class="card">
-				<h2>Информация за курс</h2>
-				<p><strong>Име:</strong> @Model.CourseName</p>
-				<p><strong>Преподавател:</strong> @Model.TeacherName</p>
-				<p><strong>Продължителност:</strong> @Model.CourseDuration</p>
-				<p><strong>Описание:</strong> @Model.CourseDescription</p>
-			</div>
+	<input value="@Model.Requests[0].CourseId" id="courseId" hidden />
+
+	<!-- Left Section: Course Info -->
+	<div class="course-info">
+		<div class="card">
+			<h2>Информация за курс</h2>
+			<p><strong>Име:</strong> @Model.CourseName</p>
+			<p><strong>Преподавател:</strong> @Model.TeacherName</p>
+			<p><strong>Продължителност:</strong> @Model.CourseDuration</p>
+			<p><strong>Описание:</strong> @Model.CourseDescription</p>
 		</div>
+	</div>
 
-		<div class="student-requests">
+	<div class="student-requests">
 
-			<div class="table-container">
+		<div class="table-container">
+			@if (Model.Requests.Count == 0)
+			{
+				<p>Все още нямате заявки за този курс</p>
+			}
+			else
+			{
 				<table>
 					<thead>
 						<tr>
@@ -64,7 +65,7 @@ else
 									</p>
 								</td>
 								<td>
-									@if (request.Status != RequestStatusEnum.Accepted.ToString())
+									@if (request.Status == RequestStatusEnum.Waiting.ToString())
 									{
 										<input value="@request.Id" id="requestId" hidden />
 										<input value="@request.Status" id="requestStatus" hidden />
@@ -77,11 +78,11 @@ else
 					</tbody>
 				</table>
 
-
-			</div>
+			}
 		</div>
 	</div>
-}
+</div>
+
 @section Styles {
 	<link rel="stylesheet" href="~/css/allRequests.css" asp-append-version="true" />
 }

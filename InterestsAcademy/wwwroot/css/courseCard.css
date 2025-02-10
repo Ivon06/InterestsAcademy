@@ -70,6 +70,20 @@
     margin-top: 15%;
 }
 
+.backside .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.backside img {
+    max-width: 50%;
+    height: auto;
+}
+
+
 /* Card Image */
 .img-fluid {
     border-radius: 50%;
@@ -82,7 +96,7 @@
 
 /* Card Title */
 .card-title {
-    font-size: 1.5rem;
+    font-size: 25px;
     font-weight: 600;
     color: #333;
     margin-bottom: 10px;
