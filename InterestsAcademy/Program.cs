@@ -1,4 +1,5 @@
 using CloudinaryDotNet;
+using InterestsAcademy.Common;
 using InterestsAcademy.Core.Hubs;
 using InterestsAcademy.Data;
 using InterestsAcademy.Data.Models;
@@ -44,6 +45,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 });
+
+var emailConfig = builder.Configuration
+               .GetSection("EmailConfiguration")
+               .Get<EmailConfig>();
+
+builder.Services.AddSingleton(emailConfig);
 
 builder.Services.AddCors(options =>
 {

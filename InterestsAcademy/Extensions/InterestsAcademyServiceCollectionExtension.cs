@@ -20,6 +20,7 @@ namespace InterestsAcademy.Extensions
             services.AddScoped<IRequestService,RequestService>();   
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IActivityService, ActivityService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             return services;
         }
