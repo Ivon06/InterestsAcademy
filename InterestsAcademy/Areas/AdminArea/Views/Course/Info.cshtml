@@ -1,6 +1,6 @@
-﻿@using InterestsAcademy.Core.Models.Request
-@using InterestsAcademy.Data.Models.Enums
-@model AllRequestViewModel
+﻿@using InterestsAcademy.Core.Models.Course
+@using InterestsAcademy.Data.Models.Enums;
+@model AdminCourseViewModel
 
 @{
 	var statusClass = new Dictionary<string, string>()
@@ -33,12 +33,39 @@
 			<p><strong>Продължителност:</strong> @Model.CourseDuration</p>
 			<p><strong>Описание:</strong> @Model.CourseDescription</p>
 
-			<button type="submit" asp-action="Accept" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Одобри</button>
-			<button type="submit" asp-action="Reject" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Отхвърли</button>
+			@if (Model.IsApproved)
+			{
+				if (Model.RoomId == null)
+				{
+					<form enctype="multipart/form-data">
+						<div class="dropdown">
+
+							<select asp-for="@Model.RoomId" class="dropdown-content">
+								<option value="" selected disabled>Избери стая</option>
+								@foreach (var room in Model.Rooms)
+								{
+									<option value="@room.Id">@room.Name</option>
+								}
+
+							</select>
+							<button type="submit" class="dropdown-button" asp-area="AdminArea" asp-action="SelectRoom" asp-controller="Course" asp-route-courseId="@Model.Id" asp-route-courseId="@Model.RoomId">Задай стая</button>
+						</div>
+					</form>
+				}
+				else
+				{
+					<button type="submit" asp-action="DeleteCourse" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Премахни</button>
+				}
+			}
+			else
+			{
+				<button type="submit" class="btn" asp-action="Accept" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Одобри</button>
+				<button type="submit" asp-action="Reject" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Отхвърли</button>
+			}
 		</div>
 	</div>
 
-	
+
 	<div class="student-requests">
 
 		<div class="table-container">
@@ -54,7 +81,7 @@
 							<th>Име</th>
 							<th>Имейл</th>
 							<th>Статус</th>
-							
+
 						</tr>
 					</thead>
 					<tbody id="requests">
@@ -68,7 +95,7 @@
 										@statusBg[request.Status]
 									</p>
 								</td>
-								
+
 							</tr>
 						}
 					</tbody>

@@ -16,8 +16,8 @@
 
 
 					<div class="col-xs-12 ">
-						<div class="image-flip">
-							<div class="mainflip flip-0">
+						<div class="image-flip1">
+							<div class="mainflip1 flip-0">
 								@* <div class="frontside">
 									<div class="card">
 										<div class="card-body text-center">
@@ -28,7 +28,7 @@
 										</div>
 									</div>
 								</div> *@
-								<div class="backside">
+								<div class="frontside">
 									<div class="card">
 										<div class="card-body text-center card-body-back">
 											<h4 class="card-title">@course.Name</h4>
@@ -42,11 +42,11 @@
 
 
 
-												<a class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="Info" asp-controller="Course" asp-route-courseId="@course.Id">Информация</a>
+												<a class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-area="AdminArea" asp-action="Info" asp-controller="Course" asp-route-id="@course.Id">Информация</a>
 												
 												@if (course.IsApproved)
 												{
-													<a class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@course.RoomId" asp-route-isTeacher="@false" asp-route-isCourse="@false">График</a>
+													<a class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-area="AdminArea"  asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@course.RoomId" asp-route-isTeacher="@false" asp-route-isCourse="@false">График</a>
 												}
 
 
@@ -69,10 +69,8 @@
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
-}
+	}
 
 @section Scripts {
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
 }

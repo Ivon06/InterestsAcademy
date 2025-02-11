@@ -38,7 +38,7 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
                 TempData[ErrorMessage] = "Този курс не съществува";
                 return RedirectToAction("All", "Course");
             }
-            var model = await courseService.GetCourseWithAllRequest(id);
+            var model = await courseService.GetCourseForAdmin(id);
             return View(model);
         }
 
@@ -89,6 +89,32 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
                 TempData[ErrorMessage] = "Неправилни данни.";
                 return View(model);
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SelectRoom (string courseId, string roomId)
+        {
+            bool isValidCourse = await courseService.IsCourseValid(courseId);
+
+            if (!isValidCourse)
+            {
+                TempData[ErrorMessage] = "Този курс не съществува.";
+                return RedirectToAction("All", "Course");
+            }
+
+            bool isCourseApproved = await courseService.IsCourseApproved(courseId);
+
+            if (!isCourseApproved)
+            {
+                TempData[ErrorMessage] = "Този курс не е одобрен.";
+                return RedirectToAction("All", "Course");
+            }
+
+            await courseService.SetRoomForCourse(roomId, courseId);
+
+            TempData[SuccessMessage] = "Успешно зададохте стая за курса.";
+
+            return RedirectToAction("Info", "Course", new { id = courseId});
         }
         public IActionResult Index()
         {
