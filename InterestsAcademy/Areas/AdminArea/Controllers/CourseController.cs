@@ -17,14 +17,28 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
 
         public async Task<IActionResult> All()
         {
-            if (!User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated )
             {
                 TempData[ErrorMessage] = "Трябва да се регистрирате, за да достъпите тази функция.";
                 return RedirectToAction("Index", "Home");
             }
 
+            
+
             var model = await courseService.GetAllCoursesCards();
 
+            return View(model);
+        }
+
+        public async Task<IActionResult> Info(string id)
+        {
+            bool isValidCourse = await courseService.IsCourseValid(id);
+            if (!isValidCourse)
+            {
+                TempData[ErrorMessage] = "Този курс не съществува";
+                return RedirectToAction("All", "Course");
+            }
+            var model = await courseService.GetCourseWithAllRequest(id);
             return View(model);
         }
 

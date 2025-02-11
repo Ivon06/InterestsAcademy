@@ -1,0 +1,90 @@
+﻿@using InterestsAcademy.Core.Models.Request
+@using InterestsAcademy.Data.Models.Enums
+@model AllRequestViewModel
+
+@{
+	var statusClass = new Dictionary<string, string>()
+	{
+		{"Waiting", "warning"},
+		{"Rejected", "danger"},
+		{"Accepted", "success"}
+	};
+
+	var statusBg = new Dictionary<string, string>()
+	{
+		{"Waiting", "Чакащ"},
+		{"Rejected", "Отказан"},
+		{"Accepted", "Приет"}
+	};
+
+}
+
+
+<div class="container">
+
+	<input value="@Model.Requests[0].CourseId" id="courseId" hidden />
+
+	<!-- Left Section: Course Info -->
+	<div class="course-info">
+		<div class="card">
+			<h2>Информация за курс</h2>
+			<p><strong>Име:</strong> @Model.CourseName</p>
+			<p><strong>Преподавател:</strong> @Model.TeacherName</p>
+			<p><strong>Продължителност:</strong> @Model.CourseDuration</p>
+			<p><strong>Описание:</strong> @Model.CourseDescription</p>
+
+			<button type="submit" asp-action="Accept" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Одобри</button>
+			<button type="submit" asp-action="Reject" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Отхвърли</button>
+		</div>
+	</div>
+
+	
+	<div class="student-requests">
+
+		<div class="table-container">
+			@if (Model.Requests.Count == 0)
+			{
+				<p>Няма ученици, записани за този курс.</p>
+			}
+			else
+			{
+				<table>
+					<thead>
+						<tr>
+							<th>Име</th>
+							<th>Имейл</th>
+							<th>Статус</th>
+							
+						</tr>
+					</thead>
+					<tbody id="requests">
+						@foreach (var request in Model.Requests)
+						{
+							<tr>
+								<td>@request.StudentName</td>
+								<td>@request.StudentEmail</td>
+								<td>
+									<p class="badge badge-soft-@statusClass[request.Status] p-2 team-status" id="status-@request.Id" style="text-decoration: none; color:black; font-size: 1rem">
+										@statusBg[request.Status]
+									</p>
+								</td>
+								
+							</tr>
+						}
+					</tbody>
+				</table>
+
+			}
+		</div>
+	</div>
+</div>
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/allRequests.css" asp-append-version="true" />
+}
+
+@section Scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+	<script src="~/js/requestTeacher.js" asp-append-version="true"></script>
+}
