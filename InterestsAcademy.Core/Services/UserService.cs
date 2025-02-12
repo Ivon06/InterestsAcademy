@@ -118,5 +118,24 @@ namespace InterestsAcademy.Core.Services
 
             return model;
         }
+
+        public async Task DeleteUser(string userId)
+        {
+            var user = await repo.GetByIdAsync<User>(userId);
+
+            user.IsActive = false;
+
+            await repo.SaveChangesAsync();
+
+        }
+
+        public async Task ChangeApproveToFalse(string userId)
+        {
+            var user = await repo.GetByIdAsync<User>(userId);
+
+            user.IsApproved = false;
+
+            await repo.SaveChangesAsync();
+        }
     }
 }

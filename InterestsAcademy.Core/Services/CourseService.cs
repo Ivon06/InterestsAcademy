@@ -8,6 +8,7 @@ using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -260,7 +261,7 @@ namespace InterestsAcademy.Core.Services
 
             var model = new AdminCourseViewModel()
             {
-                Id = course.Id,
+                Id = courseId,
                 CourseName = course.Name,
                 CourseDescription = course.Description,
                 TeacherName = course.Teacher.User.Name,
@@ -282,6 +283,29 @@ namespace InterestsAcademy.Core.Services
             course.RoomId = roomId;
 
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<DeleteCourseQueryModel> GetCourseForDelete(string courseId)
+        {
+            var course = await repo.GetByIdAsync<Course>(courseId);
+
+            DeleteCourseQueryModel model = new DeleteCourseQueryModel()
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Description = course.Description,
+               
+                Duration = course.Duration
+            };
+
+            return model;
+        }
+
+        public async Task DeleteCourse(string courseId)
+        {
+            var course = await repo.GetByIdAsync<Course>(courseId);
+
+            course.IsActive = false;
         }
     }
 }

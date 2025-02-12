@@ -31,6 +31,9 @@ namespace InterestsAcademy.Core.Contracts
 
         Task<UsersQueryModel> GetAllUsersAsync();
 
+        Task DeleteUser(string userId);
+        Task ChangeApproveToFalse(string userId);
+
 
     }
 }

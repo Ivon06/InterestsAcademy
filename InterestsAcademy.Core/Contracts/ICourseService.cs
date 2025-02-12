@@ -40,5 +40,7 @@ namespace InterestsAcademy.Core.Contracts
         Task<List<CourseCardViewModel>> GetAllCoursesByRoomId(string roomId);
         Task<AdminCourseViewModel> GetCourseForAdmin(string courseId);
         Task SetRoomForCourse(string roomId, string courseId);
+        Task<DeleteCourseQueryModel> GetCourseForDelete(string courseId);
+        Task DeleteCourse(string courseId);
     }
 }

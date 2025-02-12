@@ -1,0 +1,39 @@
+﻿@using InterestsAcademy.Core.Models.Course
+@model DeleteCourseQueryModel
+
+
+<div class="main-block" style="justify-self: center;">
+	<div class="left-part">
+		<i class="fas fa-graduation-cap"></i>
+		<h1 style="color: aliceblue;">Изтрий курс</h1>
+	</div>
+	<form class="form-container" asp-action="Delete" asp-area="AdminArea"  method="post" enctype="multipart/form-data" novalidate>
+		<div class="title">
+			<i class="fas fa-pencil-alt"></i>
+			<h2>Детайли за курса</h2>
+		</div>
+		<div class="info">
+			<div class="form-group">
+				<label for="Name">Име на курса:</label>
+				<input type="text" id="Name" name="Name" class="input-field" asp-for="@Model.Name" disabled />
+			</div>
+			<div class="form-group" style="    margin-bottom: 30px;
+            margin-top: 0;">
+				<label for="Description">Описание:</label>
+				<textarea id="Description" style="    margin-bottom: 0;" name="Description" class="input-field textarea-field" asp-for="@Model.Description"  disabled ></textarea>
+			</div>
+			<div class="form-group">
+				<label for="Duration">Продължителност:</label>
+				<input type="text" style="width: 40%;" id="Duration" name="Duration" class="input-field" asp-for="@Model.Duration" disabled />
+			</div>
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn1" asp-area="AdminArea" asp-action="Delete" asp-controller="Course">Изтрий</button>
+		</div>
+	</form>
+</div>
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/addCourse.css" asp-append-version="true" />
+
+}

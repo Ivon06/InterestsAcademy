@@ -33,6 +33,23 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
 
 
             return RedirectToAction("Index", "Home", new { Area = "Admin" });
+
+
+        }
+
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            bool isValidUser = await userService.IsExistsByIdAsync(userId);
+
+            if (!isValidUser)
+            {
+                TempData[ErrorMessage] = "Този потребител не съществува.";
+                return RedirectToAction("Index", "Home", new { Area = "Admin" });
+            }
+
+            await userService.DeleteUser(userId);
+
+            return RedirectToAction("Index", "Home", new { Area = "Admin" });
         }
     }
 }
