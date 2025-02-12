@@ -7,30 +7,19 @@
 
 .card-body {
     background: #121212;
-    min-height: 100vh; /* Instead of height: 100vh to prevent overflow */
+    min-height: 100vh; /* Prevents overflow */
 }
-
 
 ul {
     list-style-type: none;
 }
 
 /* Slider Container */
-
 .slider--cards {
     position: relative;
-    margin: 50px auto;
     max-width: 750px;
     opacity: 1;
-    transform: none; /* Remove unnecessary transformations */
-}
-
-
-}
-
-.slider--cards__container {
-    position: relative;
-    overflow: hidden;
+    transform: none;
 }
 
 /* Card List */
@@ -38,33 +27,30 @@ ul {
     display: flex;
     justify-content: center;
     transition: transform 450ms ease-in-out;
+    gap: 15px; /* Adds spacing between cards */
 }
 
     #card-list li {
         display: inline-block;
         text-align: center;
-        padding: 10px;
     }
 
+/* Individual Card */
 .card {
     width: 210px;
     height: 280px;
     background: rgb(39, 39, 39);
     border-radius: 12px;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.123);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    transition-duration: .5s;
-    opacity: 0.5;
-    transform: scale(0.8);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    opacity: 0.7;
+    transform: scale(0.9);
     cursor: pointer;
 }
-/*section {
-    padding: 80px 0;*/ /* Adjust as needed */
-/*}*/
-
 
 /* Active Card */
 .active {
@@ -72,14 +58,22 @@ ul {
     transform: scale(1) !important;
 }
 
+/* Hover Effect */
+.card:hover {
+    background-color: rgb(48, 48, 48);
+    transform: scale(1.05);
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.35);
+    opacity: 1;
+}
+
 /* Profile Image */
 .profileImage {
-    background: linear-gradient(to right,rgb(54, 54, 54),rgb(32, 32, 32));
+    background: linear-gradient(to right, rgb(54, 54, 54), rgb(32, 32, 32));
     margin-top: 20px;
-    width: 170px;
-    height: 170px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
-    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.329);
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
 
@@ -94,7 +88,7 @@ ul {
 .textContainer {
     width: 100%;
     text-align: center;
-    padding: 20px;
+    padding: 15px;
 }
 
 .name {
@@ -110,9 +104,20 @@ ul {
     letter-spacing: 0.2px;
 }
 
-/* Hover Effect */
-.card:hover {
-    background-color: rgb(43, 43, 43);
-    transition-duration: .5s;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    #card-list {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
+    .card {
+        width: 180px;
+        height: 250px;
+    }
+
+    .profileImage {
+        width: 120px;
+        height: 120px;
+    }
+}
