@@ -37,6 +37,7 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
 
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteUser(string userId)
         {
             bool isValidUser = await userService.IsExistsByIdAsync(userId);
