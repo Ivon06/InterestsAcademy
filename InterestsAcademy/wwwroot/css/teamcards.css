@@ -1,0 +1,118 @@
+﻿/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.card-body {
+    background: #121212;
+    min-height: 100vh; /* Instead of height: 100vh to prevent overflow */
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+/* Slider Container */
+
+.slider--cards {
+    position: relative;
+    margin: 50px auto;
+    max-width: 750px;
+    opacity: 1;
+    transform: none; /* Remove unnecessary transformations */
+}
+
+
+}
+
+.slider--cards__container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Card List */
+#card-list {
+    display: flex;
+    justify-content: center;
+    transition: transform 450ms ease-in-out;
+}
+
+    #card-list li {
+        display: inline-block;
+        text-align: center;
+        padding: 10px;
+    }
+
+.card {
+    width: 210px;
+    height: 280px;
+    background: rgb(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.123);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition-duration: .5s;
+    opacity: 0.5;
+    transform: scale(0.8);
+    cursor: pointer;
+}
+/*section {
+    padding: 80px 0;*/ /* Adjust as needed */
+/*}*/
+
+
+/* Active Card */
+.active {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* Profile Image */
+.profileImage {
+    background: linear-gradient(to right,rgb(54, 54, 54),rgb(32, 32, 32));
+    margin-top: 20px;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.329);
+    overflow: hidden;
+}
+
+    .profileImage img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+/* Text Styling */
+.textContainer {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
+.name {
+    font-size: 1em;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+.profile {
+    font-size: 0.84em;
+    color: rgb(194, 194, 194);
+    letter-spacing: 0.2px;
+}
+
+/* Hover Effect */
+.card:hover {
+    background-color: rgb(43, 43, 43);
+    transition-duration: .5s;
+}
+
