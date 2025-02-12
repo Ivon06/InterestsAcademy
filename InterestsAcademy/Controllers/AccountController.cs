@@ -110,10 +110,11 @@ namespace InterestsAcademy.Controllers
                     await userManager.UpdateAsync(user);
                 }
 
-                if (model.Role == "Teacher")
+                if (model.Role == "Учител")
                 {
                     await userManager.AddToRoleAsync(user, "Teacher");
                     await teacherService.CreateAsync(user.Id);
+                    await userService.ChangeApproveToFalse(user.Id);
 
                     TempData[SuccessMessage] = "Изчакай одобрение от администратор.";
                 }

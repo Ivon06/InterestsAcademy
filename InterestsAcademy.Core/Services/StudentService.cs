@@ -26,6 +26,7 @@ namespace InterestsAcademy.Core.Services
             {
                 UserId = userId
             };
+            
 
             await repo.AddAsync(student);
             await repo.SaveChangesAsync();

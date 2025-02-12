@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterestsAcademy.Core", "In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterestsAcademy.Common", "InterestsAcademy.Common\InterestsAcademy.Common.csproj", "{1DCFBA26-5957-4845-BA33-F49F84070DCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterestAcademy.Tests", "InterestAcademy.Tests\InterestAcademy.Tests.csproj", "{287D88B3-9F54-48B0-AE8E-C8B3032AE672}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1DCFBA26-5957-4845-BA33-F49F84070DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DCFBA26-5957-4845-BA33-F49F84070DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DCFBA26-5957-4845-BA33-F49F84070DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{287D88B3-9F54-48B0-AE8E-C8B3032AE672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{287D88B3-9F54-48B0-AE8E-C8B3032AE672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{287D88B3-9F54-48B0-AE8E-C8B3032AE672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{287D88B3-9F54-48B0-AE8E-C8B3032AE672}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

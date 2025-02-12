@@ -19,9 +19,9 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ApproveTeacher(string teacherId)
+        public async Task<IActionResult> ApproveTeacher(string id)
         {
-            bool isExist = await userService.IsExistsByIdAsync(teacherId);
+            bool isExist = await userService.IsExistsByIdAsync(id);
 
             if (!isExist)
             {
@@ -29,15 +29,11 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var result = await teacherService.ApproveTeacher(teacherId);
+            await userService.ChangeUserIsApprovedAsync(id);
 
-            if(result)
+            
             return RedirectToAction("Index", "Home");
-            else
-            {
-                TempData[ErrorMessage] = "Hеправилна операция.";
-                return RedirectToAction("Index", "Home");
-            }
+            
 
         }
     }

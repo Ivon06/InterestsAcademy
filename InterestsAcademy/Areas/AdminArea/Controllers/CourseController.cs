@@ -114,7 +114,44 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
 
             TempData[SuccessMessage] = "Успешно зададохте стая за курса.";
 
-            return RedirectToAction("Info", "Course", new { id = courseId});
+            return RedirectToAction("Info", "Course", new { id = courseId, Area = "AdminArea"});
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteCourse(string courseId)
+        {
+            bool isCourseValid = await courseService.IsCourseValid(courseId);
+
+            if (!isCourseValid)
+            {
+                TempData[ErrorMessage] = "Този курс не съществува.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = await courseService.GetCourseForDelete(courseId);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(DeleteCourseQueryModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData[ErrorMessage] = "Неправилни данни.";
+                 return View("DeleteCourse",model);
+            }
+
+            if(!User.IsInRole("Admin"))
+            {
+                TempData[ErrorMessage] = "Трябва да сте админ, за да изтриете курс.";
+                return RedirectToAction("Index", "Home"); 
+            }
+
+            await courseService.DeleteCourse(model.Id);
+
+            TempData[SuccessMessage] = "Успешно изтрит курс.";
+            return RedirectToAction("All", "Course", new {Area="AdminArea"});
+
         }
         public IActionResult Index()
         {

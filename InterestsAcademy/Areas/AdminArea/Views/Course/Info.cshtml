@@ -54,7 +54,7 @@
 				}
 				else
 				{
-					<button type="submit" asp-action="DeleteCourse" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Премахни</button>
+					<a type="submit" asp-area="AdminArea" asp-action="DeleteCourse" asp-controller="Course" asp-route-courseId="@Model.Id">Премахни</a>
 				}
 			}
 			else
