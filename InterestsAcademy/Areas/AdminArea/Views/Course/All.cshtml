@@ -7,7 +7,7 @@
 		<h5 class="section-title h1">Всички курсове</h5>
 		<div class="row">
 
-			
+
 
 
 			@foreach (var course in Model)
@@ -16,9 +16,9 @@
 
 
 					<div class="col-xs-12 ">
-						<div class="image-flip">
-							<div class="mainflip flip-0">
-								<div class="frontside">
+						<div class="image-flip1">
+							<div class="mainflip1 flip-0">
+								@* <div class="frontside">
 									<div class="card">
 										<div class="card-body text-center">
 											<p><img class=" img-fluid" src="~/img/blank-profile-picture.png" alt="card image"></p>
@@ -27,20 +27,29 @@
 											<!--<a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>-->
 										</div>
 									</div>
-								</div>
-								<div class="backside">
+								</div> *@
+								<div class="frontside">
 									<div class="card">
-										<div class="card-body text-center mt-4">
+										<div class="card-body text-center card-body-back">
 											<h4 class="card-title">@course.Name</h4>
 											<div class="css-1io73yq eu4oa1w0">
-												<span class="css-18p8mbl e1wnkr790 text-wrap">
+												<span class="css-18p8mbl e1wnkr790 text-wrap truncate-multi-line">
 													@course.Description
 												</span>
 											</div>
-											@* <p class="card-text">@Model.Description</p> *@
-											<ul class="dropdown-menu">
-												<li><a class="dropdown-item" id="status-@course.Id" asp-action="Accept" asp-controller="Course">Приеми</a></li>
-												<li><a class="dropdown-item" onclick="changeStatus('Rejected', '@course.Id')">Откажи</a></li>
+
+											<ul class="list-inline">
+
+
+
+												<a class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-area="AdminArea" asp-action="Info" asp-controller="Course" asp-route-id="@course.Id">Информация</a>
+												
+												@if (course.IsApproved)
+												{
+													<a class="btn btn-outline-dark" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-area="AdminArea"  asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@course.RoomId" asp-route-isTeacher="@false" asp-route-isCourse="@false">График</a>
+												}
+
+
 											</ul>
 										</div>
 									</div>
@@ -60,10 +69,8 @@
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/courseCard.css" asp-append-version="true" />
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
-}
+	}
 
 @section Scripts {
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
 }

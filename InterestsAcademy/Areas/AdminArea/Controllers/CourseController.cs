@@ -17,14 +17,28 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
 
         public async Task<IActionResult> All()
         {
-            if (!User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated )
             {
                 TempData[ErrorMessage] = "Трябва да се регистрирате, за да достъпите тази функция.";
                 return RedirectToAction("Index", "Home");
             }
 
+            
+
             var model = await courseService.GetAllCoursesCards();
 
+            return View(model);
+        }
+
+        public async Task<IActionResult> Info(string id)
+        {
+            bool isValidCourse = await courseService.IsCourseValid(id);
+            if (!isValidCourse)
+            {
+                TempData[ErrorMessage] = "Този курс не съществува";
+                return RedirectToAction("All", "Course");
+            }
+            var model = await courseService.GetCourseForAdmin(id);
             return View(model);
         }
 
@@ -75,6 +89,32 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
                 TempData[ErrorMessage] = "Неправилни данни.";
                 return View(model);
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SelectRoom (string courseId, string roomId)
+        {
+            bool isValidCourse = await courseService.IsCourseValid(courseId);
+
+            if (!isValidCourse)
+            {
+                TempData[ErrorMessage] = "Този курс не съществува.";
+                return RedirectToAction("All", "Course");
+            }
+
+            bool isCourseApproved = await courseService.IsCourseApproved(courseId);
+
+            if (!isCourseApproved)
+            {
+                TempData[ErrorMessage] = "Този курс не е одобрен.";
+                return RedirectToAction("All", "Course");
+            }
+
+            await courseService.SetRoomForCourse(roomId, courseId);
+
+            TempData[SuccessMessage] = "Успешно зададохте стая за курса.";
+
+            return RedirectToAction("Info", "Course", new { id = courseId});
         }
         public IActionResult Index()
         {

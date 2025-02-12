@@ -17,11 +17,13 @@ namespace InterestsAcademy.Core.Services
     {
         private readonly IRepository repo;
         private readonly IRequestService requestService;
+        private readonly IRoomService roomService;
 
-        public CourseService(IRepository repo, IRequestService requestService)
+        public CourseService(IRepository repo, IRequestService requestService, IRoomService roomService)
         {
             this.repo = repo;
             this.requestService = requestService;
+            this.roomService = roomService;
         }
 
         public async Task AddCourse(CourseQueryModel model)
@@ -70,7 +72,9 @@ namespace InterestsAcademy.Core.Services
                 CourseDescription = course.Description,
                 TeacherName = course.Teacher.User.Name,
                 CourseDuration = course.Duration,
-                Requests = requests
+                Requests = requests,
+                IsApproved = course.IsApproved,
+                RoomId = course.RoomId
             };
 
             return model;
@@ -237,11 +241,47 @@ namespace InterestsAcademy.Core.Services
                     Name = x.Name,
                     Description = x.Description,
                     TeacherId = x.TeacherId,
-                    RoomId = x.RoomId
+                    RoomId = x.RoomId,
+
                 }
                 )
                 .ToListAsync();
             return result;
+        }
+
+        public async Task<AdminCourseViewModel> GetCourseForAdmin(string courseId)
+        {
+            var requests = await requestService.GetAllRequestByCourseIdAsync(courseId);
+
+            var course = await repo.GetAll<Course>()
+                .Include(c => c.Teacher.User)
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+
+            var model = new AdminCourseViewModel()
+            {
+                Id = course.Id,
+                CourseName = course.Name,
+                CourseDescription = course.Description,
+                TeacherName = course.Teacher.User.Name,
+                CourseDuration = course.Duration,
+                Requests = requests,
+                IsApproved = course.IsApproved,
+                RoomId = course.RoomId
+            };
+
+            model.Rooms = await roomService.GetAllRooms();
+
+            return model;
+        }
+
+        public async Task SetRoomForCourse(string roomId, string courseId)
+        {
+            var course = await repo.GetByIdAsync<Course>(courseId);
+
+            course.RoomId = roomId;
+
+            await repo.SaveChangesAsync();
         }
     }
 }
