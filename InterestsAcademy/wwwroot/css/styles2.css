@@ -5,11 +5,15 @@ nav {
 }
 
 .navv {
-    background: black !important;
-    box-shadow: none; /* Removes any shadow */
-    transition: background 0.3s ease-in-out; /* Smooth background transition */
-    z-index: 10; /* Ensures navbar stays on top */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* High enough to always be on top */
 }
+
+    .navv.scrolled {
+        background-color: black !important; /* Ensure navbar is always visible */
+    }
 
 .nav-item {
     font-size: 16px;
