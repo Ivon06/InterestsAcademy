@@ -310,13 +310,13 @@ namespace InterestsAcademy.Core.Services
             var course = await repo.GetByIdAsync<Course>(courseId);
 
             course.IsActive = false;
+            await repo.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<CourseCardViewModel>> GetAllCoursesAdminCards()
         {
             var result = await repo.GetAll<Course>()
                 .Include(c => c.Teacher)
-                .Where(c => c.IsActive)
                 .Select(x => new CourseCardViewModel()
                 {
                     Id = x.Id,

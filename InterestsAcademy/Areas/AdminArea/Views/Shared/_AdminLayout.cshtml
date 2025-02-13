@@ -8,6 +8,8 @@
 	<title>@ViewData["Title"] - InterestsAcademy</title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+
 	<link rel="stylesheet" href="~/css/styles2.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/InterestsAcademy.styles.css" asp-append-version="true" />
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -19,35 +21,68 @@
 	@await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-light " style="background-color:black">
-			<partial name="_NotificationPartial" />
-			<div class="container-fluid" style="background-color:black">
-				<img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
-				<a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" style="background-color:black">
-					<ul class="navbar-nav " style="background-color:black">
-						<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
-						<li class="nav-item"><a class="nav-link text-white" asp-area="AdminArea" asp-controller="Course" asp-action="All"> Kурсове</a></li>
-						<li class="nav-item"><a class="nav-link text-white" asp-area="AdminArea" asp-controller="User" asp-action="All"> Потребители</a></li>
+	
+
+	<header id="header" class="header d-flex align-items-center fixed-top" style="position:fixed;  --background-color: rgba(20, 20, 20);">
+		<div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between" style="margin-right: 20px;
+  margin-left: 20px; max-width: 13000px; ">
 
 
-					</ul>
+
+			<nav id="navmenu" class="navmenu">
+				<ul>
+
+					<li class="dropdown">
+						<a href="#">
+							<label class="bar" for="check">
+								<input type="checkbox" id="check">
+
+								<span class="top"></span>
+								<span class="middle"></span>
+								<span class="bottom"></span>
+							</label> <i class="bi bi-chevron-down toggle-dropdown"></i>
+						</a>
+						<ul>
+							<li><a asp-controller="Home" asp-action="Index">Начална страница</a></li>
+							<li class="dropdown">
+								<a href="#"><span>Информация</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+								<ul>
+									<li><a asp-controller="Home" asp-action="Privacy">Проект и Концепция</a></li>
+									<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
+
+								</ul>
+							</li>
+							<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
+							<li class="nav-item"><a class="nav-link text-white" asp-area="AdminArea" asp-controller="Course" asp-action="All"> Kурсове</a></li>
+							<li class="nav-item"><a class="nav-link text-white" asp-area="AdminArea" asp-controller="User" asp-action="All"> Потребители</a></li>
 
 
-				</div>
+
+
+						</ul>
+
+					</li>
+
+				</ul>
+
+				<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+			</nav>
+
+			<a asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center" style="text-decoration: none">
+				<!-- Uncomment the line below if you also wish to use an image logo -->
+				<img src="~/img/Screenshot_2025-02-13_110015-removebg-preview.png" alt="">
+				<h1 class="sitename">Академия за таланти</h1>
+			</a>
+
+			<ul>
 				<partial name="_LoginPartial" />
-			</div>
-		</nav>
+			</ul>
+		</div>
 	</header>
-
 
 	<!-- Main Content -->
 
-	<main role="main" class="pb-3">
+	<main role="main" class="pb-3" style="margin-top:10%;">
 		<div class="container-fluid px-0">
 			@RenderBody()
 		</div>
