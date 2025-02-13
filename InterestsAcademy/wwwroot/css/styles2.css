@@ -1,32 +1,5 @@
 ﻿ Transparent Navbar 
-/*nav {
-    background-color: black;
-    padding: 0;
-}
 
-.navv {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;*/  /*High enough to always be on top */
-/*}
-
-    .navv.scrolled {
-        background-color: black !important;*/  /*Ensure navbar is always visible */
-    /*}
-
-.nav-item {
-    font-size: 16px;
-}
-
-    .navbar .nav-link,
-    .navbar-brand {
-        color: #fff !important;*/ /* White text for links */
-    /*}
-
-        .navbar .nav-link:hover {
-            color: #dcdcdc !important;*/ /* Light gray on hover */
-        /*}*/
 
  Hero Section 
 Hero Section 
@@ -66,18 +39,18 @@ Hero Section
 
 
 /* Logo Style */
-.logo {
-    height: 50px; /* Smaller logo size */
-    width: auto; /* Maintain aspect ratio */
-    margin-right: 10px;
-}
+/*.logo {
+    height: 50px;*/ /* Smaller logo size */
+    /*width: auto;*/ /* Maintain aspect ratio */
+    /*margin-right: 10px;
+}*/
 /* Timeline Styles */
 /* Timeline Styles with Blue Colors */
-.circle {
+/*.circle {
     padding: 13px 20px;
     border-radius: 50%;
-    background-color: #007BFF;*/ /* Blue */
-    color: #fff;
+    background-color: #007BFF;*//* Blue */
+    /*color: #fff;
     max-height: 50px;
     z-index: 2;
     transition: transform 0.3s, background-color 0.3s;
@@ -87,7 +60,7 @@ Hero Section
     .circle:hover {
         transform: scale(1.2);
         background-color: #0056b3;*/ /* Darker Blue */
-        cursor: pointer;
+        /*cursor: pointer;
     }
 
 .how-it-works .col-2 {
@@ -99,7 +72,7 @@ Hero Section
         content: "";
         position: absolute;
         border-left: 3px solid #007BFF;*/ /* Blue */
-        z-index: 1;
+        /*z-index: 1;
     }
 
     .how-it-works .col-2.bottom::after {
@@ -117,49 +90,6 @@ Hero Section
         height: 50%;
         left: 50%;
         top: 0;
-    }
+    }*/
 
-.timeline div {
-    padding: 0;
-    height: 40px;
-}
-
-.timeline hr {
-    border-top: 3px solid #007BFF;*/ /* Blue */
-    margin: 0;
-    top: 17px;
-    position: relative;
-}
-
-.timeline .col-2 {
-    display: flex;
-    overflow: hidden;
-}
-
-.timeline .corner {
-    border: 3px solid #007BFF;*/ /* Blue */
-    width: 100%;
-    position: relative;
-    border-radius: 15px;
-}
-
-.timeline .top-right {
-    left: 50%;
-    top: -50%;
-}
-
-.timeline .left-bottom {
-    left: -50%;
-    top: calc(50% - 3px);
-}
-
-.timeline .top-left {
-    left: -50%;
-    top: -50%;
-}
-
-.timeline .right-bottom {
-    left: 50%;
-    top: calc(50% - 3px);
-}
 
