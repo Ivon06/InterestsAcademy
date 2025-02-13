@@ -22,7 +22,7 @@ namespace InterestAcademy.Tests.UnitTests
         }
 
 
-        public static void SeedUsers(InterestsAcademyDbContext context)
+        public static void SeedUsers(InterestsAcademyDbContext context)             
         {
 
 

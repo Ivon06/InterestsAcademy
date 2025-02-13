@@ -268,10 +268,14 @@ namespace InterestsAcademy.Core.Services
                 CourseDuration = course.Duration,
                 Requests = requests,
                 IsApproved = course.IsApproved,
-                RoomId = course.RoomId
+                RoomId = course.RoomId,
             };
 
             model.Rooms = await roomService.GetAllRooms();
+
+            string room = await roomService.GetRoomNameByIdAsync(model.RoomId);
+
+            model.RoomName = room;
 
             return model;
         }
@@ -306,6 +310,28 @@ namespace InterestsAcademy.Core.Services
             var course = await repo.GetByIdAsync<Course>(courseId);
 
             course.IsActive = false;
+        }
+
+        public async Task<IEnumerable<CourseCardViewModel>> GetAllCoursesAdminCards()
+        {
+            var result = await repo.GetAll<Course>()
+                .Include(c => c.Teacher)
+                .Where(c => c.IsActive)
+                .Select(x => new CourseCardViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    TeacherId = x.TeacherId,
+                    RoomId = x.RoomId,
+                    TeacherUserId = x.Teacher.UserId
+                }
+                )
+                .ToListAsync();
+
+            return result;
+
+
         }
     }
 }

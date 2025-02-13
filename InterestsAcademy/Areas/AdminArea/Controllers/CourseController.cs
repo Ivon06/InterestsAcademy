@@ -25,7 +25,7 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
 
             
 
-            var model = await courseService.GetAllCoursesCards();
+            var model = await courseService.GetAllCoursesAdminCards();
 
             return View(model);
         }
@@ -42,6 +42,7 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Accept(string courseId)
         {
             bool isValidCourse = await courseService.IsCourseValid(courseId);
@@ -80,7 +81,7 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
             if(result)
             {
                 TempData[SuccessMessage] = "Курсът е одобрен успешно.";
-                return RedirectToAction("All", "Course");
+                return RedirectToAction("Info", "Course", new {id=model.Id});
 
 
             }
@@ -108,6 +109,12 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
             {
                 TempData[ErrorMessage] = "Този курс не е одобрен.";
                 return RedirectToAction("All", "Course");
+            }
+
+            if(roomId == null)
+            {
+                TempData[ErrorMessage] = "Не е избрана стая.";
+                return RedirectToAction("Info", "Course", new {id=courseId});
             }
 
             await courseService.SetRoomForCourse(roomId, courseId);

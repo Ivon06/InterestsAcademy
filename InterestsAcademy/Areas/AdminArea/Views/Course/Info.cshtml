@@ -22,8 +22,7 @@
 
 <div class="container">
 
-	<input value="@Model.Requests[0].CourseId" id="courseId" hidden />
-
+	
 	<!-- Left Section: Course Info -->
 	<div class="course-info">
 		<div class="card">
@@ -37,7 +36,7 @@
 			{
 				if (Model.RoomId == null)
 				{
-					<form enctype="multipart/form-data">
+					<form method="post" enctype="multipart/form-data">
 						<div class="dropdown">
 
 							<select asp-for="@Model.RoomId" class="dropdown-content">
@@ -48,19 +47,24 @@
 								}
 
 							</select>
-							<button type="submit" class="dropdown-button" asp-area="AdminArea" asp-action="SelectRoom" asp-controller="Course" asp-route-courseId="@Model.Id" asp-route-courseId="@Model.RoomId">Задай стая</button>
+							<button type="submit" id="btn" class="admin-button" asp-area="AdminArea" asp-action="SelectRoom" asp-controller="Course" asp-route-courseId="@Model.Id" asp-route-roomId="@Model.RoomId">Задай стая</button>
 						</div>
 					</form>
 				}
 				else
 				{
-					<a type="submit" asp-area="AdminArea" asp-action="DeleteCourse" asp-controller="Course" asp-route-courseId="@Model.Id">Премахни</a>
-				}
+					<p><strong>Стая:</strong>@Model.RoomName </p>
+
+					<a class="delete-button" asp-area="AdminArea" asp-action="DeleteCourse" asp-controller="Course" asp-route-courseId="@Model.Id">
+						<svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+					</a>
+
+					}
 			}
 			else
 			{
-				<button type="submit" class="btn" asp-action="Accept" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Одобри</button>
-				<button type="submit" asp-action="Reject" asp-controller="Course" asp-route-id="@Model.Requests[0].CourseId">Отхвърли</button>
+				<a type="submit" class="btn" asp-action="Accept" asp-controller="Course" asp-route-courseId="@Model.Id">Одобри</a>
+				<a type="submit" asp-action="Reject" asp-controller="Course" asp-route-courseId="@Model.Id">Отхвърли</a>
 			}
 		</div>
 	</div>
@@ -108,10 +112,11 @@
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/allRequests.css" asp-append-version="true" />
+	<link rel=" stylesheet" href="~/css/adminRequests.css" asp-append-version="true"/>
 }
 
 @section Scripts {
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
-	<script src="~/js/requestTeacher.js" asp-append-version="true"></script>
+	
 }
