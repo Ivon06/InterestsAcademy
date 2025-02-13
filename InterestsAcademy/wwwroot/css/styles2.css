@@ -1,8 +1,8 @@
-﻿ Transparent Navbar 
+﻿/* Transparent Navbar 
 
 
  Hero Section 
-Hero Section 
+Hero Section */
 #hero {
     position: relative;
     margin-top: -56px; /*Offsets the navbar height*/ 
