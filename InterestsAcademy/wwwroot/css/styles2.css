@@ -1,5 +1,5 @@
-﻿/* Transparent Navbar */
-nav {
+﻿ Transparent Navbar 
+/*nav {
     background-color: black;
     padding: 0;
 }
@@ -8,12 +8,12 @@ nav {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1000; /* High enough to always be on top */
-}
+    z-index: 1000;*/  /*High enough to always be on top */
+/*}
 
     .navv.scrolled {
-        background-color: black !important; /* Ensure navbar is always visible */
-    }
+        background-color: black !important;*/  /*Ensure navbar is always visible */
+    /*}
 
 .nav-item {
     font-size: 16px;
@@ -21,18 +21,18 @@ nav {
 
     .navbar .nav-link,
     .navbar-brand {
-        color: #fff !important; /* White text for links */
-    }
+        color: #fff !important;*/ /* White text for links */
+    /*}
 
         .navbar .nav-link:hover {
-            color: #dcdcdc !important; /* Light gray on hover */
-        }
+            color: #dcdcdc !important;*/ /* Light gray on hover */
+        /*}*/
 
-/* Hero Section */
-/* Hero Section */
+ Hero Section 
+Hero Section 
 #hero {
     position: relative;
-/*    margin-top: -56px;*/ /* Offsets the navbar height */
+    margin-top: -56px; /*Offsets the navbar height*/ 
 }
 
     #hero .overlay {
@@ -41,25 +41,27 @@ nav {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+        background: rgba(0, 0, 0, 0.4); /*Dark semi-transparent overlay */
         z-index: 1;
     }
 
     #hero .container {
         position: relative;
         z-index: 2;
-        text-align: left; /* Align text to the left */
+        text-align: left;
+    /* Align text to the left */
         margin-right: 20; 
     }
 
-    .nav-item{
+/*    .nav-item{
         font-size:14px;
     }
-
+*/
 #hero {
+    
     display: flex;
-    align-items: flex-end; /* Align content to the bottom */
-    justify-content: flex-start; /* Align content to the left */
+    align-items: flex-end;/* Align content to the bottom */
+    justify-content: flex-start; /*Align content to the left */
 }
 
 
@@ -74,7 +76,7 @@ nav {
 .circle {
     padding: 13px 20px;
     border-radius: 50%;
-    background-color: #007BFF; /* Blue */
+    background-color: #007BFF;*/ /* Blue */
     color: #fff;
     max-height: 50px;
     z-index: 2;
@@ -84,7 +86,7 @@ nav {
 
     .circle:hover {
         transform: scale(1.2);
-        background-color: #0056b3; /* Darker Blue */
+        background-color: #0056b3;*/ /* Darker Blue */
         cursor: pointer;
     }
 
@@ -96,7 +98,7 @@ nav {
     .how-it-works .col-2::after {
         content: "";
         position: absolute;
-        border-left: 3px solid #007BFF; /* Blue */
+        border-left: 3px solid #007BFF;*/ /* Blue */
         z-index: 1;
     }
 
@@ -123,7 +125,7 @@ nav {
 }
 
 .timeline hr {
-    border-top: 3px solid #007BFF; /* Blue */
+    border-top: 3px solid #007BFF;*/ /* Blue */
     margin: 0;
     top: 17px;
     position: relative;
@@ -135,7 +137,7 @@ nav {
 }
 
 .timeline .corner {
-    border: 3px solid #007BFF; /* Blue */
+    border: 3px solid #007BFF;*/ /* Blue */
     width: 100%;
     position: relative;
     border-radius: 15px;

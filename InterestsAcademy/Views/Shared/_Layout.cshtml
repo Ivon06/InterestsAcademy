@@ -2,126 +2,6 @@
 @using InterestsAcademy.Extensions
 @inject ITeacherService teacherService;
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - InterestsAcademy</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/styles2.css" asp-append-version="true" />
-    @* <link rel="stylesheet" href="~/InterestsAcademy.styles.css" asp-append-version="true" /> *@
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> *@
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    @await RenderSectionAsync("Styles", required: false)
-</head>
-<body>
-    <!-- Transparent Navbar -->
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <nav class="navbar navbar-expand-sm navbar-light navv " style="background-color:black;">
-            <partial name="_NotificationPartial" />
-            <div class="container-fluid">
-                <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
-                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav ">
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Начална страница</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Проект и концепция</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Contact">Контакти</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Дарение</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
-
-
-                    </ul>
-
-
-                </div>
-                <partial name="_LoginPartial" />
-            </div>
-        </nav>
-    }
-    else
-    {
-        <nav class="navbar navbar-expand-sm navbar-light " style="background-color:black;">
-            <partial name="_NotificationPartial" />
-            <div class="container-fluid" style="background-color:black;">
-                <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
-                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">InterestsAcademy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" style="background-color:black">
-                    <ul class="navbar-nav " style="background-color:black">
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Начална страница</a></li>
-                        @* <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Проект и концепция</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">За нас</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Дарение</a></li> *@
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
-
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="MyCourses">Моите курсове</a></li>
-                        }
-                        @if (User.IsInRole("Student"))
-                        {
-                            <li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="All"> Kурсове</a></li>
-                        }
-                        @if (User.IsInRole("Teacher"))
-                        {
-
-                            var teacherId = await teacherService.GetTeacherIdByUserId(User.GetId());
-
-                            <li class="nav-item">
-                                <a class="nav-link text-white" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@teacherId" asp-route-isTeacher="@true" asp-route-isCourse="@false">Моят график</a>
-                            </li>
-                        }
-
-                    </ul>
-
-
-                </div>
-                <partial name="_LoginPartial" />
-            </div>
-        </nav>
-    }
-
-
-    <!-- Main Content -->
-
-    <main role="main" class="pb-3">
-        <div class="container-fluid px-0">
-            @RenderBody()
-        </div>
-    </main>
-
-
-    <footer class=" footer text-muted">
-        <div>
-            &copy; 2024 - InterestsAcademy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
-
-@* @using InterestsAcademy.Core.Contracts
-@using InterestsAcademy.Extensions
-@inject ITeacherService teacherService;
-EXAMPLE CODE - UNFINISHED 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,6 +15,8 @@ EXAMPLE CODE - UNFINISHED
     <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/InterestsAcademy.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 
     <!-- jQuery & Toastr.js -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -143,89 +25,110 @@ EXAMPLE CODE - UNFINISHED
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <partial name="_NotificationPartial" />
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-        <div class="container">
-            <!-- Logo -->
-           @*  <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">
-                <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" class="logo" />
-                InterestsAcademy
-            </a> 
+        <header id="header" class="header d-flex align-items-center fixed-top">
+            <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-            <!-- Mobile Toggle Button -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <a href="index.html" class="logo d-flex align-items-center">
+                    <!-- Uncomment the line below if you also wish to use an image logo -->
+                    <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" alt="">
+                    <h1 class="sitename">Академия за таланти</h1>
+                </a>
 
-            <!-- Navigation Links -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Начална страница</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Проект и концепция</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Contact">Контакти</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
+                <nav id="navmenu" class="navmenu">
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
 
-                    <!-- Mega Menu Button -->
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#" id="megaMenuToggle">
-                            <i class="fas fa-th-large"></i> Курсове
-                        </a>
-                    </li>
+                        <li class="dropdown">
+                            <a href="#"><span>Страници</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <ul>
+                                <li><a asp-controller="Home" asp-action="Index">Начална страница</a></li>
+                                <li class="dropdown">
+                                    <a href="#"><span>Информация</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                    <ul>
+                                        <li><a asp-controller="Home" asp-action="Privacy">Проект и Концепция</a></li>
+                                        <li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="MyCourses">Моите курсове</a></li>
-
-                        
-                    }
-                    @if (User.IsInRole("Student"))
-                    {
-                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Course" asp-action="All"> Kурсове</a></li>
-                    }
-                    @if (User.IsInRole("Teacher"))
-                    {
-
-                        var teacherId = await teacherService.GetTeacherIdByUserId(User.GetId());
-
-                        <li class="nav-item">
-                            <a class="nav-link text-white" data-mdb-ripple-init data-mdb-ripple-color="dark" asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@teacherId" asp-route-isTeacher="@true" asp-route-isCourse="@false">Моят график</a>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Dropdown 2</a></li>
+                                <li><a href="#">Dropdown 3</a></li>
+                                <li><a href="#">Dropdown 4</a></li>
+                            </ul>
                         </li>
-                    }
 
+                    </ul>
+                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                </nav>
 
-                </ul>
             </div>
+        </header>
+    }
+    else
+    {
+        <partial name="_NotificationPartial" />
+        <header id="header" class="header d-flex align-items-center fixed-top">
+            <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-            <!-- Login Partial -->
-            <partial name="_LoginPartial" />
-        </div>
-    </nav>
+                <a asp-controller ="Home" asp-action="Index" class="logo d-flex align-items-center" style="text-decoration: none">
+                   
+                    <img src="~/img/pngtree-school-logo-design-png-image_8873860.png" alt="">
+                    <h1 class="sitename">Академия за таланти</h1>
+                </a>
 
-    <!-- Mega Menu -->
-    <div id="megaMenu" class="mega-menu">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h6>Разработване</h6>
-                    <a class="dropdown-item" asp-controller="Course" asp-action="All">Всички курсове</a>
-                    <a class="dropdown-item" asp-controller="Course" asp-action="Category" asp-route-id="1">Уеб разработка</a>
-                    <a class="dropdown-item" asp-controller="Course" asp-action="Category" asp-route-id="2">Мобилни приложения</a>
-                </div>
-                <div class="col-md-4">
-                    <h6>Дизайн</h6>
-                    <a class="dropdown-item" asp-controller="Course" asp-action="Category" asp-route-id="3">UI/UX Дизайн</a>
-                    <a class="dropdown-item" asp-controller="Course" asp-action="Category" asp-route-id="4">Графичен дизайн</a>
-                </div>
-                <div class="col-md-4">
-                    <h6>Маркетинг</h6>
-                    <a class="dropdown-item" asp-controller="Course" asp-action="Category" asp-route-id="5">SEO & Реклама</a>
-                    <a class="dropdown-item" asp-controller="Course" asp-action="Category" asp-route-id="6">Социални мрежи</a>
-                </div>
+                <nav id="navmenu" class="navmenu">
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
+
+                        <li class="dropdown">
+                            <a href="#"><span>Страници</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <ul>
+                                <li><a asp-controller="Home" asp-action="Index">Начална страница</a></li>
+                                <li class="dropdown">
+                                    <a href="#"><span>Информация</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                    <ul>
+                                        <li><a asp-controller="Home" asp-action="Privacy">Проект и Концепция</a></li>
+                                        <li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
+
+                                    </ul>
+                                </li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li ><a asp-controller="Course" asp-action="MyCourses">Моите курсове</a></li>
+                                }
+                                @if (User.IsInRole("Student"))
+                                {
+                                    <li ><a  asp-controller="Course" asp-action="All"> Kурсове</a></li>
+                                }
+                                @if (User.IsInRole("Teacher"))
+                                {
+
+                                    var teacherId = await teacherService.GetTeacherIdByUserId(User.GetId());
+
+                                    <li>
+                                        <a  asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@teacherId" asp-route-isTeacher="@true" asp-route-isCourse="@false">Моят график</a>
+                                    </li>
+                                }
+
+                                <li><a href="#">Dropdown 2</a></li>
+                                <li><a href="#">Dropdown 3</a></li>
+                                <li><a href="#">Dropdown 4</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                </nav>
+
             </div>
-        </div>
-    </div>
+        </header>
 
+    }
+   
+   
     <!-- Main Content -->
     <main role="main" class="pb-3">
         <div class="container-fluid px-0">
@@ -235,29 +138,11 @@ EXAMPLE CODE - UNFINISHED
 
     <!-- Scripts -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/navbar.js"></script>
+    @* <script src="~/js/site.js" asp-append-version="true"></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 
-    <!-- JavaScript for Mega Menu -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let megaMenu = document.getElementById("megaMenu");
-            let toggleButton = document.getElementById("megaMenuToggle");
 
-            toggleButton.addEventListener("click", function (e) {
-                e.preventDefault();
-                megaMenu.classList.toggle("show");
-            });
-
-            // Close mega menu if clicked outside
-            document.addEventListener("click", function (e) {
-                if (!toggleButton.contains(e.target) && !megaMenu.contains(e.target)) {
-                    megaMenu.classList.remove("show");
-                }
-            });
-        });
-    </script>
 
 </body>
 </html>
- *@
