@@ -15,6 +15,7 @@ namespace InterestsAcademy.Core.Models.Course
     {
         [Required]
         public string Id { get; set; } = null!;
+
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(CourseNameMaxLength, MinimumLength = CourseNameMinLength, ErrorMessage = InvalidLengthMessage)]
         public string Name { get; set; } = null!;
@@ -33,8 +34,8 @@ namespace InterestsAcademy.Core.Models.Course
 
         public string TeacherName { get;set; }
 
-        [Required(ErrorMessage = RequiredErrorMessage)]
-        public string RoomId { get; set; } = null!;
+        
+        public string? RoomId { get; set; } 
 
         public ICollection<RoomViewModel> Rooms { get; set; } = new List<RoomViewModel>();
     }

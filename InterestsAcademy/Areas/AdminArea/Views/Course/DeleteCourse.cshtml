@@ -15,16 +15,17 @@
 		<div class="info">
 			<div class="form-group">
 				<label for="Name">Име на курса:</label>
-				<input type="text" id="Name" name="Name" class="input-field" asp-for="@Model.Name" disabled />
+				<input type="text" id="Name" name="Name" class="input-field" asp-for="@Model.Name"  />
+				<input type="text" id="Id" name="Id" class="input-field" asp-for="@Model.Id" style="display:none;" />
 			</div>
 			<div class="form-group" style="    margin-bottom: 30px;
             margin-top: 0;">
 				<label for="Description">Описание:</label>
-				<textarea id="Description" style="    margin-bottom: 0;" name="Description" class="input-field textarea-field" asp-for="@Model.Description"  disabled ></textarea>
+				<textarea id="Description" style="    margin-bottom: 0;" name="Description" class="input-field textarea-field" asp-for="@Model.Description"   ></textarea>
 			</div>
 			<div class="form-group">
 				<label for="Duration">Продължителност:</label>
-				<input type="text" style="width: 40%;" id="Duration" name="Duration" class="input-field" asp-for="@Model.Duration" disabled />
+				<input type="text" style="width: 40%;" id="Duration" name="Duration" class="input-field" asp-for="@Model.Duration"  />
 			</div>
 		</div>
 		<div class="form-actions">

@@ -9,29 +9,30 @@
     <form asp-action="Accept" method="post" class="needs-validation" novalidate>
         <div class="mb-3">
             <label for="Name" class="form-label">Име</label>
-            <input type="text" id="Name" name="Name" class="form-control" asp-for="@Model.Name" disabled />
+            <input type="text" id="Name" name="Name" class="form-control" asp-for="@Model.Name" value="@Model.Name"  />
+            <input type="text" id="Name" name="id" class="form-control" asp-for="@Model.Id" value="@Model.Id" style="display:none;" />
 
         </div>
 
         <div class="mb-3">
             <label for="Description" class="form-label">Описание</label>
-            <textarea id="Description" name="Description" class="form-control" asp-for="@Model.Description" disabled></textarea>
+            <textarea id="Description" name="Description" class="form-control" asp-for="@Model.Description" value="@Model.Description" ></textarea>
 
         </div>
 
         <div class="mb-3">
             <label for="Duration" class="form-label">Продължителност</label>
-            <input type="text" id="Duration" name="Duration" class="form-control" asp-for="@Model.Duration" disabled />
+            <input type="text" id="Duration" name="Duration" class="form-control" asp-for="@Model.Duration" value="@Model.Duration"  />
 
         </div>
 
         <div class="mb-3">
             <label for="TeacherName" class="form-label">Учител</label>
-            <input type="text" id="TeacherName" name="TeacherName" class="form-control" asp-for="@Model.TeacherName" disabled />
+            <input type="text" id="TeacherName" name="TeacherName" class="form-control" asp-for="@Model.TeacherName"  />
 
         </div>
 
-        <div class="mb-3">
+        @* <div class="mb-3">
             <label for="RoomId" class="form-label">Стая</label>
             <select id="RoomId"
                     name="RoomId"
@@ -43,7 +44,7 @@
                     <option value="@room.Id">@room.Name</option>
                 }
             </select>
-        </div>
+        </div> *@
 
         <div class="text-center">
             <button type="submit" class="btn btn-primary" asp-area="AdminArea" asp-action="Accept" asp-controller="Course">Приеми</button>
