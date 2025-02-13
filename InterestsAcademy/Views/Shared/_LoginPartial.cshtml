@@ -11,9 +11,9 @@
         <a asp-area="" asp-action="MyProfile" asp-controller="Profile" asp-route-userId="@User.GetId()" title="Manage">Зравей, @User.Identity?.Name!</a>
     </li>
     <li >
-            <form class="form-inline" asp-area="" asp-action="Logout" asp-controller="Account">
-            <button  type="submit" class="nav-link btn btn-link text-white">Излез</button>
-        </form>
+@*             <form class="form-inline" asp-area="" asp-action="Logout" asp-controller="Account">
+ *@            <a type="submit" asp-area="" asp-action="Logout" asp-controller="Account">Излез</a>
+        @* </form> *@
     </li>
 }
 else
