@@ -12,7 +12,7 @@ namespace InterestsAcademy.Data.Constants
 		public const int CourseNameMaxLength = 60;
 
         public const int CourseDescriptionMinLength = 3;
-        public const int CourseDescriptionMaxLength = 250;
+        public const int CourseDescriptionMaxLength = 400;
 
     }
 }

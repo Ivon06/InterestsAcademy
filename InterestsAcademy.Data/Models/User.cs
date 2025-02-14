@@ -50,6 +50,7 @@ namespace InterestsAcademy.Data.Models
         public bool IsApproved { get; set; }
         public string? ProfilePictureUrl { get; set; }
 
+        public ICollection<Article> Articles { get; set; } = new HashSet<Article>();
 
-	}
+    }
 }

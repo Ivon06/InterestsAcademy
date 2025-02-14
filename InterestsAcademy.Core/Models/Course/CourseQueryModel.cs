@@ -8,7 +8,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static InterestsAcademy.Common.ErrorMessages;
-
 using static InterestsAcademy.Data.Constants.CourseConstants;
 
 namespace InterestsAcademy.Core.Models.Course
