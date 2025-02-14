@@ -51,6 +51,7 @@ namespace InterestsAcademy.Data
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<StudentCourse> StudentsCourses { get; set; }
         public DbSet<Request> Requests { get;set; }
+        public DbSet<Article> Articles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -59,6 +60,13 @@ namespace InterestsAcademy.Data
             builder.Entity<User>()
                .Property(u => u.BirthDate)
                .HasColumnType("DATE");
+
+            builder.Entity<User>()
+                .HasMany(a => a.Articles)
+                .WithOne(a => a.User)
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
 
             builder.Entity<ActivityStudent>()
                 .HasKey(a => new { a.StudentId, a.ActivityId });
@@ -134,7 +142,7 @@ namespace InterestsAcademy.Data
                .WithOne(r => r.Course)
                .HasForeignKey(r => r.CourseId)
                .OnDelete(DeleteBehavior.NoAction);
-
+            
             if (seedDb)
             {
                 builder.ApplyConfiguration(new RoomConfiguration());
