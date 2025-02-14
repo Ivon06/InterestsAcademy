@@ -21,6 +21,7 @@ namespace InterestsAcademy.Extensions
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IActivityService, ActivityService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IDonationService, DonationService>();
 
             return services;
         }

@@ -7,10 +7,10 @@
 <ul class="login">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li>
+        <li style="    list-style-type: none; align-content: center;">
         <a asp-area="" asp-action="MyProfile" asp-controller="Profile" asp-route-userId="@User.GetId()" title="Manage">Зравей, @User.Identity?.Name!</a>
     </li>
-    <li >
+        <li style="    list-style-type: none;">
 @*             <form class="form-inline" asp-area="" asp-action="Logout" asp-controller="Account">
  *@            <a type="submit" asp-area="" asp-action="Logout" asp-controller="Account">Излез</a>
         @* </form> *@
@@ -18,10 +18,10 @@
 }
 else
 {
-    <li >
+        <li style="    list-style-type: none;">
         <a  asp-area="" asp-action="Register" asp-controller="Account">Регистрация</a>
     </li>
-    <li >
+        <li style="    list-style-type: none;">
         <a  asp-area="" asp-action="Login" asp-controller="Account">Вход</a>
     </li>
 }
