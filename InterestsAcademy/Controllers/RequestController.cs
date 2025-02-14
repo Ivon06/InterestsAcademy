@@ -106,17 +106,14 @@ namespace InterestsAcademy.Controllers
 
             TempData[SuccessMessage] = "Успешно записване за курс. Изчакайте одобрение.";
 
-            var teacherUserId = await userService.GetUserIdByTeacherId(teacherId);
+            string teacherUserId = await userService.GetUserIdByTeacherId(teacherId);
 
             return new JsonResult(new
             {
                 RequestId = requestId,
                 TeacherUserId = teacherUserId
-            })
-            {
-                StatusCode = (int)HttpStatusCode.OK
-
-            };
+            });
+          
         }
 
         [HttpGet]
