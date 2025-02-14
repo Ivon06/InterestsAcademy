@@ -3,61 +3,163 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudinaryDotNet;
 using InterestsAcademy.Core.Contracts;
 using InterestsAcademy.Core.Models.Article;
+using InterestsAcademy.Core.Models.Course;
+using InterestsAcademy.Data.Models;
+using InterestsAcademy.Data.Repository.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace InterestsAcademy.Core.Services
 {
     public class ArticleService : IArticleService
     {
-        public Task AddArticle(ArticleQueryViewModel model)
+        private readonly IRepository repo;
+
+        public ArticleService(IRepository repo)
         {
-            throw new NotImplementedException();
+            this.repo = repo;
         }
 
-        public Task DeleteArticle(string articleId)
+        public async Task AddArticle(ArticleQueryViewModel model)
         {
-            throw new NotImplementedException();
+            var article = new Article()
+            {
+                Name = model.Name,
+                Description = model.Description,
+                UserId = model.UserId,
+                PublishedOn = model.PublishedOn,
+                ArticlePictureURLs = model.ArticlePictureURLs
+            };
+            await repo.AddAsync(article);
+            await repo.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<ArticleCardViewModel>> GetAllArticleCards()
+        public async Task DeleteArticle(string articleId)
         {
-            throw new NotImplementedException();
+            var article = await repo.GetByIdAsync<Article>(articleId);
+            await repo.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<ArticleCardViewModel>> GetAllArticlesAdminCards()
+        public async Task<IEnumerable<ArticleCardViewModel>> GetAllArticleCards()
         {
-            throw new NotImplementedException();
+            var result = await repo.GetAll<Article>()
+                .Include(c => c.User)
+                .Select(x => new ArticleCardViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    UserId = x.UserId,
+                    PublishedOn = x.PublishedOn,
+                    PictureURLs=x.ArticlePictureURLs
+                }
+                )
+                .ToListAsync();
+
+            return result; 
         }
 
-        public Task<AdminArticleViewModel> GetArticleForAdmin(string articleId)
+        public async Task<IEnumerable<ArticleCardViewModel>> GetAllArticlesAdminCards()
         {
-            throw new NotImplementedException();
+            var result = await repo.GetAll<Article>()
+               .Include(c => c.User)
+               .Select(x => new ArticleCardViewModel()
+               {
+                   Id = x.Id,
+                   Name = x.Name,
+                   Description = x.Description,
+                   UserId = x.UserId,
+                   PublishedOn = x.PublishedOn,
+                   PictureURLs = x.ArticlePictureURLs
+               }
+               )
+               .ToListAsync();
+
+            return result;
+
         }
 
-        public Task<DeleteArticleQueryModel> GetArticleForDelete(string articleId)
+        public async Task<AdminArticleViewModel> GetArticleForAdmin(string articleId)
         {
-            throw new NotImplementedException();
+
+            var article = await repo.GetAll<Article>()
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(c => c.Id == articleId);
+
+
+            var model = new AdminArticleViewModel()
+            {
+                Id = articleId,
+                ArticleName = article.Name,
+                ArticleDescription = article.Description,
+                UserName = article.User.Name,
+                ArticlePublishedOn = article.PublishedOn,
+                ArticlePictureURLs = article.ArticlePictureURLs
+            };
+
+            return model;
         }
 
-        public Task<EditArticleViewModel> GetArticleForEdit(string id)
+        public async Task<DeleteArticleQueryModel> GetArticleForDelete(string articleId)
         {
-            throw new NotImplementedException();
+            var article = await repo.GetByIdAsync<Article>(articleId);
+
+            DeleteArticleQueryModel model = new DeleteArticleQueryModel()
+            {
+                Id = article.Id,
+                Name = article.Name,
+                Description = article.Description,
+                PublishedOn=article.PublishedOn
+              
+            };
+
+            return model;
         }
 
-        public Task<string> GetArticleIdByName(string articleName)
+        public async Task<EditArticleViewModel> GetArticleForEdit(string id)
         {
-            throw new NotImplementedException();
+            var article = await repo.GetByIdAsync<Article>(id);
+
+            var teacher = await repo.GetByIdAsync<User>(article.UserId);
+
+            EditArticleViewModel edit = new EditArticleViewModel()
+            {
+                Id = id,
+                Name = article.Name,
+                Description = article.Description,
+                UserId = article.UserId,
+                PublishedOn = article.PublishedOn,
+                ArticlePictureURLs = article.ArticlePictureURLs,
+                UserName=article.User.Name,
+
+            };
+
+            return edit;
         }
 
-        public Task<string> GetArticleNameById(string articleId)
+        public async Task<string> GetArticleIdByName(string articleName)
         {
-            throw new NotImplementedException();
+            var result = await repo.GetAll<Article>()
+                 .FirstOrDefaultAsync(c => c.Name == articleName);
+
+            return result.Id;
         }
 
-        public Task<bool> IsArticleValid(string articleId)
+        public async Task<string> GetArticleNameById(string articleId)
         {
-            throw new NotImplementedException();
+            var article = await repo.GetByIdAsync<Article>(articleId);
+
+            return article!.Name;
+        }
+
+        public async Task<bool> IsArticleValid(string articleId)
+        {
+            var result = await repo.GetAll<Article>()
+                .AnyAsync(c => c.Id == articleId);
+
+            return result;
         }
     }
 }
