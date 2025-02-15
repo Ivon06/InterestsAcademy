@@ -17,5 +17,7 @@ namespace InterestsAcademy.Core.Contracts
         Task<bool> IsEmailValid(string email);
 
         Task<List<string>> GetAllStudentsUsersIdsByCourseId(string courseId);
+
+        Task<bool> IsStudentInCourse(string studentId, string courseId);
     }
 }

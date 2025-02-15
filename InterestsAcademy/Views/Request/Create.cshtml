@@ -1,4 +1,4 @@
-﻿@model string;
+﻿@model List<string>;
 @{
 	ViewData["FormTitle"] = "Молба за практика";
 }
@@ -13,21 +13,21 @@
 					<div class="form-row">
 						<div class="name">Курс</div>
 						<div class="value">
-							<input id="course" class="input--style-6" type="text" name="full_name" value="@Model" disabled></input>
+							<input id="course" class="input--style-6" type="text" name="full_name" value="@Model[0]" disabled></input>
 						</div>
 					</div>
 
 					<div class="form-row">
 						<div class="name">Име</div>
 						<div class="value">
-							<input id="name" class="input--style-6" type="text">
+						<input id="name" class="input--style-6" type="text" value="@Model[1]" disabled>
 							<span class="text-danger" style="display: none">Това поле е задължително</span>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="name">Имейл</div>
 						<div class="value">
-							<input id="email" class="input--style-6" type="text">
+						<input id="email" class="input--style-6" type="text" value="@Model[2]" disabled>
 							<span class="text-danger" style="display: none">Това поле е задължително</span>
 						</div>
 					</div>

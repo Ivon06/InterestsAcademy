@@ -85,5 +85,15 @@ namespace InterestsAcademy.Core.Services
 
             return ids;
         }
+
+        public async Task<bool> IsStudentInCourse(string studentId, string courseId)
+        {
+           var id = await GetStudentId(studentId);
+
+            var result = await repo.GetAll<StudentCourse>()
+                .AnyAsync(sc => sc.StudentId == id && sc.CourseId == courseId && sc.IsApproved);
+
+            return result ;
+        }
     }
 }

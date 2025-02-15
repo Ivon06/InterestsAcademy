@@ -22,8 +22,8 @@
 
 <div class="container">
 
-	@* <input value="@Model.Requests[0].CourseId" id="courseId" hidden />
- *@
+	<input value="@Model.CourseId" id="courseId" hidden />
+
 	<!-- Left Section: Course Info -->
 	<div class="course-info">
 		<div class="card">
@@ -34,6 +34,9 @@
 			<p><strong>Описание:</strong> @Model.CourseDescription</p>
 		</div>
 	</div>
+
+	<form class="requires-validation" method="post" id="addEvent" enctype="multipart/form-data">
+</form>
 
 	<div class="student-requests">
 
