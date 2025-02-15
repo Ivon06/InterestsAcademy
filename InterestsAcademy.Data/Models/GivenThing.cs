@@ -15,6 +15,7 @@ namespace InterestsAcademy.Data.Models
         public GivenThing()
         {
             Id = Guid.NewGuid().ToString();
+            Description = "";
         }
 
         [Key]
