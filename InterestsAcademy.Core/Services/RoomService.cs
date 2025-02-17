@@ -47,7 +47,7 @@ namespace InterestsAcademy.Core.Services
             return course.RoomId;
         }
 
-        public async Task<string?> GetRoomNameByIdAsync(string roomId)
+        public async Task<string>? GetRoomNameByIdAsync(string roomId)
         {
             var name = await repo.GetByIdAsync<Room>(roomId);
 

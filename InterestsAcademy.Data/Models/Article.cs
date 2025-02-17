@@ -15,9 +15,11 @@ namespace InterestsAcademy.Data.Models
         public Article()
         {
             Id = Guid.NewGuid().ToString();
+            IsActive = false;
         }
         [Key]
         public string Id { get; set; } = null!;
+
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         [MaxLength(ArticleNameMaxLength)]
@@ -35,5 +37,7 @@ namespace InterestsAcademy.Data.Models
         public List<string>? ArticlePictureURLs { get; set; }
 
         public DateTime PublishedOn { get; set; }
+        public bool IsActive { get; set; }
+
     }
 }
