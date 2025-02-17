@@ -11,5 +11,7 @@ namespace InterestsAcademy.Core.Contracts
     {
         Task<FilterDonationViewModel> GetAll();
         Task<FilterDonationViewModel> GetAllByCategory(string category);
+
+        Task<string> Add(AddDonationQueryModel model);
     }
 }

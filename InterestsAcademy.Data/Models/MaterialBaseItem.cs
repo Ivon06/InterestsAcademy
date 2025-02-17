@@ -19,6 +19,7 @@ namespace InterestsAcademy.Data.Models
         public string Id { get; set; } = null!;
 
         [Required]
+        [MaxLength(100)]
         public string Name { get; set; } = null!;
 
         [Required]

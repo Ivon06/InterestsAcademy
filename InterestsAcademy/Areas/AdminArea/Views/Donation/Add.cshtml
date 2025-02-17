@@ -1,0 +1,52 @@
+﻿@using InterestsAcademy.Core.Models.Donation
+@model AddDonationQueryModel
+
+@{
+    ViewData["Title"] = "Добави дарение";
+
+    Dictionary<string, string> categories = new Dictionary<string, string>();
+
+//добави категориите
+
+}
+
+
+<div class="container">
+    <div class="left">
+        <form class="form" asp-area="Admin" asp-action="Add" asp-controller="Donation" method="post" enctype="multipart/form-data">
+            <div class="input-block">
+                <input class="input" asp-for="ItemName" type="text" required>
+                <label asp-for="ItemName">Име</label>
+            </div>
+            <div class="input-block">
+
+                <select class="input" asp-for="Category" id="dropdown-list" class="dropdown-list">
+                    @foreach (var a in Model.Categories)
+                    {
+                        <option value="@a" >@a</option>
+                    }
+                </select>
+
+                <label for="@Model.Category">Категория</label>
+            </div>
+
+            <div class="input-block">
+                <button type="submit">Добави</button>
+            </div>
+        </form>
+    </div>
+    <div class="right">
+        <div class="img">
+           <img src="~/img/Screenshot_2025-02-13_110015-removebg-preview.png"/>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/addDonation.css" asp-append-version="true" />
+}

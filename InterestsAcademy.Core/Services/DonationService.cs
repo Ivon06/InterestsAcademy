@@ -20,6 +20,21 @@ namespace InterestsAcademy.Core.Services
             this.repo = repo;
         }
 
+        public async Task<string> Add(AddDonationQueryModel model)
+        {
+           MaterialBaseItem item = new MaterialBaseItem()
+           {
+               Name = model.ItemName,
+               NeededQuantity = model.Quantity,
+               Category = model.Category
+           };
+
+            await repo.AddAsync(item);
+            await repo.SaveChangesAsync();
+
+            return item.Id;
+        }
+
         public async Task<FilterDonationViewModel> GetAll()
         {
             var model = new FilterDonationViewModel();
