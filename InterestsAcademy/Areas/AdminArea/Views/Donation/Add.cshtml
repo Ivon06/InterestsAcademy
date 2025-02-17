@@ -6,6 +6,12 @@
 
     Dictionary<string, string> categories = new Dictionary<string, string>();
 
+    categories.Add("Biology", "Биология и Химия");
+    categories.Add( "Physics","Физика и Астриномия");
+    categories.Add("Art", "Музика и Изкуство");
+    categories.Add("It", "Информатика и роботика");
+    categories.Add("Sport", "Спорт");
+    categories.Add("Other", "Други");
 //добави категориите
 
 }
@@ -17,17 +23,19 @@
             <div class="input-block">
                 <input class="input" asp-for="ItemName" type="text" required>
                 <label asp-for="ItemName">Име</label>
+                <span asp-validation-for="@Model.ItemName"></span>
             </div>
             <div class="input-block">
 
                 <select class="input" asp-for="Category" id="dropdown-list" class="dropdown-list">
+                    <option value=" " disabled >Категория</option>
                     @foreach (var a in Model.Categories)
                     {
-                        <option value="@a" >@a</option>
+                        <option value="@a" >@categories[a]</option>
                     }
                 </select>
 
-                <label for="@Model.Category">Категория</label>
+               @*  <label for="@Model.Category">Категория</label> *@
             </div>
 
             <div class="input-block">

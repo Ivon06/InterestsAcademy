@@ -144,7 +144,6 @@ namespace InterestsAcademy.Data.Migrations
                         new
                         {
                             Id = "e6bb13af-fe1e-4276-b301-1bffe7f8c8fc",
-
                             Description = "Този курс обхваща основите на биологията – от клетките и ДНК до екосистемите и еволюцията.",
                             Duration = "2 месеца",
                             IsActive = true,
@@ -224,7 +223,8 @@ namespace InterestsAcademy.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("NeededQuantity")
                         .HasColumnType("int");
@@ -445,8 +445,7 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "0185d2f4-cd9c-4dd3-8afa-07a81f68653e",
+                            Id = "12d4e897-5f33-4689-a74c-f9ede675e497",
                             UserId = "080a469a-b5a2-44cc-a660-eea8e6fd05a5"
                         });
                 });
@@ -599,7 +598,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Ал. Стамболийски 30 ет.3 ап.11",
                             BirthDate = new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-                            ConcurrencyStamp = "432bfcde-1e4b-4ae4-8d1e-e1ca99fc944e",
+                            ConcurrencyStamp = "b5cb7eee-99ae-45e1-a249-f87665498c23",
                             Country = "България",
                             Email = "petarpetrov@abv.bg",
                             EmailConfirmed = false,
@@ -610,13 +609,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Петър Петров",
                             NormalizedEmail = "PETARPETROV@ABV.BG",
                             NormalizedUserName = "PETAR",
-
-                            PasswordHash = "AQAAAAIAAYagAAAAEBVDRFyBDHOOve6qDBNjD+tQUo31SxxBKHbaKrRBYbmBYKC9fvkY39khN2u21+qwgQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFYUXFyT65mNnrsP4a7IzHoPsef9GzYjOJoni1CDMx5MmoypJtiotXTEcwqNswO2pQ==",
                             PhoneNumber = "0885763826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg",
-                            RegisteredOn = new DateTime(2025, 2, 15, 21, 15, 11, 603, DateTimeKind.Utc).AddTicks(5542),
-                            SecurityStamp = "10ea1b87-7127-49c1-a9db-11633e417964",
+                            RegisteredOn = new DateTime(2025, 2, 17, 21, 5, 19, 946, DateTimeKind.Utc).AddTicks(7320),
+                            SecurityStamp = "7dc5437d-655b-4a73-8d63-57d85b45d5a7",
                             TwoFactorEnabled = false,
                             UserName = "petar"
                         },
@@ -627,7 +625,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул.Възраждане 6 ет.2 ап.8",
                             BirthDate = new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-                            ConcurrencyStamp = "aa6a629a-a6b0-44c6-8e5f-d67c68bdc58c",
+                            ConcurrencyStamp = "83169ab6-48c1-4668-944c-1e3915cf5bf4",
                             Country = "България",
                             Email = "georgidimitrov@abv.bg",
                             EmailConfirmed = false,
@@ -638,12 +636,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Георги Димитров",
                             NormalizedEmail = "GEORGIDIMITROV@ABV.BG",
                             NormalizedUserName = "GEORGI",
-                            PasswordHash = "AQAAAAIAAYagAAAAEB7fRVcuJFrVYJqzcICFq9KkJHGUEpyOuFCxxJPnsiJZkOoyJoZ8qFbsAN2HpKM8Tw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECwPjF1HtxaGUyL8HO8bluAFz8kCCwAcrwbKJhN9uYPnuM8KQK9oqmcY8NeQxvQMtg==",
                             PhoneNumber = "0885789826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg",
-                            RegisteredOn = new DateTime(2025, 2, 15, 21, 15, 11, 671, DateTimeKind.Utc).AddTicks(1865),
-                            SecurityStamp = "8358d969-10c5-487e-8dcf-b64126ea8df7",
+                            RegisteredOn = new DateTime(2025, 2, 17, 21, 5, 20, 146, DateTimeKind.Utc).AddTicks(1627),
+                            SecurityStamp = "6257c14a-acb8-44de-99a2-a093dc367db6",
                             TwoFactorEnabled = false,
                             UserName = "georgi"
                         },
@@ -654,8 +652,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Незабравка 3",
                             BirthDate = new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Енина",
-
-                            ConcurrencyStamp = "a7c14f38-8547-4915-a97e-1e6587bda071",
+                            ConcurrencyStamp = "c53f72e4-46ef-4341-b61b-d8451ca88734",
                             Country = "България",
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
@@ -666,13 +663,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN",
-
-                            PasswordHash = "AQAAAAIAAYagAAAAEEoVy3BYFXtdltTDG4mVQYTwCvNwAvNOklNdOUzs6kaxtMaWgD78tX67AFfd5Vsi2A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEP2fkGIvcts48/JV8hdZCk5oNYSGXYZH8mqWJAiEOO2VL7JYW4S+x3Sc43VpJDdM3g==",
                             PhoneNumber = "0889864842",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg",
-                            RegisteredOn = new DateTime(2025, 2, 15, 21, 15, 11, 732, DateTimeKind.Utc).AddTicks(6896),
-                            SecurityStamp = "2afcb224-4704-4be0-96c2-ee558103e6aa",
+                            RegisteredOn = new DateTime(2025, 2, 17, 21, 5, 20, 286, DateTimeKind.Utc).AddTicks(1307),
+                            SecurityStamp = "e69d3193-5b65-4e05-b17b-8c60346269a9",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
