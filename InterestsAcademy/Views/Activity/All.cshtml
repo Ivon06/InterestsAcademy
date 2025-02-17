@@ -70,9 +70,11 @@ else
 	<div class="c-event__creator c-calendar__style js-event__creator isVisible" style="display:none;width: 750px; position: absolute;height: fit-content;
 padding-top: 40px;overflow: hidden;margin-top: 3rem;" id="meeting-form">
 
-		<h2 class="text-light text-center">Създай среща</h2>
+		<h2 class="text-light text-center">
+			<button >Създай среща</button>
+		</h2>
 
-		<form class="requires-validation" id="addEvent" enctype="multipart/form-data">
+		<form class="requires-validation" method="post" id="addEvent" enctype="multipart/form-data">
 
 			<div class="input-group">
 				<select required="" autocomplete="off" class="input" name="courseId" id="select-class" style="border-top-right-radius: 1rem;
@@ -121,7 +123,7 @@ padding-top: 40px;overflow: hidden;margin-top: 3rem;" id="meeting-form">
 
 @if (User.IsInRole("Teacher") && Model.RoomView)
 {
-	<div class="div-btn" data-fancybox data-src="#meeting-form" id="add-btn" style="display: none">
+		<div class="div-btn" data-fancybox data-src="#meeting-form" id="add-btn" style="display: none">
 		<a class="cssbuttons-io-button">
 			<svg viewBox="0 0 24 24" width="24" height="24">
 				<path fill="none" d="M0 0h24v24H0z"></path>
@@ -211,7 +213,7 @@ padding-top: 40px;overflow: hidden;margin-top: 3rem;" id="meeting-form">
 @section Scripts {
 	<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	@* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
 	<script src="~/js/schedule.js" asp-append-version="true"></script>
 	<script src="~/js/meeting.js" asp-append-version="true"></script>
 

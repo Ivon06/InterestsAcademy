@@ -49,18 +49,18 @@ header.scrolled {
     line-height: 1;
 }
 
-        .header .logo img {
-            max-height: 32px;
-            margin-right: 8px;
-        }
+    .header .logo img {
+        max-height: 32px;
+        margin-right: 8px;
+    }
 
-        .header .logo h1 {
-            text-decoration: none; /* Removes underline */
-            font-size: 30px;
-            margin: 0;
-            font-weight: 700;
-            color: var(--heading-color); /* Ensuring logo text is visible */
-        }
+    .header .logo h1 {
+        text-decoration: none; /* Removes underline */
+        font-size: 30px;
+        margin: 0;
+        font-weight: 700;
+        color: var(--heading-color); /* Ensuring logo text is visible */
+    }
 
 /* Header on Scroll */
 .scrolled .header {
@@ -170,6 +170,7 @@ input[type]:checked ~ span.middle {
     .navmenu {
         padding: 0;
     }
+
         .navmenu a {
             text-decoration: none; /* Removes underline */
             color: var(--nav-color); /* Default color */
@@ -210,11 +211,13 @@ input[type]:checked ~ span.middle {
                 margin-left: 5px;
                 transition: 0.3s;
             }
+
             .navmenu a:hover,
             .navmenu .active {
                 color: #ffffff; /* Brighter white on hover */
                 font-weight: 500; /* Optional: Slightly bolder for emphasis */
             }
+
         .navmenu li:last-child a {
             padding-right: 0;
         }
@@ -279,7 +282,8 @@ input[type]:checked ~ span.middle {
 }
 
 /* Navigation Menu - Mobile */
-/**/@media (max-width: 1199px) {
+/**/
+@media (max-width: 1199px) {
     .navmenu {
         padding: 0;
     }

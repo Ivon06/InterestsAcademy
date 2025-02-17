@@ -27,7 +27,7 @@ namespace InterestsAcademy.Core.Services
                 .Where(c => c.Name == courseName)
                 .FirstOrDefaultAsync();
 
-            return result.Teacher.Id;
+            return result.TeacherId;
         }
 
         public async Task CreateAsync(string userId)

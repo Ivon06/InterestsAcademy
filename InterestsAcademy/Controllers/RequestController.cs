@@ -43,9 +43,20 @@ namespace InterestsAcademy.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            string courseName = await courseService.GetCourseNameById(courseId);
+            bool isInCourse = await studentService.IsStudentInCourse(User.GetId(),courseId);
+            if (isInCourse)
+            {
+                TempData[ErrorMessage] = "Ученикът вече е записан за този курс.";
+                return RedirectToAction("All", "Course");
+            }
 
-            return View("Create", courseName);
+            string courseName = await courseService.GetCourseNameById(courseId);
+            var user = await userService.GetByIdAsync(User.GetId());
+            string studentName = user.Name;
+            string email = user.Email;
+
+
+            return View("Create",new List<string>() { courseName, studentName, email });
 
         }
 
@@ -106,17 +117,14 @@ namespace InterestsAcademy.Controllers
 
             TempData[SuccessMessage] = "Успешно записване за курс. Изчакайте одобрение.";
 
-            var teacherUserId = await userService.GetUserIdByTeacherId(teacherId);
+            string teacherUserId = await userService.GetUserIdByTeacherId(teacherId);
 
             return new JsonResult(new
             {
                 RequestId = requestId,
                 TeacherUserId = teacherUserId
-            })
-            {
-                StatusCode = (int)HttpStatusCode.OK
-
-            };
+            });
+          
         }
 
         [HttpGet]
@@ -146,6 +154,7 @@ namespace InterestsAcademy.Controllers
             }
 
             var model = await courseService.GetCourseWithAllRequest(courseId);
+            model.CourseId = courseId;
 
             if (model.Requests.Count == 0)
             {
@@ -154,6 +163,7 @@ namespace InterestsAcademy.Controllers
             else
             {
                 model.Requests = model.Requests.OrderByDescending(r => r.Status).ToList();
+                
                 return View(model);
             }
             

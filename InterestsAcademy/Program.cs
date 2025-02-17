@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("InterestsAcademyDbContextConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<InterestsAcademyDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -34,7 +34,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<InterestsAcademyDbContext>();
 
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 
 builder.Services.ConfigureServices();
 
@@ -65,13 +65,20 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddResponseCaching();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
+});
+
 
 builder.Services
-                .AddControllersWithViews(options =>
-                {
-                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                });
+    .AddControllersWithViews(options =>
+    {
+        options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+    });
+
+
+builder.Services.AddResponseCaching();
 
 builder.Services.AddSignalR();
 
@@ -121,7 +128,7 @@ app.MapDefaultControllerRoute();
 app.MapRazorPages();
 
 
-app.MapRazorPages();
+//app.MapRazorPages();
 
 
 

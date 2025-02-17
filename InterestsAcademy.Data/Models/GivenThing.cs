@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InterestsAcademy.Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,6 +15,7 @@ namespace InterestsAcademy.Data.Models
         public GivenThing()
         {
             Id = Guid.NewGuid().ToString();
+            Description = "";
         }
 
         [Key]
@@ -37,12 +39,10 @@ namespace InterestsAcademy.Data.Models
         [Required]
         public Giver Giver { get; set; } = null!;
 
-        [Required]
-        [ForeignKey(nameof(MaterialBaseItem))]
-        public string MaterialItemId { get; set; } = null!;
 
         [Required]
-        public MaterialBaseItem MaterialBaseItem { get; set; } = null!;
+        [EnumDataType(typeof(DonationCategoryEnum))]
+        public string Category { get; set; } = null!;
 
 	}
 }

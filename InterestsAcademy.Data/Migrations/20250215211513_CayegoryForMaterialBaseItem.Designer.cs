@@ -4,6 +4,7 @@ using InterestsAcademy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterestsAcademy.Data.Migrations
 {
     [DbContext(typeof(InterestsAcademyDbContext))]
-    partial class InterestsAcademyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250215211513_CayegoryForMaterialBaseItem")]
+    partial class CayegoryForMaterialBaseItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,9 +78,6 @@ namespace InterestsAcademy.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -144,7 +144,6 @@ namespace InterestsAcademy.Data.Migrations
                         new
                         {
                             Id = "e6bb13af-fe1e-4276-b301-1bffe7f8c8fc",
-
                             Description = "Този курс обхваща основите на биологията – от клетките и ДНК до екосистемите и еволюцията.",
                             Duration = "2 месеца",
                             IsActive = true,
@@ -445,7 +444,6 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-
                             Id = "0185d2f4-cd9c-4dd3-8afa-07a81f68653e",
                             UserId = "080a469a-b5a2-44cc-a660-eea8e6fd05a5"
                         });
@@ -610,7 +608,6 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Петър Петров",
                             NormalizedEmail = "PETARPETROV@ABV.BG",
                             NormalizedUserName = "PETAR",
-
                             PasswordHash = "AQAAAAIAAYagAAAAEBVDRFyBDHOOve6qDBNjD+tQUo31SxxBKHbaKrRBYbmBYKC9fvkY39khN2u21+qwgQ==",
                             PhoneNumber = "0885763826",
                             PhoneNumberConfirmed = false,
@@ -654,7 +651,6 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Незабравка 3",
                             BirthDate = new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Енина",
-
                             ConcurrencyStamp = "a7c14f38-8547-4915-a97e-1e6587bda071",
                             Country = "България",
                             Email = "admin@abv.bg",
@@ -666,7 +662,6 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN",
-
                             PasswordHash = "AQAAAAIAAYagAAAAEEoVy3BYFXtdltTDG4mVQYTwCvNwAvNOklNdOUzs6kaxtMaWgD78tX67AFfd5Vsi2A==",
                             PhoneNumber = "0889864842",
                             PhoneNumberConfirmed = false,

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InterestsAcademy.Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,10 +19,16 @@ namespace InterestsAcademy.Data.Models
         public string Id { get; set; } = null!;
 
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [Required]
         public int NeededQuantity { get;set; }
+
+        [Required]
+        [EnumDataType(typeof(DonationCategoryEnum))]
+        public string Category { get; set; } = null!;
+
+        
 
         public ICollection<GivenThing> GivenThings { get; set; }
     }

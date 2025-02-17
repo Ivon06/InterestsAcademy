@@ -1,13 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using InterestsAcademy.Core.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InterestsAcademy.Controllers
 {
     public class DonationController : Controller
     {
+        private readonly IDonationService donationService;
 
-        public async Task<IActionResult> Categories()
+        public DonationController(IDonationService donationService)
         {
-            return View();
+            this.donationService = donationService;
+        }
+
+        public async Task<IActionResult> Categories(string category)
+        {
+            if (category == "All")
+            {
+                var model = await donationService.GetAll();
+                return View(model);
+            }
+            else
+            {
+                var model = await donationService.GetAllByCategory(category);
+                return View(model);
+            }
+
+
         }
         public IActionResult Index()
         {

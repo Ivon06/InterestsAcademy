@@ -15,6 +15,7 @@ namespace InterestsAcademy.Core.Models.Request
         public string CourseDuration { get; set; }
         public bool IsApproved { get; set; }
         public string RoomId { get; set; }
+        public string CourseId { get; set; }
 
         public List<RequestViewModel> Requests { get; set; } = new List<RequestViewModel>();
     }

@@ -19,6 +19,8 @@ namespace InterestAcademy.Tests.UnitTests
             SeedStudents(context);
             SeedTeachers(context);
             SeedUsers(context);
+
+            context.SaveChanges();
         }
 
 
@@ -143,6 +145,7 @@ namespace InterestAcademy.Tests.UnitTests
                 Description = "Курс по роботика за начинаещи",
                 TeacherId = "hugf73-3b3b-3b3b-3b3b-jb7ftyv",
                 RoomId = "e3b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3c",
+                Duration = "2 месеца",
                 IsApproved = true,
                 IsActive = true
             };
