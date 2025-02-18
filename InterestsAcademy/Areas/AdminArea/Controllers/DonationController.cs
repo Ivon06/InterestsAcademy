@@ -59,6 +59,15 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.Categories = new List<string>()
+            {
+               "Biology",
+               "Physics",
+               "Art",
+               "It",
+               "Sport",
+               "Other"
+            };
                 return View(model);
             }
 
@@ -70,7 +79,7 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
 
             await donationService.Add(model);
             TempData[SuccessMessage] = "Успешно добавихте дарение.";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Categories", "Donation", new {category="All"});
         }
 
         public IActionResult Index()

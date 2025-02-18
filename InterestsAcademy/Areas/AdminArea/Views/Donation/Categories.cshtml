@@ -12,61 +12,70 @@
 
 <h1 style="justify-self:center;">Дарения</h1>
 <div class="categories">
-	<div class="category">
+	<a class="category" asp-area="AdminArea" asp-action="Categories" asp-controller="Donation" asp-route-category="All">
 		<img src="~/img/all.png" alt="Всичко">
 		<p>Всичко</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category" asp-area="AdminArea" asp-action="Categories" asp-controller="Donation" asp-route-category="Biology">
 		<img src="~/img/biology.png" alt="Медицина">
 		<p>Биология и Химия</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category" asp-area="AdminArea" asp-action="Categories" asp-controller="Donation" asp-route-category="Physics">
 		<img src="~/img/phisiscs.png" alt="Семейство">
 		<p>Физика и Астриномия</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category" asp-area="AdminArea" asp-action="Categories" asp-controller="Donation" asp-route-category="Art">
 		<img src="~/img/art.png" alt="Животни">
 		<p>Музика и Изкуство</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category" asp-area="AdminArea" asp-action="Categories" asp-controller="Donation" asp-route-category="It">
 		<img src="~/img/it.png" alt="COVID-19">
 		<p>Информатика и роботика</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category" asp-area="AdminArea" asp-action="Categories" asp-controller="Donation" asp-route-category="Sport">
 		<img src="~/img/sports.png" alt="Спорт">
 		<p>Спорт</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category" asp-area="AdminArea" asp-action="Categories" asp-controller="Donation" asp-route-category="Other">
 		<img src="~/img/other.png" alt="COVID-19">
 		<p>Други</p>
-	</div>
+	</a>
 </div>
 
-<a asp-action="Add" asp-controller="Donation" asp-area="AdminArea" type="button" class="button">
+
+<div class="donations">
+<a asp-action="Add" asp-controller="Donation" asp-area="AdminArea" type="button" class="button" style="float:right;">
 	<span class="button__text">Add Item</span>
-	<span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+	<span class="button__icon">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg">
+			<line y2="19" y1="5" x2="12" x1="12"></line>
+			<line y2="12" y1="12" x2="19" x1="5"></line>
+		</svg>
+	</span>
 </a>
 
-
 <section class="items">
-
 	@foreach (var item in Model.Donations)
 	{
-			<div id="item">
-				<div class="card">
-					<input type="hidden" value="@item.Id" id="itemId" />
-					<div class="card-details">
-						<p class="text-title">@item.ItemName</p>
-						<p class="text-body">Количество: @item.Quantity</p>
-					</div>
-					<button class="card-button">Дари</button>
+		<div id="item">
+			<div class="card">
+				<input type="hidden" value="@item.Id" id="itemId" />
+				<div class="card-details">
+					<p class="text-title">@item.ItemName</p>
+					<p class="text-body">Количество: @item.Quantity</p>
 				</div>
-
-
+				<button class="card-button">Виж дарения</button>
 			</div>
+
+
+		</div>
 	}
 
 </section>
+</div>
+
+
+
 
 
 

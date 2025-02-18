@@ -85,7 +85,7 @@ namespace InterestsAcademy.Controllers
 
             
 
-            if (!isNameValid || !isEmailValid || studentEmail != user.Email ||studentName != user.UserName)
+            if (!isNameValid || !isEmailValid || studentEmail != user.Email ||studentName != user.Name)
             {
 
                 TempData[ErrorMessage] = "Невалидно име или имейл.";

@@ -12,39 +12,40 @@
 
 <h1 style="justify-self:center;">Дарения</h1>
 <div class="categories">
-	<div class="category">
+	<a class="category" asp-action="Categories" asp-controller="Donation" asp-route-category="All">
 		<img src="~/img/all.png" alt="Всичко">
 		<p>Всичко</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category"  asp-action="Categories" asp-controller="Donation" asp-route-category="Biology">
 		<img src="~/img/biology.png" alt="Медицина">
 		<p>Биология и Химия</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category"  asp-action="Categories" asp-controller="Donation" asp-route-category="Physics">
 		<img src="~/img/phisiscs.png" alt="Семейство">
 		<p>Физика и Астриномия</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category"  asp-action="Categories" asp-controller="Donation" asp-route-category="Art">
 		<img src="~/img/art.png" alt="Животни">
 		<p>Музика и Изкуство</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category"  asp-action="Categories" asp-controller="Donation" asp-route-category="It">
 		<img src="~/img/it.png" alt="COVID-19">
 		<p>Информатика и роботика</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category"  asp-action="Categories" asp-controller="Donation" asp-route-category="Sport">
 		<img src="~/img/sports.png" alt="Спорт">
 		<p>Спорт</p>
-	</div>
-	<div class="category">
+	</a>
+	<a class="category"  asp-action="Categories" asp-controller="Donation" asp-route-category="Other">
 		<img src="~/img/other.png" alt="COVID-19">
 		<p>Други</p>
-	</div>
+	</a>
 </div>
 
-
+<div class="donations">
 <section class="items">
 
+	
 	@foreach (var item in Model.Donations)
 	{
 		<div id="item">
@@ -60,8 +61,10 @@
 
 		</div>
 	}
+	
 
 </section>
+</div>
 
 
 

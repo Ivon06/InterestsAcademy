@@ -1,4 +1,4 @@
-﻿/* From Uiverse.io by sameer2malik */
+﻿/* Основен контейнер */
 .container {
     display: flex;
     width: 520px;
@@ -12,11 +12,14 @@
     border-radius: 15px;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.03);
     border: 0.1px solid rgba(128, 128, 128, 0.178);
+    margin: 50px auto; /* Центриране на страницата */
 }
 
+/* Лява част (форма) */
 .left {
     width: 66%;
     height: 100%;
+    padding: 20px;
 }
 
 .form {
@@ -37,33 +40,40 @@
         height: 40%;
         right: 1%;
         z-index: -1;
-        background: radial-gradient( circle, rgb(194, 13, 170) 20%, rgb(26, 186, 235) 60%, rgb(26, 186, 235) 100% );
+        background: radial-gradient(circle, rgb(194, 13, 170) 20%, rgb(26, 186, 235) 60%, rgb(26, 186, 235) 100%);
         filter: blur(70px);
         border-radius: 50%;
     }
 
+/* Дясна част (изображение) */
 .right {
     width: 34%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    border-radius: 0 15px 15px 0;
 }
 
+/* Ефект за контейнера */
 .container::after {
     position: absolute;
     content: "";
     width: 80%;
     height: 80%;
     right: -40%;
-    background: rgb(157, 173, 203);
-    background: radial-gradient( circle, rgba(157, 173, 203, 1) 61%, rgba(99, 122, 159, 1) 100% );
+    background: radial-gradient(circle, rgba(157, 173, 203, 1) 61%, rgba(99, 122, 159, 1) 100%);
     border-radius: 50%;
     z-index: -1;
 }
 
+/* Стилове за input полета */
 .input,
 button {
     background: rgba(253, 253, 253, 0);
@@ -77,6 +87,7 @@ button {
     color: #425981;
     font-weight: 500;
     font-size: 1.1em;
+    box-shadow: inset 4px 4px 4px rgba(165, 163, 163, 0.315), 4px 4px 4px rgba(218, 218, 218, 0.13);
 }
 
 .input-block {
@@ -89,92 +100,49 @@ label {
     top: 37%;
     pointer-events: none;
     color: gray;
-}
-
-.forgot {
-    display: block;
-    margin: 5px 0 10px 0;
-    margin-left: 35px;
-    color: #5e7eb6;
-    font-size: 0.9em;
+    transition: all 0.4s;
 }
 
 .input:focus + label,
 .input:valid + label {
     transform: translateY(-120%) scale(0.9);
-    transition: all 0.4s;
 }
 
-button {
-    background-color: #5e7eb6;
-    color: white;
-    font-size: medium;
-    box-shadow: 2px 4px 8px rgba(70, 70, 70, 0.178);
-}
-
-/* From Uiverse.io by andrew-demchenk0 */ 
+/* Стил за бутона */
 .button {
-  position: relative;
-  width: 150px;
-  height: 40px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  border: 1px solid #34974d;
-  background-color: #3aa856;
+    margin-left: 27px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.8); /* Glassmorphism effect */
+    color: #4a90e2; /* Soft blue */
+    text-decoration: none;
+    border-radius: 50px;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.button, .button__icon, .button__text {
-  transition: all 0.3s;
-}
+    .button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(74, 144, 226, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+    }
 
-.button .button__text {
-  transform: translateX(30px);
-  color: #fff;
-  font-weight: 600;
-}
 
-.button .button__icon {
-  position: absolute;
-  transform: translateX(109px);
-  height: 100%;
-  width: 39px;
-  background-color: #34974d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.button .svg {
-  width: 30px;
-  stroke: #fff;
-}
-
-.button:hover {
-  background: #34974d;
-}
-
-.button:hover .button__text {
-  color: transparent;
-}
-
-.button:hover .button__icon {
-  width: 148px;
-  transform: translateX(0);
-}
-
-.button:active .button__icon {
-  background-color: #2e8644;
-}
-
-.button:active {
-  border: 1px solid #2e8644;
-}
-
+/* Линкове */
 a {
     color: #5e7eb6;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-.input {
-    box-shadow: inset 4px 4px 4px rgba(165, 163, 163, 0.315), 4px 4px 4px rgba(218, 218, 218, 0.13);
-}
+    a:hover {
+        color: #4a6a9b;
+    }

@@ -61,7 +61,7 @@ namespace InterestsAcademy.Core.Services
         {
             var result = await repo.GetAll<Student>()
                 .Include(s => s.User)
-                .AnyAsync(s => s.User.UserName == name);
+                .AnyAsync(s => s.User.Name == name);
 
             return result;
         }

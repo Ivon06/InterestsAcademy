@@ -15,6 +15,23 @@
                             color: white;">
 							<strong>@ViewData["Title"] се</strong>
 						</h2>
+
+						<div class="profile-upload-container" style="display:contents;">
+							<div class="profile-preview" id="profile-preview">
+								<img src="#" alt="Profile Preview" id="preview-image" />
+							</div>
+
+							<label class="upload-label">Профилна снимка</label>
+
+							<!-- Custom File Upload Button -->
+							<label for="file-upload" class="custom-file-upload" style="    margin-left: 13.5em;
+    background: center;">
+								Избери снимка
+							</label>
+							<input asp-for="ProfilePicture" accept="image/gif, image/jpeg, image/png" id="file-upload" type="file" class="file-input">
+
+						</div>
+
 						<div class="form-group">
 							<input asp-for="Email" class="form-control" placeholder="Имейл">
 							<span asp-validation-for="Email" class="text-danger"></span>
@@ -52,12 +69,9 @@
 
 
 
-						<div class="form-group">
-							<input asp-for="ProfilePicture" accept="image/gif, image/jpeg, image/png" id="upload_file">
-							Качи снимка
-						</div>
+						
 
-						<button asp-action="Register" asp-controller="Account" class="button login__submit">
+						<button asp-action="Register" asp-controller="Account" class="custom-file-upload">
 							<span class="button__text" style="text-align:center;">Регистрация</span>
 							<i class="button__icon fas fa-chevron-right"></i>
 						</button>
@@ -74,4 +88,29 @@
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+
+	<script>
+		// JavaScript to handle image preview
+		const fileInput = document.getElementById('file-upload');
+		const previewImage = document.getElementById('preview-image');
+		const profilePreview = document.getElementById('profile-preview');
+
+		fileInput.addEventListener('change', function () {
+			const file = this.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					previewImage.src = e.target.result;
+					previewImage.style.display = 'block';
+					profilePreview.style.background = 'none'; // Remove the default background
+					profilePreview.style.borderColor = '#ddd'; // Keep the border color
+				};
+				reader.readAsDataURL(file);
+			} else {
+				previewImage.style.display = 'none';
+				profilePreview.style.background = '#f0f0f0'; // Restore default background
+				profilePreview.style.borderColor = '#ddd'; // Restore border color
+			}
+		});
+	</script>
 }

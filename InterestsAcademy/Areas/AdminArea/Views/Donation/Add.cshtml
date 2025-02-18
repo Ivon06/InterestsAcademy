@@ -19,33 +19,39 @@
 
 <div class="container">
     <div class="left">
-        <form class="form" asp-area="Admin" asp-action="Add" asp-controller="Donation" method="post" enctype="multipart/form-data">
+        <form class="form" asp-area="AdminArea" asp-action="Add" asp-controller="Donation" method="post" enctype="multipart/form-data">
             <div class="input-block">
-                <input class="input" asp-for="ItemName" type="text" required>
+                <input class="input" asp-for="@Model.ItemName" @* type="text" *@ required>
                 <label asp-for="ItemName">Име</label>
                 <span asp-validation-for="@Model.ItemName"></span>
             </div>
             <div class="input-block">
-
-                <select class="input" asp-for="Category" id="dropdown-list" class="dropdown-list">
-                    <option value=" " disabled >Категория</option>
+                
+                
+                <select class="input" asp-for="@Model.Category" id="dropdown-list" class="dropdown-list"  required>
+                    
                     @foreach (var a in Model.Categories)
                     {
-                        <option value="@a" >@categories[a]</option>
+                        <option value="@a">@categories[a]</option>
                     }
                 </select>
-
-               @*  <label for="@Model.Category">Категория</label> *@
+                <label for="@Model.Category">Категория</label>
             </div>
 
             <div class="input-block">
-                <button type="submit">Добави</button>
+                
+                <input asp-for="@Model.Quantity" type="number"  class="input" required>
+                <label asp-for="Quantity">Количество</label>
+            </div>
+
+            <div class="input-block">
+                <button class="button" asp-area="AdminArea" asp-action="Add" asp-controller="Donation" type="submit">Добави</button>
             </div>
         </form>
     </div>
     <div class="right">
         <div class="img">
-           <img src="~/img/Screenshot_2025-02-13_110015-removebg-preview.png"/>
+           <img src="~/img/Screenshot_2025-02-13_110015-removebg-preview.png" style="margin-top:100%;"/>
         </div>
     </div>
 </div>
