@@ -40,6 +40,7 @@ namespace InterestsAcademy.Core.Services
             var model = new FilterDonationViewModel();
 
             var items = await repo.GetAll<MaterialBaseItem>()
+                .Where(m => m.NeededQuantity > 0)
                 .Select(i => new DonationViewModel()
                 {
                     Id = i.Id,
@@ -61,7 +62,7 @@ namespace InterestsAcademy.Core.Services
             var model = new FilterDonationViewModel();
 
             var items = await repo.GetAll<MaterialBaseItem>()
-                .Where(i =>  i.Category == category)
+                .Where(i =>  i.Category == category && i.NeededQuantity > 0)
                 .Select(i => new DonationViewModel()
                 {
                     Id = i.Id,
@@ -77,6 +78,28 @@ namespace InterestsAcademy.Core.Services
 
             return model;
 
+        }
+
+        public async Task<CreateDonationViewModel> GetItemForDonate(string id)
+        {
+            var item = await repo.GetByIdAsync<MaterialBaseItem>(id);
+
+            CreateDonationViewModel model = new CreateDonationViewModel()
+            {
+                Id = item.Id,
+                ItemName = item.Name,
+                NeededQuantity = item.NeededQuantity,
+                Category = item.Category
+            };
+
+            return model;
+        }
+
+        public async Task Donate(CreateDonationViewModel model)
+        {
+            var item = await repo.GetByIdAsync<MaterialBaseItem>(model.Id);
+            item.NeededQuantity -= model.Quantity;
+            await repo.SaveChangesAsync();
         }
     }
 }

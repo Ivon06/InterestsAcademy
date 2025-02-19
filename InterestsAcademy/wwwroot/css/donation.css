@@ -3,6 +3,41 @@
     font-size: 28px;
 }
 
+.heading-page {
+    padding-top: 0px;
+}
+
+.page-heading {
+    padding-bottom: 3em;
+    padding-top: 20em;
+    text-align: left;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/openart-5b6bf258-5ef7-4d67-b63e-64276fc4591c.png);
+    background-color: rgba(0,0,0,0.2);
+    background-blend-mode: multiply;
+}
+
+    .page-heading .text-content h4 {
+        color: rgba(150, 200, 190);
+        font-size: 18px;
+        text-transform: uppercase;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        margin-bottom: 15px;
+    }
+
+    .page-heading .text-content h1 {
+        color: #fff;
+        font-size: 36px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+
+
 .categories {
     display: flex;
     justify-content: center;
@@ -146,6 +181,7 @@ body {
     cursor: pointer;
     font-size: 1rem;
     font-weight: 500;
+    text-decoration: none;
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
