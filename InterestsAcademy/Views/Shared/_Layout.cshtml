@@ -54,7 +54,7 @@
 								<li class="dropdown">
 									<a href="#"><span>Информация</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
 									<ul>
-										<li><a asp-controller="Home" asp-action="Privacy">Проект и Концепция</a></li>
+										<li><a asp-controller="Home" asp-action="ProjectandConcept">Проект и Концепция</a></li>
 										<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
 										
 
@@ -108,7 +108,7 @@
 								<li class="dropdown">
 									<a href="#"><span>Информация</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
 									<ul>
-										<li><a asp-controller="Home" asp-action="Privacy">Проект и Концепция</a></li>
+										<li><a asp-controller="Home" asp-action="ProjectandConcept">Проект и Концепция</a></li>
 										<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
 
 									</ul>
@@ -123,18 +123,14 @@
 								}
 								@if (User.IsInRole("Teacher"))
 								{
-
-
-
 									var teacherId = await teacherService.GetTeacherIdByUserId(User.GetId());
 
 									<li>
 										<a asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@teacherId" asp-route-isTeacher="@true" asp-route-isCourse="@false">Моят график</a>
 									</li>
 								}
-
-
-
+								
+								
 							</ul>
 
 						</li>
@@ -185,6 +181,59 @@
 					}
 				});
 			});
+					
+		document.addEventListener("DOMContentLoaded", function () {
+			const header = document.querySelector("header");
+
+			function checkScroll() {
+				if (window.scrollY > 50) {
+					header.classList.add("scrolled");
+				} else {
+					header.classList.remove("scrolled");
+				}
+			}
+
+			function checkPage() {
+				if (window.location.pathname === "/" || window.location.pathname.includes("Home")) {
+					window.addEventListener("scroll", checkScroll);
+					checkScroll(); // Run on load in case page is not at top
+				} else {
+					header.classList.add("scrolled"); // Make it solid on other pages
+				}
+			}
+
+			checkPage();
+		});
+				<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const navbar = document.querySelector("header");
+			const carousel = document.querySelector(".carousel"); // Adjust if your carousel has a different class
+			const isHomePage = window.location.pathname === "/"; // Adjust based on your homepage route
+
+			function updateNavbar() {
+				if (isHomePage && carousel) {
+					let carouselBottom = carousel.getBoundingClientRect().bottom;
+					if (carouselBottom > 50) {
+						navbar.classList.remove("scrolled");
+						navbar.classList.remove("solid");
+					} else {
+						navbar.classList.add("scrolled");
+					}
+				} else {
+					navbar.classList.add("solid");
+				}
+			}
+
+			if (isHomePage && carousel) {
+				window.addEventListener("scroll", updateNavbar);
+				updateNavbar(); // Call once on page load
+			} else {
+				navbar.classList.add("solid"); // Non-homepage = solid black
+			}
+		});
+	</script>
+
+	
 	</script>
 
 	@await RenderSectionAsync("Scripts", required: false)

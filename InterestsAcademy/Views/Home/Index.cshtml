@@ -7,7 +7,7 @@
 
 <section id="hero" class="text-white d-flex align-items-center justify-content-center"
          style="background-color: black; min-height: 100vh;">
-    <div id="hero-carousel" class="carousel slide w-100" data-bs-ride="carousel">
+    <div id="hero-carousel" class="carousel slide w-100" data-bs-ride="carousel" id="home">
         <div class="carousel-inner">
             <div class="carousel-item active" style="background-image: url('@Url.Content("~/img/openart-5b6bf258-5ef7-4d67-b63e-64276fc4591c.png")'); background-size: cover; background-position: center; min-height: 100vh;">
                 <div class="overlay"></div>
@@ -49,8 +49,24 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-</section> 
-<container class="directorcontainer">
+</section > 
+<div class="timeline">
+    <a href="#home" class="timeline-item">
+        <p class="timeline-text">Начало</p>
+        <i class="fa-solid fa-house"></i>
+    </a>
+    <a href="#principal" class="timeline-item">
+        <p class="timeline-text">Директорката</p>
+        <i class="fa-regular fa-user"></i>
+    </a>
+    <a href="#team" class="timeline-item">
+        <p class="timeline-text">Екипът</p>
+        <i class="fa-regular fa-handshake"></i>
+    </a>
+</div>
+
+
+<container class="directorcontainer" id="principal">
     <div class="directorcontainer-title">Запознайте се с нашия директор</div>
     <div class="quotecard">
         <div class="quote">
@@ -68,7 +84,7 @@
     </div>
 </container>
 
-<section style="width: 100%" >
+@* <section style="width: 100%" id="team">
     <div class="box">
         <input type="radio" name="dot" id="one">
         <input type="radio" name="dot" id="two">
@@ -159,15 +175,178 @@
     </div>
 
 </section>
-
+ *@
+<section id="team">
+    <div class="team-container" style="margin-right: 100px;
+  margin-top: 150px;
+  margin-left: 100px;
+  padding-right: 20px;">
+        <div class="team-title">Екипът</div>
+        <div class="box">
+            <input type="radio" name="dot" id="one">
+            <input type="radio" name="dot" id="two">
+            <div class="main-card">
+                <div class="cards">
+                    <div class="card">
+                        <div class="content">
+                            <div class="img">
+                                <img src="~/img/Screenshot 2025-02-13 123342.png" alt="">
+                            </div>
+                            <div class="details">
+                                <div class="name">Вероника Коева</div>
+                                <div class="job">Председател на СНЦ “Естествен Интелект"<br /> Учредител</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="content">
+                            <div class="img">
+                                <img src="~/img/NiklaySpirov.png" alt="">
+                            </div>
+                            <div class="details">
+                                <div class="name">Николай Спиров</div>
+                                <div class="job">Главен инициатор и Учредител</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="content">
+                            <div class="img">
+                                <img src="~/img/MihaelaIvanova.png" alt="">
+                            </div>
+                            <div class="details">
+                                <div class="name">Михаела Иванова</div>
+                                <div class="job">Човешки ресурси<br /> Учредител и член на УС</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="card">
+                        <div class="content">
+                            <div class="img">
+                                <img src="~/img/BeloslavBelchev.png" alt="">
+                            </div>
+                            <div class="details">
+                                <div class="name">Белослав Белчев</div>
+                                <div class="job">
+                                    Учредител и член на УС<br /> Учредител Фондация “ТЕО”
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="content">
+                            <div class="img">
+                                <img src="~/img/DesislavaTineva.png" alt="">
+                            </div>
+                            <div class="details">
+                                <div class="name">Десислава Тинева</div>
+                                <div class="job"> Учредител и член на КС</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="content">
+                            <div class="img">
+                                <img src="~/img/DanielaSeverinova.png" alt="">
+                            </div>
+                            <div class="details">
+                                <div class="name">Даниела Северинова</div>
+                                <div class="job">Образователен експерт и консултант<br /> Учредител и автор Концепция</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button">
+                <label for="one" class=" active one"></label>
+                <label for="two" class="two"></label>
+            </div>
+        </div>
+    </div>
+</section>
 
 @section Styles {
       <link rel="stylesheet" href="~/css/styles2.css" asp-append-version="true" /> 
       <link rel="stylesheet" href="~/css/teamcards.css" asp-append-version="true" />
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
        @*  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 } *@
 @section Scripts{
     @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
 
 }
+<script>
+       document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".timeline-item").forEach(item => {
+            item.addEventListener("click", function (event) {
+                event.preventDefault();
+                let targetId = this.getAttribute("href").substring(1);
+
+                if (targetId === "home") {
+                    window.scrollTo({
+                        top: 0, // Scroll to the very top of the page
+                        behavior: "smooth"
+                    });
+                } else {
+                    let targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 50, // Adjusted for fixed elements
+                            behavior: "smooth"
+                        });
+                    }
+                }
+            });
+        });
+    });
+
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const timeline = document.querySelector(".timeline");
+        const heroSection = document.getElementById("hero");
+
+        window.addEventListener("scroll", function() {
+            let heroBottom = heroSection.getBoundingClientRect().bottom;
+            if (heroBottom < 0) {
+                timeline.classList.add("dark-mode");
+            } else {
+                timeline.classList.remove("dark-mode");
+            }
+        });
+    });
+        document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll("section, .directorcontainer");
+        const timelineItems = document.querySelectorAll(".timeline-item");
+        const timeline = document.querySelector(".timeline");
+
+        function highlightActiveSection() {
+            let scrollPosition = window.scrollY + window.innerHeight / 3;
+
+            sections.forEach((section, index) => {
+                let sectionTop = section.offsetTop;
+                let sectionHeight = section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    timelineItems.forEach(item => item.classList.remove("active"));
+                    timelineItems[index].classList.add("active");
+
+                    // Handle text color switch based on background
+                    if (section.id === "hero") {
+                        timeline.classList.remove("dark-mode");
+                    } else if (section.id === "principal") {
+                        timeline.classList.add("dark-mode"); // Keep it dark for white backgrounds
+                    } else {
+                        timeline.classList.add("dark-mode");
+                    }
+                }
+            });
+        }
+
+        window.addEventListener("scroll", highlightActiveSection);
+        highlightActiveSection(); // Run on page load
+    });
+</script>

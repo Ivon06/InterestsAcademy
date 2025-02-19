@@ -2,6 +2,7 @@
 using InterestsAcademy.Core.Contracts;
 using InterestsAcademy.Core.Models.Article;
 using InterestsAcademy.Core.Models.Course;
+using InterestsAcademy.Core.Models.Donation;
 using InterestsAcademy.Core.Services;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -84,5 +85,37 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
         {
             return RedirectToAction("All");
         }
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            if (!User.IsInRole("Admin"))
+            {
+                TempData[ErrorMessage] = "Трябва да сте администратор, за да добавите статия.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = new ArticleQueryViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(ArticleQueryViewModel model)
+        {
+           /* if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+*/
+            if (!User.IsInRole("Admin"))
+            {
+                TempData[ErrorMessage] = "Трябва да сте администратор, за да добавите статия.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            await articleService.AddArticle(model);
+            TempData[SuccessMessage] = "Успешно добавихте статия.";
+            return RedirectToAction("All", "Article", new { Area = "AdminArea" });
+        }
+
     }
 }

@@ -36,6 +36,22 @@
     background: #f2f2f2;
     position: relative;
 }
+.team-container {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    padding: 50px 20px;
+    border-radius: 12px;
+    text-align: center;
+    backdrop-filter: blur(10px); /* Subtle blur effect */
+}
+
+.team-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
 .box {
     overflow: hidden;
@@ -369,3 +385,82 @@ input[type="radio"] {
     scale: 0;
     transform: rotate(-45deg);
 }
+.timeline {
+    position: fixed;
+    top: 50%;
+    right: 50px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    z-index: 1000;
+}
+
+    .timeline::before {
+        content: "";
+        position: absolute;
+        width: 1.5px; /* Thinner line */
+        height: 100%;
+        background-color: white;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+
+.timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    gap: 10px;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+    .timeline-item p {
+        color: white;
+        transition: color 0.3s ease-in-out;
+    }
+
+.timeline.dark-mode .timeline-item p {
+    color: black;
+}
+
+    .timeline-item i {
+        font-size: 30px; /* Make the icon bigger */
+        color: white;
+        background-color: #222; /* Dark background */
+        border-radius: 50%;
+        padding: 15px;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid white;
+        transition: transform 0.3s ease;
+    }
+
+    .timeline-item:hover i {
+        transform: scale(1.1);
+        color: yellow;
+        border-color: yellow;
+    }
+.timeline-item.active {
+    opacity: 1;
+    transform: scale(1.2); /* Make the active item bigger */
+}
+
+    .timeline-item.active i {
+        color: yellow; /* Highlight the active icon */
+        border-color: yellow;
+    }
+.timeline-text {
+    color: white;
+    font-size: 14px;
+    max-width: 120px;
+    text-align: center;
+}
+

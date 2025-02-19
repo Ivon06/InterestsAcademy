@@ -23,7 +23,10 @@ namespace InterestsAcademy.Controllers
 		{
 			return View();
 		}
-
+        public IActionResult ProjectandConcept()
+        {
+            return View();
+        }
         [HttpGet]
         public IActionResult Contact()
         {

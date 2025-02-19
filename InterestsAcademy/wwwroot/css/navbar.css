@@ -15,7 +15,7 @@
 }
 
 header {
-    position: relative;
+    position: fixed;
     width: 100%;
     top: 0;
     left: 0;
@@ -23,9 +23,8 @@ header {
     background: transparent;
     transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
-
     header.scrolled {
-        background: #000;
+        background: #000; /* Solid Black */
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
@@ -80,7 +79,9 @@ header.scrolled {
 header.scrolled .mobile-nav-toggle {
     color: white;
 }
-
+header.solid {
+    background: black;
+}
 
 .login {
     display: flex;
