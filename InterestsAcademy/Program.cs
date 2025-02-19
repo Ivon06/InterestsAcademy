@@ -88,6 +88,8 @@ app.MapHub<RequestHub>("/requestHub");
 
 app.MapHub<ActivityHub>("/activityHub");
 
+app.MapHub<DonationHub>("/donationHub");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

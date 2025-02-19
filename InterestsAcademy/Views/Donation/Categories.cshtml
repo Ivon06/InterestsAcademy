@@ -50,31 +50,30 @@
 </div>
 
 <div class="donations">
-<section class="items">
-
-	
-	@foreach (var item in Model.Donations)
-	{
-		<div id="item">
-			<div class="card">
-				<input type="hidden" value="@item.Id" id="itemId" />
-				<div class="card-details">
-					<p class="text-title">@item.ItemName</p>
-					<p class="text-body">Нужно количество: @item.Quantity</p>
+	<section class="items">
+		@foreach (var item in Model.Donations)
+		{
+			<div id="item" data-id="@item.Id">
+				<div class="card">
+					<div class="card-details">
+						<p class="text-title">@item.ItemName</p>
+						<p class="text-body" id="@item.Id">Нужно количество: @item.Quantity</p>
+						<a class="button" asp-action="CreateDonate" asp-controller="Donation" asp-route-id="@item.Id" id="donate" type="submit">Дари</a>
+					</div>
 				</div>
-				<a asp-action="Donate" asp-controller="Donation" asp-route-id="@item.Id" class="card-button">Дари</a>
 			</div>
 
-
-		</div>
-	}
-	
-
-</section>
+		}
+	</section>
 </div>
 
 
 
+@section Scripts {
+	<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+	<partial name="_ValidationScriptsPartial" />
+	<script src="~/js/recieveDonate.js"></script>
+}
 
 @section Styles {
 	<link rel="stylesheet" href="~/css/donation.css" asp-append-version="true" />

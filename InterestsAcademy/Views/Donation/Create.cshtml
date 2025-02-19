@@ -19,7 +19,7 @@
 
 <div class="container">
     <div class="left">
-        <form class="form" asp-action="Donate" asp-controller="Donation" method="post" enctype="multipart/form-data">
+        <form class="form" method="post" enctype="multipart/form-data">
             <div class="input-block">
                 <input class="input" asp-for="@Model.ItemName" @* type="text" *@ required>
                 <label asp-for="ItemName">Име</label>
@@ -36,12 +36,15 @@
 
             <div class="input-block">
 
-                <input asp-for="@Model.Quantity" type="number" max="@Model.NeededQuantity" class="input" placeholder="Количество"required>
+                <input asp-for="@Model.Quantity" id="quantity" type="number" max="@Model.NeededQuantity" min="0" class="input" placeholder="Количество"required>
                 @* <label asp-for="Quantity">Количество</label> *@
             </div>
 
+            <input class="input" id="itemId" value="@Model.Id" hidden >
+
+
             <div class="input-block">
-                <button class="button"  asp-action="Donate" asp-controller="Donation" type="submit">Дари</button>
+                <a class="button"  id="donate" type="submit">Дари</a>
             </div>
         </form>
     </div>
@@ -54,7 +57,11 @@
 
 
 @section Scripts {
+
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/donate.js"></script>
+
 }
 
 @section Styles {
