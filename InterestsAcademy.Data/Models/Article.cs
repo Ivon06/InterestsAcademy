@@ -35,7 +35,6 @@ namespace InterestsAcademy.Data.Models
 
         public User User { get; set; } = null!;
         public List<string>? ArticlePictureURLs { get; set; }
-
         public DateTime PublishedOn { get; set; }
         public bool IsActive { get; set; }
 
