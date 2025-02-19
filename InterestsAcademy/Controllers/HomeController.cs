@@ -57,6 +57,11 @@ namespace InterestsAcademy.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Project()
+        {
+            return View();
+        }
         public IActionResult Privacy()
 		{
 			return View();

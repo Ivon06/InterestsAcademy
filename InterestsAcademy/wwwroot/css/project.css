@@ -1,0 +1,101 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.container {
+    display: flex;
+   
+    padding: 20px;
+    justify-content: center;
+}
+
+.left {
+    width: 25%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #caa34c;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .author img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+.right {
+    width: 70%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 20px auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #caa34c;
+    color: white;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+    .gallery img {
+        width: calc(50% - 5px); /* Две колони, с малък отстъп */
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        object-fit: cover;
+    }
+
+        .gallery img:first-child {
+            width: 100%; /* Голямото изображение отгоре */
+        }
+
+@media (max-width: 768px) {
+    .gallery {
+        flex-direction: column;
+    }
+
+        .gallery img {
+            width: 100%;
+        }
+}
+
