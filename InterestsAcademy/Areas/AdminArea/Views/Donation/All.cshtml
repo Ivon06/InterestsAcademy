@@ -1,0 +1,76 @@
+﻿@using InterestsAcademy.Core.Models.Donation
+@model AllDonationsForAdminViewModel
+
+
+
+<div class="container">
+	<h2>@Model.ItemName</h2>
+	<p>@Model.Category</p>
+	<p>Нужно количество: @Model.NeededQuantity</p>
+
+	<div id="donations">
+
+		@if (Model.DonatedItems.Count == 0)
+		{
+			<div class="card">
+				<h3>Все още няма направени дарения.</h3>
+			</div>
+		}
+		else
+		{
+			<table class="donation-list">
+				<tr>
+					<th>Име</th>
+					<th>Имейл</th>
+					<th>Количество</th>
+				</tr>
+
+				@foreach (var item in Model.DonatedItems)
+				{
+					<tr>
+						<td>@item.UserName</td>
+						<td>@item.UserEmail</td>
+						<td>@item.Quantity</td>
+					</tr>
+				}
+			</table>
+		}
+
+	</div>
+
+	
+
+	@* <div class="container">
+		<div class="text-section">
+			<h2>@Model.ItemName</h2>
+			<p>@Model.Category</p>
+			<p>Нужно количество: @Model.NeededQuantity</p>
+		</div>
+		<div class="cards">
+
+
+			@if (Model.DonatedItems.Count == 0)
+			{
+				<div class="card">
+					<h3>Все още няма направени дарения.</h3>
+				</div>
+			}
+			else
+			{
+				@foreach (var donation in Model.DonatedItems)
+				{
+					<div class="card">
+						<h3>Име(дарител): @donation.UserName</h3>
+						<h3>Имейл(дарител): @donation.UserEmail</h3>
+						<p>Количество: @donation.Quantity</p>
+
+					</div>
+				}
+
+			}
+		</div>
+	</div>
+ *@
+	@section Styles {
+		<link rel="stylesheet" href="~/css/adminDonations.css" asp-append-version="true" />
+	}

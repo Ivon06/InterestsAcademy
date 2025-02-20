@@ -33,12 +33,23 @@ namespace InterestsAcademy.Data.Models
         public string Description { get; set; } = null!;
 
         [Required]
-        [ForeignKey(nameof(Giver))]
-        public string GiverId { get; set; }
+        [MaxLength(NameMaxLength)]
+        public string GiverName { get; set; } = null!;
 
         [Required]
-        public Giver Giver { get; set; } = null!;
+        [MaxLength(NameMaxLength)]
+        public string GiverEmail { get; set; } = null!;
 
+        //[Required]
+        //[ForeignKey(nameof(Giver))]
+        //public string GiverId { get; set; }
+
+        //[Required]
+        //public Giver Giver { get; set; } = null!;
+
+        [Required]
+        public string MaterialBaseItemId { get; set; } = null!;
+        public MaterialBaseItem MaterialBaseItem { get; set; } = null!;
 
         [Required]
         [EnumDataType(typeof(DonationCategoryEnum))]

@@ -268,14 +268,23 @@ namespace InterestsAcademy.Core.Services
                 CourseDuration = course.Duration,
                 Requests = requests,
                 IsApproved = course.IsApproved,
+                IsActive = course.IsActive,
+
                 RoomId = course.RoomId,
             };
 
             model.Rooms = await roomService.GetAllRooms();
 
-            string room = await roomService.GetRoomNameByIdAsync(model.RoomId);
-
-            model.RoomName = room;
+            if(model.RoomId != null)
+            {
+                string room = await roomService.GetRoomNameByIdAsync(model.RoomId);
+                model.RoomName = room;
+            }
+            else
+            {
+                model.RoomName = "Няма избрана стая";
+            }
+            
 
             return model;
         }

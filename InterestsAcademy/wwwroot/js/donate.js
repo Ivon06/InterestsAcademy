@@ -30,6 +30,8 @@ connection.onclose(async () => {
 
         var formData = new FormData();
         var itemId = document.getElementById('itemId').value; 
+        let email = document.getElementById('email').value;
+        let name = document.getElementById('name').value;
         let quantity = document.getElementById('quantity').value;
         let t = $("input[name='__RequestVerificationToken']").val();
 
@@ -39,7 +41,9 @@ connection.onclose(async () => {
             type: "POST",
             data: {
                 'id': itemId,
-                'quantity': quantity
+                'quantity': quantity,
+                'name': name,
+                'email': email
             },
             dataType: "json",
             headers: {

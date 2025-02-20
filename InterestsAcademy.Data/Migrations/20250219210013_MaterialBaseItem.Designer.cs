@@ -4,6 +4,7 @@ using InterestsAcademy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterestsAcademy.Data.Migrations
 {
     [DbContext(typeof(InterestsAcademyDbContext))]
-    partial class InterestsAcademyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250219210013_MaterialBaseItem")]
+    partial class MaterialBaseItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,18 +171,9 @@ namespace InterestsAcademy.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("GiverEmail")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
                     b.Property<string>("GiverId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("GiverName")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MaterialBaseItemId")
                         .IsRequired()
@@ -455,7 +449,7 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "554e73eb-e465-461b-b632-d76884ab79e6",
+                            Id = "7ed83c69-65ef-4ca0-ad8e-6f82b330cac9",
                             UserId = "080a469a-b5a2-44cc-a660-eea8e6fd05a5"
                         });
                 });
@@ -608,7 +602,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Ал. Стамболийски 30 ет.3 ап.11",
                             BirthDate = new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-                            ConcurrencyStamp = "7fba2988-7de0-479a-b250-8fb98b27d236",
+                            ConcurrencyStamp = "2e1270b5-1562-4917-95f1-6f45bc71d120",
                             Country = "България",
                             Email = "petarpetrov@abv.bg",
                             EmailConfirmed = false,
@@ -619,12 +613,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Петър Петров",
                             NormalizedEmail = "PETARPETROV@ABV.BG",
                             NormalizedUserName = "PETAR",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBFwi6TjtyogrSfo/0nPzch3V7rZMa984VSFlnxXrdDFBX4SrWnXfIoeDZ5AL/gi7Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMrpZuJy2wwgzpjeohXAPkfMc3KwkanYUSTbLwooRKVwdWYunkLkQDNOJuxg5ott3A==",
                             PhoneNumber = "0885763826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg",
-                            RegisteredOn = new DateTime(2025, 2, 19, 21, 29, 1, 153, DateTimeKind.Utc).AddTicks(1808),
-                            SecurityStamp = "456594bc-f69a-465d-bcf6-4ce6926691d5",
+                            RegisteredOn = new DateTime(2025, 2, 19, 21, 0, 10, 194, DateTimeKind.Utc).AddTicks(7675),
+                            SecurityStamp = "9fe0ed48-f91d-46d3-b2fe-0441359a4805",
                             TwoFactorEnabled = false,
                             UserName = "petar"
                         },
@@ -635,7 +629,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул.Възраждане 6 ет.2 ап.8",
                             BirthDate = new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-                            ConcurrencyStamp = "b2a1758a-09cb-4312-84d8-7394448c3252",
+                            ConcurrencyStamp = "3bdab891-6f58-4141-b6da-0600835e7fd7",
                             Country = "България",
                             Email = "georgidimitrov@abv.bg",
                             EmailConfirmed = false,
@@ -646,12 +640,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Георги Димитров",
                             NormalizedEmail = "GEORGIDIMITROV@ABV.BG",
                             NormalizedUserName = "GEORGI",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJ5j4gwRJ1FjsSleMFM0+27ximh9bPCofIMKu/FK+/+KI4S14yw916BKNPN2Q9/SFw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELv3dbpuIJTGgAMYCSTNyj8ThVREYKN8w9wkqLKpdPIugNf+08DP5GcOrnrwftJYgg==",
                             PhoneNumber = "0885789826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg",
-                            RegisteredOn = new DateTime(2025, 2, 19, 21, 29, 1, 289, DateTimeKind.Utc).AddTicks(7003),
-                            SecurityStamp = "08b5f71d-babf-4b40-bc26-62c5e9a68f47",
+                            RegisteredOn = new DateTime(2025, 2, 19, 21, 0, 10, 352, DateTimeKind.Utc).AddTicks(5960),
+                            SecurityStamp = "50ea66a8-9acb-48e9-bc7f-ae5698672efd",
                             TwoFactorEnabled = false,
                             UserName = "georgi"
                         },
@@ -662,7 +656,7 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Незабравка 3",
                             BirthDate = new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Енина",
-                            ConcurrencyStamp = "dd61d7bc-eefc-4602-9645-168ddb59128b",
+                            ConcurrencyStamp = "5c9eae1b-bafe-479c-ad8c-6e77b019eca9",
                             Country = "България",
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
@@ -673,12 +667,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAQR6KarvJm3ZQiUX8nY0A2f0myd7aUob7pIdNn3tazKrfcfO97wKiSkpdwNtcMPiQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOmR4aFkAR4mXF8ufwmmkDotJFPnvfdzfFzPLnkRXO6bahZymNGvKPKP7IF4hMK+gw==",
                             PhoneNumber = "0889864842",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg",
-                            RegisteredOn = new DateTime(2025, 2, 19, 21, 29, 1, 469, DateTimeKind.Utc).AddTicks(7338),
-                            SecurityStamp = "606bbb7f-c86e-45ab-bdaf-936fe62ce5a9",
+                            RegisteredOn = new DateTime(2025, 2, 19, 21, 0, 10, 492, DateTimeKind.Utc).AddTicks(8323),
+                            SecurityStamp = "a8c92cd4-54dc-4e91-bdee-e05f051b5465",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -925,15 +919,19 @@ namespace InterestsAcademy.Data.Migrations
 
             modelBuilder.Entity("InterestsAcademy.Data.Models.GivenThing", b =>
                 {
-                    b.HasOne("InterestsAcademy.Data.Models.Giver", null)
+                    b.HasOne("InterestsAcademy.Data.Models.Giver", "Giver")
                         .WithMany("GivenThings")
-                        .HasForeignKey("GiverId");
+                        .HasForeignKey("GiverId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("InterestsAcademy.Data.Models.MaterialBaseItem", "MaterialBaseItem")
                         .WithMany("GivenThings")
                         .HasForeignKey("MaterialBaseItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Giver");
 
                     b.Navigation("MaterialBaseItem");
                 });

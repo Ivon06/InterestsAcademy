@@ -95,11 +95,11 @@ namespace InterestsAcademy.Data
                 .HasForeignKey(a => a.StudentId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<Giver>()
-                .HasMany(g => g.GivenThings)
-                .WithOne(g => g.Giver)
-                .HasForeignKey(g => g.GiverId)
-                .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<Giver>()
+            //    .HasMany(g => g.GivenThings)
+            //    .WithOne(g => g.Giver)
+            //    .HasForeignKey(g => g.GiverId)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
             //builder.Entity<MaterialBaseItem>()
             //    .HasMany(g => g.GivenThings)

@@ -15,5 +15,8 @@ namespace InterestsAcademy.Core.Contracts
         Task<string> Add(AddDonationQueryModel model);
         Task<CreateDonationViewModel> GetItemForDonate(string id);
         Task Donate(CreateDonationViewModel model);
+        Task<bool> IsItemValid(string itemId);
+        Task<List<DonatedItemViewModel>> GetAllDonatedItems(string itemId);
+        Task<AllDonationsForAdminViewModel> AdminDonations(string itemId);
     }
 }

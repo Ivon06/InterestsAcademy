@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace InterestsAcademy.Core.Models.Donation
 {
-    public class CreateDonationViewModel
+    public class AllDonationsForAdminViewModel
     {
         public string Id { get; set; }
 
-        public string GiverName { get; set; }
-        public string GiverEmail { get; set; }
+      
         public string ItemName { get; set; }
         public int NeededQuantity { get; set; }
 
-        public int Quantity { get; set; }
         public string Category { get; set; }
+
+        public List<DonatedItemViewModel> DonatedItems { get; set; } = new List<DonatedItemViewModel>();
+
+
     }
 }

@@ -20,15 +20,28 @@
 <div class="container">
     <div class="left">
         <form class="form" method="post" enctype="multipart/form-data">
+
+            <div class="input-block">
+                <input class="input" id="name" asp-for="@Model.GiverName" @* type="text" *@ required>
+                <label asp-for="ItemName">Вашето име</label>
+                <span asp-validation-for="@Model.GiverName"></span>
+            </div>
+
+            <div class="input-block">
+                <input class="input" id="email" asp-for="@Model.GiverEmail" @* type="text" *@ required>
+                <label asp-for="ItemName">Вашият имейл</label>
+                <span asp-validation-for="@Model.GiverEmail"></span>
+            </div>
+
             <div class="input-block">
                 <input class="input" asp-for="@Model.ItemName" @* type="text" *@ required>
-                <label asp-for="ItemName">Име</label>
+                <label asp-for="ItemName">Име на дарение</label>
                 <span asp-validation-for="@Model.ItemName"></span>
             </div>
             <div class="input-block">
 
 
-                <input class="input" asp-for="@Model.Category" @* type="text" *@ required>
+                <input class="input" asp-for="@Model.Category" value="@categories[@Model.Category]"@* type="text" *@ required>
                 <label asp-for="Category">Категория</label>
                 <span asp-validation-for="@Model.Category"></span>
                

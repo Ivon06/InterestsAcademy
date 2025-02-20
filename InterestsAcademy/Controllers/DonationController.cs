@@ -37,13 +37,20 @@ namespace InterestsAcademy.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateDonate(string id)
         {
+            bool isValidItem = await donationService.IsItemValid(id);
+            if (!isValidItem)
+            {
+                TempData[ErrorMessage] = "Този предмет не съществува.";
+                return RedirectToAction("Categories", "Donation", new {category="All"});
+            }
+
             var model = await donationService.GetItemForDonate(id);
             return View("Create", model);
         }
 
         
         [HttpPost]
-        public async Task<IActionResult> Donate(string id, int quantity)
+        public async Task<IActionResult> Donate(string id, int quantity, string name, string email)
         {
             if (!ModelState.IsValid)
             {
@@ -53,8 +60,13 @@ namespace InterestsAcademy.Controllers
             }
 
             var model2 = await donationService.GetItemForDonate(id);
+
             model2.Quantity = quantity;
+            model2.GiverName = name;
+            model2.GiverEmail = email;
+
             await donationService.Donate(model2);
+
             TempData["SuccessMessage"] = "Успешно дарихте.";
 
             var item = await donationService.GetItemForDonate(id);

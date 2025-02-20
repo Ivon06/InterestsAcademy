@@ -22,12 +22,12 @@ namespace InterestsAcademy.Core.Services
 
         public async Task<string> Add(AddDonationQueryModel model)
         {
-           MaterialBaseItem item = new MaterialBaseItem()
-           {
-               Name = model.ItemName,
-               NeededQuantity = model.Quantity,
-               Category = model.Category
-           };
+            MaterialBaseItem item = new MaterialBaseItem()
+            {
+                Name = model.ItemName,
+                NeededQuantity = model.Quantity,
+                Category = model.Category
+            };
 
             await repo.AddAsync(item);
             await repo.SaveChangesAsync();
@@ -62,7 +62,7 @@ namespace InterestsAcademy.Core.Services
             var model = new FilterDonationViewModel();
 
             var items = await repo.GetAll<MaterialBaseItem>()
-                .Where(i =>  i.Category == category && i.NeededQuantity > 0)
+                .Where(i => i.Category == category && i.NeededQuantity > 0)
                 .Select(i => new DonationViewModel()
                 {
                     Id = i.Id,
@@ -80,6 +80,7 @@ namespace InterestsAcademy.Core.Services
 
         }
 
+     
         public async Task<CreateDonationViewModel> GetItemForDonate(string id)
         {
             var item = await repo.GetByIdAsync<MaterialBaseItem>(id);
@@ -99,7 +100,59 @@ namespace InterestsAcademy.Core.Services
         {
             var item = await repo.GetByIdAsync<MaterialBaseItem>(model.Id);
             item.NeededQuantity -= model.Quantity;
+
+            GivenThing gt = new GivenThing()
+            { 
+                Category=item.Category,
+                Name = item.Name,
+                GiverEmail = model.GiverEmail,
+                GiverName = model.GiverName,
+                Quantity = model.Quantity,
+                MaterialBaseItemId = item.Id
+            };
+
+            await repo.AddAsync(gt);
+
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsItemValid(string itemId)
+        {
+            var item = await repo.GetByIdAsync<MaterialBaseItem>(itemId);
+            return item == null ? false : true;
+        }
+
+        public async Task<List<DonatedItemViewModel>> GetAllDonatedItems(string itemId)
+        {
+            var items = await repo.GetAll<GivenThing>()
+                
+                .Where(i => i.MaterialBaseItemId == itemId)
+                .Select(i => new DonatedItemViewModel()
+                {
+                    Id = i.Id,
+                    UserEmail = i.GiverEmail,
+                    Quantity = i.Quantity,
+                    UserName = i.GiverName,
+
+                })
+                .ToListAsync();
+
+            return items;
+        }
+
+        public async Task<AllDonationsForAdminViewModel> AdminDonations(string itemId)
+        {
+           var model = new AllDonationsForAdminViewModel();
+
+            model.DonatedItems = await GetAllDonatedItems(itemId);
+
+            var item = await repo.GetByIdAsync<MaterialBaseItem>(itemId);
+
+            model.ItemName = item.Name;
+            model.NeededQuantity = item.NeededQuantity;
+            model.Category = item.Category;
+
+            return model;
         }
     }
 }

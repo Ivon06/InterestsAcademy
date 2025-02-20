@@ -64,7 +64,7 @@
 					<p class="text-title">@item.ItemName</p>
 					<p class="text-body" >Количество: @item.Quantity</p>
 				</div>
-				<button class="card-button">Виж дарения</button>
+				<a class="card-button" asp-action="All" asp-controller="Donation" asp-route-id="@item.Id">Виж дарения</a>
 			</div>
 
 

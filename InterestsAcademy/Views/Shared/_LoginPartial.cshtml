@@ -8,7 +8,14 @@
 @if (SignInManager.IsSignedIn(User))
 {
         <li style="list-style-type: none; align-content: center;">
+            @if(!User.IsInRole("Admin"))
+            {
         <a asp-area="" asp-action="MyProfile" asp-controller="Profile" asp-route-userId="@User.GetId()" title="Manage">Зравей, @User.Identity?.Name!</a>
+            }
+            else
+            {
+                <a title="Manage">Зравей, @User.Identity?.Name!</a>
+            }
     </li>
         <li style="list-style-type: none;">
             <a type="submit" asp-area="" asp-action="Logout" asp-controller="Account">Излез</a>

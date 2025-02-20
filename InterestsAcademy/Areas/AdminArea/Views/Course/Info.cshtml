@@ -17,12 +17,13 @@
 		{"Accepted", "Приет"}
 	};
 
+	var courseStatus = @Model.IsActive ? "Aктивен" : "Неактивен";
 }
 
 
 <div class="container">
 
-	
+
 	<!-- Left Section: Course Info -->
 	<div class="course-info">
 		<div class="card">
@@ -31,6 +32,9 @@
 			<p><strong>Преподавател:</strong> @Model.TeacherName</p>
 			<p><strong>Продължителност:</strong> @Model.CourseDuration</p>
 			<p><strong>Описание:</strong> @Model.CourseDescription</p>
+			<p><strong>Статус:</strong> 
+					@courseStatus
+				</p>
 
 			@if (Model.IsApproved)
 			{

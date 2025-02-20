@@ -82,6 +82,19 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
             return RedirectToAction("Categories", "Donation", new {category="All"});
         }
 
+        public async Task<IActionResult> All(string id)
+        {
+            if (!User.IsInRole("Admin"))
+            {
+                TempData[ErrorMessage] = "Трябва да сте администратор, за да видите тази страница.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = await donationService.AdminDonations(id);
+
+            return View(model);
+        }
+
         public IActionResult Index()
         {
             return View();

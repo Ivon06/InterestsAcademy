@@ -13,6 +13,7 @@ namespace InterestsAcademy.Data.Models
         public MaterialBaseItem()
         {
             Id = Guid.NewGuid().ToString();
+            GivenThings = new HashSet<GivenThing>();
         }
 
         [Key]
