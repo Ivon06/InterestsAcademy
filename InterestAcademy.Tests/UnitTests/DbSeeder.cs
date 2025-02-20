@@ -86,11 +86,31 @@ namespace InterestAcademy.Tests.UnitTests
                 IsActive = true
             };
 
+            var teacher2 = new User()
+            {
+                Id = "hsu80-uq90d-43ed-9a42-fb28025e1659",
+                UserName = "teacherTest2",
+                NormalizedUserName = "TEACHERTEST2",
+                Email = "teacher2@abv.bg",
+                NormalizedEmail = "TEACHER2@ABV.BG",
+                PhoneNumber = "0883554560",
+                Name = "Учител2 Учителов",
+                City = "Казанлък",
+                Country = "България",
+                Address = "ул.Кокиче 14 ет.2 ап.8",
+                Gender = GenderEnum.Мъж.ToString(),
+                RegisteredOn = DateTime.UtcNow,
+                BirthDate = DateTime.ParseExact("1988-02-08 11:20", "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture),
+                ProfilePictureUrl = null,
+                IsApproved = false,
+                IsActive = true
+            };
 
 
             context.Users.Add(admin);
             context.Users.Add(student);
             context.Users.Add(teacher);
+            context.Users.Add(teacher2);
 
         }
 

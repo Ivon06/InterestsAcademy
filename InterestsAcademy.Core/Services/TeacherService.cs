@@ -27,7 +27,7 @@ namespace InterestsAcademy.Core.Services
                 .Where(c => c.Name == courseName)
                 .FirstOrDefaultAsync();
 
-            return result.TeacherId;
+            return result == null ? null : result.TeacherId;
         }
 
         public async Task CreateAsync(string userId)
@@ -46,7 +46,7 @@ namespace InterestsAcademy.Core.Services
            var result = await repo.GetAll<Teacher>()
                 .FirstOrDefaultAsync(t => t.UserId == userId);
 
-            return result!.Id;
+            return result == null? null: result!.Id;
         }
 
         public async Task<bool> IsTeacherIdValidAsync(string teacherId)
@@ -79,11 +79,15 @@ namespace InterestsAcademy.Core.Services
             var user = await repo.GetAll<User>()
                 .FirstOrDefaultAsync(t=>t.Id == teacherId);
 
-            user.IsApproved = true;
+            if (user != null)
+            {
+                user.IsApproved = true;
 
-            await repo.SaveChangesAsync();
+                await repo.SaveChangesAsync();
+                return user.IsApproved;
+            }
 
-            return user.IsApproved;
+            return false;
 
 
         }
