@@ -2,6 +2,7 @@
 using InterestsAcademy.Core.Contracts;
 using InterestsAcademy.Core.Models.Activity;
 using InterestsAcademy.Core.Services;
+using InterestsAcademy.Data.Models;
 using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.Design;
@@ -229,6 +230,85 @@ namespace InterestsAcademy.Controllers
                TempData[ErrorMessage] = ex.Message;
                 return RedirectToAction("Index", "Home");
             }
+
+
+        }
+
+
+        [HttpGet]
+        [Route("/Meeting/Delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] string id)
+        {
+            string userId = User.GetId()!;
+
+            bool isTeacher = await teacherService.IsTeacherAsync(userId);
+            if (!isTeacher)
+            {
+                TempData[ErrorMessage] = "Ти трябва да бъдеш учител, за да изтриваш срещи";
+                return this.RedirectToAction("All");
+            }
+            string? teacherId = await teacherService.GetTeacherIdByUserId(userId);
+            bool isInTeacherSchedule = await activityService.IsActivityInTeacherSchedule(id!, teacherId);
+
+            if (!isInTeacherSchedule)
+            {
+                TempData[ErrorMessage] = "Тази среща не е в твоя график";
+                return this.RedirectToAction("All");
+            }
+
+            var model = await activityService.GetMeetingForDeleteAsync(id);
+
+            if (model == null)
+            {
+                TempData[ErrorMessage] = "Тази среща не съществува";
+                return this.RedirectToAction("All");
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("/Meeting/Delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] string id, DeleteActivityViewModel model)
+        {
+            string userId = User.GetId()!;
+
+            bool isTeacher = await teacherService.IsTeacherAsync(userId);
+            if (!isTeacher)
+            {
+                TempData[ErrorMessage] = "Ти трябва да бъдеш учител, за да изтриваш срещи";
+                return this.RedirectToAction("All");
+            }
+            string? companyId = await teacherService.GetTeacherIdByUserId(userId);
+            bool isInCompanySchedule = await activityService.IsActivityInTeacherSchedule(companyId!, id);
+
+            if (!isInCompanySchedule)
+            {
+                TempData[ErrorMessage] = "Тази среща не е в твоя график";
+                return this.RedirectToAction("All");
+            }
+            string? teacherId = await teacherService.GetTeacherIdByUserId(userId);
+
+            string? teacherUserId = await userService.GetUserIdByTeacherId(teacherId);
+
+            string courseId = model.CourseId;
+            
+
+            List<string> receiversIds = await studentService.GetAllStudentsUsersIdsByCourseId(courseId);
+
+            receiversIds.Add(teacherUserId!);
+
+            string roomId = await roomService.GetRoomIdByCourseId(courseId);
+
+            List<string> teachersIds = await teacherService.GetAllTeacherUsersIdByRoomId(roomId);
+
+            receiversIds.AddRange(teachersIds);
+
+            await activityService.DeleteMeetingAsync(id);
+
+            TempData[SuccessMessage] = "Успешно изтрита среща";
+
+            return new JsonResult(new { ReceiversIds = receiversIds, activityId = id });
 
 
         }

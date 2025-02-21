@@ -172,7 +172,7 @@ namespace InterestsAcademy.Core.Services
                 .AnyAsync(m => ((DateTime.Compare(m.Start, start) == 0 || DateTime.Compare(m.End, end) == 0 || (DateTime.Compare(m.Start, start) > 0 && DateTime.Compare(m.Start, end) < 0) || (DateTime.Compare(m.End, start) > 0 && DateTime.Compare(m.End, end) < 0)) && m.CourseId == courseId));
 
             var isExistForRoom = await repo.GetAll<Activity>()
-                .Include(a =>a.Course)
+                .Include(a => a.Course)
                 .AnyAsync(m => ((DateTime.Compare(m.Start, start) == 0 || DateTime.Compare(m.End, end) == 0 || (DateTime.Compare(m.Start, start) > 0 && DateTime.Compare(m.Start, end) < 0) || (DateTime.Compare(m.End, start) > 0 && DateTime.Compare(m.End, end) < 0)) && m.Course.RoomId == roomId));
 
 
@@ -187,13 +187,77 @@ namespace InterestsAcademy.Core.Services
                 CourseId = model.CourseId,
                 End = model.End,
                 Start = model.Start,
-                
+
             };
 
             await repo.AddAsync(activity);
             await repo.SaveChangesAsync();
 
             return activity.Id;
+        }
+
+        public async Task DeleteMeetingAsync(string meetingId)
+        {
+            var meeting = await repo.GetAll<Activity>()
+                .FirstOrDefaultAsync(m => m.Id == meetingId);
+
+            if (meeting == null)
+            {
+                return;
+            }
+
+            meeting!.IsActive = false;
+
+            await repo.SaveChangesAsync();
+
+        }
+
+        public async Task<DeleteActivityViewModel?> GetMeetingForDeleteAsync(string activityId)
+        {
+            var activity = await repo.GetAll<Activity>()
+                .Include(m => m.Course)
+                .Where(m => m.Id == activityId && m.IsActive)
+                .Select(m => new DeleteActivityViewModel()
+                {
+
+                    End = m.End,
+                    Start = m.Start,
+                    Title = m.Topic,
+                    CourseId = m.CourseId,
+                    TeacherId = m.Course.TeacherId
+
+                })
+                .FirstOrDefaultAsync();
+
+            if (activity == null)
+            {
+                return null;
+            }
+
+            return activity;
+        }
+
+        public async Task<bool> IsActivityInTeacherSchedule(string activityId, string teacherId)
+        {
+            var activity = await repo.GetAll<Activity>()
+               .Include(m => m.Course)
+               .Where(m => m.Id == activityId && m.IsActive)
+               .FirstOrDefaultAsync();
+
+            if (activity == null) { return false; }
+            else
+            {
+                if (activity.Course.TeacherId == teacherId)
+                {
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
         }
     }
 }

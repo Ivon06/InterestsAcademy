@@ -15,6 +15,7 @@ namespace InterestsAcademy.Data.Models
         public Activity()
         {
             Id = Guid.NewGuid().ToString();
+			IsActive = true;
         }
         [Key]
 		public string Id { get; set; }
@@ -43,6 +44,7 @@ namespace InterestsAcademy.Data.Models
 		[Required(ErrorMessage = RequiredErrorMessage)]
 		public DateTime End { get; set; }
 
+		public bool IsActive { get; set; }
 		public ICollection<ActivityStudent> ActivityStudents { get; set; } = new HashSet<ActivityStudent>();
 
 	}

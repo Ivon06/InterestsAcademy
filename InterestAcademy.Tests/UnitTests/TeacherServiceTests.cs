@@ -26,7 +26,7 @@ namespace InterestAcademy.Tests.UnitTests
         private InterestsAcademyDbContext dbContext;
         private IRepository repo;
         private ITeacherService teacherService;
-        private Mock<IRepository> repoMock;
+        
 
         [SetUp]
         public void Setup()
@@ -39,7 +39,7 @@ namespace InterestAcademy.Tests.UnitTests
             this.dbContext.Database.EnsureCreated();
             SeedDatabase(this.dbContext);
             repo = new Repository(this.dbContext);
-            repoMock = new Mock<IRepository>();
+            
             teacherService = new TeacherService(repo);
     
         }
