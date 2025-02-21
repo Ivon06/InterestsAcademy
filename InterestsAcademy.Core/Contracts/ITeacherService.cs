@@ -18,5 +18,6 @@ namespace InterestsAcademy.Core.Contracts
         Task<string?> GetTeacherIdByCourseNameAsync(string courseName);
         Task<List<string>> GetAllTeacherUsersIdByRoomId(string roomId);
         Task<bool> ApproveTeacher(string teacherId);
+        
     }
 }

@@ -26,7 +26,7 @@ namespace InterestsAcademy.Core.Services
             {
                 UserId = userId
             };
-            
+
 
             await repo.AddAsync(student);
             await repo.SaveChangesAsync();
@@ -46,7 +46,7 @@ namespace InterestsAcademy.Core.Services
         {
             var request = await repo.GetByIdAsync<Request>(requestId);
 
-            return request.StudentId;
+            return request == null ? null : request.StudentId;
         }
 
         public async Task<bool> IsStudentAsync(string userId)
@@ -79,7 +79,7 @@ namespace InterestsAcademy.Core.Services
         {
             List<string> ids = await repo.GetAll<StudentCourse>()
                  .Include(sc => sc.Student)
-                 .Where(sc => sc.CourseId ==  courseId && sc.IsApproved)
+                 .Where(sc => sc.CourseId == courseId && sc.IsApproved)
                  .Select(sc => sc.Student.UserId)
                  .ToListAsync();
 
@@ -88,12 +88,12 @@ namespace InterestsAcademy.Core.Services
 
         public async Task<bool> IsStudentInCourse(string studentId, string courseId)
         {
-           var id = await GetStudentId(studentId);
+            var id = await GetStudentId(studentId);
 
             var result = await repo.GetAll<StudentCourse>()
                 .AnyAsync(sc => sc.StudentId == id && sc.CourseId == courseId && sc.IsApproved);
 
-            return result ;
+            return result;
         }
     }
 }

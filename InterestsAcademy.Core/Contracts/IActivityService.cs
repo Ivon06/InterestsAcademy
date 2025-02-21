@@ -20,7 +20,12 @@ namespace InterestsAcademy.Core.Contracts
 
         Task<bool> IsMeetingExistsAsync(DateTime start, DateTime end, string courseId, string roomId);
         Task<string> CreateAsync(ActivityQueryModel model);
+        Task DeleteMeetingAsync(string meetingId);
 
+        Task<DeleteActivityViewModel?> GetMeetingForDeleteAsync(string activityId);
+
+        Task<bool> IsActivityInTeacherSchedule(string activityId, string teacherId);
+       
 
 
 

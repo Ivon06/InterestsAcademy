@@ -34,18 +34,21 @@
 
 }
 
+@*как да сложа бутона за изтриване*@
+
 <li class="events-group" id="day-@dayText">
     <div class="top-info"><span class="text-dark" style="font-weight: bold;">@day @days[dayText]</span></div>
 
     <ul>
         @foreach (var activity in Model.Where(m => !string.IsNullOrEmpty(m.Topic)))
         {
-            <li class="single-event" data-start="@activity.StartHour" data-end="@activity.EndHour" data-content="@activity.Topic"
-                data-event="event-1">
-                <a href="#0" id="@activity.Id">
+            <li class="single-event" data-start="@activity.StartHour" data-end="@activity.EndHour" data-content="@activity.Topic" data-event="event-1">
+                <a href="#0" class="link" id="@activity.Id">
                     <em class="event-name mt-2">@activity.Topic</em>
                     <em class="event-name mt-2" style="font-size: 1rem;">@activity.CourseName</em>
+                    <input type="hidden" id="@activity.Id" class="activityId" value="@activity.Id" />
                 </a>
+                
             </li>
         }
 

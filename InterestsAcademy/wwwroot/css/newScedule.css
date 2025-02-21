@@ -792,3 +792,65 @@ a {
         background-image: linear-gradient( to right, #25aae1, #4481eb, #04befe, #3f86ed );
         box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
     }
+
+
+
+
+.delete-button {
+    margin: 15px 5px;
+    max-width: 5em;
+    justify-self: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: .3s;
+    overflow: hidden;
+    position: relative;
+}
+
+.svgIcon {
+    width: 12px;
+    transition-duration: .3s;
+}
+
+    .svgIcon path {
+        fill: white;
+    }
+
+.delete-button:hover {
+    width: 140px;
+    border-radius: 50px;
+    transition-duration: .3s;
+    background-color: rgb(255, 69, 69);
+    align-items: center;
+}
+
+    .delete-button:hover .svgIcon {
+        width: 50px;
+        transition-duration: .3s;
+        transform: translateY(60%);
+    }
+
+.delete-button::before {
+    position: absolute;
+    top: -20px;
+    content: "Delete";
+    color: white;
+    transition-duration: .3s;
+    font-size: 2px;
+}
+
+.delete-button:hover::before {
+    font-size: 13px;
+    opacity: 1;
+    transform: translateY(30px);
+    transition-duration: .3s;
+}

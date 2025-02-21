@@ -23,5 +23,10 @@ namespace InterestsAcademy.Core.Hubs
             await Clients.Users(studentIds).SendAsync("ReceiveMeeting", meetingData, activityId);
 
         }
+
+        public async Task DeleteMeeting(string meetingId, List<string> receiversIds)
+        {
+            await Clients.Users(receiversIds).SendAsync("ReceiveDelete", meetingId);
+        }
     }
 }

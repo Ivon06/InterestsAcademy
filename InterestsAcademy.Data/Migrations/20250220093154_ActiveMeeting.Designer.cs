@@ -4,6 +4,7 @@ using InterestsAcademy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterestsAcademy.Data.Migrations
 {
     [DbContext(typeof(InterestsAcademyDbContext))]
-    partial class InterestsAcademyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250220093154_ActiveMeeting")]
+    partial class ActiveMeeting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -458,9 +461,7 @@ namespace InterestsAcademy.Data.Migrations
                     b.HasData(
                         new
                         {
-
                             Id = "73d849b9-c6f8-4582-96c6-ba3adccbeb76",
-
                             UserId = "080a469a-b5a2-44cc-a660-eea8e6fd05a5"
                         });
                 });
@@ -613,7 +614,6 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Ал. Стамболийски 30 ет.3 ап.11",
                             BirthDate = new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-
                             ConcurrencyStamp = "6227689c-4a7b-4b14-87eb-fd8d565cd78f",
                             Country = "България",
                             Email = "petarpetrov@abv.bg",
@@ -625,14 +625,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Петър Петров",
                             NormalizedEmail = "PETARPETROV@ABV.BG",
                             NormalizedUserName = "PETAR",
-
                             PasswordHash = "AQAAAAIAAYagAAAAEMqrn20P08CflVW/tqGCzjLcu+snQ+YmeTQCNQveafF2FcLBFUSEgDb790zkY8Hq0g==",
                             PhoneNumber = "0885763826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg",
                             RegisteredOn = new DateTime(2025, 2, 20, 9, 31, 52, 729, DateTimeKind.Utc).AddTicks(7393),
                             SecurityStamp = "055fcd2b-61ac-4630-9a06-03c9b6fe5a1a",
-
                             TwoFactorEnabled = false,
                             UserName = "petar"
                         },
@@ -643,7 +641,6 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул.Възраждане 6 ет.2 ап.8",
                             BirthDate = new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Казанлък",
-
                             ConcurrencyStamp = "99539ae5-d46b-4d44-8297-a79daa6e744a",
                             Country = "България",
                             Email = "georgidimitrov@abv.bg",
@@ -655,14 +652,12 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Георги Димитров",
                             NormalizedEmail = "GEORGIDIMITROV@ABV.BG",
                             NormalizedUserName = "GEORGI",
-
                             PasswordHash = "AQAAAAIAAYagAAAAECabDxAQvDOjese92ukxqMSWBIjeIJothuOtpuheYkRBX52a3umUSeCsd/gVqVpMXg==",
                             PhoneNumber = "0885789826",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg",
                             RegisteredOn = new DateTime(2025, 2, 20, 9, 31, 52, 798, DateTimeKind.Utc).AddTicks(8864),
                             SecurityStamp = "8a688ca2-ba3a-4c3a-ba86-83f1331ac17c",
-
                             TwoFactorEnabled = false,
                             UserName = "georgi"
                         },
@@ -673,7 +668,6 @@ namespace InterestsAcademy.Data.Migrations
                             Address = "ул. Незабравка 3",
                             BirthDate = new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified),
                             City = "Енина",
-
                             ConcurrencyStamp = "8ba3aaa6-1b6d-42ee-8422-345bced65cfb",
                             Country = "България",
                             Email = "admin@abv.bg",
@@ -685,7 +679,6 @@ namespace InterestsAcademy.Data.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN",
-
                             PasswordHash = "AQAAAAIAAYagAAAAEJo9c+HBi5UAaAiIv0obS/GXEpb7JA6XpNRD2Ft1Ffwwl9Eh1V01OIMhw4jNnn52sQ==",
                             PhoneNumber = "0889864842",
                             PhoneNumberConfirmed = false,
