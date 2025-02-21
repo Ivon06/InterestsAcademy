@@ -106,15 +106,7 @@
 								</label> <i class="bi bi-chevron-down toggle-dropdown"></i>
 							</a>
 							<ul>
-								<li><a asp-controller="Home" asp-action="Index">Начална страница</a></li>
-								<li class="dropdown">
-									<a href="#"><span>Информация</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-									<ul>
-										<li><a asp-controller="Home" asp-action="ProjectandConcept">Проект и Концепция</a></li>
-										<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
-
-									</ul>
-								</li>
+								
 								@if (User.Identity.IsAuthenticated)
 								{
 									<li><a asp-controller="Course" asp-action="MyCourses">Моите курсове</a></li>
@@ -131,8 +123,16 @@
 										<a asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@teacherId" asp-route-isTeacher="@true" asp-route-isCourse="@false">Моят график</a>
 									</li>
 								}
-								
-								
+
+								<li><a asp-controller="Home" asp-action="Index">Начална страница</a></li>
+								<li class="dropdown">
+									<a href="#"><span>Информация</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+									<ul>
+										<li><a asp-controller="Home" asp-action="ProjectandConcept">Проект и Концепция</a></li>
+										<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
+
+									</ul>
+								</li>
 							</ul>
 
 						</li>

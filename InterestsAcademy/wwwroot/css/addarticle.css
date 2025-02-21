@@ -1,4 +1,4 @@
-﻿.button {
+﻿.articlebutton {
     appaerance: none;
     font: inherit;
     border: none;
@@ -6,7 +6,7 @@
     cursor: pointer;
 }
 
-.container {
+.articlecontainer {
     position: absolute;
     top: 0;
     left: 0;
@@ -19,7 +19,7 @@
     padding: 1.5rem;
 }
 
-.modal {
+.articlemodal {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -29,7 +29,7 @@
     border-radius: 10px;
 }
 
-.modal__header {
+.articlemodal__articleheader {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -37,38 +37,38 @@
     justify-content: space-between;
 }
 
-.modal__body {
+.articlemodal__articlebody {
     padding: 1rem 1rem;
 }
 
-.modal__footer {
+.articlemodal__articlefooter {
     padding: 0 1.5rem 1.5rem;
 }
 
-.modal__title {
+.articlemodal__articletitle {
     font-weight: 700;
     font-size: 1.25rem;
 }
 
-.button {
+.articlebutton {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     transition: 0.15s ease;
 }
 
-.button--icon {
+.articlebutton--articleicon {
     width: 2.5rem;
     height: 2.5rem;
     background-color: transparent;
     border-radius: 0.25rem;
 }
 
-    .button--icon:focus, .button--icon:hover {
+    .articlebutton--articleicon:focus, .articlebutton--articleicon:hover {
         background-color: #ededed;
     }
 
-.button--primary {
+.articlebutton--articleprimary {
     background-color: #007dab;
     color: #FFF;
     padding: 0.75rem 1.25rem;
@@ -77,25 +77,25 @@
     font-size: 0.875rem;
 }
 
-    .button--primary:hover {
+    .articlebutton--articleprimary:hover {
         background-color: #006489;
     }
 
-.input {
+.articleinput {
     display: flex;
     flex-direction: column;
 }
 
-    .input + .input {
+    .articleinput + .articleinput {
         margin-top: 1.75rem;
     }
 
-.input__label {
+.articleinput__articlelabel {
     font-weight: 700;
     font-size: 0.875rem;
 }
 
-.input__field {
+.articleinput__articlefield {
     display: block;
     margin-top: 0.5rem;
     border: 1px solid #DDD;
@@ -104,23 +104,23 @@
     transition: 0.15s ease;
 }
 
-    .input__field:focus {
+    .articleinput__articlefield:focus {
         outline: none;
         border-color: #007dab;
         box-shadow: 0 0 0 1px #007dab, 0 0 0 4px rgba(0, 125, 171, 0.25);
     }
 
-.input__field--textarea {
+.articleinput__articlefield--articletextarea {
     min-height: 100px;
     max-width: 100%;
 }
 
-.input__description {
+.articleinput__articledescription {
     font-size: 0.875rem;
     margin-top: 0.5rem;
     color: #8d8d8d;
 }
-.piccontainer {
+.articlepiccontainer {
     height: 300px;
     width: 300px;
     border-radius: 10px;
@@ -134,10 +134,9 @@
     background-color: rgba(0, 110, 255, 0.041);
 }
 
-.header {
+.articleheader {
     flex: 1;
     width: 100%;
-    border: 2px dashed royalblue;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -145,7 +144,7 @@
     flex-direction: column;
 }
 
-    .header svg {
+    .articleheader svg {
         height: 100px;
     }
 

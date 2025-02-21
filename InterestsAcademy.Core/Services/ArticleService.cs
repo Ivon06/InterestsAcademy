@@ -29,7 +29,7 @@ namespace InterestsAcademy.Core.Services
                 Name = model.Name,
                 Description = model.Description,
                 UserId = model.UserId,
-                PublishedOn = model.PublishedOn,
+                PublishedOn = DateTime.Now,
                 ArticlePictureURLs = model.ArticlePictureURLs
             };
             await repo.AddAsync(article);
