@@ -45,12 +45,12 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
             if (!isValidUser)
             {
                 TempData[ErrorMessage] = "Този потребител не съществува.";
-                return RedirectToAction("Index", "Home", new { Area = "Admin" });
+                return RedirectToAction("Index", "Home", new { Area = "AdminArea" });
             }
 
             await userService.DeleteUser(userId);
 
-            return RedirectToAction("Index", "Home", new { Area = "Admin" });
+            return RedirectToAction("Index", "Home", new { Area = "AdminArea" });
         }
     }
 }

@@ -16,6 +16,13 @@ namespace InterestsAcademy.Controllers
         private readonly IStudentService studentService;
         private readonly IRequestService requestService;
         private readonly IUserService userService;
+
+        private Dictionary<string, string> statusBg = new Dictionary<string, string>()
+    {
+        {"Waiting", "Чакащ"},
+        {"Rejected", "Отказан"},
+        {"Accepted", "Приет"}
+    };
         public RequestController(ICourseService courseService, ITeacherService teacherService, IRequestService requestService, IStudentService studentService, IUserService userService)
         {
             this.courseService = courseService;
@@ -26,8 +33,8 @@ namespace InterestsAcademy.Controllers
         }
 
         [HttpGet]
-        
-        public async Task<IActionResult> CreateView( string courseId)
+
+        public async Task<IActionResult> CreateView(string courseId)
         {
             if (!User.IsInRole("Student"))
             {
@@ -43,10 +50,12 @@ namespace InterestsAcademy.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            bool isInCourse = await studentService.IsStudentInCourse(User.GetId(),courseId);
+            bool isInCourse = await studentService.IsStudentInCourse(User.GetId(), courseId);
             if (isInCourse)
             {
-                TempData[ErrorMessage] = "Ученикът вече е записан за този курс.";
+                string studentId = await studentService.GetStudentId(User.GetId());
+                string requestStatus = await requestService.GetRequestStatusByStudentsIdAndCourseID(studentId, courseId);
+                TempData[ErrorMessage] = $"Ученикът вече е записан за този курс. Статус на заявката за записване: {statusBg[requestStatus]}.";
                 return RedirectToAction("All", "Course");
             }
 
@@ -56,7 +65,7 @@ namespace InterestsAcademy.Controllers
             string email = user.Email;
 
 
-            return View("Create",new List<string>() { courseName, studentName, email });
+            return View("Create", new List<string>() { courseName, studentName, email });
 
         }
 
@@ -72,7 +81,7 @@ namespace InterestsAcademy.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            if(teacherId == null)
+            if (teacherId == null)
             {
                 TempData[ErrorMessage] = "Този курс не съществува.";
                 return RedirectToAction("All", "Course");
@@ -83,16 +92,16 @@ namespace InterestsAcademy.Controllers
 
             var user = await userService.GetByIdAsync(User.GetId());
 
-            
 
-            if (!isNameValid || !isEmailValid || studentEmail != user.Email ||studentName != user.Name)
+
+            if (!isNameValid || !isEmailValid || studentEmail != user.Email || studentName != user.Name)
             {
 
                 TempData[ErrorMessage] = "Невалидно име или имейл.";
                 return View("Create", courseName);
             }
 
-            
+
 
             string requestId;
             try
@@ -124,7 +133,7 @@ namespace InterestsAcademy.Controllers
                 RequestId = requestId,
                 TeacherUserId = teacherUserId
             });
-          
+
         }
 
         [HttpGet]
@@ -139,7 +148,7 @@ namespace InterestsAcademy.Controllers
 
             bool isTeacher = await teacherService.IsTeacherAsync(User.GetId());
 
-            if(!isTeacher)
+            if (!isTeacher)
             {
                 TempData[ErrorMessage] = "Трябва да си учител за да имаш достъп";
                 return RedirectToAction("Index", "Home");
@@ -163,13 +172,13 @@ namespace InterestsAcademy.Controllers
             else
             {
                 model.Requests = model.Requests.OrderByDescending(r => r.Status).ToList();
-                
+
                 return View(model);
             }
-            
+
         }
 
-       
+
 
         [HttpPost]
         public async Task<IActionResult> EditStatus(string requestId, string status)
@@ -180,26 +189,26 @@ namespace InterestsAcademy.Controllers
 
             bool isTeacher = await teacherService.IsTeacherAsync(userId);
 
-            if(!isTeacher )
+            if (!isTeacher)
             {
                 TempData[ErrorMessage] = "Трябва да сте учител, за да имате достъп.";
                 return RedirectToAction("MyCourses", "Course");
             }
 
-            if(request ==  null)
+            if (request == null)
             {
                 TempData[ErrorMessage] = "Тази заявка не съществува";
                 return RedirectToAction("MyCourses", "Course");
             }
 
-            if(status == "Accepted")
+            if (status == "Accepted")
             {
                 var teacherId = await teacherService.GetTeacherIdByUserId(userId);
 
                 var studentId = await studentService.GetStudentIdByRequestId(requestId);
 
                 var courseId = await courseService.GetCourseIdByRequestId(requestId);
-               
+
                 await courseService.AddStudentToCourse(studentId, courseId);
 
                 bool resultAccepted = await requestService.EditStatus(status, requestId);

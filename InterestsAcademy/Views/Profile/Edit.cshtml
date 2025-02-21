@@ -2,7 +2,7 @@
 @model EditProfileViewModel;
 
 @{
-	ViewData["Title"] = "Регистрирай";
+	ViewData["Title"] = "Редактирай";
 }
 
 <div class="form-body">
@@ -13,8 +13,23 @@
 					<form class="requires-validation" id="editProfileForm" method="post" enctype="multipart/form-data">
 						<h2 class="text-center" style="
                             color: white;">
-							<strong>@ViewData["Title"] се</strong>
+							<strong>@ViewData["Title"]</strong>
 						</h2>
+						<div class="profile-upload-container" style="display:contents;">
+							<div class="profile-preview" id="profile-preview">
+								<img src="#" alt="Profile Preview" id="preview-image" />
+							</div>
+
+							<label class="upload-label">Профилна снимка</label>
+
+							<!-- Custom File Upload Button -->
+							<label for="file-upload" class="custom-file-upload" style="    margin-left: 13.5em;
+    background: center;">
+								Избери снимка
+							</label>
+							<input asp-for="ProfilePicture" accept="image/gif, image/jpeg, image/png" id="file-upload" type="file" class="file-input">
+
+						</div>
 						<div class="form-group">
 							<input asp-for="Email" class="form-control" placeholder="Имейл">
 							<span asp-validation-for="Email" class="text-danger"></span>
@@ -53,12 +68,9 @@
 						</div>
 
 
-						<div class="form-group">
-							<input asp-for="ProfilePicture" accept="image/gif, image/jpeg, image/png" id="upload_file">
-							Качи снимка
-						</div>
+						
 
-						<button asp-action="Edit" asp-controller="Profile" class="button login__submit">
+						<button asp-action="Edit" asp-controller="Profile" class="custom-file-upload">
 							<span class="button__text" style="text-align:center;">Запази промените</span>
 							<i class="button__icon fas fa-chevron-right"></i>
 						</button>

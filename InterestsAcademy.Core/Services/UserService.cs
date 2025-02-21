@@ -103,6 +103,7 @@ namespace InterestsAcademy.Core.Services
             var model = new UsersQueryModel();
 
             model.Users = await repo.GetAll<User>()
+                .Where(u => u.IsActive)
                 .Select(u => new UserViewModel
                 {
                     Id = u.Id,

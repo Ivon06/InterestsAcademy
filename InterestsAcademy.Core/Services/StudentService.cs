@@ -90,8 +90,8 @@ namespace InterestsAcademy.Core.Services
         {
             var id = await GetStudentId(studentId);
 
-            var result = await repo.GetAll<StudentCourse>()
-                .AnyAsync(sc => sc.StudentId == id && sc.CourseId == courseId && sc.IsApproved);
+            var result = await repo.GetAll<Request>()
+                .AnyAsync(sc => sc.StudentId == id && sc.CourseId == courseId );
 
             return result;
         }

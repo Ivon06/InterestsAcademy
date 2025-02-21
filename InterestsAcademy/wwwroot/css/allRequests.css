@@ -103,30 +103,76 @@ table {
 }
 
 /* Buttons */
-button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 6px;
+.badge {
+    font-weight: 700;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    font-size: 14px;
-    margin-right: 8px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
+    /* Анимация за вълна при клик */
+    .badge::after {
+        content: "";
+        position: absolute;
+        width: 300%;
+        height: 300%;
+        top: 50%;
+        left: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: transform 0.5s ease;
+        transform: translate(-50%, -50%) scale(0);
+        border-radius: 50%;
+    }
+
+    .badge:active::after {
+        transform: translate(-50%, -50%) scale(1);
+        transition: transform 0.3s ease-out;
+    }
+
+/* Стилове за бутон "Приеми" */
 .btn-approve {
-    background-color: #28a745;
-    color: #fff;
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
 }
 
     .btn-approve:hover {
-        background-color: #218838;
+        background: linear-gradient(135deg, #45a049, #1B5E20);
+        transform: translateY(-3px);
     }
 
+    .btn-approve:active {
+        transform: translateY(1px);
+    }
+
+/* Стилове за бутон "Откажи" */
 .btn-reject {
-    background-color: #dc3545;
-    color: #fff;
+    background: linear-gradient(135deg, #F44336, #B71C1C);
+    color: white;
 }
 
     .btn-reject:hover {
-        background-color: #c82333;
+        background: linear-gradient(135deg, #e53935, #8E0C0C);
+        transform: translateY(-3px);
     }
+
+    .btn-reject:active {
+        transform: translateY(1px);
+    }
+
+/* Контейнер за центриране */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+}

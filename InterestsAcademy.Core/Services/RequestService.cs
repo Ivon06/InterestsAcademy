@@ -3,6 +3,7 @@ using InterestsAcademy.Core.Models.Request;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Data.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -123,6 +124,15 @@ namespace InterestsAcademy.Core.Services
             return false;
 
 
+        }
+
+        public async Task<string> GetRequestStatusByStudentsIdAndCourseID(string studentId, string courseId)
+        {
+            var request = await repo.GetAll<Request>()
+                .Where(r => r.StudentId == studentId && r.CourseId == courseId)
+                .Select(r => r.Status)
+                .FirstOrDefaultAsync();
+            return request;
         }
     }
 }

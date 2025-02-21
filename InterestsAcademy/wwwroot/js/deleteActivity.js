@@ -47,6 +47,7 @@ if (isTeacher3 == "True" && isCourse3 == "False") {
 
         let el = e.getElementsByClassName('link')[0];
         el.appendChild(btn);
+
     })
     
     //addDeleteButton(e.getElementsByClassName('link'), button))
