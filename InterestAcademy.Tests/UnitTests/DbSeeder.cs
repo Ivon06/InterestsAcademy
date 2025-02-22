@@ -19,12 +19,14 @@ namespace InterestAcademy.Tests.UnitTests
             SeedStudents(context);
             SeedTeachers(context);
             SeedUsers(context);
+            SeedRequests(context);
+            SeedStudentCourses(context);
 
             context.SaveChanges();
         }
 
 
-        public static void SeedUsers(InterestsAcademyDbContext context)             
+        public static void SeedUsers(InterestsAcademyDbContext context)
         {
 
 
@@ -171,6 +173,30 @@ namespace InterestAcademy.Tests.UnitTests
             };
 
             context.Courses.Add(course1);
+        }
+
+        public static void SeedRequests(InterestsAcademyDbContext context)
+        {
+            var request = new Request()
+            {
+                Id = "3wjjdiskj7-3b3b-983b-3b3b-3b3bsnb3b3b3b",
+                CourseId = "enjcakbkj7-3b3b-983b-3b3b-3b3bsnb3b3b3b",
+                StudentId = "e3b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b",
+                TeacherId = "hugf73-3b3b-3b3b-3b3b-jb7ftyv",
+                Status = "Accepted"
+            };
+            context.Requests.Add(request);
+        }
+
+        public static void SeedStudentCourses(InterestsAcademyDbContext context)
+        {
+            var studentCourse = new StudentCourse()
+            {
+                StudentId = "e3b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b",
+                CourseId = "enjcakbkj7-3b3b-983b-3b3b-3b3bsnb3b3b3b",
+                IsApproved = true
+            };
+            context.StudentsCourses.Add(studentCourse);
         }
     }
 }
