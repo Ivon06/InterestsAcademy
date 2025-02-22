@@ -19,5 +19,7 @@ namespace InterestsAcademy.Core.Contracts
         Task<List<string>> GetAllStudentsUsersIdsByCourseId(string courseId);
 
         Task<bool> IsStudentInCourse(string studentId, string courseId);
+
+        Task<int> GetAllStudentsCount();
     }
 }

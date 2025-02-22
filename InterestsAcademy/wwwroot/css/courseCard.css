@@ -203,6 +203,19 @@
     }
 }
 
+.no-course-message {
+    background-color: #0073e6;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    width: fit-content;
+    margin: 30px auto;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
 
 
 

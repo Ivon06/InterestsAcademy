@@ -51,6 +51,13 @@
 
 			}
 
+			@if(User.IsInRole("Student") && Model.Count == 0)
+			{
+				<div class="no-course-message">
+					Все още не сте записани за нито един курс 😊
+				</div>
+			}
+
 
 			@foreach (var course in Model)
 			{

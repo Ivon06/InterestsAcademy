@@ -18,7 +18,11 @@ namespace InterestsAcademy.Core.Models.User
 
         public int UsersCount { get; set; }
 
-        
+        public int StudentsCount { get; set; }
+        public int ActivitiesCount { get; set; }
+
+        public int CoursesCount { get; set; }
+
 
     }
 }

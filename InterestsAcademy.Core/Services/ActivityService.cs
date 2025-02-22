@@ -259,5 +259,11 @@ namespace InterestsAcademy.Core.Services
             }
 
         }
+
+        public async Task<int> GetAllActivitiesCount()
+        {
+            int result = await repo.GetAll<Activity>().CountAsync();
+            return result;
+        }
     }
 }

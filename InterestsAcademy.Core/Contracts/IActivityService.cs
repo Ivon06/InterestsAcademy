@@ -25,7 +25,9 @@ namespace InterestsAcademy.Core.Contracts
         Task<DeleteActivityViewModel?> GetMeetingForDeleteAsync(string activityId);
 
         Task<bool> IsActivityInTeacherSchedule(string activityId, string teacherId);
-       
+        Task<int> GetAllActivitiesCount();
+
+
 
 
 

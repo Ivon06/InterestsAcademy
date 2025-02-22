@@ -42,10 +42,10 @@
     <ul>
         @foreach (var activity in Model.Where(m => !string.IsNullOrEmpty(m.Topic)))
         {
-            <li class="single-event" data-start="@activity.StartHour" data-end="@activity.EndHour" data-content="@activity.Topic" data-event="event-1">
+            <li class="single-event" id="@activity.Id" data-start="@activity.StartHour" data-end="@activity.EndHour" data-content="@activity.Topic" data-event="event-1">
                 <a href="#0" class="link" id="@activity.Id">
-                    <em class="event-name mt-2">@activity.Topic</em>
-                    <em class="event-name mt-2" style="font-size: 1rem;">@activity.CourseName</em>
+                    <em class="event-name mt-2" id=$"{@activity.Id}-topic">@activity.Topic</em>
+                    <em class="event-name mt-2" id=$"{@activity.Id}-courseName" style ="font-size: 1rem;">@activity.CourseName</em>
                     <input type="hidden" id="@activity.Id" class="activityId" value="@activity.Id" />
                 </a>
                 

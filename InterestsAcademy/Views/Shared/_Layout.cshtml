@@ -51,6 +51,9 @@
 							</a>
 							<ul>
 								<li><a asp-controller="Home" asp-action="Index">Начална страница</a></li>
+								
+								<li><a asp-controller="Donation" asp-action="Categories" asp-route-category="All">Дарения</a></li>
+
 								<li class="dropdown">
 									<a href="#"><span>Информация</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
 									<ul>
@@ -58,12 +61,10 @@
 										<li><a asp-controller="Home" asp-action="ProjectandConcept">Проект и Концепция</a></li>
 
 										<li><a asp-controller="Home" asp-action="Contact">Контакти</a></li>
-										
+
 
 									</ul>
-								<li><a asp-controller="Donation" asp-action="Categories" asp-route-category="All">Дарения</a></li>
 								</li>
-
 							</ul>
 						</li>
 
@@ -106,7 +107,7 @@
 								</label> <i class="bi bi-chevron-down toggle-dropdown"></i>
 							</a>
 							<ul>
-								
+								<li><a asp-controller="Home" asp-action="Index">Начална страница</a></li>
 								@if (User.Identity.IsAuthenticated)
 								{
 									<li><a asp-controller="Course" asp-action="MyCourses">Моите курсове</a></li>
@@ -124,7 +125,7 @@
 									</li>
 								}
 
-								<li><a asp-controller="Home" asp-action="Index">Начална страница</a></li>
+								
 								<li class="dropdown">
 									<a href="#"><span>Информация</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
 									<ul>
@@ -183,7 +184,7 @@
 					}
 				});
 			});
-					
+
 		document.addEventListener("DOMContentLoaded", function () {
 			const header = document.querySelector("header");
 
@@ -235,7 +236,7 @@
 		});
 	</script>
 
-	
+
 	</script>
 
 	@await RenderSectionAsync("Scripts", required: false)

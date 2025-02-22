@@ -3,12 +3,12 @@
 
 <div class="main-container">
 	<div class="main">
-		@* <div class="box-container">
+		<div class="box-container">
 
 			<div class="box box1">
 				<div class="text">
-					<h2 class="topic-heading counter" data-to="1000" data-speed="2000">@Model.UsersCount</h2>
-					<h2 class="topic">Потребители</h2>
+					<h2 class="topic-heading counter" data-to="1000" data-speed="2000">@Model.StudentsCount</h2>
+					<h2 class="topic">Ученици</h2>
 				</div>
 
 				<img src="~/img/eyeIcon.png" alt="Views">
@@ -16,44 +16,29 @@
 
 			<div class="box box2">
 				<div class="text">
-					<h2 class="topic-heading counter" data-to="1000" data-speed="2000">@Model.AcceptedRequestsCount</h2>
-					<h2 class="topic">Одобрени молби</h2>
+					<h2 class="topic-heading counter" data-to="1000" data-speed="2000">@Model.ActivitiesCount</h2>
+					<h2 class="topic">Проведени активности</h2>
 				</div>
 
 				<img src="~/img/likeIcon.png" alt="likes">
 			</div>
 
+			
+
 			<div class="box box3">
 				<div class="text">
-					<h2 class="topic-heading counter" data-to="1000" data-speed="2000">@Model.MessagesCount</h2>
-					<h2 class="topic">Съобщения</h2>
-				</div>
-
-				<img src="~/img/messageIcon.png" alt="comments">
-			</div>
-
-			<div class="box box4">
-				<div class="text">
-					<h2 class="topic-heading counter" data-to="1000" data-speed="2000">@Model.MeetingsCount</h2>
-					<h2 class="topic">Организирани срещи</h2>
+					<h2 class="topic-heading counter" data-to="1000" data-speed="2000">@Model.CoursesCount</h2>
+					<h2 class="topic">Курса</h2>
 				</div>
 
 				<img src="~/img/checkIcon.png" alt="published">
 			</div>
-		</div> *@
+		</div>
 
 		<div class="report-container">
 			<div class="report-header">
 				<h1 class="recent-Articles">Потребители</h1>
-				<form method="get">
-					<div class="searchbar">
-						<input asp-for="@Model.SearchString" type="text" placeholder="Търси">
-						<button class="searchbtn">
-							<img src="~/img/searchIcon.png" class="icn srchicn" alt="search-icon">
-						</button>
-					</div>
-
-				</form>
+				
 
 			</div>
 

@@ -95,5 +95,11 @@ namespace InterestsAcademy.Core.Services
 
             return result;
         }
+
+        public async Task<int> GetAllStudentsCount()
+        {
+            int result = await repo.GetAll<Student>().CountAsync();
+            return result;
+        }
     }
 }
