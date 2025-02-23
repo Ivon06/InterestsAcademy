@@ -30,6 +30,7 @@ namespace InterestsAcademy.Data.Configurations
                 Description = "Този курс обхваща основите на биологията – от клетките и ДНК до екосистемите и еволюцията.",
                 IsActive = true,
                 IsApproved = true,
+                Category = "Biology"
                 }
 
             };

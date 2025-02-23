@@ -1,10 +1,61 @@
 ﻿@using InterestsAcademy.Core.Models.Course
-@model List<CourseCardViewModel>
+@model MyCoursesViewModel
+
+
+@{
+	Dictionary<string, string> categories = new Dictionary<string, string>();
+
+	categories.Add("Biology", "Биология и Химия");
+	categories.Add("Physics", "Физика и Астриномия");
+	categories.Add("Art", "Музика и Изкуство");
+	categories.Add("It", "Информатика и роботика");
+	categories.Add("Sport", "Спорт");
+	categories.Add("Other", "Други");
+}
+
+
+<form method="get">
+     <div class="row" style="margin-left: 180px; margin-top: 1em;">
+		<h5 class="section-title h1" style="text-align:center; padding:16px 10px">Моите курсове</h5>
+
+		<div class="form-group col-md-3 justify-content-between">
+
+            <div class="form-group">
+                <label asp-for="Category" class="tech-label">Категория</label>
+                <select asp-for="Category" class="tech-select form-control">
+                    <option value="">All</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category">@categories[category]</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label asp-for="SearchString" class="tech-label">Търсене</label>
+            <input asp-for="@Model.SearchString" class="tech-select form-control" placeholder="Търсене" />
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group mt-3 p-2">
+                <button type="submit" class="btn btn-light mt-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search text-black" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
 
 
 <section id="team" class="pb-5" style="min-height: 44em;">
 	<div class="container">
-		<h5 class="section-title h1" style="text-align:center; padding:16px 10px">Моите курсове</h5>
 		<div class="row">
 
 			@if (User.IsInRole("Teacher"))
@@ -51,7 +102,7 @@
 
 			}
 
-			@if(User.IsInRole("Student") && Model.Count == 0)
+			@if(User.IsInRole("Student") && Model.Cards.ToList().Count == 0)
 			{
 				<div class="no-course-message">
 					Все още не сте записани за нито един курс 😊
@@ -59,7 +110,7 @@
 			}
 
 
-			@foreach (var course in Model)
+			@foreach (var course in Model.Cards)
 			{
 				<div class="col-md-4 " style="height: 20em; margin-top: 1em;">
 

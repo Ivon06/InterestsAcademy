@@ -93,7 +93,8 @@ namespace InterestsAcademy.Core.Services
                     Description = x.Description,
                     TeacherId = x.TeacherId,
                     RoomId = x.RoomId,
-                    TeacherUserId = x.Teacher.UserId
+                    TeacherUserId = x.Teacher.UserId,
+                    Category = x.Category
                 }
                 )
                 .ToListAsync();
@@ -102,6 +103,8 @@ namespace InterestsAcademy.Core.Services
 
 
         }
+
+
 
         public async Task<IEnumerable<CourseCardViewModel>> GetAllStudentCoursesCards(string studentId)
         {
@@ -117,7 +120,8 @@ namespace InterestsAcademy.Core.Services
                      Description = x.Course.Description,
                      TeacherId = x.Course.TeacherId,
                      RoomId = x.Course.RoomId,
-                     TeacherUserId = x.Course.Teacher.UserId
+                     TeacherUserId = x.Course.Teacher.UserId,
+                     Category = x.Course.Category
                  }
                  )
                  .ToListAsync();
@@ -138,7 +142,8 @@ namespace InterestsAcademy.Core.Services
                      TeacherId = x.TeacherId,
                      IsApproved = x.IsApproved,
                      RoomId = x.RoomId,
-                     TeacherUserId = x.Teacher.UserId
+                     TeacherUserId = x.Teacher.UserId,
+                     Category = x.Category
 
                  }
                  )

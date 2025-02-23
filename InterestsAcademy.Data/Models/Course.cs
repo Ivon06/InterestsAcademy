@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static InterestsAcademy.Common.ErrorMessages;
 using static InterestsAcademy.Data.Constants.CourseConstants;
+using InterestsAcademy.Data.Models.Enums;
 
 namespace InterestsAcademy.Data.Models
 {
@@ -53,6 +54,11 @@ namespace InterestsAcademy.Data.Models
         public bool IsApproved { get; set; }
 
         public bool IsActive { get; set; }
+
+
+        [Required]
+        [EnumDataType(typeof(DonationCategoryEnum))]
+        public string Category { get; set; } = null!;
 
         public ICollection<StudentCourse> StudentCourses { get; set; }
         public ICollection<Activity> Activities { get; set; }

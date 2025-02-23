@@ -3,6 +3,7 @@ using InterestsAcademy.Core.Models.Course;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using static InterestsAcademy.Common.Notifications;
 
 namespace InterestsAcademy.Controllers
@@ -26,25 +27,54 @@ namespace InterestsAcademy.Controllers
             return View();
         }
 
-        public async Task<IActionResult> MyCourses()
+        public async Task<IActionResult> MyCourses([FromQuery] MyCoursesViewModel model)
         {
             string userId = User.GetId();
 
             bool isTeacher = await teacherService.IsTeacherAsync(userId);
 
-            IEnumerable<CourseCardViewModel> model = new List<CourseCardViewModel>();
+            //var model = new MyCoursesViewModel();
+
+            //IEnumerable<CourseCardViewModel> model = new List<CourseCardViewModel>();
 
             bool isStudent = await studentService.IsStudentAsync(userId);
             if (isTeacher)
             {
                 string teacherId = await teacherService.GetTeacherIdByUserId(userId);
-                model = await courseService.GetAllTeacherCourses(teacherId);
+                model.Cards = await courseService.GetAllTeacherCourses(teacherId);
             }
             else if (isStudent)
             {
                 string studentId = await studentService.GetStudentId(userId);
-                model = await courseService.GetAllStudentCoursesCards(studentId);
+                model.Cards = await courseService.GetAllStudentCoursesCards(studentId);
             }
+
+
+            if (!string.IsNullOrEmpty(model.SearchString))
+            {
+
+                string wildCard = $"{model.SearchString.ToLower()}";
+
+                model.Cards = model.Cards
+                    .Where(c => c.Name.ToLower().Contains(wildCard) || c.Description.ToLower().Contains(wildCard));
+            }
+
+            if (!string.IsNullOrEmpty(model.Category))
+            {
+                model.Cards = model.Cards
+                    .Where(c => c.Category==model.Category);
+            }
+
+            model.Categories = new List<string>()
+            {
+               "Biology",
+               "Physics",
+               "Art",
+               "It",
+               "Sport",
+               "Other"
+            };
+
             return View(model);
         }
 
@@ -53,7 +83,7 @@ namespace InterestsAcademy.Controllers
         {
             var model = new CourseQueryModel();
 
-          //  model.Rooms = await roomService.GetAllRooms();
+            //  model.Rooms = await roomService.GetAllRooms();
 
             return View(model);
         }
