@@ -15,7 +15,8 @@ namespace InterestsAcademy.Data.Models
         public Article()
         {
             Id = Guid.NewGuid().ToString();
-            IsActive = false;
+            IsActive = true;
+            UserId = "20dcf707-dfd9-4aae-b8c3-f3b9844e09d8";
         }
         [Key]
         public string Id { get; set; } = null!;

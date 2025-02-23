@@ -9,6 +9,7 @@ using InterestsAcademy.Core.Models.Article;
 using InterestsAcademy.Core.Models.Course;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Data.Repository.Contracts;
+using MailKit;
 using Microsoft.EntityFrameworkCore;
 
 namespace InterestsAcademy.Core.Services
@@ -16,10 +17,12 @@ namespace InterestsAcademy.Core.Services
     public class ArticleService : IArticleService
     {
         private readonly IRepository repo;
+        private readonly IImageService imageService;
 
-        public ArticleService(IRepository repo)
+        public ArticleService(IRepository repo, IImageService imageService)
         {
             this.repo = repo;
+            this.imageService = imageService;
         }
 
         public async Task AddArticle(ArticleQueryViewModel model)
@@ -160,6 +163,35 @@ namespace InterestsAcademy.Core.Services
                 .AnyAsync(c => c.Id == articleId);
 
             return result;
+        }
+
+
+
+        public async Task CreatePostAsync(CreateArticleQueryModel model)
+        {
+            var post = new Article()
+            {
+                
+                Name = model.Topic,
+                Description = model.Content,
+                PublishedOn = model.CreatedOn
+            };
+
+            var photos = new List<Photo>();
+
+            foreach (var image in model.CarouselPhotos)
+            {
+                var photo = new Photo();
+                photo.PhotoUrl = await imageService.UploadImageAsync(image, "projectImages", image.FileName);
+                photo.ArticleId = post.Id;
+                photos.Add(photo);
+
+
+            }
+
+            await repo.AddRangeAsync(photos);
+            await repo.AddAsync(post);
+            await repo.SaveChangesAsync();
         }
     }
 }

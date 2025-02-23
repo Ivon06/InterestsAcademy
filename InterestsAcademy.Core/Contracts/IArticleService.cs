@@ -19,6 +19,7 @@ namespace InterestsAcademy.Core.Contracts
         Task<EditArticleViewModel> GetArticleForEdit(string id);
         Task<IEnumerable<ArticleCardViewModel>> GetAllArticlesAdminCards();
         Task<AdminArticleViewModel> GetArticleForAdmin(string articleId);
+        Task CreatePostAsync(CreateArticleQueryModel model);
 
 
     }

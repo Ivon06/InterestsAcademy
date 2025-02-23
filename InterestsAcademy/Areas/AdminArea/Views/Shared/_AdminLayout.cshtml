@@ -23,7 +23,7 @@
 <body>
 	
 
-	<header id="header" class="header d-flex align-items-center fixed-top" style="position:fixed;  --background-color: rgba(20, 20, 20);">
+	<header id="header" class="header d-flex align-items-center fixed-top" style="    position: sticky;  --background-color: rgba(20, 20, 20);">
 		<div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between" style="margin-right: 20px;
   margin-left: 20px; max-width: 13000px; ">
 
@@ -52,13 +52,11 @@
 
 								</ul>
 							</li>
-							<li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Новини</a></li>
 							<li class="nav-item"><a class="nav-link text-white" asp-area="AdminArea" asp-controller="Course" asp-action="All"> Kурсове</a></li>
 							<li class="nav-item"><a class="nav-link text-white" asp-area="AdminArea" asp-controller="User" asp-action="All"> Потребители</a></li>
 
 							<li class="nav-item"><a class="nav-link text-white" asp-area="AdminArea" asp-controller="Donation" asp-action="Categories" asp-route-category="All">Дарения</a></li>
-							<li class="nav-item"><a class="nav-link text-white" asp-area="AdminArea" asp-controller="Article" asp-action="Add">Новини</a></li>
-
+							<li class="nav-item"><a class="nav-link scrollto" asp-area="AdminArea" asp-controller="Blog" asp-action="All">Новини</a></li>
 
 
 
@@ -85,11 +83,11 @@
 
 	<!-- Main Content -->
 
-	<main role="main" class="pb-3" style="margin-top:10em;">
-		<div class="container-fluid px-0">
+	@* <main role="main" class="pb-3" style="margin-top:7em;">
+		<div class="container-fluid px-0"> *@
 			@RenderBody()
-		</div>
-	</main>
+		@* </div>
+	</main> *@
 
 
 

@@ -4,6 +4,7 @@ using InterestsAcademy.Core.Models.Article;
 using InterestsAcademy.Core.Models.Course;
 using InterestsAcademy.Core.Models.Donation;
 using InterestsAcademy.Core.Services;
+using InterestsAcademy.Extensions;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using static InterestsAcademy.Common.Notifications;
@@ -19,6 +20,36 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
         {
             this.articleService = articleService;
         }
+
+        [HttpPost]
+        [Route("Article/CreatePost")]
+        public async Task<IActionResult> CreatePost(string topic, string content, List<IFormFile> photos)
+        {
+            string userId = User.GetId();
+
+            
+
+            var model = new CreateArticleQueryModel()
+            {
+                Topic = topic,
+                Content = content,
+                CreatedOn = DateTime.Now,
+                CarouselPhotos = photos.ToList(),
+            };
+
+            await articleService.CreatePostAsync(model);
+
+            return new JsonResult(new { isCompany = true, model });
+        }
+
+
+
+
+
+
+
+
+
         [HttpGet]
         public async Task<IActionResult> DeleteArticle(string articleId)
         {
@@ -57,11 +88,11 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
         }
         public async Task<IActionResult> All()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                TempData[ErrorMessage] = "Трябва да се регистрирате, за да достъпите тази функция.";
-                return RedirectToAction("Index", "Home");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    TempData[ErrorMessage] = "Трябва да се регистрирате, за да достъпите тази функция.";
+            //    return RedirectToAction("Index", "Home");
+            //}
 
 
 
@@ -85,37 +116,37 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
         {
             return RedirectToAction("All");
         }
-        [HttpGet]
-        public async Task<IActionResult> Add()
-        {
-            if (!User.IsInRole("Admin"))
-            {
-                TempData[ErrorMessage] = "Трябва да сте администратор, за да добавите статия.";
-                return RedirectToAction("Index", "Home");
-            }
+//        [HttpGet]
+//        public async Task<IActionResult> Add()
+//        {
+//            if (!User.IsInRole("Admin"))
+//            {
+//                TempData[ErrorMessage] = "Трябва да сте администратор, за да добавите статия.";
+//                return RedirectToAction("Index", "Home");
+//            }
 
-            var model = new ArticleQueryViewModel();
-            return View(model);
-        }
+//            var model = new ArticleQueryViewModel();
+//            return View(model);
+//        }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(ArticleQueryViewModel model)
-        {
-           /* if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-*/
-            if (!User.IsInRole("Admin"))
-            {
-                TempData[ErrorMessage] = "Трябва да сте администратор, за да добавите статия.";
-                return RedirectToAction("Index", "Home");
-            }
+//        [HttpPost]
+//        public async Task<IActionResult> Add(ArticleQueryViewModel model)
+//        {
+//           /* if (!ModelState.IsValid)
+//            {
+//                return View(model);
+//            }
+//*/
+//            if (!User.IsInRole("Admin"))
+//            {
+//                TempData[ErrorMessage] = "Трябва да сте администратор, за да добавите статия.";
+//                return RedirectToAction("Index", "Home");
+//            }
 
-            await articleService.AddArticle(model);
-            TempData[SuccessMessage] = "Успешно добавихте статия.";
-            return RedirectToAction("All", "Article", new { Area = "AdminArea" });
-        }
+//            await articleService.AddArticle(model);
+//            TempData[SuccessMessage] = "Успешно добавихте статия.";
+//            return RedirectToAction("All", "Article", new { Area = "AdminArea" });
+//        }
 
     }
 }

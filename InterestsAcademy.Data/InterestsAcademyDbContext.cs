@@ -52,6 +52,7 @@ namespace InterestsAcademy.Data
         public DbSet<StudentCourse> StudentsCourses { get; set; }
         public DbSet<Request> Requests { get;set; }
         public DbSet<Article> Articles { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
