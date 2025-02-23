@@ -55,7 +55,7 @@ namespace InterestsAcademy.Controllers
             {
                 string studentId = await studentService.GetStudentId(User.GetId());
                 string requestStatus = await requestService.GetRequestStatusByStudentsIdAndCourseID(studentId, courseId);
-                TempData[ErrorMessage] = $"Ученикът вече е записан за този курс. Статус на заявката за записване: {statusBg[requestStatus]}.";
+                TempData[ErrorMessage] = $"Ученикът вече е подал заявка за този курс. Статус на заявката за записване: {statusBg[requestStatus]}.";
                 return RedirectToAction("All", "Course");
             }
 
