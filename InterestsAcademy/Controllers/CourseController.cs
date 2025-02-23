@@ -65,6 +65,16 @@ namespace InterestsAcademy.Controllers
                     .Where(c => c.Category==model.Category);
             }
 
+            model.Photos = new Dictionary<string, string>()
+            {
+                { "Biology", "https://res.cloudinary.com/ddtdhqc02/image/upload/v1740351597/projectImages/mxz5r4b2cfaonlarm7mm.png"},
+                { "Physics", "https://res.cloudinary.com/ddtdhqc02/image/upload/v1740351597/projectImages/pyulmbqlomqtnwujb0fv.png"},
+                { "Art", "https://res.cloudinary.com/ddtdhqc02/image/upload/v1740351597/projectImages/pdcclnuhtro2swfyasx8.png"},
+                { "It", "https://res.cloudinary.com/ddtdhqc02/image/upload/v1740351597/projectImages/u3hacs0eos16e5fvqldt.png"},
+                { "Sport", "https://res.cloudinary.com/ddtdhqc02/image/upload/v1740351597/projectImages/cwfmc5i3id4yrc0ofdbt.png"},
+                { "Other", "https://res.cloudinary.com/ddtdhqc02/image/upload/v1740351597/projectImages/lqcokwhl1cvzfvk7fzsn.png"}
+            };
+
             model.Categories = new List<string>()
             {
                "Biology",
@@ -82,8 +92,15 @@ namespace InterestsAcademy.Controllers
         public async Task<IActionResult> Add()
         {
             var model = new CourseQueryModel();
-
-            //  model.Rooms = await roomService.GetAllRooms();
+            model.Categories = new List<string>()
+            {
+               "Biology",
+               "Physics",
+               "Art",
+               "It",
+               "Sport",
+               "Other"
+            };
 
             return View(model);
         }
@@ -112,6 +129,15 @@ namespace InterestsAcademy.Controllers
 
             if (!ModelState.IsValid)
             {
+                model.Categories = new List<string>()
+            {
+               "Biology",
+               "Physics",
+               "Art",
+               "It",
+               "Sport",
+               "Other"
+            };
                 return View(model);
             }
 

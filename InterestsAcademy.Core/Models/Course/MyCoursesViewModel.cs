@@ -18,6 +18,7 @@ namespace InterestsAcademy.Core.Models.Course
 
         public string? SearchString { get; set; }
         public string? Category { get; set; }
+        public Dictionary<string, string> Photos { get; set; }
 
     }
 }

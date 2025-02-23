@@ -71,8 +71,12 @@
 			}
 			else
 			{
-				<a type="submit" class="btn" asp-action="Accept" asp-controller="Course" asp-route-courseId="@Model.Id">Одобри</a>
-				<a type="submit" asp-action="Reject" asp-controller="Course" asp-route-courseId="@Model.Id">Отхвърли</a>
+				<div style="display:flex;justify-content: space-evenly;
+    margin-top: 5px;">
+				<a class="badge p-2 team-status btn-approve accept-class" type="submit" class="btn" asp-action="Accept" asp-controller="Course" asp-route-courseId="@Model.Id">Приеми</a>
+				<a class="badge  p-2 team-status btn-reject decline-class" type="submit" asp-action="Reject" asp-controller="Course" asp-route-courseId="@Model.Id">Откажи</a>
+				</div>
+				
 			}
 		</div>
 	</div>

@@ -26,7 +26,14 @@ img {
     background: linear-gradient(to right, #FFFFFF, #ECE9E6);
 }
 
-
+.truncate-multi-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.5rem;
+}
 
 .card__body {
     padding: 1rem;

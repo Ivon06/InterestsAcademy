@@ -35,7 +35,8 @@ namespace InterestsAcademy.Core.Services
                 Description = model.Description,
                 TeacherId = model.TeacherId,
                 Duration = model.Duration,
-                IsApproved = false
+                IsApproved = false,
+                Category = model.Category,
             };
 
             await repo.AddAsync(course);
@@ -346,6 +347,13 @@ namespace InterestsAcademy.Core.Services
             return result;
 
 
+        }
+
+        public async Task MakeCourseActive(string courseId)
+        {
+            var course = await repo.GetByIdAsync<Course>(courseId);
+            course.IsActive = true;
+            await repo.SaveChangesAsync();
         }
     }
 }

@@ -34,6 +34,9 @@ namespace InterestsAcademy.Core.Models.Course
         [Required(ErrorMessage = RequiredErrorMessage)]
         public int StudyHours {  get; set; }
 
+        public string Category { get; set; } = null!;
+
+        public List<string> Categories { get; set; } = new List<string>();
         public ICollection<RoomViewModel> Rooms { get; set; } = new List<RoomViewModel>();
 
 

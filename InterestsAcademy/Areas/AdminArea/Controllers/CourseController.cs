@@ -118,6 +118,7 @@ namespace InterestsAcademy.Areas.AdminArea.Controllers
             }
 
             await courseService.SetRoomForCourse(roomId, courseId);
+            await courseService.MakeCourseActive(courseId);
 
             TempData[SuccessMessage] = "Успешно зададохте стая за курса.";
 
