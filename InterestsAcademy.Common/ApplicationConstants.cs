@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InterestsAcademy.Common
+{
+    public class ApplicationConstants
+    {
+        public const string OnlineUsersCookieName = "IsOnline";
+        public const int LastActivityBeforeOfflineMinutes = 10;
+        public const int MessageCountPerScroll = 10;
+    }
+}

@@ -4,6 +4,7 @@ using InterestsAcademy.Core.Hubs;
 using InterestsAcademy.Data;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Extensions;
+using InterestsAcademy.Middlewares;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -130,6 +131,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 
+app.UseMiddleware<OnlineUserMiddleware>();
 
 
 app.MapControllerRoute(
