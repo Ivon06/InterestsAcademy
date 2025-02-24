@@ -106,6 +106,23 @@ else
 app.UseCors("MyPolicy");
 app.UseCors();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error500");
+
+    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
+
+    //app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error500");
+
+    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
+}
+
+app.UseSession();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -114,17 +131,17 @@ app.UseRouting();
 app.UseAuthentication();
 
 
-app.UseAuthorization();
-
 
 app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-);
+                   name: "Areas",
+                   pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+               );
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();

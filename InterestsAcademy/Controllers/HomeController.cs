@@ -21,7 +21,12 @@ namespace InterestsAcademy.Controllers
 
         public IActionResult Index()
 		{
-			return View();
+            if (User.IsInRole("Admin"))
+                //check if works
+            {
+                return RedirectToAction("Index", "Home", new { Area = "AdminArea" });
+            }
+            return View();
 		}
         public IActionResult ProjectandConcept()
         {
@@ -67,7 +72,25 @@ namespace InterestsAcademy.Controllers
 			return View();
 		}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error404()
+        {
+            string errorMessage = TempData["ErrorMessage"]?.ToString() ?? "An unexpected error occurred.";
+
+            ViewData["ErrorMessage"] = errorMessage;
+
+            return View();
+        }
+
+        public IActionResult Error500()
+        {
+            string errorMessage = TempData["ErrorMessage"]?.ToString() ?? "An unexpected error occurred.";
+
+            ViewData["ErrorMessage"] = errorMessage;
+
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

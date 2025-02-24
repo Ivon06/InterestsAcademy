@@ -34,7 +34,7 @@ namespace InterestsAcademy.Core.Services
         {
             var result = await repo.GetByIdAsync<IdentityRole>(roleId);
 
-            return result.Name;
+            return result==null?"":result.Name;
                 
         }
 
@@ -45,7 +45,7 @@ namespace InterestsAcademy.Core.Services
 
             return result;
         }
-
+            
         public async Task<bool> IsExistByEmail(string email)
         {
             bool result = repo.GetAll<User>()
@@ -81,14 +81,14 @@ namespace InterestsAcademy.Core.Services
         public async Task<string> GetUserIdByTeacherId(string teacherId)
         {
             var result = await repo.GetByIdAsync<Teacher>(teacherId);
-            return result.UserId;
+            return result==null? "":result.UserId;
 
         }
 
         public async Task<string> GetUserIdByStudentId(string studentId)
         {
             var result = await repo.GetByIdAsync<Student>(studentId);
-            return result.UserId;
+            return result == null ? "" : result.UserId;
 
         }
 

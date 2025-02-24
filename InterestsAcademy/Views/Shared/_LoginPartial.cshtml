@@ -10,7 +10,7 @@
         <li style="list-style-type: none; align-content: center;">
             @if(!User.IsInRole("Admin"))
             {
-        <a asp-area="" asp-action="MyProfile" asp-controller="Profile" asp-route-userId="@User.GetId()" title="Manage">Зравей, @User.Identity?.Name!</a>
+                <a asp-area="" asp-action="MyProfile" asp-controller="Profile" asp-route-userId="@User.GetId()" title="Manage">Зравей, @User.Identity?.Name!</a>
             }
             else
             {

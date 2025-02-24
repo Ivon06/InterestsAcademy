@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace InterestAcademy.Tests.UnitTests
 {
@@ -21,6 +22,7 @@ namespace InterestAcademy.Tests.UnitTests
             SeedUsers(context);
             SeedRequests(context);
             SeedStudentCourses(context);
+            SeedRoles(context);
 
             context.SaveChanges();
         }
@@ -169,7 +171,8 @@ namespace InterestAcademy.Tests.UnitTests
                 RoomId = "e3b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3c",
                 Duration = "2 месеца",
                 IsApproved = true,
-                IsActive = true
+                IsActive = true,
+                Category = "It",
             };
 
             context.Courses.Add(course1);
@@ -197,6 +200,33 @@ namespace InterestAcademy.Tests.UnitTests
                 IsApproved = true
             };
             context.StudentsCourses.Add(studentCourse);
+        }
+
+        public static void SeedRoles(InterestsAcademyDbContext context)
+        {
+            var roles = new List<IdentityRole>()
+            {
+                new IdentityRole()
+                {
+                    Id = "78374b9b-5158-4aff-8626-d088a02d79e1",
+                    Name = "Teacher",
+                    NormalizedName = "TEACHER"
+
+                },
+                new IdentityRole()
+                {
+                    Id = "835c8458-e8b7-493f-9c13-67bfcd7316a3",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                 new IdentityRole()
+                {
+                    Id = "8duisjak-e8o7-8uu5-9c13-543e65731jh3" ,
+                    Name = "Student",
+                    NormalizedName = "STUDENT"
+                }
+            };
+            context.Roles.AddRange(roles);
         }
     }
 }

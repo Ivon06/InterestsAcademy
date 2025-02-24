@@ -164,14 +164,19 @@ namespace InterestsAcademy.Controllers
 
                 if (result.Succeeded)
                 {
-                    if (User.IsInRole("Admin"))
-                    {
-                        TempData[SuccessMessage] = "Успешно влизане";
-                        return RedirectToAction("Index", "Home", new { area = "AdminArea" });
-                    }
+                    //if (User.IsInRole("Admin"))
+                    //{
+                    //    TempData[SuccessMessage] = "Успешно влизане";
+                    //    return RedirectToAction("Index", "Home", new { area = "AdminArea" });
+                    //}
 
                     TempData[SuccessMessage] = "Успешно влизане";
                     return RedirectToAction("Index", "Home");
+
+                }
+                else if (!user.IsApproved)
+                {
+                    TempData[WarningMessage] = "Изчакайте одобрение от администратора";
 
                 }
             }
