@@ -23,6 +23,8 @@ namespace InterestAcademy.Tests.UnitTests
             SeedRequests(context);
             SeedStudentCourses(context);
             SeedRoles(context);
+            SeedMaterialBaseItem(context);
+            SeedGivenThings(context);
 
             context.SaveChanges();
         }
@@ -244,6 +246,52 @@ namespace InterestAcademy.Tests.UnitTests
             context.Roles.AddRange(roles);
         }
 
-        
+        public static void SeedMaterialBaseItem(InterestsAcademyDbContext context)
+        {
+            var materialBaseItem = new MaterialBaseItem()
+            {
+                Id = "s78a-lqj7-3b3b-983b-3b3b-3b3bsnb3b3b3b",
+                Name = "Телескоп",
+                NeededQuantity = 5,
+                Category = DonationCategoryEnum.Physics.ToString()
+            };
+
+            var materialBaseItem2 = new MaterialBaseItem()
+            {
+                Id = "kai9-qj7-3b3b-983b-3b3b-3b3bsnb3b3b3c",
+                Name = "Микроскоп",
+                NeededQuantity = 4,
+                Category = DonationCategoryEnum.Biology.ToString()
+            };
+            context.MaterialBaseItems.Add(materialBaseItem);
+            context.MaterialBaseItems.Add(materialBaseItem2);
+        }
+
+        public static void SeedGivenThings(InterestsAcademyDbContext context)
+        {
+            var givenThing = new GivenThing()
+            {
+                Id = "72j-a9jd0-3b3b-983b-3b3b-3b3bsnb3b3b3b",
+                MaterialBaseItemId = "s78a-lqj7-3b3b-983b-3b3b-3b3bsnb3b3b3b",
+                Quantity = 2,
+                GiverEmail = "email@abv.bg",
+                GiverName = "Иван Иванов",
+                Name= "Телескоп",
+                Category = DonationCategoryEnum.Physics.ToString()
+
+            };
+            var givenThing2 = new GivenThing()
+            {
+                Id = "ju8-7wy-is-b-3b3b-3b3bsnb3b3b3c",
+                MaterialBaseItemId = "kai9-qj7-3b3b-983b-3b3b-3b3bsnb3b3b3c",
+                Quantity = 1,
+                GiverEmail = "email@abv.bg",
+                GiverName = "Иван Иванов",
+                Name = "Микроскоп",
+                Category = DonationCategoryEnum.Biology.ToString()
+            };
+            context.GivenThings.Add(givenThing);
+            context.GivenThings.Add(givenThing2);
+        }
     }
 }
