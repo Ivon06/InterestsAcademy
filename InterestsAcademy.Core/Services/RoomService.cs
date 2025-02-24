@@ -44,14 +44,14 @@ namespace InterestsAcademy.Core.Services
         {
             var course = await repo.GetByIdAsync<Course>(courseId);
 
-            return course.RoomId;
+            return course==null?"":course.RoomId;
         }
 
-        public async Task<string>? GetRoomNameByIdAsync(string roomId)
+        public async Task<string> GetRoomNameByIdAsync(string roomId)
         {
             var name = await repo.GetByIdAsync<Room>(roomId);
 
-            return name.Name;
+            return name==null?"":name.Name;
         }
     }
 }

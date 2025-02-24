@@ -158,6 +158,7 @@ namespace InterestAcademy.Tests.UnitTests
             };
 
             context.Rooms.Add(room1);
+            context.Rooms.Add(room2);
         }
 
         public static void SeedCourses(InterestsAcademyDbContext context)
