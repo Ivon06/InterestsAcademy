@@ -176,7 +176,21 @@ namespace InterestAcademy.Tests.UnitTests
                 Category = "It",
             };
 
+            var course2 = new Course()
+            {
+                Id = "sjdiosi-9-3b3b-983b-3b3b-u7ws9nb3b3b3b",
+                Name = "Курс по кларинет",
+                Description = "Курс по кларинет за начинаещи",
+                TeacherId = "hugf73-3b3b-3b3b-3b3b-jb7ftyv",
+                RoomId = "gfcfgy-3b3b-hv77-3b3b-3b3b3b3b3b3b",
+                Duration = "2 месеца",
+                IsApproved = true,
+                IsActive = true,
+                Category = "Art",
+            };
+
             context.Courses.Add(course1);
+            context.Courses.Add(course2);
         }
 
         public static void SeedRequests(InterestsAcademyDbContext context)
@@ -229,5 +243,7 @@ namespace InterestAcademy.Tests.UnitTests
             };
             context.Roles.AddRange(roles);
         }
+
+        
     }
 }
