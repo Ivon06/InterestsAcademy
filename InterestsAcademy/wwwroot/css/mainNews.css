@@ -1,7 +1,7 @@
 ﻿.main-news {
     display: flex;
     max-height: 300px;
-    width: 70%;
+    
     justify-self: center;
     background: linear-gradient(to right, #FFFFFF, #ECE9E6);
     justify-content: space-between;
@@ -36,7 +36,8 @@ body {
 
     .main-news .read-more {
         display: inline-block;
-        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left:20px;
         color:black;
         text-decoration: none;
         font-weight: bold;

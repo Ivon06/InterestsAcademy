@@ -147,7 +147,7 @@ namespace InterestsAcademy.Controllers
 
             TempData[SuccessMessage] = "Успешно добавен курс. Изчакайте администратора да го одобри.";
 
-            return RedirectToAction("MyCources");
+            return RedirectToAction("MyCourses");
         }
 
         public async Task<IActionResult> All()

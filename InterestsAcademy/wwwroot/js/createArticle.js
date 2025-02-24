@@ -2,6 +2,8 @@
 const createForm = document.getElementById('post-form');
 const addButtonElement = document.getElementById('addMeeting');
 
+const filesArray = [];
+
 let filesContainer = document.getElementById('files-container');
 document.getElementById('files').addEventListener('input', function () {
     let files = Array.from(this.files);
@@ -10,6 +12,9 @@ document.getElementById('files').addEventListener('input', function () {
     } else {
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
+
+            filesArray.push(file);
+
             let div = document.createElement('div');
             div.classList.add('input-group-text');
             div.classList.add('pl-2');
@@ -50,8 +55,8 @@ addButtonElement.addEventListener('click', (e) => {
     let data = new FormData();
     data.append('topic', topic);
     data.append('content', content);
-    for (let i = 0; i < photos.length; i++) {
-        data.append('photos', photos[i]);
+    for (let i = 0; i < filesArray.length; i++) {
+        data.append('photos', filesArray[i]);
     }
 
 
@@ -67,8 +72,8 @@ addButtonElement.addEventListener('click', (e) => {
         },
         beforeSend: function () {
             document.getElementsByTagName('button')[7].click();
-            //document.getElementById('load').style.display = 'block';
-            //document.getElementById('posts').style.display = 'none';
+            document.getElementById('load').style.display = 'block';
+            document.getElementById('posts').style.display = 'none';
         },
         success: function (data) {
             if (!data.isCompany) {
@@ -78,8 +83,8 @@ addButtonElement.addEventListener('click', (e) => {
 
             }
 
-            //document.getElementById('load').style.display = 'none';
-            //document.getElementById('posts').style.display = 'flex';
+            document.getElementById('load').style.display = 'none';
+            document.getElementById('posts').style.display = 'flex';
 
             window.location = url.origin + '/AdminArea/Blog/All'
 

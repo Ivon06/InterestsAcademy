@@ -59,16 +59,7 @@ function toUnicode(str) {
     return unicodeString;
 }
 
-//document.getElementById('check').addEventListener('change', function () {
-//    if (this.checked) {
-//        document.getElementById('address').style.display = "none";
-//        document.getElementById('address').firstElementChild.removeAttribute('required');
-//    }
-//    else {
-//        document.getElementById('address').style.display = "flex";
-//        document.getElementById('address').firstElementChild.setAttribute('required', 'required');
-//    }
-//});
+
 
 
 if (isTeacher2 == "False" && isCourse2 == "False") {
@@ -81,17 +72,7 @@ if (isTeacher2 == "False" && isCourse2 == "False") {
 
         let dataArr = [courseId, topic, start, end];
 
-        //if (isOnline == 'on') {
-        //    dataArr = [classId, lectorId, title, start, end, description]
-        //}
-        //else {
-        //    dataArr = [classId, lectorId, title, start, end, address, description]
-        //}
-
-
-        //let files = document.getElementById('files').files;
-
-        //let resultOnline = isOnline == 'on' ? true : false;
+        
 
         let data = new FormData();
         data.append('courseId', courseId);
@@ -99,9 +80,7 @@ if (isTeacher2 == "False" && isCourse2 == "False") {
         data.append('start', start);
         data.append('end', end);
 
-        //for (let i = 0; i < files.length; i++) {
-        //    data.append('files', files[i]);
-        //}
+       
 
 
         let validationSpans = document.getElementsByClassName('text-danger');
@@ -189,7 +168,7 @@ if (isTeacher2 == "False" && isCourse2 == "False") {
 
                                 }
 
-                                //window.location = `${url.origin}/Meeting/All?days=${days}`
+                               
                             }
 
 

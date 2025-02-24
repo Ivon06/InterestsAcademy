@@ -83,7 +83,7 @@
     display: flex;
     flex-direction: unset;
     width: calc(70% / 3 - 10px);
-    background: #4C9AA0;
+    background: #577F92;
     border-radius: 12px;
     padding: 30px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
@@ -93,7 +93,7 @@
 
     .main-card .cards .card:hover {
         transform: translateY(-15px);
-        background: #498D92;
+        background: #577F92;
     }
 
 .cards .card .content {
@@ -221,7 +221,7 @@ input[type="radio"] {
 .quotecard {
     width: 600px;
     height: 400px;
-    background: #4C9AA0;
+    background: #6d96aa;
     font-family: inherit;
     position: relative;
     border-radius: 8px;
@@ -238,9 +238,10 @@ input[type="radio"] {
 .quotebody-text {
     font-family: Gabriola,cursive;
     font-size: 45px;
-    font-weight: 900;
+   
     padding: 60px 40px 0;
-    color: #f8d210;
+    color: #ffee9b;
+    
     position: absolute;
     top: 20px;
     left: 1px;
@@ -307,12 +308,12 @@ input[type="radio"] {
     max-width: 1200px;
     margin: auto;
     padding: 20px;
-    background: rgba(76, 154, 160, 0.8); /* Slightly transparent background */
+    background: #577F92; /* Slightly transparent background */
     border-radius: 20px; /* Smooth edges */
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3); /* Soft shadow effect */
     backdrop-filter: blur(10px); /* Blurs the background */
     position: relative;
-    border: 2px  white;
+    border: 2px white;
     padding-top: 40px;
     margin-top: 50px;
 }
