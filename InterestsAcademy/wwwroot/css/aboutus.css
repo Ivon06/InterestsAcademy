@@ -1,0 +1,224 @@
+﻿/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fd;
+    color: #333;
+}
+
+.about-us {
+    padding: 40px 20px;
+    max-width: 1200px; /* Set max-width for the entire section */
+    margin: 0 auto; /* Center the container */
+}
+
+h1 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #577F92;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #577F92;
+    position: relative;
+    padding-left: 40px;
+}
+
+    h2::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #FF676D;
+        font-size: 32px;
+    }
+
+/* Content Container */
+.content-container {
+    display: flex;
+    gap: 30px; /* Space between columns */
+}
+
+/* Column for Mission and Vision */
+.column {
+    flex: 2; /* Takes 2/3 of the space */
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Space between Mission and Vision */
+}
+
+/* Values Section */
+.values {
+    flex: 1; /* Takes 1/3 of the space */
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .values:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .values ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .values ul li {
+            font-size: 16px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .values ul li:hover {
+                transform: translateX(10px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .values ul li strong {
+                color: #577F92;
+                font-weight: 600;
+            }
+
+/* Mission and Vision Sections */
+.mission, .vision {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .mission:hover, .vision:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .mission p, .vision p {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #555;
+    }
+
+/* Кои сме ние? Section */
+.who-are-we {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #ced4da, #e9ecef);
+    padding: 60px 20px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Center the section */
+    max-width: 1200px; /* Match the max-width of .about-us */
+    animation: fadeIn 1.5s ease-in-out; /* Animation on page load */
+}
+
+.who-are-we-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: auto;
+    gap: 50px;
+}
+
+.who-are-we-text {
+    flex: 1;
+    min-width: 350px;
+    text-align: left;
+}
+
+    .who-are-we-text h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .who-are-we-text p {
+        font-size: 18px;
+        line-height: 1.8;
+        color: #555;
+    }
+
+    .who-are-we-text ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .who-are-we-text ul li {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+            .who-are-we-text ul li:hover {
+                transform: translateX(10px); /* Hover effect */
+            }
+
+.who-are-we-image {
+    flex: 1;
+    text-align: center;
+    min-width: 350px;
+}
+
+    .who-are-we-image img {
+        max-width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .who-are-we-image img:hover {
+            transform: scale(1.05); /* Hover effect */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+/* Animation for the "Кои сме ние?" section */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .whoarewecontent-container {
+        flex-direction: column;
+    }
+
+    .column {
+        gap: 20px;
+    }
+
+    .values {
+        margin-top: 20px;
+    }
+
+    .who-are-we-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .who-are-we-text, .who-are-we-image {
+        text-align: center;
+    }
+}

@@ -27,6 +27,14 @@ namespace InterestsAcademy.Controllers
         {
             return View();
         }
+        public IActionResult Team()
+        {
+            return View();
+        }
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
         [HttpGet]
         public IActionResult Contact()
         {

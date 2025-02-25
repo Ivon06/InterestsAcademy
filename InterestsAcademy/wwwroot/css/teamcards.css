@@ -268,6 +268,11 @@ input[type="radio"] {
     transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
     margin-left:30px;
 }
+.director-name {
+    margin-top: 20px; /* Space between the title and h1 */
+    font-size: 2.5rem; /* You can adjust the size as needed */
+    font-weight: bold;
+}
 
     .directorcard img {
         width: 350px;
@@ -325,7 +330,7 @@ input[type="radio"] {
     background: rgba(76, 154, 160, 0.8); /* Match container background */
     padding: 5px 15px;
     color: white;
-    font-size: 27px;
+    font-size: 25px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -464,4 +469,59 @@ input[type="radio"] {
     max-width: 120px;
     text-align: center;
 }
+
+/* Center the button container */
+.morebutton-container {
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    margin-top: 20px; /* Add some space above the button */
+}
+
+/* Style for the morebutton */
+.morebutton {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between text and icon */
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 2px solid #ffc107; /* Yellow border */
+    border-radius: 25px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .morebutton:hover {
+        background-color: #ffc107; /* Yellow background on hover */
+        color: white; /* Black text on hover */
+    }
+
+    .morebutton a {
+        color: inherit; /* Inherit color from button */
+        text-decoration: none;
+
+    }
+        .morebutton a:hover {
+            color: white; /* Black text on hover */
+        }
+
+.moreicon {
+    width: 20px;
+    height: 20px;
+}
+.morebutton:hover::before {
+    animation: shine 1.5s ease-out infinite;
+}
+
+.morebutton::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    background-image: linear-gradient( 120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70% );
+    top: 0;
+    left: -100px;
+    opacity: 0.6;
+}
+
 
