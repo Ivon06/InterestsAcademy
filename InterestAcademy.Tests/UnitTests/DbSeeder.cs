@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace InterestAcademy.Tests.UnitTests
 {
@@ -21,6 +22,9 @@ namespace InterestAcademy.Tests.UnitTests
             SeedUsers(context);
             SeedRequests(context);
             SeedStudentCourses(context);
+            SeedRoles(context);
+            SeedMaterialBaseItem(context);
+            SeedGivenThings(context);
 
             context.SaveChanges();
         }
@@ -156,6 +160,7 @@ namespace InterestAcademy.Tests.UnitTests
             };
 
             context.Rooms.Add(room1);
+            context.Rooms.Add(room2);
         }
 
         public static void SeedCourses(InterestsAcademyDbContext context)
@@ -169,10 +174,25 @@ namespace InterestAcademy.Tests.UnitTests
                 RoomId = "e3b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3c",
                 Duration = "2 месеца",
                 IsApproved = true,
-                IsActive = true
+                IsActive = true,
+                Category = "It",
+            };
+
+            var course2 = new Course()
+            {
+                Id = "sjdiosi-9-3b3b-983b-3b3b-u7ws9nb3b3b3b",
+                Name = "Курс по кларинет",
+                Description = "Курс по кларинет за начинаещи",
+                TeacherId = "hugf73-3b3b-3b3b-3b3b-jb7ftyv",
+                RoomId = "gfcfgy-3b3b-hv77-3b3b-3b3b3b3b3b3b",
+                Duration = "2 месеца",
+                IsApproved = true,
+                IsActive = true,
+                Category = "Art",
             };
 
             context.Courses.Add(course1);
+            context.Courses.Add(course2);
         }
 
         public static void SeedRequests(InterestsAcademyDbContext context)
@@ -197,6 +217,81 @@ namespace InterestAcademy.Tests.UnitTests
                 IsApproved = true
             };
             context.StudentsCourses.Add(studentCourse);
+        }
+
+        public static void SeedRoles(InterestsAcademyDbContext context)
+        {
+            var roles = new List<IdentityRole>()
+            {
+                new IdentityRole()
+                {
+                    Id = "78374b9b-5158-4aff-8626-d088a02d79e1",
+                    Name = "Teacher",
+                    NormalizedName = "TEACHER"
+
+                },
+                new IdentityRole()
+                {
+                    Id = "835c8458-e8b7-493f-9c13-67bfcd7316a3",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                 new IdentityRole()
+                {
+                    Id = "8duisjak-e8o7-8uu5-9c13-543e65731jh3" ,
+                    Name = "Student",
+                    NormalizedName = "STUDENT"
+                }
+            };
+            context.Roles.AddRange(roles);
+        }
+
+        public static void SeedMaterialBaseItem(InterestsAcademyDbContext context)
+        {
+            var materialBaseItem = new MaterialBaseItem()
+            {
+                Id = "s78a-lqj7-3b3b-983b-3b3b-3b3bsnb3b3b3b",
+                Name = "Телескоп",
+                NeededQuantity = 5,
+                Category = DonationCategoryEnum.Physics.ToString()
+            };
+
+            var materialBaseItem2 = new MaterialBaseItem()
+            {
+                Id = "kai9-qj7-3b3b-983b-3b3b-3b3bsnb3b3b3c",
+                Name = "Микроскоп",
+                NeededQuantity = 4,
+                Category = DonationCategoryEnum.Biology.ToString()
+            };
+            context.MaterialBaseItems.Add(materialBaseItem);
+            context.MaterialBaseItems.Add(materialBaseItem2);
+        }
+
+        public static void SeedGivenThings(InterestsAcademyDbContext context)
+        {
+            var givenThing = new GivenThing()
+            {
+                Id = "72j-a9jd0-3b3b-983b-3b3b-3b3bsnb3b3b3b",
+                MaterialBaseItemId = "s78a-lqj7-3b3b-983b-3b3b-3b3bsnb3b3b3b",
+                Quantity = 2,
+                GiverEmail = "email@abv.bg",
+                GiverName = "Иван Иванов",
+                Name= "Телескоп",
+                Category = DonationCategoryEnum.Physics.ToString()
+
+            };
+            var givenThing2 = new GivenThing()
+            {
+                Id = "ju8-7wy-is-b-3b3b-3b3bsnb3b3b3c",
+                MaterialBaseItemId = "kai9-qj7-3b3b-983b-3b3b-3b3bsnb3b3b3c",
+                Quantity = 1,
+                GiverEmail = "email@abv.bg",
+                GiverName = "Иван Иванов",
+                Name = "Микроскоп",
+                Category = DonationCategoryEnum.Biology.ToString()
+            };
+            context.GivenThings.Add(givenThing);
+            context.GivenThings.Add(givenThing2);
         }
     }
 }

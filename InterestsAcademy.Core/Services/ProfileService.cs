@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace InterestsAcademy.Core.Services
 {
@@ -24,6 +25,11 @@ namespace InterestsAcademy.Core.Services
         public async Task<ProfileViewModel> GetUserProfileAsync(string userId)
         {
             var user = await repo.GetByIdAsync<User>(userId);
+
+            if (user == null)
+            {
+                return null;
+            }
 
             var model = new ProfileViewModel()
             {
@@ -46,6 +52,11 @@ namespace InterestsAcademy.Core.Services
         public async Task<EditProfileViewModel> GetProfileForEditAsync(string userId)
         {
             var profile = await repo.GetByIdAsync<User>(userId);
+
+            if(profile == null)
+            {
+                return null;
+            }
 
             var model = new EditProfileViewModel()
             {

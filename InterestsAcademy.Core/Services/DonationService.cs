@@ -85,6 +85,11 @@ namespace InterestsAcademy.Core.Services
         {
             var item = await repo.GetByIdAsync<MaterialBaseItem>(id);
 
+            if(item == null)
+            {
+                return null;
+            }
+
             CreateDonationViewModel model = new CreateDonationViewModel()
             {
                 Id = item.Id,

@@ -30,21 +30,21 @@ else
 {
 	
 	var first = Model.Posts.FirstOrDefault();
-
-	<a asp-action="PostDetails" asp-route-postId="@first.Id" asp-controller="Blog">
-
-		<div class="main-news">
-			<div class="text">
+	<div>
+		
+		<div class="main-news" style="    width: 70%;     margin-top: 5em;">
+			
+			<div class="text" style="margin-left:3em;">
 				<span class="date">@first.PublishedOn</span>
 				<h1>@first.Name</h1>
 				<p>@first.Description</p>
-				<a href="#" class="read-more">Научи повече →</a>
+				<a asp-action="PostDetails" asp-route-postId="@first.Id" asp-controller="Blog" class="read-more">Научи повече →</a>
 			</div>
 			<div class="image">
 				<img src="@first.HeadImageUrl" alt="Илюстрация">
 			</div>
 		</div>
-	</a>
+	</div>
 
 
 

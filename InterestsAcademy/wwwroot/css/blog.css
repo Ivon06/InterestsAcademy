@@ -51,7 +51,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .page-heading {
-    padding: 120px 0px;
+    padding: 200px 0px 20px 0px;
     text-align: left;
     background-position: center center;
     background-repeat: no-repeat;
@@ -159,9 +159,10 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-    .blog-posts .blog-post {
-        margin-bottom: 30px;
-    }
+.blog-posts .blog-post {
+    margin-bottom: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
 
     .blog-posts .blog-thumb img {
         width: 100%;
