@@ -29,7 +29,6 @@ h2 {
 }
 
     h2::before {
-        content: "•";
         position: absolute;
         left: 0;
         color: #FF676D;

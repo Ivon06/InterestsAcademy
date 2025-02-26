@@ -72,8 +72,8 @@ addButtonElement.addEventListener('click', (e) => {
         },
         beforeSend: function () {
             document.getElementsByTagName('button')[7].click();
-            document.getElementById('load').style.display = 'block';
-            document.getElementById('posts').style.display = 'none';
+            //document.getElementById('load').style.display = 'block';
+            //document.getElementById('posts').style.display = 'none';
         },
         success: function (data) {
             if (!data.isCompany) {
@@ -83,8 +83,8 @@ addButtonElement.addEventListener('click', (e) => {
 
             }
 
-            document.getElementById('load').style.display = 'none';
-            document.getElementById('posts').style.display = 'flex';
+            //document.getElementById('load').style.display = 'none';
+            //document.getElementById('posts').style.display = 'flex';
 
             window.location = url.origin + '/AdminArea/Blog/All'
 

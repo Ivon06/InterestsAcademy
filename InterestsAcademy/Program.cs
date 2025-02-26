@@ -107,20 +107,20 @@ else
 app.UseCors("MyPolicy");
 app.UseCors();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error500");
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Home/Error500");
 
-    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
+//    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
 
-    //app.UseDeveloperExceptionPage();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error500");
+//    //app.UseDeveloperExceptionPage();
+//}
+//else
+//{
+//    app.UseExceptionHandler("/Home/Error500");
 
-    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
-}
+//    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
+//}
 
 app.UseSession();
 

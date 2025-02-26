@@ -470,58 +470,96 @@ input[type="radio"] {
     text-align: center;
 }
 
-/* Center the button container */
-.morebutton-container {
-    display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
-    margin-top: 20px; /* Add some space above the button */
-}
 
-/* Style for the morebutton */
-.morebutton {
+/* Statistics Section */
+.statistics {
+    background: linear-gradient(135deg, #ced4da, #7f878f);
+    padding: 30px 20px 60px; /* Increased top padding */
+    text-align: center;
+    color: white;
+    border-radius: 20px;
+    margin: 40px auto;
+    max-width: 1200px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    gap: 8px; /* Space between text and icon */
-    padding: 10px 20px;
-    background-color: transparent;
-    border: 2px solid #ffc107; /* Yellow border */
-    border-radius: 25px; /* Rounded corners */
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    justify-content: center;
+    flex-direction: column;
+    gap: 40px; /* Space between image and stats */
 }
 
-    .morebutton:hover {
-        background-color: #ffc107; /* Yellow background on hover */
-        color: white; /* Black text on hover */
+    .statistics h2 {
+        font-size: 40px; /* Larger title */
+        margin-bottom: 40px;
+        color: #495057;
+        text-align: center;
+        width: 100%;
     }
 
-    .morebutton a {
-        color: inherit; /* Inherit color from button */
-        text-decoration: none;
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    margin-left:50px;
+}
 
+.stat {
+    flex: 1;
+    min-width: 200px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .stat:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
-        .morebutton a:hover {
-            color: white; /* Black text on hover */
-        }
 
-.moreicon {
-    width: 20px;
-    height: 20px;
-}
-.morebutton:hover::before {
-    animation: shine 1.5s ease-out infinite;
+.stat-number {
+    font-size: 48px;
+    font-weight: bold;
+    color: #FFC107;
+    margin-bottom: 10px;
 }
 
-.morebutton::before {
-    content: "";
-    position: absolute;
-    width: 100px;
-    height: 100%;
-    background-image: linear-gradient( 120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70% );
-    top: 0;
-    left: -100px;
-    opacity: 0.6;
+.stat-label {
+    font-size: 18px;
+    color: #3c4249;
 }
+
+/* Add Image Styling */
+.stat-image {
+    max-width: 590px; /* Larger image */
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .statistics {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stat-image {
+        max-width: 300px; /* Slightly smaller for mobile */
+        margin-bottom: 20px;
+    }
+
+    .stats-container {
+        flex-direction: column;
+    }
+
+    .stat {
+        margin-bottom: 20px;
+    }
+}
+
 
 
