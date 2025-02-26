@@ -53,6 +53,11 @@ namespace InterestsAcademy.Data
         public DbSet<Request> Requests { get;set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<ChatImage> ChatImages { get; set; } 
+        public DbSet<ChatMessage> ChatMessages { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; } 
+
+        public DbSet<Group> Groups { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -62,10 +67,30 @@ namespace InterestsAcademy.Data
                .Property(u => u.BirthDate)
                .HasColumnType("DATE");
 
+            builder.Entity<UserGroup>()
+               .HasKey(ug => new { ug.GroupId, ug.UserId });
+
             builder.Entity<User>()
                 .HasMany(a => a.Articles)
                 .WithOne(a => a.User)
                 .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<User>()
+                .HasMany(u => u.UserGroups)
+                .WithOne(u => u.User)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Group>()
+                .HasMany(c => c.ChatMessages)
+                .WithOne(c => c.Group)
+                .HasForeignKey(c => c.GroupId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+            builder.Entity<Group>()
+                .HasMany(g => g.UsersGroups)
+                .WithOne(ug => ug.Group)
                 .OnDelete(DeleteBehavior.NoAction);
 
 

@@ -1,0 +1,570 @@
+﻿using CloudinaryDotNet;
+using InterestsAcademy.Core.Contracts;
+using InterestsAcademy.Core.Hubs;
+using InterestsAcademy.Core.Models.PrivateChat;
+using InterestsAcademy.Data.Models;
+using InterestsAcademy.Data.Repository.Contracts;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
+using static InterestsAcademy.Common.ApplicationConstants;
+using Ganss.Xss;
+
+namespace InterestsAcademy.Core.Services
+{
+    public class PrivateChatService : IPrivateChatService
+    {
+        private Dictionary<string, string> iconsFiles = new Dictionary<string, string>()
+        {
+            {".PDF", "bi bi-file-pdf-fill"},
+            {".PNG", "bi bi-file-earmark-image"},
+            {".JPG", "bi bi-file-earmark-image"},
+            {".JPEG", "bi bi-file-earmark-image"},
+            {".ZIP", "bi bi-file-zip"},
+            {".RAR", "bi bi-file-zip"},
+            {".DOCX", "bi bi-file-earmark-fill"},
+            {".DOC", "bi bi-file-earmark-fill"},
+            {".PPT", "bi bi-filetype-ppt"},
+            {".TXT", "bi bi-file-text"},
+            {".TEXT", "bi bi-file-text"},
+            {".XLS", "bi bi-file-earmark-minus-fill"},
+            {".XLSX", "bi bi-file-earmark-minus-fill"},
+        };
+
+
+        private readonly IRepository repo;
+        private readonly IHubContext<PrivateChatHub> hubContext;
+        private readonly Cloudinary cloudinary;
+        private readonly IImageService imageService;
+       // private readonly IDocumentService documentService;
+
+        public PrivateChatService(IRepository repo, IHubContext<PrivateChatHub> hubContext, Cloudinary cloudinary, IImageService imageService/*IDocumentService documentService*/)
+        {
+            this.repo = repo;
+            this.hubContext = hubContext;
+            this.cloudinary = cloudinary;
+            this.imageService = imageService;
+            //this.documentService = documentService;
+
+        }
+
+        //i am student and get all studemts to chat
+        public async Task<List<UsersToChatViewModel>> GetUsersToChatAsync(List<string> coursesIds, string currentUserId)
+        {
+            var currentUser = await repo.GetAll<User>()
+                .Include(u => u.ChatMessages)
+                .FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+            Func<string, List<ChatMessage>> predicate = (username) => currentUser!.ChatMessages.Where(m =>
+                m.UserId == currentUserId && m.ReceiverUsername == username).ToList();
+
+
+            var users = new List<UsersToChatViewModel>();
+
+
+            foreach (var courseId in coursesIds)
+            {
+                var add =  repo.GetAll<StudentCourse>()
+                   .Include(s => s.Student.User)
+                   .Include(s => s.Student.User.ChatMessages)
+                   .AsEnumerable()
+                   .Where(s => s.CourseId == courseId && s.Student.User.IsActive && s.Student.UserId != currentUserId)
+                   .Select(s => new UsersToChatViewModel()
+                   {
+                       UserId = s.Student.UserId,
+                       Name = s.Student.User.UserName,
+                       ProfilePicture = s.Student.User.ProfilePictureUrl,
+                       LastMessageToUser = s.Student.User.ChatMessages
+                           .Where(c => c.UserId == s.Student.UserId && c.ReceiverUsername == currentUser!.UserName)
+                           .Union(predicate(s.Student.User.UserName))
+                           .OrderBy(m => m.SendedOn)
+                           .LastOrDefault()
+
+
+                   })
+                   .ToList();
+
+                users.AddRange(add);
+            }
+
+            return users;
+
+
+        }
+
+        //i am student and get all teachers to chat
+        public async Task<List<UsersToChatViewModel>> GetTeacherUsersToChatAsync(List<string> coursesIds, string currentUserId)
+        {
+            var currentUser = await repo.GetAll<User>()
+               .Include(u => u.ChatMessages)
+               .FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+            Func<string, List<ChatMessage>> predicate = (username) => currentUser!.ChatMessages.Where(m =>
+                m.UserId == currentUserId && m.ReceiverUsername == username).ToList();
+
+
+            var users = new List<UsersToChatViewModel>();
+
+
+            foreach (var courseId in coursesIds)
+            {
+                var add = repo.GetAll<Course>()
+                   .Include(s => s.Teacher.User)
+                   .Include(s => s.Teacher.User.ChatMessages)
+                   .AsEnumerable()
+                   .Where(s => s.Id == courseId && s.Teacher.User.IsActive)
+                   .Select(s => new UsersToChatViewModel()
+                   {
+                       UserId = s.Teacher.UserId,
+                       Name = s.Teacher.User.UserName,
+                       ProfilePicture = s.Teacher.User.ProfilePictureUrl,
+                       LastMessageToUser = s.Teacher.User.ChatMessages
+                           .Where(c => c.UserId == s.Teacher.UserId && c.ReceiverUsername == currentUser!.UserName)
+                           .Union(predicate(s.Teacher.User.UserName))
+                           .OrderBy(m => m.SendedOn)
+                           .LastOrDefault()
+
+
+                   })
+                   .ToList();
+
+                users.AddRange(add);
+            }
+
+            return users;
+
+
+        }
+
+        //i am teacher and get all students to chat
+        //public async Task<List<UsersToChatViewModel>> GetStudentsUsersToChatAsync(List<string> coursesIds, string currentUserId)
+        //{ 
+
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public async Task<List<UsersToChatViewModel>> GetAllTeachersToChatAsync(string currentUserId)
+        //{
+        //    var currentUser = await repo.GetAll<User>()
+        //        .Include(u => u.ChatMessages)
+        //        .FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+        //    Func<string, List<ChatMessage>> predicate = (username) => currentUser!.ChatMessages.Where(m =>
+        //        m.UserId == currentUserId && m.ReceiverUsername == username).ToList();
+
+        //    var companies = repo.GetAll<Teacher>()
+        //       .Include(t => t.User)
+        //       .Include(t => t.User.ChatMessages)
+        //       .Where(c => c.User.IsActive)
+        //       .AsEnumerable()
+        //       .Select(t => new UsersToChatViewModel()
+        //       {
+        //           UserId = t.UserId,
+        //           Name = t.User.UserName,
+        //           ProfilePicture = t.User.ProfilePictureUrl,
+        //           LastMessageToUser = t.User.ChatMessages
+        //               .Where(c => c.UserId == t.UserId && c.ReceiverUsername == currentUser!.UserName)
+        //               .Union(predicate(t.User.UserName))
+        //               .OrderBy(m => m.SendedOn)
+        //               .LastOrDefault()
+
+        //       })
+        //       .ToList();
+
+
+        //    return companies;
+
+        //}
+
+
+        //public async Task<UsersToChatViewModel> GetTeacherToChatAsync(string classId, string currentUserId)
+        //{
+
+        //    var currentUser = await repo.GetAll<User>()
+        //        .Include(u => u.ChatMessages)
+        //        .FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+        //    Func<string, List<ChatMessage>> predicate = (username) => currentUser!.ChatMessages.Where(m =>
+        //        m.UserId == currentUserId && m.ReceiverUsername == username).ToList();
+
+        //    var teacher = repo.GetAll<Teacher>()
+        //        .Include(t => t.User)
+        //        .Include(t => t.Groups)
+        //        .Include(t => t.Class!.Students)
+        //        .Where(t => (t.Groups.Select(g => g.Id).Contains(classId) && t.User.IsActive) || t.Class.Students.Select(s => s.UserId).Contains(currentUserId))
+        //        .Include(t => t.User.ChatMessages)
+        //        .AsEnumerable()
+        //        .Select(t => new UsersToChatViewModel()
+        //        {
+        //            UserId = t.UserId,
+        //            Name = t.User.UserName,
+        //            ProfilePicture = t.User.ProfilePictureUrl,
+        //            LastMessageToUser = t.User.ChatMessages.Where(c => c.UserId == t.UserId && c.ReceiverUsername == currentUser!.UserName)
+        //                .Union(predicate(t.User.UserName))
+        //                .OrderBy(m => m.SendedOn).LastOrDefault()
+
+
+        //        })
+        //        .FirstOrDefault();
+
+        //    return teacher!;
+
+        //}
+
+        //public async Task<UsersToChatViewModel> GetCompanyToChatAsync(string companyInternsId, string currentUserId)
+        //{
+        //    var currentUser = await repo.GetAll<User>()
+        //        .Include(c => c.ChatMessages)
+        //        .FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+        //    Func<string, List<ChatMessage>> predicate = (username) => currentUser!.ChatMessages.Where(m =>
+        //        m.UserId == currentUserId && m.ReceiverUsername == username).ToList();
+
+
+        //    var company = repo.GetAll<Company>()
+        //        .Include(t => t.User)
+        //        .Where(t => t.CompanyInterns.Any(c => c.Id == companyInternsId) && t.User.IsActive)
+        //        .Include(t => t.User.ChatMessages)
+        //        .AsEnumerable()
+        //        .Select(t => new UsersToChatViewModel()
+        //        {
+        //            UserId = t.UserId,
+        //            Name = t.User.UserName,
+        //            ProfilePicture = t.User.ProfilePictureUrl,
+        //            LastMessageToUser = t.User.ChatMessages
+        //                .Where(c => c.UserId == t.UserId && c.ReceiverUsername == currentUser!.UserName)
+        //                .Union(predicate(t.User.UserName))
+        //                .OrderBy(m => m.SendedOn)
+        //                .LastOrDefault()
+
+        //        })
+        //        .FirstOrDefault();
+
+        //    return company!;
+        //}
+
+        public async Task<ICollection<ChatMessage>> ExtractAllMessagesAsync(string groupName)
+        {
+            var targetGroup = await repo.GetAll<Group>()
+                .FirstOrDefaultAsync(g => g.Name == groupName);
+
+            if (targetGroup != null)
+            {
+                var messages = await repo.GetAll<ChatMessage>()
+                    .Where(ch => ch.GroupId == targetGroup.Id)
+                    .Include(m => m.User)
+                    .OrderByDescending(ch => ch.SendedOn)
+                    .Take(MessageCountPerScroll)
+                    .OrderBy(m => m.SendedOn)
+                    .ToListAsync();
+
+
+                return messages;
+            }
+
+            return new List<ChatMessage>();
+        }
+
+        public async Task<ICollection<LoadMoreMessagesViewModel>> LoadMoreMessagesAsync(string group, int messagesSkipCount, User user)
+        {
+
+            var targetGroup = await repo.GetAll<Group>()
+                .FirstOrDefaultAsync(g => g.Name.ToLower() == group.ToLower());
+
+            if (targetGroup != null)
+            {
+                var messages = await repo.GetAll<ChatMessage>()
+                    .Where(c => c.GroupId == targetGroup.Id)
+                    .OrderByDescending(m => m.SendedOn)
+                    .Skip(messagesSkipCount)
+                    .Take(MessageCountPerScroll)
+                    .Include(m => m.User)
+                    .Select(m => new LoadMoreMessagesViewModel()
+                    {
+                        Id = m.Id,
+                        Content = m.Content,
+                        CurrentUsername = user.UserName,
+                        FromImageUrl = m.User.ProfilePictureUrl == null ? "/img/blank-profile-picture.png" : m.User.ProfilePictureUrl,
+                        FromUsername = m.User.UserName,
+                        SendedOn = m.SendedOn.ToLocalTime().ToString("dd/mm/yyyy hh:mm")
+                    })
+                    .ToListAsync();
+
+                return messages;
+            }
+
+            return new List<LoadMoreMessagesViewModel>();
+        }
+
+        public async Task SendMessageToUser(string fromUsername, string toUsername, string message, string group)
+        {
+            var toUser = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(u => u.UserName.ToLower() == toUsername.ToLower() && u.IsActive);
+
+            var fromUser = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(u => u.UserName.ToLower() == fromUsername.ToLower() && u.IsActive);
+
+            var targetGroup = await repo.GetAll<Group>()
+                .FirstOrDefaultAsync(g => g.Name.ToLower() == group.ToLower());
+
+
+            var newMessage = new ChatMessage()
+            {
+                User = fromUser!,
+                Group = targetGroup!,
+                SendedOn = DateTime.Now,
+                Content = new HtmlSanitizer().Sanitize(message.Trim()),
+                ReceiverImageUrl = toUser!.ProfilePictureUrl == null ? "/img/blank-profile-picture.png" : toUser.ProfilePictureUrl,
+                ReceiverUsername = toUser.UserName,
+
+            };
+
+            await repo.AddAsync(newMessage);
+            await repo.SaveChangesAsync();
+
+            await hubContext.Clients.User(toUser.Id).SendAsync("ReceiveMessage", fromUsername,
+                fromUser!.ProfilePictureUrl, new HtmlSanitizer().Sanitize(message.Trim()));
+
+
+        }
+
+        public async Task ReceiveNewMessage(string fromUsername, string message, string group)
+        {
+            var fromUser = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(u => u.UserName.ToLower() == fromUsername.ToLower());
+            string fromId = fromUser!.Id;
+            string fromUserImage = fromUser!.ProfilePictureUrl == null ? "/img/blank-profile-picture.png" : fromUser.ProfilePictureUrl;
+
+            await hubContext.Clients.User(fromId).SendAsync("SendMessage", fromUser.Id, fromUsername, fromUserImage, message.Trim());
+        }
+
+        public async Task<bool> SendMessageWitFilesToUser(IList<IFormFile> files, string group, string toUsername, string fromUsername, string message)
+        {
+
+            var toUser = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(u => u.UserName == toUsername && u.IsActive);
+            var toUserId = toUser!.Id;
+
+            var fromUser = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(u => u.UserName == fromUsername && u.IsActive);
+            var fromUserId = fromUser!.Id;
+
+            var targetGroup = await repo.GetAll<Group>()
+                .FirstOrDefaultAsync(g => g.Name.ToUpper() == group.ToUpper());
+
+            var chatMessage = new ChatMessage()
+            {
+                User = fromUser,
+                Group = targetGroup!,
+                SendedOn = DateTime.Now,
+                ReceiverUsername = toUsername,
+                ReceiverImageUrl = toUser.ProfilePictureUrl == null ? "/img/blank-profile-picture.png" : toUser.ProfilePictureUrl
+            };
+
+            bool result = files.Count > 0;
+
+            StringBuilder messageContent = new StringBuilder();
+
+            if (message != null)
+            {
+                messageContent.AppendLine($"{new HtmlSanitizer().Sanitize(message.Trim())}<hr style=\"margin-bottom: 8px !important;\" />");
+            }
+
+            StringBuilder imagesContent = new StringBuilder();
+            StringBuilder filesContent = new StringBuilder();
+
+            List<ChatImage> chatImages = new();
+
+            foreach (var file in files)
+            {
+                var chatFile = new ChatImage()
+                {
+                    ChatMessageId = chatMessage.Id,
+                    GroupId = targetGroup!.Id,
+
+                };
+
+                string? fileUrl = null;
+
+                if (file.ContentType.Contains("image", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    fileUrl = await imageService.UploadImageAsync(file, "projectImages", file.Name);
+
+                    chatFile.Name = file.FileName;
+
+                    imagesContent.AppendLine($"<span><img src=\"{fileUrl}\" style=\"margin-right: 10px; width: 90%; height: 90%; margin-top: 5px;\"></span>");
+
+                }
+                else
+                {
+                    var fileExtension = Path.GetExtension(file.FileName);
+
+                    // fileUrl = await documentService.UploadDocumentAsync(file, "projectDocuments");
+                    chatFile.Name = file.FileName;
+
+                    filesContent.AppendLine($"<a target=\"_blank\" href=\"{fileUrl}\">\r\n<div class=\"input-group-text pl-2 pr-2\" style=\"margin-left: 10px;\">\r\n<div style=\"display: flex; flex-direction: row;\">\r\n<i class=\"{iconsFiles[fileExtension.ToUpper()]}\" style=\"margin-right: 0.5rem;\"></i>\r\n<div class=\"pl-1 pt-1 text-dark\" style=\"font-size: small;\">{file.FileName}</div>\r\n\r\n</div>\r\n\r\n</div>\r\n\r\n</a>");
+
+
+
+                }
+                chatFile.ImageUrl = fileUrl;
+                chatImages.Add(chatFile);
+                chatMessage.Images.Add(chatFile);
+
+            }
+
+
+
+
+            if (imagesContent.Length == 0)
+            {
+                messageContent.AppendLine(filesContent.ToString().Trim());
+            }
+            else
+            {
+                messageContent.AppendLine(imagesContent.ToString().Trim());
+
+                if (filesContent.Length != 0)
+                {
+                    messageContent.AppendLine("<hr style=\"margin-bottom: 8px !important;\" />");
+                    messageContent.AppendLine(filesContent.ToString().Trim());
+                }
+            }
+
+            chatMessage.Content = messageContent.ToString().Trim();  /*new HtmlSanitizer().Sanitize(messageContent.ToString().Trim());*/
+
+            await hubContext.Clients.User(toUserId).SendAsync("ReceiveMessage", fromUser.UserName,
+                fromUser.ProfilePictureUrl, messageContent.ToString().Trim());
+
+            await this.ReceiveNewMessage(fromUser.UserName, messageContent.ToString().Trim(), group);
+
+            await repo.AddAsync(chatMessage);
+            await repo.AddRangeAsync(chatImages);
+
+            await repo.SaveChangesAsync();
+
+            return result;
+
+        }
+
+        public async Task<bool> IsAbleToChatAsync(string userName, string group, User user)
+        {
+            var targetUser = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(u => u.UserName == userName);
+
+            var groupUser = new List<string>() { targetUser!.UserName, user.UserName };
+
+            var targetGroup1 = string.Join('-', groupUser);
+
+            groupUser.Reverse();
+            var targetGroup2 = string.Join('-', groupUser);
+
+            if (targetGroup1 != group && targetGroup2 != group)
+            {
+                return false;
+            }
+
+            if (user.UserName == targetUser.UserName)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
+        public async Task<int> GetMessagesCountAsync()
+        {
+            var messagesCount = await repo.GetAll<ChatMessage>().CountAsync();
+
+            return messagesCount;
+        }
+
+        //public async Task<List<UsersToChatViewModel>> GetTeacherUsersToChatAsync(string classId, string currentUserId)
+        //{
+        //    var currentUser = await repo.GetAll<User>()
+        //       .Include(u => u.ChatMessages)
+        //       .FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+        //    Func<string, List<ChatMessage>> predicate = (username) => currentUser!.ChatMessages.Where(m =>
+        //        m.UserId == currentUserId && m.ReceiverUsername == username).ToList();
+
+        //    var users = repo.GetAll<Student>()
+        //        .Include(s => s.User)
+        //        .Include(s => s.User.ChatMessages)
+        //        .AsEnumerable()
+        //        .Where(s => s.ClassId == classId && s.User.IsActive && s.UserId != currentUserId)
+        //        .Select(s => new UsersToChatViewModel()
+        //        {
+        //            UserId = s.UserId,
+        //            Name = s.User.UserName,
+        //            ProfilePicture = s.User.ProfilePictureUrl,
+        //            LastMessageToUser = s.User.ChatMessages
+        //                .Where(c => c.UserId == s.UserId && c.ReceiverUsername == currentUser!.UserName)
+        //                .Union(predicate(s.User.UserName))
+        //                .OrderBy(m => m.SendedOn)
+        //                .LastOrDefault()
+
+
+        //        })
+        //        .ToList();
+
+        //    return users;
+        //}
+
+        //public async Task<List<UsersToChatViewModel>> GetTeacherCompaniesToChatAsync(string currentUserId)
+        //{
+        //    var currentUser = await repo.GetAll<User>()
+        //       .Include(u => u.ChatMessages)
+        //       .FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+        //    var teacher = await repo.GetAll<Teacher>()
+        //        .Include(t => t.Groups)
+        //        .FirstOrDefaultAsync(t => t.UserId == currentUserId);
+
+        //    Func<string, List<ChatMessage>> predicate = (username) => currentUser!.ChatMessages.Where(m =>
+        //        m.UserId == currentUserId && m.ReceiverUsername == username).ToList();
+
+        //    var users = repo.GetAll<Company>()
+        //        .Include(s => s.User)
+        //        .Include(s => s.User.ChatMessages)
+        //        .AsEnumerable()
+        //        .Where(s => teacher!.Groups.Select(g => g.CompanyId).Contains(s.Id) && s.User.IsActive && s.UserId != currentUserId)
+        //        .Select(s => new UsersToChatViewModel()
+        //        {
+        //            UserId = s.UserId,
+        //            Name = s.User.UserName,
+        //            ProfilePicture = s.User.ProfilePictureUrl,
+        //            LastMessageToUser = s.User.ChatMessages
+        //                .Where(c => c.UserId == s.UserId && c.ReceiverUsername == currentUser!.UserName)
+        //                .Union(predicate(s.User.UserName))
+        //                .OrderBy(m => m.SendedOn)
+        //                .LastOrDefault()
+
+
+        //        })
+        //        .ToList();
+
+        //    return users;
+        //}
+    }
+}

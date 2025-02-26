@@ -1,0 +1,18 @@
+﻿using InterestsAcademy.Data.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InterestsAcademy.Core.Models.PrivateChat
+{
+    public class UsersToChatViewModel
+    {
+        public string UserId { get; set; } = null!;
+        public string Name { get; set; } = null!;
+        public string? ProfilePicture { get; set; }
+
+        public ChatMessage? LastMessageToUser { get; set; }
+    }
+}

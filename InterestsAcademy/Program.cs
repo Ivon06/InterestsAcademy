@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("InterestsAcademyDbContextConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<InterestsAcademyDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -91,6 +91,8 @@ app.MapHub<ActivityHub>("/activityHub");
 
 app.MapHub<DonationHub>("/donationHub");
 
+app.MapHub<PrivateChatHub>("/privateChatHub");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -107,20 +109,20 @@ else
 app.UseCors("MyPolicy");
 app.UseCors();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error500");
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Home/Error500");
 
-    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
+//    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
 
-    //app.UseDeveloperExceptionPage();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error500");
+//    //app.UseDeveloperExceptionPage();
+//}
+//else
+//{
+//    app.UseExceptionHandler("/Home/Error500");
 
-    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
-}
+//    app.UseStatusCodePagesWithRedirects("/Home/Error{0}");
+//}
 
 app.UseSession();
 
