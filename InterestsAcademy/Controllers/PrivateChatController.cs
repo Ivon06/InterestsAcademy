@@ -2,7 +2,9 @@
 using InterestsAcademy.Core.Contracts;
 using InterestsAcademy.Core.Models.PrivateChat;
 using InterestsAcademy.Core.Services;
+using InterestsAcademy.Data.Models;
 using InterestsAcademy.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using static InterestsAcademy.Common.Notifications;
 
@@ -15,13 +17,19 @@ namespace InterestsAcademy.Controllers
         private readonly ITeacherService teacherService;
         private readonly IStudentService studentService;
         private readonly ICourseService courseService;
+        private readonly IUserService userService;
+        private readonly IGroupService groupService;
+        private readonly UserManager<User> userManager;
 
-        public PrivateChatController(IPrivateChatService privateChatService, ITeacherService teacherService, IStudentService studentService, ICourseService courseService)
+        public PrivateChatController(IPrivateChatService privateChatService, ITeacherService teacherService, IStudentService studentService, ICourseService courseService, IUserService userService, IGroupService groupService, UserManager<User> userManager)
         {
             this.privateChatService = privateChatService;
             this.teacherService = teacherService;
             this.studentService = studentService;
             this.courseService = courseService;
+            this.userService = userService;
+            this.groupService = groupService;
+            this.userManager = userManager;
         }
 
         public async Task<IActionResult> UsersToChat()
@@ -86,6 +94,35 @@ namespace InterestsAcademy.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+        }
+
+        public async Task<IActionResult> Chat(string toUsername, string group)
+        {
+            string userId = User.GetId()!;
+            var toUserId = await userService.GetUserIdByUsernameAsync(toUsername);
+
+            if (toUserId == null)
+            {
+                TempData[ErrorMessage] = "Непрвилен потребител";
+                return RedirectToAction("UsersToChat");
+            }
+
+            var groupId = await groupService.GetGroupBetweenUsersAsync(userId, toUserId);
+            string? groupName = await groupService.GetGroupNameByIdAsync(groupId!);
+
+            var messages = await privateChatService.ExtractAllMessagesAsync(groupName == null ? group : groupName);
+
+
+            var model = new PrivateChatViewModel()
+            {
+                FromUser = await userManager.GetUserAsync(this.HttpContext.User),
+                ToUser = await userManager.FindByIdAsync(toUserId),
+                ChatMessages = messages,
+                Group = groupName == null ? group : groupName,
+
+            };
+
+            return View(model);
         }
         public IActionResult Index()
         {
