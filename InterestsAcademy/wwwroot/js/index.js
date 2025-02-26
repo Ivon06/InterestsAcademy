@@ -75,6 +75,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 document.addEventListener("DOMContentLoaded", function () {
+    const counters = document.querySelectorAll(".stats2-counter");
+
+    counters.forEach(counter => {
+        const target = +counter.getAttribute("data-count");
+        const duration = 2000; // Animation duration in milliseconds
+        const increment = target / (duration / 16); // 16ms per frame for smooth animation
+
+        let current = 0;
+
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                counter.innerText = Math.ceil(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.innerText = target;
+            }
+        };
+
+        updateCounter();
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
     const sections = document.querySelectorAll("section, .directorcontainer");
     const timelineItems = document.querySelectorAll(".timeline-item");
     const timeline = document.querySelector(".timeline");
