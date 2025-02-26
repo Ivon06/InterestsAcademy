@@ -46,5 +46,6 @@ namespace InterestsAcademy.Core.Contracts
         Task MakeCourseActive(string courseId);
         Task<List<string>> GetAllCoursesIdsByTeacherId(string teacherId);
         Task<List<string>> GetAllCoursesIdsByStudentId(string studentId);
+        Task<TeacherProfileCourseViewModel> GetTeacherProfileWithCoursesAsync(string teacherId);
     }
 }
