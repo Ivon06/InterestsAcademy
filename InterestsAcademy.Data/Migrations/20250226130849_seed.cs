@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InterestsAcademy.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class arsenalsetup : Migration
+    public partial class seed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,9 +29,9 @@ namespace InterestsAcademy.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "BirthDate", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "Gender", "IsActive", "IsApproved", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "RegisteredOn", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "080a469a-b5a2-44cc-a660-eea8e6fd05a5", 0, "ул. Ал. Стамболийски 30 ет.3 ап.11", new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified), "Казанлък", "d304b958-f437-4104-bbb6-dcfb64238f60", "България", "petarpetrov@abv.bg", false, "Мъж", true, true, false, null, "Петър Петров", "PETARPETROV@ABV.BG", "PETAR", "AQAAAAIAAYagAAAAEJ5h5c0qFqI/iNbpO9AZJP0RwSDSoiXwiGZ80nhhICBZBf2C3t70cXB4ueqM1sAr5g==", "0885763826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg", new DateTime(2025, 2, 19, 6, 35, 31, 868, DateTimeKind.Utc).AddTicks(1970), "1e92a4f7-b305-4737-bf0f-5f709a5b1d11", false, "petar" },
-                    { "20dcf707-dfd9-4aae-b8c3-f3b9844e09d8", 0, "ул. Незабравка 3", new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified), "Енина", "cbaa2f3c-4044-48cd-b9dd-6be71789da97", "България", "admin@abv.bg", false, "Мъж", true, true, false, null, "Admin", "ADMIN@ABV.BG", "ADMIN", "AQAAAAIAAYagAAAAEI7+0lO3fxtxTrbAwdmhBxmOVzdheP6TtbdR7GchLgcPF6r/aWirpk01Nskszq6brw==", "0889864842", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg", new DateTime(2025, 2, 19, 6, 35, 31, 956, DateTimeKind.Utc).AddTicks(2663), "e73550f7-0de4-4eb2-87ba-d2de24e547d4", false, "Admin" },
-                    { "93418f37-da3b-4c78-b0ae-8f0022b09681", 0, "ул.Възраждане 6 ет.2 ап.8", new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified), "Казанлък", "5dee902f-398a-4f99-a021-e5b8d801d1a8", "България", "georgidimitrov@abv.bg", false, "Мъж", true, true, false, null, "Георги Димитров", "GEORGIDIMITROV@ABV.BG", "GEORGI", "AQAAAAIAAYagAAAAEA0SBUUlNht1dfCm30MQn/oEFMPXC4k38sMhReBXujD1IzAm9XH7LJZyTeaJLbU9iA==", "0885789826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg", new DateTime(2025, 2, 19, 6, 35, 31, 913, DateTimeKind.Utc).AddTicks(2073), "24f96f66-f015-48ad-822f-02bf6f8a6d03", false, "georgi" }
+                    { "080a469a-b5a2-44cc-a660-eea8e6fd05a5", 0, "ул. Ал. Стамболийски 30 ет.3 ап.11", new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified), "Казанлък", "d899dab2-9bf2-4b8b-89b9-6bd7a675dc8d", "България", "petarpetrov@abv.bg", false, "Мъж", true, true, false, null, "Петър Петров", "PETARPETROV@ABV.BG", "PETAR", "AQAAAAIAAYagAAAAEPy57kXgU6IoYTeEaM+/S7itHfIMpjf9C8FMYX4wul02wmlKDYhxA7BxzPBJNYrcyw==", "0885763826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg", new DateTime(2025, 2, 26, 13, 8, 48, 445, DateTimeKind.Utc).AddTicks(424), "553f1922-3aec-4d16-b9e3-23c90c23a55e", false, "petar" },
+                    { "20dcf707-dfd9-4aae-b8c3-f3b9844e09d8", 0, "ул. Незабравка 3", new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified), "Енина", "8efa3ec6-2cb4-480e-bfb3-4c1dd6195b7c", "България", "admin@abv.bg", false, "Мъж", true, true, false, null, "Admin", "ADMIN@ABV.BG", "ADMIN", "AQAAAAIAAYagAAAAEGLfkb5Xp4y4IHfhiXgN/GynDYTrijLygJeXCdySVOORcqFYc3zSt81JTgx7lVmCgA==", "0889864842", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg", new DateTime(2025, 2, 26, 13, 8, 48, 596, DateTimeKind.Utc).AddTicks(1659), "248c6fff-6a3d-49d2-9165-827b12762994", false, "Admin" },
+                    { "93418f37-da3b-4c78-b0ae-8f0022b09681", 0, "ул.Възраждане 6 ет.2 ап.8", new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified), "Казанлък", "42f494de-3cf2-4897-9dfc-e097a082df26", "България", "georgidimitrov@abv.bg", false, "Мъж", true, true, false, null, "Георги Димитров", "GEORGIDIMITROV@ABV.BG", "GEORGI", "AQAAAAIAAYagAAAAEMojAJZHsf0U9xwQB64wbPCHBk4J34i7wysnRUnwwDJFa6cNPdBj+mVe17DYx3+yTQ==", "0885789826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg", new DateTime(2025, 2, 26, 13, 8, 48, 526, DateTimeKind.Utc).AddTicks(2246), "52ebb058-a4af-4b31-b590-d2c3d12f3d43", false, "georgi" }
                 });
 
             migrationBuilder.InsertData(
@@ -70,7 +70,7 @@ namespace InterestsAcademy.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "Id", "SleepingRoomId", "UserId" },
-                values: new object[] { "0409bdd7-3959-43e7-813f-253f785a8ecc", null, "080a469a-b5a2-44cc-a660-eea8e6fd05a5" });
+                values: new object[] { "0af66f3a-4a5e-416d-8bd9-ebdbf03da7d3", null, "080a469a-b5a2-44cc-a660-eea8e6fd05a5" });
 
             migrationBuilder.InsertData(
                 table: "Teachers",
@@ -79,8 +79,8 @@ namespace InterestsAcademy.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Courses",
-                columns: new[] { "Id", "Description", "Duration", "IsActive", "IsApproved", "Name", "RoomId", "TeacherId" },
-                values: new object[] { "e6bb13af-fe1e-4276-b301-1bffe7f8c8fc", "Този курс обхваща основите на биологията – от клетките и ДНК до екосистемите и еволюцията.", "2 месеца", true, true, "Биология", "64ae1f9e-bc59-4356-b74e-887f08425106", "2644afb5-f916-4b3f-b451-9ff86c881de3" });
+                columns: new[] { "Id", "Category", "Description", "Duration", "IsActive", "IsApproved", "Name", "RoomId", "TeacherId" },
+                values: new object[] { "e6bb13af-fe1e-4276-b301-1bffe7f8c8fc", "Biology", "Този курс обхваща основите на биологията – от клетките и ДНК до екосистемите и еволюцията.", "2 месеца", true, true, "Биология", "64ae1f9e-bc59-4356-b74e-887f08425106", "2644afb5-f916-4b3f-b451-9ff86c881de3" });
         }
 
         /// <inheritdoc />
@@ -189,7 +189,7 @@ namespace InterestsAcademy.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "Students",
                 keyColumn: "Id",
-                keyValue: "0409bdd7-3959-43e7-813f-253f785a8ecc");
+                keyValue: "0af66f3a-4a5e-416d-8bd9-ebdbf03da7d3");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",

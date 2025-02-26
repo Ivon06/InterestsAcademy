@@ -24,6 +24,9 @@ namespace InterestsAcademy.Extensions
             services.AddScoped<IDonationService, DonationService>();
             services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<IBlogService,BlogService>();
+            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IPrivateChatService,PrivateChatService>();
+
 
             return services;
         }

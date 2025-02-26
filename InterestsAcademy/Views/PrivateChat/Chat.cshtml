@@ -1,0 +1,316 @@
+﻿@using InterestsAcademy.Middlewares
+@model InterestsAcademy.Core.Models.PrivateChat.PrivateChatViewModel
+
+@{
+    Dictionary<string, string> iconsFiles = new Dictionary<string, string>()
+    {
+        {".PDF", "bi bi-file-pdf-fill"},
+        {".PNG", "bi bi-file-earmark-image"},
+        {".JPG", "bi bi-file-earmark-image"},
+        {".JPEG", "bi bi-file-earmark-image"},
+        {".ZIP", "bi bi-file-zip"},
+        {".RAR", "bi bi-file-zip"},
+        {".DOCX", "bi bi-file-earmark-fill"},
+        {".DOC", "bi bi-file-earmark-fill"},
+        {".PPT", "bi bi-filetype-ppt"},
+        {".TXT", "bi bi-file-text"},
+        {".TEXT", "bi bi-file-text"},
+        {".XLS", "bi bi-filetype-xls"},
+        {".XLSX", "bi bi-filetype-xlsx"},
+    };
+}
+
+
+<div id="errorMsg" class="col-12 col-md-6 alert-danger d-none">
+    Fail to start camera, please allow permision to access camera. <br />
+    If you are browsing through social media built in browsers, you would need to open the page in Sarafi (iPhone)/ Chrome (Android)
+    <button id="closeError" class="btn btn-primary ml-3">OK</button>
+</div>
+<div class="md-modal md-effect-12">
+    <div id="app-panel" class="app-panel md-content row p-0 m-0">
+        <div id="webcam-container" class="webcam-container col-12 d-none p-0 m-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+            </svg>
+            <video id="webcam" autoplay playsinline></video>
+            <canvas id="canvas" class="d-none"></canvas>
+            <div class="flash"></div>
+            <audio id="snapSound" src="~/audio/snap.wav" preload="auto"></audio>
+        </div>
+        <div id="cameraControls" class="cameraControls">
+            <a href="#" id="exit-app" title="Exit App"><i class="material-icons">exit_to_app</i></a>
+            <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
+            <a href="#" id="download-photo" download="selfie.png" target="_blank" title="Save Photo" class="d-none"><i class="material-icons">file_download</i></a>
+            <a href="#" id="resume-camera" title="Resume Camera" class="d-none"><i class="material-icons">camera_front</i></a>
+            <a href="#" id="send-photo" title="Send Photo" class="d-none"><i class="material-icons">send</i></a>
+        </div>
+    </div>
+</div>
+<div class="md-overlay"></div>
+
+
+<h2 class="text-center text-black" id="groupName" style="display: none">@Model.Group</h2>
+<div class="main-wrapper">
+    <div class="container" style="margin-top: 0px;">
+        <div class="page-content">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="card-stacked">
+                        <div class="card shadow-line mb-3 chat chat-panel">
+                            <div class="p-3 chat-header">
+                                <div class="d-flex">
+                                    <div class="w-100 d-flex pl-0">
+                                        @if (Model.ToUser.ProfilePictureUrl == null)
+                                        {
+                                            <img class="rounded-circle shadow avatar-sm mr-3 chat-profile-picture" src="~/img/blank-profile-picture.png" />
+
+                                        }
+                                        else
+                                        {
+                                            <img class="rounded-circle shadow avatar-sm mr-3 chat-profile-picture" src="@Model.ToUser.ProfilePictureUrl" />
+
+                                        }
+                                        <div class="mr-3">
+                                            <a asp-action="MyProfile" asp-controller="Profile" asp-route-userId="@Model.ToUser.Id">
+                                                <p class="fw-400 mb-0 text-dark-75" id="toUser">@Model.ToUser.UserName</p>
+                                            </a>
+                                            <p class="fw-400 mb-0 text-dark-75" id="fromUser" style="display: none">@Model.FromUser.UserName</p>
+
+                                            @if (OnlineUserMiddleware.CheckIfUserIsOnline(Model.ToUser.Id))
+                                            {
+                                                <p class="sub-caption text-small mb-0" style="color: green; font-weight: 500;">На линия</p>
+
+                                            }
+                                            else
+                                            {
+                                                <p class="sub-caption text-muted text-small mb-0">Офлайн</p>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center" id="loader-div" style="margin-top: 13rem;">
+                                <span class="loader" id="loader-main"></span>
+                            </div>
+
+                            <div class="d-flex flex-row mb-3 navigation-mobile scrollable-chat-panel chat-panel-scroll" id="chat-body" style="height: 490px; visibility: hidden;">
+
+
+                                <div class="w-100 p-3" id="chatHolder">
+                                    @if (Model.ChatMessages != null || @Model.ChatMessages!.Count() != 0)
+                                    {
+                                        <div class="svg36 loader-animate3 horizontal-margin-auto mb-2" id="loader" style="display: none"></div>
+
+                                        @foreach (var message in Model.ChatMessages!)
+                                        {
+                                            if (message.ReceiverUsername == Model.ToUser.UserName && message.User.UserName != Model.ToUser.UserName)
+                                            {
+                                                <div class="d-flex flex-row-reverse mb-2" id="@message.Id">
+                                                    <div class="media-left">
+                                                        @if (message.User.ProfilePictureUrl == null)
+                                                        {
+                                                            <img src="~/img/blank-profile-picture.png" class="rounded-circle shadow avatar-sm mr-2"
+                                                                 alt="Profile Picture" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="@message.User.ProfilePictureUrl" class="rounded-circle shadow avatar-sm mr-2"
+                                                                 alt="Profile Picture" />
+                                                        }
+
+                                                    </div>
+                                                    <div class="right-chat-message fs-13 mb-2">
+                                                        <div class="mb-3 mr-3 pr-4">
+                                                            <div class="d-flex flex-row">
+                                                                <div class="pr-2" style="font-size: 1rem">@Html.Raw(message.Content)</div>
+                                                                <div class="pr-4"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="message-options dark">
+                                                            <div class="message-time">
+                                                                <div class="d-flex flex-row">
+                                                                    <div class="mr-2">@message.SendedOn.ToString("dd-MM-yyyy HH:mm")</div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            }
+                                            else
+                                            {
+                                                if (message.ReceiverUsername != Model.ToUser.UserName && message.User.UserName != Model.FromUser.UserName)
+                                                {
+                                                    <div class="d-flex" id="@message.Id">
+                                                        <div style="margin-right: 15px">
+                                                            @if (@message.User.ProfilePictureUrl == null)
+                                                            {
+                                                                <img src="~/img/blank-profile-picture.png" class="rounded-circle shadow avatar-sm mr-2" alt="Profile Picture" />
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="@message.User.ProfilePictureUrl" class="rounded-circle shadow avatar-sm mr-2" alt="Profile Picture" />
+
+                                                            }
+
+                                                        </div>
+                                                        <div class="left-chat-message fs-13 mb-2">
+
+                                                            <p class="mb-3 mr-3 pr-4" style="font-size: 1rem;">@Html.Raw(message.Content)</p>
+                                                            <div class="message-options">
+                                                                <div class="message-time">@message.SendedOn.ToString("dd-MM-yyyy HH:mm")</div>
+                                                                <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                    }
+                                    <input id="messagesSkipCount" type="hidden" value="@this.Model.ChatMessages!.Count" />
+
+
+                                    <div class="svg36 loader-animate3 horizontal-margin-auto mb-2" id="preloader" style="display: none"></div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="chat-search pl-3 pr-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" style="font-size: 1.1rem;" placeholder="Напиши съобщение" id="messageInput">
+                                    <div class="input-group-append prepend-white">
+                                        <span class="input-group-text pl-2 pr-2">
+                                            <i class="chat-upload-trigger fs-19 bi bi-file-plus ml-2 mr-2"></i>
+                                            <i class="fs-19 bi bi-emoji-smile ml-2 mr-2" id="emoji"></i>
+                                            <i class="fs-19 bi bi-camera ml-2 mr-2" id="photo-take"></i>
+                                            <i class="fs-19 bi bi-cursor ml-2 mr-2" id="send"></i>
+                                            <button type="submit" style="display: none" id="sendButton">
+                                            </button>
+
+
+                                            <div class="chat-upload">
+                                                <div class="d-flex flex-column">
+                                                    <div class="p-2">
+                                                        <div class="btn btn-secondary btn-md btn-icon btn-circle btn-blushing" id="imageButton">
+                                                            <i class="fs-15 bi bi-card-image"></i>
+                                                            <input accept=".jpg, .jpeg, .png" type="file" style="display: none" multiple id="uploadImage">
+                                                        </div>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <div class="btn btn-success btn-md btn-icon btn-circle btn-blushing" id="fileButton">
+                                                            <i class="fs-15 bi bi-file-earmark-plus"></i>
+                                                            <input accept=".zip, .rar, .docx, .xlsx, application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf" type="file" style="display: none;" multiple id="uploadFile">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="input-group-append prepend-white" id="appendFiles">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-cont" id="emojis-main" style="display: none;bottom: 23rem;padding: 0;">
+                        <div class="emoji-dashboard" style="font-size: 1.3rem;">
+                            <ul class="emojis" id="emojis-container">
+                                <li class="emoji" data-clipboard-text="--1">🙄</li>
+                                <li class="emoji" data-clipboard-text="-1">😀</li>
+                                <li class="emoji" data-clipboard-text="100">😄</li>
+                                <li class="emoji" data-clipboard-text="1234">😁</li>
+                                <li class="emoji" data-clipboard-text="8ball">😆</li>
+                                <li class="emoji" data-clipboard-text="a">😆</li>
+                                <li class="emoji" data-clipboard-text="ab">😅</li>
+                                <li class="emoji" data-clipboard-text="abc">😂</li>
+                                <li class="emoji" data-clipboard-text="abcd">🙂</li>
+                                <li class="emoji" data-clipboard-text="accept">😉</li>
+                                <li class="emoji" data-clipboard-text="aerial_tramway">🥰</li>
+                                <li class="emoji" data-clipboard-text="airplane">🥰</li>
+                                <li class="emoji" data-clipboard-text="alarm_clock">😘</li>
+                                <li class="emoji" data-clipboard-text="alien">👽</li>
+                                <li class="emoji" data-clipboard-text="ambulance">😛</li>
+                                <li class="emoji" data-clipboard-text="anchor">🥳</li>
+                                <li class="emoji" data-clipboard-text="angel">👻</li>
+                                <li class="emoji" data-clipboard-text="anger">🤖</li>
+                                <li class="emoji" data-clipboard-text="angry">😱</li>
+                                <li class="emoji" data-clipboard-text="anguished">⚽</li>
+                                <li class="emoji" data-clipboard-text="ant">🏀</li>
+                                <li class="emoji" data-clipboard-text="arrows_counterclockwise">🏐</li>
+                                <li class="emoji" data-clipboard-text="apple">🥇</li>
+                                <li class="emoji" data-clipboard-text="articulated_lorry">🥈</li>
+                                <li class="emoji" data-clipboard-text="astonished">🥉</li>
+                                <li class="emoji" data-clipboard-text="aquarius">🎰</li>
+                                <li class="emoji" data-clipboard-text="aries">🧠</li>
+                                <li class="emoji" data-clipboard-text="arrow_backward">👋</li>
+                                <li class="emoji" data-clipboard-text="arrow_double_down">👍</li>
+                                <li class="emoji" data-clipboard-text="arrow_double_up">💪</li>
+                                <li class="emoji" data-clipboard-text="arrow_down">⛈️</li>
+                                <li class="emoji" data-clipboard-text="arrow_down_small">😡</li>
+                                <li class="emoji" data-clipboard-text="arrow_forward">💩</li>
+                                <li class="emoji" data-clipboard-text="arrow_heading_down">🤒</li>
+                                <li class="emoji" data-clipboard-text="arrow_heading_up">😎</li>
+                                <li class="emoji" data-clipboard-text="arrow_left">☹️</li>
+                                <li class="emoji" data-clipboard-text="arrow_lower_left">😭</li>
+                                <li class="emoji" data-clipboard-text="arrow_lower_right">🥺</li>
+                                <li class="emoji" data-clipboard-text="arrow_right">😬</li>
+                                <li class="emoji" data-clipboard-text="arrow_right_hook">👺</li>
+                                <li class="emoji" data-clipboard-text="arrow_up">😈</li>
+                                <li class="emoji" data-clipboard-text="arrow_up_down">🛸</li>
+                                <li class="emoji" data-clipboard-text="arrow_up_small">🌍</li>
+                                <li class="emoji" data-clipboard-text="arrow_upper_left">🗺️</li>
+                                <li class="emoji" data-clipboard-text="arrow_upper_right">🌆</li>
+                                <li class="emoji" data-clipboard-text="arrows_clockwise">🗿</li>
+                                <li class="emoji" data-clipboard-text="art">🎮</li>
+                                <li class="emoji" data-clipboard-text="articulated_lorry">🏎️</li>
+                                 <li class="emoji" data-clipboard-text="astonished">🚗</li>
+                                <li class="emoji" data-clipboard-text="atm">🚀</li>
+                                <li class="emoji" data-clipboard-text="b">🏁</li>
+                                <li class="emoji" data-clipboard-text="arrow_up">🛰️</li>
+                                <li class="emoji" data-clipboard-text="arrow_up_down">❤️</li>
+                                <li class="emoji" data-clipboard-text="arrow_up_small">☢️</li>
+                                <li class="emoji" data-clipboard-text="arrow_upper_left">☄️</li>
+                                <li class="emoji" data-clipboard-text="arrow_upper_right">🏆</li>
+                                <li class="emoji" data-clipboard-text="arrows_clockwise">🎯</li>
+                                <li class="emoji" data-clipboard-text="art">🎄</li>
+                                <li class="emoji" data-clipboard-text="atm">💻</li>
+                                <li class="emoji" data-clipboard-text="b">💸</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/chat.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/webcam.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/emoji.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+}
+
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.7/js/min/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/js/chatPreformance.js" asp-append-version="true"></script>
+    <script src="~/js/privateChat.js" asp-append-version="true"></script>
+    <script src="~/js/chatImagesScript.js" asp-append-version="true"></script>
+    <script src="~/js/chatFilesScript.js" asp-append-version="true"></script>
+    <script src="~/js/webcam.js" asp-append-version="true"></script>
+    <script src="~/js/emoji.js" asp-append-version="true"></script>
+}

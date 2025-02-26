@@ -1,0 +1,119 @@
+﻿using InterestsAcademy.Core.Contracts;
+using InterestsAcademy.Core.Hubs;
+using InterestsAcademy.Data.Models;
+using InterestsAcademy.Data.Repository.Contracts;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InterestsAcademy.Core.Services
+{
+    public class GroupService : IGroupService
+    {
+        private readonly IRepository repo;
+        private readonly IHubContext<PrivateChatHub> hubContext;
+
+        public GroupService(IRepository repo, IHubContext<PrivateChatHub> hubContext)
+        {
+            this.repo = repo;
+            this.hubContext = hubContext;
+
+        }
+
+        public async Task AddUserToGroup(string groupName, string toUserName, string fromUserName)
+        {
+            var toUser = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(u => u.UserName == toUserName);
+
+            if (toUser == null)
+            {
+                return;
+            }
+            string toId = toUser!.Id;
+            string toImage = toUser.ProfilePictureUrl!;
+
+            var fromUser = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(u => u.UserName == fromUserName);
+            if (fromUser == null)
+            {
+                return;
+            }
+            string fromId = fromUser!.Id;
+            string fromImage = fromUser.ProfilePictureUrl!;
+
+
+            var group = await repo.GetAll<Group>()
+                .FirstOrDefaultAsync(g => g.Name.ToLower() == groupName.ToLower());
+
+            if (group == null)
+            {
+                group = new Group()
+                {
+                    Name = groupName
+                };
+
+                var targetToUser = new UserGroup()
+                {
+                    UserId = toId,
+                    Group = group
+                };
+
+                var targetFromUser = new UserGroup()
+                {
+                    UserId = fromId,
+                    Group = group
+                };
+
+
+                group.UsersGroups.Add(targetFromUser);
+                group.UsersGroups.Add(targetToUser);
+
+                await repo.AddAsync(group);
+                await repo.SaveChangesAsync();
+            }
+
+
+        }
+
+        public async Task<string?> GetGroupBetweenUsersAsync(string userId, string receiverId)
+        {
+            var user = await repo.GetAll<User>()
+                .Include(u => u.UserGroups)
+                .FirstOrDefaultAsync(u => u.Id == userId && u.IsActive);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var receiver = await repo.GetAll<User>()
+                .Include(u => u.UserGroups)
+                .FirstOrDefaultAsync(u => u.Id == receiverId && u.IsActive);
+
+            if (receiver == null)
+            {
+                return null;
+            }
+
+            var userGroups = user!.UserGroups.Select(g => g.GroupId).ToHashSet();
+            var receiverGroups = receiver!.UserGroups.Select(g => g.GroupId).ToHashSet();
+
+            userGroups.IntersectWith(receiverGroups);
+
+
+            return userGroups.FirstOrDefault()!;
+        }
+
+        public async Task<string?> GetGroupNameByIdAsync(string groupId)
+        {
+            var group = await repo.GetAll<Group>()
+                .FirstOrDefaultAsync(g => g.Id == groupId);
+
+            return group == null ? null : group!.Name!;
+        }
+    }
+}

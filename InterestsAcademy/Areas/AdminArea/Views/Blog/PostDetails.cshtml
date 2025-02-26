@@ -31,14 +31,14 @@
 												 data-bs-ride="carousel">
 												<div class="carousel-inner">
 													<div class="carousel-item active">
-														<img src="@Model.CarouselPhotosUrls[0]" height="300"
+														<img src="@Model.CarouselPhotosUrls[0]" style="height: 50em;" height="300"
 															 class="d-block w-100" alt=".">
 													</div>
 
 													@foreach (var url in Model.CarouselPhotosUrls.Skip(1).ToList())
 													{
 														<div class="carousel-item">
-															<img src="@url" height="300"
+															<img src="@url" style="height: 50em;" height="300"
 																 class="d-block w-100" alt="...">
 														</div>
 													}

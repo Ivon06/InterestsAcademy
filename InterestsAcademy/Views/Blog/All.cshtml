@@ -95,7 +95,7 @@ else
 										int pageNumber = i + 1;
 										string cl = (Model.SkipCount / 8) == i ? "active" : "";
 
-										<li class="@cl"><a asp-action="BlogHome" asp-controller="Blog" asp-route-skipCount="@skipCount">@pageNumber</a></li>
+										<li class="@cl"><a asp-action="All" asp-controller="Blog" asp-route-skipCount="@skipCount">@pageNumber</a></li>
 									}
 								</ul>
 							</div>

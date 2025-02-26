@@ -51,6 +51,8 @@ namespace InterestsAcademy.Data.Models
         public string? ProfilePictureUrl { get; set; }
 
         public ICollection<Article> Articles { get; set; } = new HashSet<Article>();
+        public ICollection<UserGroup> UserGroups { get; set; } = new HashSet<UserGroup>();
+        public ICollection<ChatMessage> ChatMessages { get; set; } = new HashSet<ChatMessage>();
 
     }
 }

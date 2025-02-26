@@ -389,5 +389,23 @@ namespace InterestsAcademy.Core.Services
             course.IsActive = true;
             await repo.SaveChangesAsync();
         }
+
+        public async Task<List<string>> GetAllCoursesIdsByTeacherId(string teacherId)
+        {
+            List<string> ids = await repo.GetAll<Course>()
+                .Where(c => c.TeacherId == teacherId)
+                .Select(c => c.Id)
+                .ToListAsync();
+            return ids;
+        }
+
+        public async Task<List<string>> GetAllCoursesIdsByStudentId(string studentId)
+        {
+            List<string> ids = await repo.GetAll<StudentCourse>()
+                .Where(c => c.StudentId == studentId)
+                .Select(c => c.CourseId)
+                .ToListAsync();
+            return ids;
+        }
     }
 }
