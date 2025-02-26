@@ -25,6 +25,8 @@ namespace InterestAcademy.Tests.UnitTests
             SeedRoles(context);
             SeedMaterialBaseItem(context);
             SeedGivenThings(context);
+            SeedGroup(context);
+            SeedUserGroups(context);
 
             context.SaveChanges();
         }
@@ -292,6 +294,36 @@ namespace InterestAcademy.Tests.UnitTests
             };
             context.GivenThings.Add(givenThing);
             context.GivenThings.Add(givenThing2);
+        }
+
+        public static void SeedUserGroups(InterestsAcademyDbContext context)
+        {
+            var userGroups = new List<UserGroup>()
+            {
+                new UserGroup()
+                {
+                    UserId = "28a172eb-6e0d-43ed-9a42-fb28025e1659",
+                    GroupId = "bd0fd8e0-70ca-4475-9bef-d6ca66daefa1"
+                },
+                new UserGroup()
+                {
+                    UserId = "bae65efa-6885-4144-9786-0719b0e2ebc4",
+                    GroupId = "bd0fd8e0-70ca-4475-9bef-d6ca66daefa1"
+                }
+            };
+
+            context.UserGroups.AddRange(userGroups);
+        }
+
+        public static void SeedGroup(InterestsAcademyDbContext context)
+        {
+            var group = new Group()
+            {
+                Id = "bd0fd8e0-70ca-4475-9bef-d6ca66daefa1",
+                Name = "testGroup"
+            };
+
+            context.Groups.Add(group);
         }
     }
 }

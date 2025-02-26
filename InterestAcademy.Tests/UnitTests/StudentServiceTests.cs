@@ -189,5 +189,12 @@ namespace InterestAcademy.Tests.UnitTests
             var result = await studentService.IsStudentInCourse(studentId, courseId);
             Assert.That(result, Is.False);
         }
+
+        [Test]
+        public async Task GetAllStudentsCount_ShouldWorkCorrectly()
+        {
+            int result = await studentService.GetAllStudentsCount();
+            Assert.That(result, Is.EqualTo(1));
+        }
     }
 }

@@ -216,5 +216,22 @@ namespace InterestAcademy.Tests.UnitTests
             var user = await repo.GetByIdAsync<User>(userId);
             Assert.That(user.IsApproved, Is.False);
         }
+
+        [Test]
+        [TestCase("studentTest")]
+        public async Task GetUserIdByUsernameAsync_ShouldReturnUserId(string username)
+        {
+            var result = await userService.GetUserIdByUsernameAsync(username);
+            Assert.That(result, Is.EqualTo("bae65efa-6885-4144-9786-0719b0e2ebc4"));
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("something")]
+        public async Task GetUserIdByUsernameAsync_ShouldReturnNull(string username)
+        {
+            var result = await userService.GetUserIdByUsernameAsync(username);
+            Assert.That(result, Is.Null);
+        }
     }
 }
