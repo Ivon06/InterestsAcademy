@@ -1,0 +1,94 @@
+﻿/* General Layout */
+.profile-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Profile Card */
+.profile-card {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.profile-image img {
+    width: 160px;
+    height: 160px;
+    border: 5px solid #e0e0e0;
+}
+
+.profile-placeholder {
+    width: 160px;
+    height: 160px;
+    font-size: 3rem;
+}
+
+.profile-info h2 {
+    font-weight: bold;
+    color: #333;
+}
+
+.profile-info p {
+    margin: 5px 0;
+}
+
+/* Courses Section */
+.courses-container {
+    margin-top: 30px;
+}
+
+.section-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Course Card */
+.course-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.course-title {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.course-description {
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.btn-outline-primary {
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+    .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+/* Truncate Multi-Line Text */
+.truncate-multi-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

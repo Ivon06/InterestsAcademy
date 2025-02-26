@@ -44,5 +44,6 @@ namespace InterestsAcademy.Core.Contracts
         Task DeleteCourse(string courseId);
         Task<IEnumerable<CourseCardViewModel>> GetAllCoursesAdminCards();
         Task MakeCourseActive(string courseId);
+        Task<TeacherProfileCourseViewModel> GetTeacherProfileWithCoursesAsync(string teacherId);
     }
 }

@@ -152,7 +152,41 @@ namespace InterestsAcademy.Core.Services
 
             return result;
         }
+        public async Task<TeacherProfileCourseViewModel> GetTeacherProfileWithCoursesAsync(string teacherId)
+        {
+            var teacher = await repo.GetAll<Teacher>()
+                .Include(t => t.User)
+                .FirstOrDefaultAsync(t => t.Id == teacherId);
 
+            if (teacher == null)
+            {
+                throw new Exception("Teacher not found");
+            }
+
+            var courses = await repo.GetAll<Course>()
+                .Where(c => c.TeacherId == teacherId)
+                .Select(c => new CourseCardViewModel
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description,
+                    IsApproved = c.IsApproved,
+                    RoomId = c.RoomId,
+                    Category = c.Category
+                })
+                .ToListAsync();
+
+            var result = new TeacherProfileCourseViewModel
+            {
+                TeacherId = teacher.Id,
+                TeacherName = teacher.User.Name,
+                UserName = teacher.User.UserName,
+                ProfilePictureUrl = teacher.User.ProfilePictureUrl,
+                Cards = courses
+            };
+
+            return result;
+        }
         public async Task<bool> IsCourseValid(string courseId)
         {
             var result = await repo.GetAll<Course>()

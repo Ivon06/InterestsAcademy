@@ -1,9 +1,11 @@
 ﻿using InterestsAcademy.Common;
 using InterestsAcademy.Core.Contracts;
+using InterestsAcademy.Core.Models.Course;
 using InterestsAcademy.Core.Models.Profile;
 using InterestsAcademy.Core.Services;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Extensions;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using static InterestsAcademy.Common.Notifications;
 
@@ -12,16 +14,33 @@ namespace InterestsAcademy.Controllers
     public class ProfileController : Controller
     {
         private readonly IProfileService profileService;
+        private readonly ICourseService courseService;
         private readonly IUserService userService;
         private readonly IStudentService studentService;
         private readonly ITeacherService teacherService;
 
-        public ProfileController(IProfileService profileService, IUserService userService, IStudentService studentService, ITeacherService teacherService)
+        public ProfileController(IProfileService profileService, IUserService userService, IStudentService studentService, ITeacherService teacherService, ICourseService courseService)
         {
             this.profileService = profileService;
             this.userService = userService;
             this.studentService = studentService;
             this.teacherService = teacherService;
+            this.courseService = courseService; 
+        }
+        public async Task<IActionResult> TeacherProfile(string userId)
+        {
+            bool isExists = await userService.IsExistsByIdAsync(userId);
+            if (!isExists)
+            {
+                TempData[ErrorMessage] = "Този потребител не съществува";
+                return RedirectToAction("Index", "Home");
+            }
+
+            string teacherId = await teacherService.GetTeacherIdByUserId(userId);
+
+            TeacherProfileCourseViewModel model = await courseService.GetTeacherProfileWithCoursesAsync(teacherId);
+
+            return View("TeacherProfile", model);
         }
 
         public async Task<IActionResult> MyProfile(string userId)
