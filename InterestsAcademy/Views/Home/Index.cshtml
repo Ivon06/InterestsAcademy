@@ -1,9 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-     
-
+@using InterestsAcademy.Core.Models.User
+@model UsersQueryModel
 
 <section id="hero" class="text-white d-flex align-items-center justify-content-center"
          style="background-color: black; min-height: 100vh;">
@@ -56,11 +55,11 @@
         <i class="fa-solid fa-house"></i>
     </a>
     <a href="#principal" class="timeline-item">
-        <p class="timeline-text">Директорката</p>
+        <p class="timeline-text">Статистики</p>
         <i class="fa-regular fa-user"></i>
     </a>
     <a href="#team" class="timeline-item">
-        <p class="timeline-text">Екипът</p>
+        <p class="timeline-text">Отчет</p>
         <i class="fa-regular fa-handshake"></i>
     </a>
 </div>
@@ -186,8 +185,44 @@
         </div>
     </div>
 </section> *@
+<section id="principal" class="statistics2-section">
+    <div class="stats2-container">
+        <!-- Students Count -->
+        <div class="stats2-circle stats2-card-1">
+            <div class="stats2-icon">
+                <i class="fas fa-users fa-3x"></i>
+            </div>
+            <div class="stats2-content">
+                <h2 class="stats2-counter" data-count="@Model.StudentsCount">0</h2>
+                <p class="stats2-label">Ученици</p>
+            </div>
+        </div>
 
-<section class="statistics" id="principal">
+        <!-- Activities Count -->
+        <div class="stats2-circle stats2-card-2">
+            <div class="stats2-icon">
+                <i class="fas fa-calendar-check fa-3x"></i>
+            </div>
+            <div class="stats2-content">
+                <h2 class="stats2-counter" data-count="@Model.ActivitiesCount">0</h2>
+                <p class="stats2-label">Проведени активности</p>
+            </div>
+        </div>
+
+        <!-- Courses Count -->
+        <div class="stats2-circle stats2-card-3">
+            <div class="stats2-icon">
+                <i class="fas fa-book-open fa-3x"></i>
+            </div>
+            <div class="stats2-content">
+                <h2 class="stats2-counter" data-count="@Model.CoursesCount">0</h2>
+                <p class="stats2-label">Курса</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="statistics" id="team">
     <h2>Годишен отчет</h2>
     <div style="display:flex; flex-direction:row;">   
         <img src="~/img/statpic.png" alt="Achievements Image" class="stat-image">
