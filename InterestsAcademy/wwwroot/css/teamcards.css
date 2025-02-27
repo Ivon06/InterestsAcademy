@@ -560,19 +560,22 @@ input[type="radio"] {
         margin-bottom: 20px;
     }
 }
-
+.statistics2-section {
+    padding-top: 90px;
+    padding-bottom: 70px;
+}
 /* Statistics Container */
 .stats2-container {
     display: flex;
     justify-content: center;
-    gap: 50px;
-    padding: 20px;
+    gap: 100px; /* Increased gap for more spacing */
+    padding: 40px; /* Increased padding for more spacing */
 }
 
 /* Circular Stats */
 .stats2-circle {
-    width: 180px;
-    height: 180px;
+    width: 250px; /* Increased size */
+    height: 250px; /* Increased size */
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -582,6 +585,9 @@ input[type="radio"] {
     justify-content: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    overflow: hidden;
+    border: 0 solid transparent; /* Initial border state */
+    transition: border 0.5s ease;
 }
 
     .stats2-circle:hover {
@@ -590,8 +596,8 @@ input[type="radio"] {
     }
 
 .stats2-icon {
-    color: #007bff;
-    margin-bottom: 10px;
+    color: #4d739b;
+    margin-bottom: 20px; /* Increased margin for more spacing */
 }
 
 .stats2-content {
@@ -599,42 +605,25 @@ input[type="radio"] {
 }
 
 .stats2-counter {
-    font-size: 2rem;
+    font-size: 3rem; /* Increased font size */
     font-weight: bold;
-    color: #007bff;
+    color: #4d739b;
 }
 
 .stats2-label {
-    font-size: 1rem;
+    font-size: 1.5rem; /* Increased font size */
     color: #555;
-}
-
-/* Animated Number Counter */
-@keyframes countUp {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.stats2-counter {
-    animation: countUp 1s ease-in-out forwards;
 }
 
 /* Different Colors for Each Stat */
 .stats2-card-1 {
-    border: 5px solid #ff6b6b;
+    border-color: #ff6b6b; /* Red */
 }
 
 .stats2-card-2 {
-    border: 5px solid #4ecdc4;
+    border-color: #4ecdc4; /* Teal */
 }
 
 .stats2-card-3 {
-    border: 5px solid #ffe66d;
+    border-color: #ffe66d; /* Yellow */
 }

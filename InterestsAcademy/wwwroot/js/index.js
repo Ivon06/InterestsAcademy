@@ -128,3 +128,44 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("scroll", highlightActiveSection);
     highlightActiveSection(); // Run on page load
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const stats = document.querySelectorAll('.stats2-counter');
+    const circles = document.querySelectorAll('.stats2-circle');
+
+    const options = {
+        threshold: 0.5, // Trigger animation when 50% of the element is visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const circle = entry.target.closest('.stats2-circle');
+                animateNumber(entry.target);
+                circle.style.borderWidth = '10px'; // Set border width
+                circle.style.borderStyle = 'solid'; // Set border style
+                observer.unobserve(entry.target); // Stop observing after animation
+            }
+        });
+    }, options);
+
+    stats.forEach(stat => {
+        observer.observe(stat); // Start observing each stat
+    });
+
+    function animateNumber(element) {
+        const target = parseInt(element.getAttribute('data-count'));
+        const duration = 2000; // Animation duration in milliseconds
+        const start = 0;
+        const increment = target / (duration / 16); // 16ms per frame for smooth animation
+
+        let current = start;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                clearInterval(timer);
+                current = target;
+            }
+            element.textContent = Math.floor(current).toLocaleString(); // Format number with commas
+        }, 16);
+    }
+});

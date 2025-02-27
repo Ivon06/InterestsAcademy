@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InterestsAcademy.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class seed : Migration
+    public partial class Mig2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,9 +29,9 @@ namespace InterestsAcademy.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "BirthDate", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "Gender", "IsActive", "IsApproved", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "RegisteredOn", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "080a469a-b5a2-44cc-a660-eea8e6fd05a5", 0, "ул. Ал. Стамболийски 30 ет.3 ап.11", new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified), "Казанлък", "d899dab2-9bf2-4b8b-89b9-6bd7a675dc8d", "България", "petarpetrov@abv.bg", false, "Мъж", true, true, false, null, "Петър Петров", "PETARPETROV@ABV.BG", "PETAR", "AQAAAAIAAYagAAAAEPy57kXgU6IoYTeEaM+/S7itHfIMpjf9C8FMYX4wul02wmlKDYhxA7BxzPBJNYrcyw==", "0885763826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg", new DateTime(2025, 2, 26, 13, 8, 48, 445, DateTimeKind.Utc).AddTicks(424), "553f1922-3aec-4d16-b9e3-23c90c23a55e", false, "petar" },
-                    { "20dcf707-dfd9-4aae-b8c3-f3b9844e09d8", 0, "ул. Незабравка 3", new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified), "Енина", "8efa3ec6-2cb4-480e-bfb3-4c1dd6195b7c", "България", "admin@abv.bg", false, "Мъж", true, true, false, null, "Admin", "ADMIN@ABV.BG", "ADMIN", "AQAAAAIAAYagAAAAEGLfkb5Xp4y4IHfhiXgN/GynDYTrijLygJeXCdySVOORcqFYc3zSt81JTgx7lVmCgA==", "0889864842", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg", new DateTime(2025, 2, 26, 13, 8, 48, 596, DateTimeKind.Utc).AddTicks(1659), "248c6fff-6a3d-49d2-9165-827b12762994", false, "Admin" },
-                    { "93418f37-da3b-4c78-b0ae-8f0022b09681", 0, "ул.Възраждане 6 ет.2 ап.8", new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified), "Казанлък", "42f494de-3cf2-4897-9dfc-e097a082df26", "България", "georgidimitrov@abv.bg", false, "Мъж", true, true, false, null, "Георги Димитров", "GEORGIDIMITROV@ABV.BG", "GEORGI", "AQAAAAIAAYagAAAAEMojAJZHsf0U9xwQB64wbPCHBk4J34i7wysnRUnwwDJFa6cNPdBj+mVe17DYx3+yTQ==", "0885789826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg", new DateTime(2025, 2, 26, 13, 8, 48, 526, DateTimeKind.Utc).AddTicks(2246), "52ebb058-a4af-4b31-b590-d2c3d12f3d43", false, "georgi" }
+                    { "080a469a-b5a2-44cc-a660-eea8e6fd05a5", 0, "ул. Ал. Стамболийски 30 ет.3 ап.11", new DateTime(2008, 4, 12, 13, 24, 0, 0, DateTimeKind.Unspecified), "Казанлък", "67b007a5-ef81-4700-ae3d-5bf8553cab61", "България", "petarpetrov@abv.bg", false, "Мъж", true, true, false, null, "Петър Петров", "PETARPETROV@ABV.BG", "PETAR", "AQAAAAIAAYagAAAAEAFVsH74zKUBrE7IqMpTruDsys2b8+FjMgIjr/wyQX5QegoduElDliDmTuiFR36yBw==", "0885763826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697607303/projectImages/xbhwflepot9qpwmiiq6u.jpg", new DateTime(2025, 2, 27, 6, 45, 46, 850, DateTimeKind.Utc).AddTicks(1758), "60de98da-9a8c-4ad8-ab56-ffb291968fd1", false, "petar" },
+                    { "20dcf707-dfd9-4aae-b8c3-f3b9844e09d8", 0, "ул. Незабравка 3", new DateTime(2015, 7, 18, 11, 20, 0, 0, DateTimeKind.Unspecified), "Енина", "fa0c150c-9bda-40f2-a019-75c9330091b9", "България", "admin@abv.bg", false, "Мъж", true, true, false, null, "Admin", "ADMIN@ABV.BG", "ADMIN", "AQAAAAIAAYagAAAAEO5eQpB+pTEELT/klG22o8PA59WbVnocdqEGnuqeyKmMR/srKWJAZUY8YWszOzPRtA==", "0889864842", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697617373/projectImages/pyb6v86l6myou9h1sxca.jpg", new DateTime(2025, 2, 27, 6, 45, 46, 946, DateTimeKind.Utc).AddTicks(6361), "1433c87a-8ef4-4b6a-9792-823cca29bec8", false, "Admin" },
+                    { "93418f37-da3b-4c78-b0ae-8f0022b09681", 0, "ул.Възраждане 6 ет.2 ап.8", new DateTime(1968, 2, 8, 11, 20, 0, 0, DateTimeKind.Unspecified), "Казанлък", "f6458168-91be-4b2d-9a75-8148ec95f681", "България", "georgidimitrov@abv.bg", false, "Мъж", true, true, false, null, "Георги Димитров", "GEORGIDIMITROV@ABV.BG", "GEORGI", "AQAAAAIAAYagAAAAEDyGJiA+aazDDefkIN59W0dGcnR34c89U0yAvOX1sYWCIYNBCRUJJbXYLHzGwE0tuA==", "0885789826", false, "https://res.cloudinary.com/ddriqreo7/image/upload/v1697608565/projectImages/mvorrsshjbw1e8bzfzgq.jpg", new DateTime(2025, 2, 27, 6, 45, 46, 899, DateTimeKind.Utc).AddTicks(9001), "0abd1156-d94d-41bd-b469-45a6b9417d99", false, "georgi" }
                 });
 
             migrationBuilder.InsertData(
@@ -70,7 +70,7 @@ namespace InterestsAcademy.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "Id", "SleepingRoomId", "UserId" },
-                values: new object[] { "0af66f3a-4a5e-416d-8bd9-ebdbf03da7d3", null, "080a469a-b5a2-44cc-a660-eea8e6fd05a5" });
+                values: new object[] { "8a6565f3-857a-46da-87ea-c5114f60d64a", null, "080a469a-b5a2-44cc-a660-eea8e6fd05a5" });
 
             migrationBuilder.InsertData(
                 table: "Teachers",
@@ -189,7 +189,7 @@ namespace InterestsAcademy.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "Students",
                 keyColumn: "Id",
-                keyValue: "0af66f3a-4a5e-416d-8bd9-ebdbf03da7d3");
+                keyValue: "8a6565f3-857a-46da-87ea-c5114f60d64a");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
