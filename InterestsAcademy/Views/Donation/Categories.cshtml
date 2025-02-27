@@ -3,7 +3,7 @@
 
 
 
-<div class="heading-page header-text" style="margin-top:-4em;     width: 95em;">
+<div class="heading-page header-text" style="margin-top:-4em;     width: 100%;">
 	<section class="page-heading">
 		<div class="container">
 			<div class="row">
@@ -18,8 +18,9 @@
 	</section>
 </div>
 
-<div >
-<div class="categories">
+@* <div > *@
+
+ <div class="categories">
 	<a class="category" asp-action="Categories" asp-controller="Donation" asp-route-category="All">
 		<img src="~/img/all.png" alt="Всичко">
 		<p>Всичко</p>
@@ -48,9 +49,9 @@
 		<img src="~/img/other.png" alt="COVID-19">
 		<p>Други</p>
 	</a>
-</div>
+</div> 
 
-<div class="donations">
+ <div class="donations">
 	<section class="items">
 		@foreach (var item in Model.Donations)
 		{
@@ -69,6 +70,72 @@
 </div>
 
 </div>
+ 
+<section id="donation-section" class="mt-5 container donation-section">
+	<div class="donation-container">
+		<h2 class="donation-title text-center mb-4">Защо да даря?</h2>
+		<div class="donation-content text-center mb-5">
+			<p class="lead">С даряване на средства, оборудване, труд или друг актив вие правите директна инвестиция в бъдещето. Академията не само ще даде възможност на децата да се развиват в една или друга насока, ще помогне за тяхното личностно и социално развитие, но и ще се превърне в притегателен център за всички активни хора, които търсят поле за изява и за споделяне на своите знания и умения.</p>
+		</div>
+
+		<div class="accordion accordion-flush" id="accordionFlushExample">
+		
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+						<i class="fas fa-hand-holding-heart me-2"></i> Какво са безвъзмездни услуги?
+					</button>
+				</h2>
+				<div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<p>Дейности от различен характер, които да са свързани с подготовката и изпълнението на занимания в академията. Например, строителни и ремонтни дейности, облагородяване на дворното пространство, осигуряване на кетъринг, предоставяне на оборудване под наем, предоставяне на абонаментни услуги и др.</p>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+						<i class="fas fa-hands-helping me-2"></i> Как мога да помогна с доброволчески труд?
+					</button>
+				</h2>
+				<div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<p>Ако имате желание да участвате пряко в дейностите в академията, може да се свържете с нас и да ни изпратите контактите си. След стартиране на дейностите в академията, ще може да се включите по-активно с идеи за мероприятия и участие в тяхното реализиране.</p>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+						<i class="fas fa-tools me-2"></i> Колко е минималната сума, която мога да даря?
+					</button>
+				</h2>
+				<div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<p>
+							В случай, че желаете да направите конкретно дарение - за определена дейност или определен кабинет, може да намерите информация в раздел ‘Дарение на оборудване’.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+						<i class="fas fa-tools me-2"></i> Какво оборудване е необходимо?
+					</button>
+				</h2>
+				<div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<p>Пълен списък с кабинетите и необходимото оборудване за всеки от тях, може да откриете в раздел ‘Дарение на оборудване’.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+		
 
 @section Scripts {
 	<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
