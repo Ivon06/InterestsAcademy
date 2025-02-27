@@ -43,10 +43,7 @@ namespace InterestsAcademy.Controllers
                 var teacherId = await teacherService.GetTeacherIdByUserId(userId);
                 var coursesIds = await courseService.GetAllCoursesIdsByTeacherId(teacherId);
                 var users = await privateChatService.GetUsersToChatAsync(coursesIds, userId);
-                //var companies = await privateChatService.GetTeacherCompaniesToChatAsync(userId);
-
                
-
                 users = users
                     .OrderByDescending(u => u.LastMessageToUser != null)
                     .ThenByDescending(u => u.LastMessageToUser?.SendedOn)
@@ -145,6 +142,33 @@ namespace InterestsAcademy.Controllers
 
             return new JsonResult(new { haveFiles });
         }
+
+        [HttpGet]
+        [Route("/PrivateChat/LoadMoreMessages")]
+        public async Task<IActionResult> LoadMoreMessages(string username, string group, int? messagesSkipCount)
+        {
+            var currentUser = await this.userManager.GetUserAsync(this.User);
+            bool isAbleToChat = await privateChatService.IsAbleToChatAsync(username, group, currentUser);
+
+            if (!isAbleToChat)
+            {
+                TempData[ErrorMessage] = "Потребителя не може да пoлучава съобщения";
+                return RedirectToAction("UsersToChat");
+            }
+
+            if (messagesSkipCount == null)
+            {
+                messagesSkipCount = 0;
+            }
+
+            ICollection<LoadMoreMessagesViewModel> data =
+                await privateChatService.LoadMoreMessagesAsync(group, (int)messagesSkipCount, currentUser);
+
+
+            return new JsonResult(data);
+        }
+
+
         public IActionResult Index()
         {
             return View();
