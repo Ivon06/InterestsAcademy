@@ -124,9 +124,10 @@
 									<li>
 										<a asp-action="All" asp-controller="Activity" asp-route-days="" asp-route-groupId="@teacherId" asp-route-isTeacher="@true" asp-route-isCourse="@false">Моят график</a>
 									</li>
-									<li ><a  asp-controller="PrivateChat" asp-action="UsersToChat">Чат</a></li>
+									
 
 								}
+								<li><a asp-controller="PrivateChat" asp-action="UsersToChat">Чат</a></li>
 								<li class="nav-item"><a class="nav-link text-white" asp-controller="Blog" asp-action="All">Новини</a></li>
 
 								
@@ -207,7 +208,7 @@
 
 			checkPage();
 		});
-				<script>
+				
 		document.addEventListener("DOMContentLoaded", function () {
 			const navbar = document.querySelector("header");
 			const carousel = document.querySelector(".carousel"); 
@@ -237,7 +238,7 @@
 	</script>
 
 
-	</script>
+	
 
 	@await RenderSectionAsync("Scripts", required: false)
 

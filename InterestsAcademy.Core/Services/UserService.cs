@@ -138,5 +138,14 @@ namespace InterestsAcademy.Core.Services
 
             await repo.SaveChangesAsync();
         }
+
+        public async Task<string?> GetUserIdByUsernameAsync(string username)
+        {
+            var user = await repo.GetAll<User>()
+                .FirstOrDefaultAsync(u => u.UserName == username);
+
+            return user == null ? null : user.Id;
+        }
+
     }
 }

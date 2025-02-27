@@ -33,6 +33,7 @@ namespace InterestsAcademy.Core.Contracts
 
         Task DeleteUser(string userId);
         Task ChangeApproveToFalse(string userId);
+        Task<string?> GetUserIdByUsernameAsync(string username);
 
 
     }

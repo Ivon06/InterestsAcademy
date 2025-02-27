@@ -61,6 +61,7 @@ namespace InterestsAcademy.Core.Services
             var model = new EditProfileViewModel()
             {
                 Id = profile.Id,
+                Email = profile.Email,
                 Name = profile.Name,
                 UserName = profile.UserName,
                 Address = profile.Address,
