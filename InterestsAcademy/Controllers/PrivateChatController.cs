@@ -132,7 +132,7 @@ namespace InterestsAcademy.Controllers
 
             if (!isAbleToChat)
             {
-                TempData[ErrorMessage] = "Потребителя не може да плучава съобщения";
+                TempData[ErrorMessage] = "Потребителя не може да получава съобщения";
                 return RedirectToAction("UsersToChat");
             }
 

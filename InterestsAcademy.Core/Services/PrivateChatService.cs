@@ -43,15 +43,15 @@ namespace InterestsAcademy.Core.Services
         private readonly IHubContext<PrivateChatHub> hubContext;
         private readonly Cloudinary cloudinary;
         private readonly IImageService imageService;
-       // private readonly IDocumentService documentService;
+       private readonly IDocumentService documentService;
 
-        public PrivateChatService(IRepository repo, IHubContext<PrivateChatHub> hubContext, Cloudinary cloudinary, IImageService imageService/*IDocumentService documentService*/)
+        public PrivateChatService(IRepository repo, IHubContext<PrivateChatHub> hubContext, Cloudinary cloudinary, IImageService imageService, IDocumentService documentService)
         {
             this.repo = repo;
             this.hubContext = hubContext;
             this.cloudinary = cloudinary;
             this.imageService = imageService;
-            //this.documentService = documentService;
+            this.documentService = documentService;
 
         }
 
@@ -300,7 +300,7 @@ namespace InterestsAcademy.Core.Services
                 {
                     var fileExtension = Path.GetExtension(file.FileName);
 
-                    // fileUrl = await documentService.UploadDocumentAsync(file, "projectDocuments");
+                    fileUrl = await documentService.UploadDocumentAsync(file, "projectDocuments");
                     chatFile.Name = file.FileName;
 
                     filesContent.AppendLine($"<a target=\"_blank\" href=\"{fileUrl}\">\r\n<div class=\"input-group-text pl-2 pr-2\" style=\"margin-left: 10px;\">\r\n<div style=\"display: flex; flex-direction: row;\">\r\n<i class=\"{iconsFiles[fileExtension.ToUpper()]}\" style=\"margin-right: 0.5rem;\"></i>\r\n<div class=\"pl-1 pt-1 text-dark\" style=\"font-size: small;\">{file.FileName}</div>\r\n\r\n</div>\r\n\r\n</div>\r\n\r\n</a>");

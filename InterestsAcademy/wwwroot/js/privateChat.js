@@ -112,9 +112,11 @@ document.getElementById('sendButton').addEventListener('click', function (event)
                 success: function (haveFiles) {
                     document.getElementById('preloader').style.display = 'none';
                     document.getElementById('appendFiles').innerHTML = '';
+                   
                 },
                 error: function (err) {
                     document.getElementById('preloader').style.display = 'none';
+                   
                     console.error(err);
                     console.log(err.statusText)
                 }
