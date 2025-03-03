@@ -5,6 +5,7 @@ using InterestsAcademy.Data;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Extensions;
 using InterestsAcademy.Middlewares;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 });
+
+
 
 var emailConfig = builder.Configuration
                .GetSection("EmailConfiguration")
