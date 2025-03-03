@@ -285,13 +285,13 @@ function initEvent(id) {
     });
 
 
-    //modal.on('click', '.close', function (event) {
-    //    event.preventDefault();
-    //    if (!animating) closeModal(eventsGroup.find('.selected-event'));
-    //});
-    //self.on('click', '.cover-layer', function (event) {
-    //    if (!animating && self.hasClass('modal-is-open')) closeModal(eventsGroup.find('.selected-event'));
-    //});
+    modal.on('click', '.close', function (event) {
+        event.preventDefault();
+        if (!animating) closeModal(eventsGroup.find('.selected-event'));
+    });
+    self.on('click', '.cover-layer', function (event) {
+        if (!animating && self.hasClass('modal-is-open')) closeModal(eventsGroup.find('.selected-event'));
+    });
 };
 
 function placeEvents() {
@@ -320,230 +320,200 @@ function placeEvents() {
 
     self.removeClass('loading');
 };
-//function openModal(event) {
+function openModal(event) {
 
-//    let self = $('#schedule');
-//    let modal = $('.event-modal')
-//    let modalHeaderBg = modal.find('.header-bg');
-//    let modalHeader = modal.find('.header');
-//    let modalBody = modal.find('.body');
-//    let modalBodyBg = modal.find('.body-bg');
-//    let modalMaxWidth = 800;
-//    let modalMaxHeight = 480;
+    let self = $('#schedule');
+    let modal = $('.event-modal')
+    let modalHeaderBg = modal.find('.header-bg');
+    let modalHeader = modal.find('.header');
+    let modalBody = modal.find('.body');
+    let modalBodyBg = modal.find('.body-bg');
+    let modalMaxWidth = 800;
+    let modalMaxHeight = 480;
 
-//    animating = true;
+    animating = true;
 
-//    let meetingId = event.attr('id');
+    let meetingId = event.attr('id');
 
-//    let display = meetingId == '' ? 'none' : 'flex';
+    let display = meetingId == '' ? 'none' : 'flex';
 
-//    let t = $("input[name='__RequestVerificationToken']").val();
+    let t = $("input[name='__RequestVerificationToken']").val();
 
-//    $.ajax({
-//        type: 'GET',
-//        url: `/Meeting/Details/${meetingId}`,
-//        dataType: 'json',
-//        headers: {
-//            "RequestVerificationToken": t
-//        },
-//        success: function (data) {
-//            if (data.isExists) {
-//                //update event name and time
-//                let eventName = '';
-//                event.find('.event-name').each(function () {
-//                    eventName += $(this).text() + ' ';
-//                });
+    $.ajax({
+        type: 'GET',
+        url: `/Activity/Details/${meetingId}`,
+        dataType: 'json',
+        headers: {
+            "RequestVerificationToken": t
+        },
+        success: function (data) {
+            if (data.isExists) {
+                //update event name and time
+                let eventName = '';
+                event.find('.event-name').each(function () {
+                    eventName += $(this).text() + ' ';
+                });
 
-//                modalHeader.find('.event-name').text(eventName);
-//                modalHeader.find('.event-date').text(event.find('.event-date').text());
-//                if (data.isCompany) {
+                modalHeader.find('.event-name').text(eventName);
+                modalHeader.find('.event-date').text(event.find('.event-date').text());
+                if (data.isTeacher) {
 
-//                    modalHeader.find('.d-flex').html(`<div class="mt-4" style="display: flex; z-index:3; "><a href="/Meeting/Delete/${meetingId}" class="btn btn-danger" style="font-size: large;margin-right: 1rem;">Delete</a><a href="/Meeting/Edit/${meetingId}" class="btn btn-warning"  style="font-size: large">Edit</a></div>`)
-//                }
-//                modal.attr('data-event', event.parent().attr('data-event'));
+                    modalHeader.find('.d-flex').html(`<div class="mt-4" style="display: flex; z-index:3; "><a href="/Activity/Delete/${meetingId}" class="btn btn-danger" style="font-size: large;margin-right: 1rem;">Delete</a><a href="/Activity/Edit/${meetingId}" class="btn btn-warning"  style="font-size: large">Edit</a></div>`)
+                }
+                modal.attr('data-event', event.parent().attr('data-event'));
 
-//                //update event content
-//                let value = event.parent().attr('data-content');
+                //update event content
+                let value = event.parent().attr('data-content');
 
-//                let displayAddress = data.meeting.isOnline == true ? 'none' : 'block';
-//                let displayJoin = data.isHaveRoom == true && data.isTeacher == false ? 'block' : 'none';
-//                let displayRoom = data.meeting.isOnline == true && data.isHaveRoom == false && data.isCompany ? 'block' : 'none';
+               
+                
 
-
-//                modalBody.find('.event-info').html(`<div class="mt-4">
-//                                                    <h4>Материали</h4>
-//                                                    <div style="margin-top: 1rem;" id="materials">
-                                                       
-//                                                    </div> 
-//                                                    <h4 style="margin-top: 1.4rem;">Описание</h4>
-//                                                    <div style="margin-top: 0.5rem; margin-left: 1rem;font-weight: 400;">
-//                                                        ${data.meeting.description}
-//                                                    </div>
-//                                                    <h4 style="margin-top: 2rem;display: ${displayAddress}">Адрес</h4>
-//                                                    <div style="margin-top: 0.5rem; margin-left: 1rem;font-weight: 400;display: ${displayAddress}">
-//                                                        ${data.meeting.address}
-//                                                    </div>
-//                                                    <h4 style="margin-top: 10px">Лектор</h4>
-//                                                    <div class="img-div">
-//                                                        <img class="image--cover" src="${data.meeting.lector.profilePictureUrl}"></img>
-//                                                        <div style="margin-left: 1rem;font-weight: 400;">${data.meeting.lector.name}</div>
-//                                                    </div>
-//                                                    <div id="createRoom-div" style="display: ${displayRoom}">
-//                                                        <a onclick="createDailyRoom('${eventName.split(' - ')[0].trim()}', '${meetingId}')"><button class="bn632-hover bn26">Създай стая</button></a>
-//                                                    </div>
-//                                                    <div id="join-div" style="display: ${displayJoin}">
-//                                                        <a href="/Room/JoinRoom/${meetingId}"><button class="bn632-hover bn26">Присъедини се</button></a>
-//                                                    </div>
+                modalBody.find('.event-info').html(`
+                                                    </div> 
+                                                    
+                                                    
+                                                    <h4 style="margin-top: 10px">Учител</h4>
+                                                    <div class="img-div">
+                                                        <img class="image--cover" src="${data.activity.course.teachet.user.profilePictureUrl}"></img>
+                                                        <div style="margin-left: 1rem;font-weight: 400;">${data.activity.course.teachet.user.name}</div>
+                                                    </div>
+                                                    
                                                    
-//                                                 </div>`);
+                                                 </div>`);
 
-//                modalBody.find('.event-info').css('opacity: 1');
+                modalBody.find('.event-info').css('opacity: 1');
 
-//                for (let material of data.meeting.materials) {
-//                    let a = document.createElement('a');
-//                    a.setAttribute('target', '_blank');
-//                    a.setAttribute('href', material.url);
-//                    a.style = 'margin-top:0.5 rem';
-//                    a.innerHTML = ` <div class="input-group-text pl-2 pr-2" style="margin-left: 10px; margin-top: 0.5rem;">
-//                                            <div style="display: flex; flex-direction: row;"><img src="/img/google-docs.png" style="height: 26px; width: 26px"></img>
-//                                                <div class="pl-1 pt-1 text-dark" style="font-size: medium; padding-top:2px; margin-left: 0.5rem">${material.name}</div>
-//                                            </div>
-//                                       </div>`;
-
-
-//                    document.getElementById('materials').appendChild(a);
-
-//                }
+               
 
 
 
 
-//                self.addClass('content-loaded');
+                self.addClass('content-loaded');
 
-//                self.addClass('modal-is-open');
+                self.addClass('modal-is-open');
 
-//                setTimeout(function () {
-//                    event.parent('li').addClass('selected-event');
-//                }, 10);
-
-
-//                var eventTop = event.offset().top - $(window).scrollTop(),
-//                    eventLeft = event.offset().left,
-//                    eventHeight = event.innerHeight(),
-//                    eventWidth = event.innerWidth();
-
-//                var windowWidth = $(window).width(),
-//                    windowHeight = $(window).height();
-
-//                var modalWidth = (windowWidth * .8 > modalMaxWidth) ? modalMaxWidth : windowWidth * .8,
-//                    modalHeight = (windowHeight * .8 > modalMaxHeight) ? modalMaxHeight : windowHeight * .8;
-
-//                var modalTranslateX = parseInt((windowWidth - modalWidth) / 2 - eventLeft),
-//                    modalTranslateY = parseInt((windowHeight - modalHeight) / 2 - eventTop);
-
-//                var HeaderBgScaleY = modalHeight / eventHeight,
-//                    BodyBgScaleX = (modalWidth - eventWidth);
-
-//                modal.css({
-//                    top: eventTop + 'px',
-//                    left: eventLeft + 'px',
-//                    height: modalHeight + 'px',
-//                    width: modalWidth + 'px',
-//                });
-//                transformElement(modal, 'translateY(' + modalTranslateY + 'px) translateX(' + modalTranslateX + 'px)');
-
-//                modalHeader.css({
-//                    width: eventWidth + 'px',
-//                });
-//                modalBody.css({
-//                    marginLeft: eventWidth + 'px',
-//                });
-
-//                modalHeaderBg.css({
-//                    height: eventHeight + 'px',
-//                    width: eventWidth + 'px',
-//                });
-//                transformElement(modalHeaderBg, 'scaleY(' + HeaderBgScaleY + ')');
-
-//                modalHeaderBg.one(transitionEnd, function () {
-//                    modalHeaderBg.off(transitionEnd);
-//                    animating = false;
-//                    self.addClass('animation-completed');
-//                });
+                setTimeout(function () {
+                    event.parent('li').addClass('selected-event');
+                }, 10);
 
 
+                var eventTop = event.offset().top - $(window).scrollTop(),
+                    eventLeft = event.offset().left,
+                    eventHeight = event.innerHeight(),
+                    eventWidth = event.innerWidth();
 
-//                if (!transitionsSupported) modal.add(modalHeaderBg).trigger(transitionEnd);
+                var windowWidth = $(window).width(),
+                    windowHeight = $(window).height();
+
+                var modalWidth = (windowWidth * .8 > modalMaxWidth) ? modalMaxWidth : windowWidth * .8,
+                    modalHeight = (windowHeight * .8 > modalMaxHeight) ? modalMaxHeight : windowHeight * .8;
+
+                var modalTranslateX = parseInt((windowWidth - modalWidth) / 2 - eventLeft),
+                    modalTranslateY = parseInt((windowHeight - modalHeight) / 2 - eventTop);
+
+                var HeaderBgScaleY = modalHeight / eventHeight,
+                    BodyBgScaleX = (modalWidth - eventWidth);
+
+                modal.css({
+                    top: eventTop + 'px',
+                    left: eventLeft + 'px',
+                    height: modalHeight + 'px',
+                    width: modalWidth + 'px',
+                });
+                transformElement(modal, 'translateY(' + modalTranslateY + 'px) translateX(' + modalTranslateX + 'px)');
+
+                modalHeader.css({
+                    width: eventWidth + 'px',
+                });
+                modalBody.css({
+                    marginLeft: eventWidth + 'px',
+                });
+
+                modalHeaderBg.css({
+                    height: eventHeight + 'px',
+                    width: eventWidth + 'px',
+                });
+                transformElement(modalHeaderBg, 'scaleY(' + HeaderBgScaleY + ')');
+
+                modalHeaderBg.one(transitionEnd, function () {
+                    modalHeaderBg.off(transitionEnd);
+                    animating = false;
+                    self.addClass('animation-completed');
+                });
 
 
 
-//            }
-//            else {
-//                toastr.error('\u0422\u0430\u0437\u0438\u0020\u0441\u0440\u0435\u0449\u0430\u0020\u043d\u0435\u0020\u0441\u044a\u0449\u0435\u0441\u0442\u0432\u0443\u0432\u0430'.normalize());
-//            }
-
-//        }
-
-
-//    })
+                if (!transitionsSupported) modal.add(modalHeaderBg).trigger(transitionEnd);
 
 
 
-//};
+            }
+            else {
+                toastr.error('\u0422\u0430\u0437\u0438\u0020\u0441\u0440\u0435\u0449\u0430\u0020\u043d\u0435\u0020\u0441\u044a\u0449\u0435\u0441\u0442\u0432\u0443\u0432\u0430'.normalize());
+            }
 
-//function closeModal(event) {
-//    let self = $('#schedule');
-//    let modal = $('.event-modal')
-//    let modalHeaderBg = modal.find('.header-bg');
-//    let modalHeader = modal.find('.header');
-//    let modalBody = modal.find('.body');
-//    let modalBodyBg = modal.find('.body-bg');
-
-//    document.getElementById('materials').innerHTML = '';
+        }
 
 
-//    animating = true;
-
-//    var eventTop = event.offset().top - $(window).scrollTop(),
-//        eventLeft = event.offset().left,
-//        eventHeight = event.innerHeight(),
-//        eventWidth = event.innerWidth();
-
-//    var modalTop = Number(modal.css('top').replace('px', '')),
-//        modalLeft = Number(modal.css('left').replace('px', ''));
-
-//    var modalTranslateX = eventLeft - modalLeft,
-//        modalTranslateY = eventTop - modalTop;
-
-//    self.element.removeClass('animation-completed modal-is-open');
-
-//    modal.css({
-//        width: eventWidth + 'px',
-//        height: eventHeight + 'px'
-//    });
-//    transformElement(modal, 'translateX(' + modalTranslateX + 'px) translateY(' + modalTranslateY + 'px)');
-
-//    transformElement(modalBodyBg, 'scaleX(0) scaleY(1)');
-//    transformElement(modalHeaderBg, 'scaleY(1)');
-
-//    modalHeaderBg.one(transitionEnd, function () {
-//        modalHeaderBg.off(transitionEnd);
-//        modal.addClass('no-transition');
-//        setTimeout(function () {
-//           modal.add(modalHeader).add(modalBody).add(modalHeaderBg).add(modalBodyBg).attr('style', '');
-//        }, 10);
-//        setTimeout(function () {
-//            self.modal.removeClass('no-transition');
-//        }, 20);
-
-//        animating = false;
-//        self.removeClass('content-loaded');
-//        event.removeClass('selected-event');
-//    });
+    })
 
 
-//    if (!transitionsSupported) modal.add(modalHeaderBg).trigger(transitionEnd);
-//}
+
+};
+
+function closeModal(event) {
+    let self = $('#schedule');
+    let modal = $('.event-modal')
+    let modalHeaderBg = modal.find('.header-bg');
+    let modalHeader = modal.find('.header');
+    let modalBody = modal.find('.body');
+    let modalBodyBg = modal.find('.body-bg');
+
+    document.getElementById('materials').innerHTML = '';
+
+
+    animating = true;
+
+    var eventTop = event.offset().top - $(window).scrollTop(),
+        eventLeft = event.offset().left,
+        eventHeight = event.innerHeight(),
+        eventWidth = event.innerWidth();
+
+    var modalTop = Number(modal.css('top').replace('px', '')),
+        modalLeft = Number(modal.css('left').replace('px', ''));
+
+    var modalTranslateX = eventLeft - modalLeft,
+        modalTranslateY = eventTop - modalTop;
+
+    self.element.removeClass('animation-completed modal-is-open');
+
+    modal.css({
+        width: eventWidth + 'px',
+        height: eventHeight + 'px'
+    });
+    transformElement(modal, 'translateX(' + modalTranslateX + 'px) translateY(' + modalTranslateY + 'px)');
+
+    transformElement(modalBodyBg, 'scaleX(0) scaleY(1)');
+    transformElement(modalHeaderBg, 'scaleY(1)');
+
+    modalHeaderBg.one(transitionEnd, function () {
+        modalHeaderBg.off(transitionEnd);
+        modal.addClass('no-transition');
+        setTimeout(function () {
+           modal.add(modalHeader).add(modalBody).add(modalHeaderBg).add(modalBodyBg).attr('style', '');
+        }, 10);
+        setTimeout(function () {
+            self.modal.removeClass('no-transition');
+        }, 20);
+
+        animating = false;
+        self.removeClass('content-loaded');
+        event.removeClass('selected-event');
+    });
+
+
+    if (!transitionsSupported) modal.add(modalHeaderBg).trigger(transitionEnd);
+}
 
 function getScheduleTimestamp(time) {
 

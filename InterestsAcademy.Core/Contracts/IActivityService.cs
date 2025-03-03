@@ -26,6 +26,8 @@ namespace InterestsAcademy.Core.Contracts
 
         Task<bool> IsActivityInTeacherSchedule(string activityId, string teacherId);
         Task<int> GetAllActivitiesCount();
+        Task<bool> IsActivityExistById(string activityId);
+        Task<DetailsViewModel?> GetDetailsForMeetingAsync(string activityId);
 
 
 

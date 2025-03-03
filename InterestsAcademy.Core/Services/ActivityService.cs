@@ -1,4 +1,5 @@
 ﻿using InterestsAcademy.Core.Contracts;
+using InterestsAcademy.Core.Models;
 using InterestsAcademy.Core.Models.Activity;
 using InterestsAcademy.Data.Models;
 using InterestsAcademy.Data.Repository.Contracts;
@@ -264,6 +265,45 @@ namespace InterestsAcademy.Core.Services
         {
             int result = await repo.GetAll<Activity>().CountAsync();
             return result;
+        }
+
+        public async Task<bool> IsActivityExistById(string activityId)
+        {
+            var result = await repo.GetByIdAsync<Activity>(activityId);
+
+            return result == null ? false : true;
+        }
+
+        public async Task<DetailsViewModel?> GetDetailsForMeetingAsync(string activityId)
+        {
+            var activity = await repo.GetAll<Activity>()
+                .Include(m => m.Course)
+                .Include(m => m.Course.Teacher.User)
+                .FirstOrDefaultAsync(m => m.Id == activityId);
+
+            if (activity == null)
+            {
+                return null;
+            }
+
+            var model = new DetailsViewModel()
+            {
+                Id = activity.Id,
+                Description = activity.Topic,
+               
+                Coures = activity.Course.Name,
+                Teacher = new TeacherDetailsViewModel()
+                {
+                    Name = activity.Course.Teacher.User.Name,
+                    ProfilePictureUrl = activity.Course.Teacher.User.ProfilePictureUrl,
+                }
+            };
+
+            return model;
+
+
+
+
         }
     }
 }

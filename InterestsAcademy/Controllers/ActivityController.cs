@@ -186,7 +186,7 @@ namespace InterestsAcademy.Controllers
                 //courseid
                 //string? companyId = await companyService.GetCompanyIdAsync(userId);
 
-                //bool isExistsInCompany = await meetingService.IsMeetingExistsInCompanyAsync(start, end, companyId!, classId);
+                //bool isExistsInCompany = await activityService.IsMeetingExistsInCompanyAsync(start, end, companyId!, classId);
                 //if (isExistsInCompany)
                 //{
                 //    return new JsonResult(new { isExists = true, ClassIdNull = false });
@@ -310,6 +310,52 @@ namespace InterestsAcademy.Controllers
 
             return new JsonResult(new { ReceiversIds = receiversIds, activityId = id });
 
+
+        }
+
+        [HttpGet]
+        [Route("/Meeting/Details/{id}")]
+        public async Task<IActionResult> Details([FromRoute] string id)
+        {
+            string? userId = User.GetId();
+            bool isTeacher = await teacherService.IsTeacherAsync(userId!);
+            bool isStudent = await studentService.IsStudentAsync(userId!);
+
+
+
+            bool isMeetingExists = await activityService.IsActivityExistById(id!);
+            if (!isMeetingExists)
+            {
+                TempData[ErrorMessage] = "Тази среща не съществува";
+                return new JsonResult(new { isExists = false });
+            }
+
+            //bool isMeetingHaveRoom = await activityService.IsMeetingAlreadyHaveRoomAsync(id);
+            if (isTeacher)
+            {
+                string? teacherId = await teacherService.GetTeacherIdByUserId(userId!);
+                bool isInCompanySchedule = await activityService.IsActivityInTeacherSchedule(id, teacherId!);
+                if (!isInCompanySchedule)
+                {
+                    TempData[ErrorMessage] = "Тази среща не е в твоя график";
+                    return new JsonResult(new { isExists = false });
+                }
+
+                var activity = await activityService.GetDetailsForMeetingAsync(id);
+
+                return new JsonResult(new { activity, isExists = true, isTeacher});
+
+
+            }
+            else if ( isStudent)
+            {
+
+                var activity = await activityService.GetDetailsForMeetingAsync(id);
+
+                return new JsonResult(new { activity, isExists = true,  isTeacher=false });
+            }
+
+            return new JsonResult(new { isExists = isMeetingExists });
 
         }
 

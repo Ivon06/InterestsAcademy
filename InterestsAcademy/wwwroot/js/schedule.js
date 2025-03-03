@@ -133,37 +133,27 @@
                     //update event content
                     let value = event.parent().attr('data-content');
 
-                    let displayAddress = data.meeting.isOnline == true ? 'none' : 'block';
-                    let displayJoin = data.isHaveRoom == true && data.isTeacher == false ? 'block' : 'none';
-                    let displayRoom = data.meeting.isOnline == true && data.isHaveRoom == false && data.isCompany ? 'block' : 'none';
+                    //let displayAddress = data.meeting.isOnline == true ? 'none' : 'block';
+                    //let displayJoin = data.isHaveRoom == true && data.isTeacher == false ? 'block' : 'none';
+                    //let displayRoom = data.meeting.isOnline == true && data.isHaveRoom == false && data.isCompany ? 'block' : 'none';
 
 
-                    //self.modalBody.find('.event-info').html(`<div class="mt-4">
-                    //                                <h4>Материали</h4>
-                    //                                <div style="margin-top: 1rem;" id="materials">
-                    //                                </div> 
-                    //                                <h4 style="margin-top: 1.4rem;">Описание</h4>
-                    //                                <div style="margin-top: 0.5rem; margin-left: 1rem;font-weight: 400;">
-                    //                                    ${data.meeting.description}
-                    //                                </div>
-                    //                                <h4 style="margin-top: 2rem; display: ${displayAddress}">Адрес</h4>
-                    //                                <div style="margin-top: 0.5rem; margin-left: 1rem;font-weight: 400;display:${displayAddress}">
-                    //                                    ${data.meeting.address}
-                    //                                </div>
-                    //                                <h4 style="margin-top: 10px">Лектор</h4>
-                    //                                <div class="img-div">
-                    //                                    <img class="image--cover" src="${data.meeting.lector.profilePictureUrl}"></img>
-                    //                                    <div style="margin-left: 1rem;font-weight: 400;">${data.meeting.lector.name}</div>
-                    //                                </div>
-                    //                                <div id="createRoom-div" style="display: ${displayRoom}">
-                    //                                    <a onclick="createDailyRoom('${eventName.split(' - ')[0].trim()}', '${meetingId}')"><button class="bn632-hover bn26">Създай стая</button></a>
-                    //                                </div>
-                    //                                <div id="join-div" style="display: ${displayJoin}">
-                    //                                    <a href="/Room/JoinRoom?meetingId=${meetingId}"><button class="bn632-hover bn26">Присъедини се</button></a>
-                    //                                </div>
-                                                   
-                    //                             </div>`);
-
+                    self.modalBody.find('.event-info').html(`<div class="mt-4">
+                                               
+                                                <h4 style="margin-top: 1.4rem;">Описание</h4>
+                                                <div style="margin-top: 0.5rem; margin-left: 1rem;font-weight: 400;">
+                                                    ${data.activity.topic}
+                                                </div>
+                                                
+                                                <h4 style="margin-top: 10px">Лектор</h4>
+                                                <div class="img-div">
+                                                    <img class="image--cover" src="${data.activity.teacher.profilePictureUrl}"></img>
+                                                    <div style="margin-left: 1rem;font-weight: 400;">${data.activity.teacher.name}</div>
+                                                </div>
+                                                
+                                             
+                                             </div>`);
+                  
 
                     //for (let material of data.meeting.materials) {
                     //    let a = document.createElement('a');
