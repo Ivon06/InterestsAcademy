@@ -49,6 +49,11 @@
 	</section>
 </div>
 
+<div class="d-flex justify-content-center mt-lg-5" id="loader">
+	<span class="loader" id="load" style="display: none;"></span>
+
+</div>
+
 
 @if (@Model.Posts.Count == 0)
 {
@@ -69,10 +74,7 @@ else
 		</a>
 	</div>
 
-	<div class="d-flex justify-content-center mt-lg-5" id="loader">
-		<span class="loader" id="load" style="display: none;"></span>
-
-	</div>
+	
 
 	var first = Model.Posts.FirstOrDefault();
 
