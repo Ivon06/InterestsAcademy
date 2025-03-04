@@ -108,7 +108,7 @@
 
         $.ajax({
             type: 'GET',
-            url: `/Meeting/Details/${meetingId}`,
+            url: `/Activity/Details/${meetingId}`,
             dataType: 'json',
             headers: {
                 "RequestVerificationToken": t
@@ -126,7 +126,7 @@
                     self.modalHeader.find('.event-date').text(event.find('.event-date').text());
                     if (data.isCompany) {
 
-                        self.modalHeader.find('.d-flex').html(`<div class="mt-4" style="display: flex; z-index:3; "><a href="/Meeting/Delete/${meetingId}" class="btn btn-danger" style="font-size: large;margin-right: 1rem;">Delete</a><a href="/Meeting/Edit/${meetingId}" class="btn btn-warning" style="font-size: large">Edit</a></div>`)
+                        self.modalHeader.find('.d-flex').html(`<div class="mt-4" style="display: flex; z-index:3; "><a href="/Activity/Delete/${meetingId}" class="btn btn-danger" style="font-size: large;margin-right: 1rem;">Delete</a><a href="/Activity/Edit/${meetingId}" class="btn btn-warning" style="font-size: large">Edit</a></div>`)
                     }
                     self.modal.attr('data-event', event.parent().attr('data-event'));
 
@@ -138,21 +138,18 @@
                     //let displayRoom = data.meeting.isOnline == true && data.isHaveRoom == false && data.isCompany ? 'block' : 'none';
 
 
-                    self.modalBody.find('.event-info').html(`<div class="mt-4">
-                                               
-                                                <h4 style="margin-top: 1.4rem;">Описание</h4>
-                                                <div style="margin-top: 0.5rem; margin-left: 1rem;font-weight: 400;">
-                                                    ${data.activity.topic}
-                                                </div>
-                                                
-                                                <h4 style="margin-top: 10px">Лектор</h4>
-                                                <div class="img-div">
-                                                    <img class="image--cover" src="${data.activity.teacher.profilePictureUrl}"></img>
-                                                    <div style="margin-left: 1rem;font-weight: 400;">${data.activity.teacher.name}</div>
-                                                </div>
-                                                
-                                             
-                                             </div>`);
+                    self.modalBody.find('.event-info').html((`
+                                                    </div> 
+                                                    
+                                                    
+                                                    <h4 style="margin-top: 10px">Учител</h4>
+                                                    <div class="img-div">
+                                                        <img class="image--cover" src="${data.activity.course.teachet.user.profilePictureUrl}"></img>
+                                                        <div style="margin-left: 1rem;font-weight: 400;">${data.activity.course.teachet.user.name}</div>
+                                                    </div>
+                                                    
+                                                   
+                                                 </div>`);
                   
 
                     //for (let material of data.meeting.materials) {
