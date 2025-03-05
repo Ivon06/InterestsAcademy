@@ -138,7 +138,7 @@
                     //let displayRoom = data.meeting.isOnline == true && data.isHaveRoom == false && data.isCompany ? 'block' : 'none';
 
 
-                    self.modalBody.find('.event-info').html((`
+                    self.modalBody.find('.event-info').html(`
                                                     </div> 
                                                     
                                                     
@@ -152,21 +152,7 @@
                                                  </div>`);
                   
 
-                    //for (let material of data.meeting.materials) {
-                    //    let a = document.createElement('a');
-                    //    a.setAttribute('target', '_blank');
-                    //    a.setAttribute('href', material.url);
-                    //    a.style = 'margin-top:0.5 rem';
-                    //    a.innerHTML = ` <div class="input-group-text pl-2 pr-2" style="margin-left: 10px; margin-top: 0.5rem;">
-                    //                        <div style="display: flex; flex-direction: row;"><img src="/img/google-docs.png" style="height: 26px; width: 26px"></img>
-                    //                            <div class="pl-1 pt-1 text-dark" style="font-size: medium; padding-top:2px; margin-left: 0.5rem">${material.name}</div>
-                    //                        </div>
-                    //                   </div>`;
-
-
-                    //    document.getElementById('materials').appendChild(a);
-
-                    //}
+                   
 
 
 
